@@ -1,6 +1,28 @@
 
 # GoEmotions: Phân loại cảm xúc đa nhãn chi tiết
 
+## Thống kê dữ liệu đã khám phá — đã hoàn thành
+
+Phần EDA đã chạy trên **54.263 mẫu GoEmotions simplified**, giữ nguyên train/validation/test
+43.410/5.426/5.427 mẫu. Các sản phẩm đáp ứng ba nội dung yêu cầu:
+
+| Nội dung yêu cầu | Kết quả và tệp xem trực tiếp |
+|---|---|
+| Số mẫu | [Số mẫu và tỷ lệ từng split](reports/tables/split_sizes.csv) |
+| Phân bố nhãn/lớp | [Số mẫu dương và tỷ lệ của đủ 28 nhãn](reports/tables/label_distribution.csv), gồm từng split và tổng |
+| Ví dụ mẫu dữ liệu | [30 ví dụ nguyên văn, có ID, nhãn và nhận xét](reports/tables/examples_30.csv), phủ đủ 28 nhãn |
+
+- [Notebook giải thích từng bước bằng tiếng Việt, có output](notebooks/eda.ipynb).
+- [Báo cáo thống kê chi tiết và biểu đồ](reports/THONG_KE_DU_LIEU.md).
+- [Hướng dẫn cài đặt và chạy lại EDA](docs/EDA.md).
+- [Bản HTML đã chạy](reports/eda.html): tải về và mở bằng trình duyệt.
+
+Đã đối chiếu số mẫu, support/tỷ lệ từng nhãn và 30 ví dụ với dữ liệu nguồn.
+Với bài toán đa nhãn, một bình luận được tính vào nhiều nhãn nên tổng support có thể
+lớn hơn số mẫu. Phần triển khai hiện tại là EDA; các phương pháp mô hình trong phần
+giới thiệu dưới đây là kế hoạch của đồ án.
+
+
 [![Python](https://img.shields.io/badge/Python-3.x-blue.svg)](https://www.python.org/)
 [![NLP](https://img.shields.io/badge/Lĩnh_vực-NLP-orange.svg)](https://en.wikipedia.org/wiki/Natural_language_processing)
 [![Task](<https://img.shields.io/badge/Bài_toán-Multi--Label%20Classification-purple.svg>)](https://en.wikipedia.org/wiki/Multi-label_classification)
