@@ -12,7 +12,8 @@ import joblib
 import numpy as np
 import pandas as pd
 
-from src.baseline import load_aligned_scores, tune_thresholds
+from src.baseline import (load_aligned_scores, load_run_metadata, tune_thresholds,
+                          tune_global_threshold, label_error_pairs)
 from src.data import REVISION, load_goemotions, multi_hot
 from src.metrics import evaluate_multilabel
 
@@ -94,43 +95,57 @@ def top_features(model, labels):
 
 
 def analyze_variant(name, folder, train, validation, labels, y_train, y_val, rare_ids):
+    config = load_run_metadata(folder, name, labels)
+    if config["n_train"] != len(train) or config["n_validation"] != len(validation):
+        raise ValueError(f"Metadata {name} không khớp dữ liệu full đang mở")
     scores = load_aligned_scores(
         folder / "validation_scores.npz", validation["id"].tolist(), labels
     )
     model = joblib.load(folder / "model.joblib")  # Chỉ nạp file do chính nhóm vừa tạo.
+    replay_scores = model.predict_proba(validation["text"].tolist())
+    roundtrip_error = float(np.max(np.abs(scores - replay_scores)))
+    if roundtrip_error > 1e-12:
+        raise ValueError("Scores đã lưu không khớp dự đoán từ model đã nạp lại")
     fixed = evaluate_multilabel(y_val, scores, labels, threshold=0.5)
+    global_threshold, curve = tune_global_threshold(y_val, scores)
+    global_metrics = evaluate_multilabel(y_val, scores, labels, threshold=global_threshold)
     thresholds = tune_thresholds(y_val, scores)
     tuned = evaluate_multilabel(y_val, scores, labels, threshold=thresholds)
-    config = json.loads((folder / "validation_metrics.json").read_text(encoding="utf-8"))
-    if config["data_revision"] != REVISION or config["n_validation"] != len(validation):
-        raise ValueError(f"Metadata {name} không khớp dữ liệu đang mở")
 
     save_json(folder / "thresholds_validation.json", {
         "variant": name,
         "data_revision": REVISION,
         "chosen_on": "validation",
         "grid": "0.05..0.95 step 0.05",
-        "tie_break": "nearest to 0.5",
+        "tie_break": "nearest to 0.5, then higher threshold",
         "warning": "F1 trên cùng validation dùng để chọn ngưỡng có thể lạc quan; test chưa đánh giá.",
         "label_names": labels,
+        "artifact_sha256": config["artifact_sha256"],
+        "global_threshold": global_threshold,
         "thresholds": thresholds.tolist(),
     })
     save_json(folder / "analysis_validation.json", {
         "variant": name,
+        "artifact_sha256": config["artifact_sha256"],
         "fixed_0_5": fixed,
+        "global_on_validation": global_metrics,
         "tuned_on_validation": tuned,
+        "prediction_roundtrip_max_abs_error": roundtrip_error,
         "rare_labels_by_train_support": [labels[j] for j in rare_ids],
     })
 
     per_label = []
     for label_id, label in enumerate(labels):
         a, b = fixed["per_label"][label_id], tuned["per_label"][label_id]
+        g = global_metrics["per_label"][label_id]
         per_label.append({
             "label_id": label_id, "label": label,
             "train_support": int(y_train[:, label_id].sum()),
             "validation_support": int(y_val[:, label_id].sum()),
             "threshold_fixed": 0.5, "f1_fixed": a["f1"],
             "precision_fixed": a["precision"], "recall_fixed": a["recall"],
+            "tp_fixed": a["tp"], "fp_fixed": a["fp"], "fn_fixed": a["fn"], "tn_fixed": a["tn"],
+            "threshold_global": global_threshold, "f1_global_val": g["f1"],
             "threshold_tuned": thresholds[label_id], "f1_tuned_val": b["f1"],
             "precision_tuned_val": b["precision"], "recall_tuned_val": b["recall"],
             "f1_change_on_val": b["f1"] - a["f1"],
@@ -142,9 +157,18 @@ def analyze_variant(name, folder, train, validation, labels, y_train, y_val, rar
                     encoding="utf-8-sig")
     top_features(model, labels).to_csv(folder / "top_features.csv", index=False,
                                        encoding="utf-8-sig")
+    pairs = label_error_pairs(y_val, scores, labels)
+    for pair in pairs:
+        pair["example_id"] = str(validation.iloc[pair.pop("example_row")]["id"])
+    pd.DataFrame(pairs, columns=["missed_label", "extra_label", "count",
+                                "missed_label_total_fn", "fraction_of_fn", "example_id"]).to_csv(
+        folder / "label_error_pairs_validation.csv", index=False, encoding="utf-8-sig"
+    )
+    pd.DataFrame(curve).to_csv(folder / "threshold_curve_validation.csv", index=False)
     return {"name": name, "folder": folder, "fixed": fixed, "tuned": tuned,
+            "global": global_metrics, "global_threshold": global_threshold,
             "thresholds": thresholds, "per_label": per_label, "config": config,
-            "examples": examples}
+            "examples": examples, "pairs": pairs}
 
 
 def write_report(results, labels, rare_ids, y_train, y_val):
@@ -167,16 +191,18 @@ def write_report(results, labels, rare_ids, y_train, y_val):
         "",
         "## Bảng validation",
         "",
-        "| Cấu hình | Ngưỡng | Macro-F1 | Micro-F1 | Micro-P | Micro-R | Hamming Loss |",
-        "|---|---|---:|---:|---:|---:|---:|",
+        "| Cấu hình | Ngưỡng | Macro-F1 | Micro-F1 | Micro-P | Micro-R | Macro-P | Macro-R | Hamming Loss |",
+        "|---|---|---:|---:|---:|---:|---:|---:|---:|",
     ]
     for result in results:
         for mode, metric in (("Cố định 0,5", result["fixed"]),
+                             (f"Chung {result['global_threshold']:.2f}, chọn trên val", result["global"]),
                              ("Chọn theo từng nhãn trên val", result["tuned"])):
             lines.append(
                 f"| {result['name']} | {mode} | {metric['macro_f1']:.4f} | "
                 f"{metric['micro_f1']:.4f} | {metric['micro_precision']:.4f} | "
-                f"{metric['micro_recall']:.4f} | {metric['hamming_loss']:.4f} |"
+                f"{metric['micro_recall']:.4f} | {metric['macro_precision']:.4f} | "
+                f"{metric['macro_recall']:.4f} | {metric['hamming_loss']:.4f} |"
             )
     lines += [
         "",
@@ -223,6 +249,10 @@ def write_report(results, labels, rare_ids, y_train, y_val):
         "đúng một phần ở mẫu đa nhãn, và không dự đoán nhãn nào. "
         "Cần đọc lại từng ví dụ trước khi trích vào báo cáo, vì nhãn gốc cũng có thể thiếu.",
         "",
+        "Các nhóm FP/FN là dấu hiệu thống kê; khi trình bày cần giải thích thêm về "
+        "ngữ cảnh, từ ngữ, nhiều cảm xúc hoặc ít mẫu của nhãn. Số ví dụ được chọn "
+        "không phải tỷ lệ lỗi của toàn split.",
+        "",
     ]
     # Một ví dụ thật cho mỗi nhóm, lấy từ validation của baseline gốc.
     preferred = {
@@ -248,6 +278,47 @@ def write_report(results, labels, rare_ids, y_train, y_val):
         "`top_features.csv` ghi từ/cặp từ có hệ số LR cao và thấp cho từng nhãn. "
         "Đây là liên hệ thống kê trong mô hình, không chứng minh nguyên nhân cảm xúc.",
         "",
+        "## Cặp nhãn bị bỏ sót và dự đoán thừa trong cùng câu",
+        "",
+        "Đếm FN của nhãn thật A đồng thời FP của nhãn B. Đây là bảng lỗi đa nhãn, "
+        "không phải ma trận nhầm lẫn một lớp và không phải bảng đồng xuất hiện nhãn thật. "
+        "Một câu có thể đóng góp nhiều cặp; neutral được giữ nguyên theo nguồn.",
+        "",
+        "| Variant @0,5 | Nhãn bỏ sót | Nhãn thừa | Số câu | Tổng FN nhãn bỏ sót | Tỷ lệ trong FN |",
+        "|---|---|---|---:|---:|---:|",
+    ]
+    for result in results:
+        for pair in result["pairs"][:8]:
+            lines.append(f"| {result['name']} | {pair['missed_label']} | "
+                         f"{pair['extra_label']} | {pair['count']} | "
+                         f"{pair['missed_label_total_fn']} | {pair['fraction_of_fn']:.1%} |")
+    lines += [
+        "",
+        "Để đọc các cặp cảm xúc cụ thể, bảng phụ sau chỉ lấy cặp không có neutral. "
+        "Đây là cách trình bày thêm; metric vẫn tính đủ 28 nhãn.",
+        "",
+        "| Variant @0,5 | Nhãn bỏ sót | Nhãn thừa | Số câu | ID ví dụ |",
+        "|---|---|---|---:|---|",
+    ]
+    for result in results:
+        emotion_pairs = [pair for pair in result["pairs"]
+                         if "neutral" not in (pair["missed_label"], pair["extra_label"])]
+        for pair in emotion_pairs[:5]:
+            lines.append(f"| {result['name']} | {pair['missed_label']} | {pair['extra_label']} | "
+                         f"{pair['count']} | {pair['example_id']} |")
+    lines += [
+        "",
+        "## Số nhãn được dự đoán",
+        "",
+        "| Variant @0,5 | Câu không dự đoán nhãn | Trung bình nhãn/câu |",
+        "|---|---:|---:|",
+    ]
+    for result in results:
+        metric = result["fixed"]
+        lines.append(f"| {result['name']} | {metric['empty_prediction_count']} | "
+                     f"{metric['mean_predicted_labels']:.3f} |")
+    lines += [
+        "",
         "## Bằng chứng chạy lại và bàn giao",
         "",
     ]
@@ -256,6 +327,7 @@ def write_report(results, labels, rare_ids, y_train, y_val):
         lines.append(f"- `{result['name']}`: `{folder}/validation_metrics.json`, "
                      "`validation_scores.npz`, `per_label_validation.csv`, "
                      "`thresholds_validation.json`, `error_examples_validation.csv`, "
+                     "`label_error_pairs_validation.csv`, `threshold_curve_validation.csv`, "
                      "`top_features.csv`, `model.joblib`.")
     lines += [
         "- `validation_scores.npz` gồm `ids`, `scores` N×28, `label_names`; "
@@ -263,6 +335,8 @@ def write_report(results, labels, rare_ids, y_train, y_val):
         "`data/processed/` và được Git bỏ qua.",
         "- Môi trường, thời gian fit, số đặc trưng và cấu hình nằm trong "
         "`validation_metrics.json` của từng biến thể.",
+        "- Hash model/scores đã được kiểm, nạp lại model dự đoán toàn validation "
+        "và đối chiếu với scores lưu trước đó, sai số tối đa ≤1e-12.",
         "- Báo cáo này chỉ mô tả phần A. Nhóm vẫn cần B zero-shot, ba kiến trúc C "
         "mỗi kiến trúc ba seed, demo từ C tốt nhất và so sánh lỗi giữa C1/C2/C3.",
         "",
@@ -273,6 +347,7 @@ def write_report(results, labels, rare_ids, y_train, y_val):
         "- [scikit-learn: OneVsRestClassifier](https://scikit-learn.org/stable/modules/generated/sklearn.multiclass.OneVsRestClassifier.html)",
         "- [scikit-learn: LogisticRegression](https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html)",
         "- [scikit-learn: Precision, Recall, F1](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.precision_recall_fscore_support.html)",
+        "- [scikit-learn 1.7.2: chọn ngưỡng](https://scikit-learn.org/1.7/modules/classification_threshold.html)",
         "",
     ]
     output = ROOT / "reports" / "BASELINE_RESULTS.md"

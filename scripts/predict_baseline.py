@@ -12,32 +12,29 @@ from pathlib import Path
 import joblib
 import numpy as np
 
+from src.baseline import load_run_metadata, load_thresholds
 
 ROOT = Path(__file__).resolve().parents[1]
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Dự đoán cảm xúc bằng baseline")
-    parser.add_argument("--text", required=True, help="Một bình luận tiếng Anh")
+    parser = argparse.ArgumentParser(description="Predict emotions with the classical baseline")
+    parser.add_argument("--text", required=True, help="One English comment")
     parser.add_argument("--variant", choices=("standard", "balanced"), default="standard")
-    parser.add_argument("--threshold", choices=("fixed", "tuned"), default="fixed")
+    parser.add_argument("--threshold", choices=("fixed", "global", "tuned"), default="fixed")
     args = parser.parse_args()
 
     if not args.text.strip():
-        parser.error("--text không được rỗng")
+        parser.error("--text must not be empty")
     folder = ROOT / "data" / "processed" / "baseline"
     if args.variant == "balanced":
         folder /= "balanced"
     folder /= "full"
     labels = json.loads((ROOT / "data" / "labels.json").read_text(encoding="utf-8"))
+    metadata = load_run_metadata(folder, args.variant, labels)
     # joblib chỉ được nạp từ file do chính nhóm tạo, không mở model từ nguồn lạ.
     model = joblib.load(folder / "model.joblib")
-    thresholds = np.full(len(labels), 0.5)
-    if args.threshold == "tuned":
-        saved = json.loads((folder / "thresholds_validation.json").read_text(encoding="utf-8"))
-        if saved["label_names"] != labels:
-            raise ValueError("Thứ tự nhãn trong file ngưỡng không khớp")
-        thresholds = np.asarray(saved["thresholds"], dtype=float)
+    thresholds = np.broadcast_to(load_thresholds(folder, metadata, args.threshold), (len(labels),))
 
     scores = model.predict_proba([args.text])[0]
     passed = np.flatnonzero(scores >= thresholds)

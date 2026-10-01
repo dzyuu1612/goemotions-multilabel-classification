@@ -53,6 +53,11 @@ Logistic Regression ở hai cấu hình: chuẩn và cân bằng lớp. Xem [hư
 và [bảng kết quả validation thật](reports/BASELINE_RESULTS.md). Cấu hình chuẩn ở ngưỡng
 0,5 có Macro-F1 **0,2025**, Micro-F1 **0,3760**; cấu hình cân bằng lớp có Macro-F1
 **0,4562**, Micro-F1 **0,5099**. Test chưa được đánh giá; B và C chưa có kết quả trong repo.
+Có [notebook baseline với output đã chạy](notebooks/baseline.ipynb) để học từng bước.
+Xem [hồ sơ rà soát phần A ngày 01/10](docs/BASELINE_REVIEW.md) để biết các lỗi đã sửa,
+bằng chứng kiểm chứng và phần việc còn cần cả nhóm hoàn thành.
+Phần A còn có so sánh ngưỡng chung/ngưỡng riêng, bảng cặp FN/FP theo ID và protocol
+khóa sáu cấu hình trước khi đánh giá test.
 
 - [Notebook EDA](notebooks/eda.ipynb)
 - [Báo cáo EDA](reports/THONG_KE_DU_LIEU.md)
@@ -167,7 +172,8 @@ Không giả định trước zero-shot tốt hơn baseline hoặc fine-tuning t
 ## Phần nâng cao và nhãn hiếm
 
 Nhánh A đã chạy class weighting và khảo sát ngưỡng riêng từng nhãn trên validation.
-Phần C của nhóm cần tiếp tục thử hướng nâng cao theo đề tài:
+Kế hoạch nhóm đề xuất thử tiếp cho C tốt nhất. PDF đề tài không quy định nâng cao
+phải áp dụng riêng cho C; yêu cầu là có thí nghiệm và số cải thiện F1 nhãn hiếm:
 
 - A: đã thử trọng số lớp trong từng Logistic Regression nhị phân; xem số thật trong báo cáo A.
 - C: thử `pos_weight` trong BCEWithLogitsLoss; tính từ train, chọn cách xử lý trọng số quá lớn bằng validation nếu cần.

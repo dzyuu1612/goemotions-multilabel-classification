@@ -16,7 +16,11 @@ quen thuộc `scikit-learn`, `numpy`, `pandas`; không thêm mô hình phức t�
 
 Zero-shot B có thể làm chung với người làm A, nhưng **không phải baseline A**. Ba mô
 hình C, ba seed mỗi mô hình, phân tích lỗi giữa C1/C2/C3 và demo từ C tốt nhất là
-việc bắt buộc của **cả nhóm**. Thí nghiệm A chưa thay cho phần nâng cao của C.
+việc bắt buộc của **cả nhóm**.
+PDF đề tài không quy định nâng cao phải áp dụng riêng cho C: thí nghiệm weighting/
+ngưỡng trên A có thể là bằng chứng nâng cao của đề tài nếu được đánh giá đúng.
+Áp dụng thêm cho C tốt nhất là **đề xuất của kế hoạch nhóm**, không phải một yêu
+cầu bổ sung đã ghi trong PDF. Cô vẫn yêu cầu đủ ba kiến trúc C × ba seed và demo.
 
 ## 2. Bài toán và dữ liệu
 
@@ -42,7 +46,9 @@ tự 28 nhãn trong `data/labels.json` và ghép điểm dự đoán theo `id`.
 | `scripts/run_baseline.py` | Fit TF-IDF + LR; lưu model, scores và metric validation |
 | `scripts/analyze_baseline.py` | So sánh ngưỡng, nhãn hiếm, lỗi có ví dụ, từ quan trọng |
 | `scripts/predict_baseline.py` | Nhập một câu tiếng Anh để xem điểm và nhãn |
+| `scripts/freeze_baseline.py` | Khóa cả bảng cấu hình A trước khi mở test |
 | `scripts/evaluate_baseline_test.py` | Chỉ chạy test **sau khi khóa cấu hình** |
+| `notebooks/baseline.ipynb` | Học từng bước bằng dữ liệu và output thật |
 | `reports/BASELINE_RESULTS.md` | Bảng kết quả thật, sinh lại bằng script phân tích |
 
 ## 4. Cài đặt và lệnh chạy
@@ -64,6 +70,15 @@ Nếu không có `py -3.13`, dùng Python 3.13 đã cài để tạo `.venv`. Tr
 `C:\Users\dzyuu\anaconda3\python.exe`. `--smoke` chỉ dùng 5.000 train/1.000
 validation để bắt lỗi; **không lấy số smoke đưa vào báo cáo**. Lần chạy đầu có thể
 tải dữ liệu; hash được kiểm trước khi dùng. Chạy lại sẽ lấy cache local.
+
+Notebook có output thật đã chạy sẵn. Nếu muốn chạy từng cell, cài
+`requirements-notebook.txt` và mở `notebooks/baseline.ipynb` bằng VS Code/Jupyter.
+Để sinh và chạy lại notebook từ script:
+
+```powershell
+.\.venv\Scripts\python.exe -m pip install -r requirements-notebook.txt
+.\.venv\Scripts\python.exe -m scripts.build_baseline_notebook --execute
+```
 
 Thử một câu sau khi fit:
 
@@ -89,6 +104,9 @@ và cặp từ, bỏ đặc trưng chỉ xuất hiện trong một văn bản. L
 không quá phổ biến trên toàn train. Không cần xóa stopword hay stem tùy tiện:
 phủ định như `not` có thể đổi nghĩa. `Pipeline` bảo đảm TF-IDF chỉ `fit` trên
 train rồi dùng cùng bộ từ vựng để `transform` validation.
+Vectorizer mặc định bỏ dấu câu, emoji và token một ký tự; apostrophe có thể khiến
+`don't` thành `don`. Vì vậy việc giữ từ `not` không đồng nghĩa đã xử lý tốt mọi
+phủ định hoặc mỉa mai. Đây là một hạn chế cụ thể để bạn ghi trong báo cáo.
 
 ### Bước 3: 28 Logistic Regression
 
@@ -105,8 +123,9 @@ Với một nhãn có `n+` mẫu dương trong `N` dòng train, scikit-learn đ�
 phía dương xấp xỉ `N/(2×n+)` và phía âm `N/(2×(N−n+))`. Vì `grief` chỉ có 77 mẫu
 dương, lỗi bỏ sót `grief` được phạt mạnh hơn. Mức phạt này có thể tăng cả TP lẫn FP.
 `C` là nghịch đảo độ mạnh regularization; ở đây giữ `C=1` để hai biến thể so sánh
-công bằng. Mã dùng `random_state=42`; solver hiện tại nhìn chung xác định, nên
-phần A không cần bảng ba seed như ba kiến trúc C.
+công bằng. Mã dùng `random_state=42` để giữ điều kiện tái lập. Yêu cầu ít nhất ba
+seed trong PDF áp dụng cho từng kiến trúc C; PDF không yêu cầu ba seed cho A.
+Mã dừng nếu Logistic Regression báo chưa hội tụ và lưu số vòng lặp từng nhãn.
 
 ### Bước 4: score, ngưỡng và nhãn
 
@@ -117,6 +136,12 @@ Không ép chọn nhãn cao nhất vì như vậy đổi luật đánh giá.
 `tune_thresholds` thử 0,05–0,95 theo bước 0,05 **cho từng nhãn riêng**, lấy F1
 nhãn đó cao nhất trên validation; nếu hòa, lấy ngưỡng gần 0,5. Ngưỡng phải đi
 cùng đúng variant. Không sao chép ngưỡng A sang B/C.
+`tune_global_threshold` dùng cùng lưới để chọn **một ngưỡng chung** theo Macro-F1.
+Nếu hai mức cách 0,5 bằng nhau và F1 hòa, chọn mức lớn hơn để kết quả xác định.
+Lưu ý lưới này không thử mức dưới 0,05; standard có score grief rất thấp nên
+ngưỡng riêng chưa giúp grief trong thí nghiệm hiện tại. Không che nhãn không tăng.
+File ngưỡng lưu hash model/scores; nếu bạn huấn luyện lại, phải chạy lại phân tích
+trước khi suy luận với ngưỡng `global` hoặc `tuned`.
 
 ### Bước 5: chỉ số
 
@@ -135,8 +160,10 @@ N×28 là 0; Hamming Loss thấp **không chứng minh** mô hình bắt tốt n
 | A | Ngưỡng | Macro-F1 | Micro-F1 | Hamming Loss |
 |---|---|---:|---:|---:|
 | standard | 0,5 | 0,2025 | 0,3760 | 0,0354 |
+| standard | chung 0,10, chọn trên val | 0,4094 | 0,5100 | 0,0544 |
 | standard | riêng từng nhãn, chọn trên val | 0,4391 | 0,5427 | 0,0433 |
 | balanced | 0,5 | 0,4562 | 0,5099 | 0,0532 |
+| balanced | chung 0,55, chọn trên val | 0,4660 | 0,5176 | 0,0473 |
 | balanced | riêng từng nhãn, chọn trên val | 0,4901 | 0,5467 | 0,0443 |
 
 Đây là **validation**, chưa phải test. Weighting tăng Macro-F1 và Recall nhưng
@@ -169,6 +196,12 @@ và giới hạn này khi giải thích.
 **C1/C2/C3**; nhóm làm thêm khi có score các mô hình đó. `top_features.csv` ghi
 từ/cặp từ có hệ số LR cao/thấp cho mỗi nhãn; không coi đó là quan hệ nhân quả.
 
+`label_error_pairs_validation.csv` đếm câu có **FN nhãn A + FP nhãn B** và lưu
+ID ví dụ. Khác với heatmap nhãn thật đồng xuất hiện của EDA. Ví dụ một câu thật
+`anger`, dự đoán thừa `annoyance` và bỏ sót anger sẽ góp cho cặp này. Một câu có
+thể góp nhiều cặp, nên không cộng bảng cặp để lấy tổng số câu lỗi. Báo cáo A giữ
+bảng neutral và một bảng phụ các cặp không có neutral; metric vẫn đủ 28 nhãn.
+
 ## 8. File đầu ra để bàn giao
 
 - Standard: `data/processed/baseline/full/`
@@ -176,11 +209,13 @@ từ/cặp từ có hệ số LR cao/thấp cho mỗi nhãn; không coi đó là
 
 | File | Cách dùng |
 |---|---|
-| `validation_metrics.json` | Cấu hình, revision, phiên bản, thời gian, chỉ số và 28 nhãn |
+| `validation_metrics.json` | Cấu hình, revision, hash model/scores, phiên bản, hội tụ, chỉ số và 28 nhãn |
 | `validation_scores.npz` | `ids`, `scores` N×28, `label_names`; nhóm ghép theo ID |
 | `per_label_validation.csv` | Support, P/R/F1 ở 0,5 và ngưỡng riêng |
 | `thresholds_validation.json` | 28 ngưỡng, luật chọn; chỉ dùng đúng variant |
 | `error_examples_validation.csv` | Ví dụ thật để đọc và chọn đưa vào báo cáo |
+| `label_error_pairs_validation.csv` | Cặp FN/FP cùng câu, số đếm và ID minh chứng |
+| `threshold_curve_validation.csv` | So sánh 19 ngưỡng chung trên validation |
 | `top_features.csv` | Hệ số LR cho từ/cặp từ của từng nhãn |
 | `model.joblib` | Pipeline đã fit; **chỉ mở file do nhóm tạo** |
 
@@ -191,15 +226,22 @@ Mã và `reports/BASELINE_RESULTS.md` nằm trong repo.
 ## 9. Khi nào mới chạy test?
 
 **Chưa chạy test.** Khi cả nhóm chốt variant và luật ngưỡng bằng validation, ghi
-quyết định vào báo cáo/commit rồi chạy **một** lệnh, ví dụ:
+quyết định vào báo cáo/commit rồi khóa **cả bảng so sánh trước/sau**:
 
 ```powershell
-.\.venv\Scripts\python.exe -m scripts.evaluate_baseline_test --variant balanced --threshold fixed --confirm-frozen
+.\.venv\Scripts\python.exe -m scripts.freeze_baseline
+.\.venv\Scripts\python.exe -m scripts.evaluate_baseline_test
 ```
 
-Ví dụ chỉ hợp lệ nếu nhóm thật sự chọn `balanced` + ngưỡng 0,5. Nếu chọn ngưỡng
-riêng thì đổi `--threshold tuned`. Script ghi hash model/ngưỡng, lưu test metrics
-và chặn lần test thứ hai. Không thử nhiều cấu hình trên test để chọn số đẹp.
+Lệnh freeze không mở test: nó ghi sáu cấu hình (hai model × ba luật ngưỡng), hash
+model/scores/ngưỡng và lựa chọn tốt nhất **theo validation** vào `final_protocol.json`.
+Lệnh evaluate kiểm mọi hash rồi dự đoán test một lần cho mỗi model, tính đủ sáu
+hàng đã khóa để giữ baseline gốc và so sánh nâng cao. File `rare_labels_test.csv`
+ghi F1/support và chênh lệch của cả năm nhãn hiếm, kể cả nhãn giảm.
+
+Chạy lại cùng protocol sẽ đọc kết quả đã có. Nếu model/ngưỡng đổi sau freeze,
+mã báo lỗi trước khi mở test. Không dùng test để chọn lại cấu hình. Các test mã
+nguồn về luồng cuối sử dụng dữ liệu giả ở thư mục tạm, không mở GoEmotions test.
 
 ## 10. Bạn cần tự giải thích được khi bảo vệ
 
@@ -223,6 +265,7 @@ và chặn lần test thứ hai. Không thử nhiều cấu hình trên test đ�
 - [LogisticRegression](https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html): trọng số lớp, `C`, solver.
 - [precision_recall_fscore_support](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.precision_recall_fscore_support.html): P/R/F1, micro/macro.
 - [Hamming Loss](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.hamming_loss.html): tỷ lệ quyết định nhãn sai.
+- [Chọn ngưỡng, đúng phiên bản scikit-learn 1.7.2](https://scikit-learn.org/1.7/modules/classification_threshold.html): tách học model, chọn ngưỡng và đánh giá cuối.
 
 Học theo thứ tự: multi-hot → TF-IDF → Logistic Regression → One-vs-Rest →
 Precision/Recall/F1 → ngưỡng → class weighting → phân tích lỗi. Sau mỗi lệnh ở

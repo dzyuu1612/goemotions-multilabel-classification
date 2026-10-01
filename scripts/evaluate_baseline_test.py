@@ -1,105 +1,121 @@
-"""Đánh giá test một lần SAU KHI nhóm đã khóa variant/ngưỡng bằng validation.
+"""Đánh giá toàn bộ cấu hình A đã khóa trước test.
 
-Ví dụ: python -m scripts.evaluate_baseline_test --variant standard \
-            --threshold fixed --confirm-frozen
+Sau khi nhóm chốt: python -m scripts.freeze_baseline
+                  python -m scripts.evaluate_baseline_test
+Chạy lại với cùng protocol sẽ trả kết quả đã có; không dùng test chọn cấu hình.
 """
 
-from __future__ import annotations
-
 import argparse
-import hashlib
 import json
-import subprocess
 from pathlib import Path
 
 import joblib
 import numpy as np
+import pandas as pd
 
-from src.data import REVISION, load_goemotions, multi_hot
-from src.metrics import evaluate_multilabel
-
+from src.baseline import load_run_metadata
+from src.data import REVISION, load_goemotions, multi_hot, sha256
+from src.metrics import evaluate_multilabel, validate_thresholds
 
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def sha256(path):
-    digest = hashlib.sha256()
-    with path.open("rb") as file:
-        for block in iter(lambda: file.read(1024 * 1024), b""):
-            digest.update(block)
-    return digest.hexdigest()
+def evaluate_frozen_protocol(root):
+    protocol_path = root / "data/processed/baseline/final_protocol.json"
+    if not protocol_path.exists():
+        raise FileNotFoundError("Chưa khóa protocol. Nhóm chốt trước, rồi chạy scripts.freeze_baseline.")
+    protocol = json.loads(protocol_path.read_text(encoding="utf-8"))
+    fingerprint = sha256(protocol_path)
+    labels = json.loads((root / "data/labels.json").read_text(encoding="utf-8"))
+    if (protocol["schema_version"] != 1 or protocol["data_revision"] != REVISION
+            or protocol["label_names"] != labels
+            or set(protocol["runs"]) != {"standard", "balanced"}):
+        raise ValueError("Protocol không khớp revision hoặc thứ tự nhãn")
+    # Kiểm toàn bộ model/ngưỡng trước khi mở nhãn test.
+    for variant, run in protocol["runs"].items():
+        folder = root / run["folder"]
+        metadata = load_run_metadata(folder, variant, labels)
+        if (metadata["artifact_sha256"] != run["artifact_sha256"]
+                or sha256(folder / "thresholds_validation.json") != run["threshold_file_sha256"]):
+            raise ValueError("Model/scores/ngưỡng đã đổi sau khi khóa protocol")
+    names = set()
+    for config in protocol["configurations"]:
+        expected_name = f"{config['variant']}_{config['threshold_mode']}"
+        if (config["variant"] not in protocol["runs"] or config["name"] != expected_name
+                or config["threshold_mode"] not in ("fixed", "global", "tuned")
+                or config["name"] in names):
+            raise ValueError("Danh sách cấu hình trong protocol không hợp lệ")
+        names.add(config["name"])
+        validate_thresholds(config["thresholds"], len(labels))
+    if names != {f"{variant}_{mode}" for variant in ("standard", "balanced")
+                 for mode in ("fixed", "global", "tuned")}:
+        raise ValueError("Protocol phải giữ đủ baseline gốc và các cấu hình so sánh đã khóa")
+
+    output = root / "data/processed/baseline/final"
+    summary_path = output / "final_results.json"
+    marker_path = output / "protocol.sha256"
+    if summary_path.exists():
+        summary = json.loads(summary_path.read_text(encoding="utf-8"))
+        if summary["protocol_sha256"] != fingerprint:
+            raise ValueError("Đã có kết quả test thuộc protocol khác; không chọn lại bằng test")
+        return summary  # Tái sử dụng kết quả, không đọc lại test.
+    if marker_path.exists() and marker_path.read_text().strip() != fingerprint:
+        raise ValueError("Lần chạy test trước dùng protocol khác")
+    output.mkdir(parents=True, exist_ok=True)
+    marker_path.write_text(fingerprint, encoding="ascii")
+
+    frames, test_labels, _ = load_goemotions(root, write_metadata=False, splits=("test",))
+    if test_labels != labels:
+        raise ValueError("Nhãn test không khớp mapping đã huấn luyện")
+    test = frames["test"]
+    truth = multi_hot(test["labels"].tolist(), len(labels))
+    scores_by_variant = {}
+    for variant, run in protocol["runs"].items():
+        model = joblib.load(root / run["folder"] / "model.joblib")
+        scores = model.predict_proba(test["text"].tolist())
+        scores_by_variant[variant] = scores
+        np.savez_compressed(output / f"{variant}_test_scores.npz",
+                            ids=test["id"].to_numpy(dtype=str), scores=scores,
+                            label_names=np.asarray(labels, dtype=str))
+
+    results = []
+    for config in protocol["configurations"]:
+        metrics = evaluate_multilabel(truth, scores_by_variant[config["variant"]], labels,
+                                     threshold=config["thresholds"])
+        record = {"name": config["name"], "split": "test", "protocol_sha256": fingerprint,
+                  "data_revision": REVISION, "variant": config["variant"],
+                  "threshold_mode": config["threshold_mode"], "metrics": metrics}
+        (output / f"{config['name']}_test_metrics.json").write_text(
+            json.dumps(record, ensure_ascii=False, indent=2), encoding="utf-8"
+        )
+        results.append(record)
+    # Bảng nhãn hiếm giữ cả kết quả tăng và giảm, so với baseline gốc standard_fixed.
+    original = next(row for row in results if row["name"] == "standard_fixed")["metrics"]
+    rare_rows = []
+    for label_id in protocol["rare_label_ids_from_train"]:
+        for result in results:
+            item = result["metrics"]["per_label"][label_id]
+            rare_rows.append({"label": labels[label_id], "configuration": result["name"],
+                              "test_support": item["support"], "f1": item["f1"],
+                              "f1_change_vs_standard_fixed":
+                              item["f1"] - original["per_label"][label_id]["f1"]})
+    pd.DataFrame(rare_rows).to_csv(output / "rare_labels_test.csv", index=False, encoding="utf-8-sig")
+    summary = {"protocol_sha256": fingerprint, "data_revision": REVISION,
+               "selected_on_validation": protocol["selected_configuration"], "results": results}
+    summary_path.write_text(json.dumps(summary, ensure_ascii=False, indent=2), encoding="utf-8")
+    return summary
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Final test cho baseline đã khóa")
-    parser.add_argument("--variant", choices=("standard", "balanced"), required=True)
-    parser.add_argument("--threshold", choices=("fixed", "tuned"), required=True)
-    parser.add_argument("--confirm-frozen", action="store_true",
-                        help="Xác nhận nhóm đã chọn variant/ngưỡng trước khi xem test")
-    args = parser.parse_args()
-    if not args.confirm_frozen:
-        parser.error("Cần --confirm-frozen sau khi nhóm đã chốt cấu hình bằng validation")
-
-    folder = ROOT / "data" / "processed" / "baseline"
-    if args.variant == "balanced":
-        folder /= "balanced"
-    folder /= "full"
-    final_root = ROOT / "data" / "processed" / "baseline" / "final"
-    output = final_root / f"{args.variant}_{args.threshold}"
-    if final_root.exists() and any(final_root.iterdir()):
-        raise FileExistsError("Baseline đã có một lần đánh giá test. "
-                              "Không chạy thêm cấu hình khác để chọn số đẹp.")
-
-    model_path = folder / "model.joblib"
-    config = json.loads((folder / "validation_metrics.json").read_text(encoding="utf-8"))
-    if config["data_revision"] != REVISION or config["smoke"] or config["variant"] != args.variant:
-        raise ValueError("Model/config không phải bản full của variant đã chọn")
-    labels = json.loads((ROOT / "data" / "labels.json").read_text(encoding="utf-8"))
-    thresholds = np.full(len(labels), 0.5)
-    threshold_hash = None
-    if args.threshold == "tuned":
-        threshold_path = folder / "thresholds_validation.json"
-        saved = json.loads(threshold_path.read_text(encoding="utf-8"))
-        if saved["label_names"] != labels or saved["data_revision"] != REVISION:
-            raise ValueError("File ngưỡng không khớp nhãn/revision")
-        thresholds = np.asarray(saved["thresholds"], dtype=float)
-        threshold_hash = sha256(threshold_path)
-
-    # Chỉ ở bước cuối này mới mở split test và nhãn test.
-    frames, test_labels, _ = load_goemotions(ROOT, write_metadata=False, splits=("test",))
-    if test_labels != labels:
-        raise ValueError("Thứ tự nhãn test không khớp mapping đã huấn luyện")
-    test = frames["test"]
-    truth = multi_hot(test["labels"].tolist(), len(labels))
-    model = joblib.load(model_path)  # Chỉ nạp model do nhóm tạo.
-    scores = model.predict_proba(test["text"].tolist())
-    result = evaluate_multilabel(truth, scores, labels, threshold=thresholds)
-    try:
-        commit = subprocess.check_output(
-            ["git", "rev-parse", "HEAD"], cwd=ROOT, text=True, stderr=subprocess.DEVNULL
-        ).strip()
-        dirty = bool(subprocess.check_output(
-            ["git", "status", "--porcelain"], cwd=ROOT, text=True,
-            stderr=subprocess.DEVNULL
-        ).strip())
-    except (OSError, subprocess.CalledProcessError):
-        commit = "unavailable"
-        dirty = None
-
-    output.mkdir(parents=True)
-    np.savez_compressed(output / "test_scores.npz", ids=test["id"].to_numpy(dtype=str),
-                        scores=scores.astype(np.float32), label_names=np.asarray(labels, dtype=str))
-    record = {
-        "split": "test", "variant": args.variant, "threshold_mode": args.threshold,
-        "data_revision": REVISION, "git_head": commit, "working_tree_dirty": dirty,
-        "model_sha256": sha256(model_path), "threshold_file_sha256": threshold_hash,
-        "metrics": result,
-    }
-    (output / "test_metrics.json").write_text(
-        json.dumps(record, ensure_ascii=False, indent=2), encoding="utf-8"
-    )
-    print(f"Test Macro-F1: {result['macro_f1']:.4f}; Micro-F1: {result['micro_f1']:.4f}")
-    print(f"Final test artifacts: {output.relative_to(ROOT).as_posix()}")
+    argparse.ArgumentParser(description="Evaluate the baseline configurations in the frozen protocol").parse_args()
+    summary = evaluate_frozen_protocol(ROOT)
+    print("Final baseline test (all configurations were frozen before reading test):")
+    for row in summary["results"]:
+        metrics = row["metrics"]
+        print(f"{row['name']:18s} Macro-F1={metrics['macro_f1']:.4f} "
+              f"Micro-F1={metrics['micro_f1']:.4f}")
+    print(f"Selection made on validation: {summary['selected_on_validation']}")
+    print("Artifacts: data/processed/baseline/final/")
 
 
 if __name__ == "__main__":
