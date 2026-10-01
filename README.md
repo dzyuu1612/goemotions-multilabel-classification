@@ -18,8 +18,8 @@ Phần EDA đã chạy trên **54.263 mẫu GoEmotions simplified**, giữ nguy�
 
 Đã đối chiếu số mẫu, support/tỷ lệ từng nhãn và 30 ví dụ với dữ liệu nguồn.
 Với bài toán đa nhãn, một bình luận được tính vào nhiều nhãn nên tổng support có thể
-lớn hơn số mẫu. Phần triển khai hiện tại là EDA; các phương pháp mô hình trong phần
-giới thiệu dưới đây là kế hoạch của đồ án.
+lớn hơn số mẫu. Trên nhánh triển khai baseline, đã có mã A và số đo validation đầu tiên;
+zero-shot và ba mô hình fine-tune vẫn là kế hoạch của đồ án.
 
 ## Bài toán và bài báo nền tảng
 
@@ -48,7 +48,11 @@ Dataset revision trong mã EDA hiện tại: `add492243ff905527e67aeb8b80c082af0
 
 ## Trạng thái triển khai
 
-Repo hiện có mã và sản phẩm EDA. Nhóm đã thống nhất các hệ thống dự kiến dưới đây nhưng chưa công bố kết quả benchmark mô hình trong repo.
+Repo hiện có mã và sản phẩm EDA. Nhánh baseline đã chạy TF-IDF + One-vs-Rest
+Logistic Regression ở hai cấu hình: chuẩn và cân bằng lớp. Xem [hướng dẫn từng bước](docs/BASELINE.md)
+và [bảng kết quả validation thật](reports/BASELINE_RESULTS.md). Cấu hình chuẩn ở ngưỡng
+0,5 có Macro-F1 **0,2025**, Micro-F1 **0,3760**; cấu hình cân bằng lớp có Macro-F1
+**0,4562**, Micro-F1 **0,5099**. Test chưa được đánh giá; B và C chưa có kết quả trong repo.
 
 - [Notebook EDA](notebooks/eda.ipynb)
 - [Báo cáo EDA](reports/THONG_KE_DU_LIEU.md)
@@ -162,15 +166,18 @@ Không giả định trước zero-shot tốt hơn baseline hoặc fine-tuning t
 
 ## Phần nâng cao và nhãn hiếm
 
-Hướng đề xuất là khảo sát class weighting và ngưỡng riêng từng nhãn:
+Nhánh A đã chạy class weighting và khảo sát ngưỡng riêng từng nhãn trên validation.
+Phần C của nhóm cần tiếp tục thử hướng nâng cao theo đề tài:
 
-- A: thử trọng số lớp trong từng Logistic Regression nhị phân.
+- A: đã thử trọng số lớp trong từng Logistic Regression nhị phân; xem số thật trong báo cáo A.
 - C: thử `pos_weight` trong BCEWithLogitsLoss; tính từ train, chọn cách xử lý trọng số quá lớn bằng validation nếu cần.
 - Chọn ngưỡng từng nhãn từ validation của chính mô hình đó. Không chuyển nguyên ngưỡng A sang B/C.
 - Xác định tập nhãn hiếm từ train và công bố tiêu chí trước khi so sánh.
 - So sánh thiết lập gốc, chỉ weighting, chỉ tuning và kết hợp; báo cáo F1/support của tất cả nhãn hiếm đã xác định, kể cả nhãn giảm điểm.
 
-Đây là hướng thử nghiệm nhằm cải thiện nhãn hiếm, chưa phải tuyên bố rằng đã cải thiện. Contrastive representation là hướng khác được đề bài nêu; không coi mọi phương án là đồng thời bắt buộc khi chưa làm rõ cách hiểu yêu cầu.
+Trên validation, A cân bằng lớp cải thiện F1 của năm nhãn hiếm xác định từ train; kết quả
+test chưa có. Điểm sau khi chọn ngưỡng trên cùng validation có thể lạc quan. Contrastive
+representation là hướng khác được đề bài nêu; nhóm không cần thực hiện đồng thời cả ba hướng.
 
 ## Phân tích lỗi
 
@@ -182,17 +189,19 @@ Dùng dự đoán theo ID, thống kê lỗi và ví dụ nguyên văn để ch�
 
 | Hệ thống | Thiết lập dự kiến | Trạng thái |
 |---|---|---|
-| A | TF-IDF + One-vs-Rest Logistic Regression | Dự kiến, chưa có số đo trong repo |
+| A | TF-IDF + One-vs-Rest Logistic Regression | Đã có hai biến thể và bảng validation trong `reports/BASELINE_RESULTS.md`; chưa đo test |
 | B | BART-large-MNLI, multi_label=True | Dự kiến, chưa có số đo trong repo |
 | C1 | BERT-base-uncased, 28 đầu ra | Dự kiến, chưa có số đo trong repo |
 | C2 | RoBERTa-base, 28 đầu ra | Dự kiến, chưa có số đo trong repo |
 | C3 | DistilBERT-base-uncased, 28 đầu ra | Dự kiến, chưa có số đo trong repo |
 
-Khi có kết quả, thay bảng trạng thái bằng bảng số liệu và dẫn đến notebook/log chạy thật.
+Khi B/C có kết quả, bổ sung số cùng split/metric và link log chạy thật; không điền số giả định.
 
 ## Môi trường và cài đặt
 
-Mã EDA được repo ghi nhận đã kiểm tra trên Python 3.12.6. Xem `docs/EDA.md` để chạy lại. `requirements.txt` hiện phục vụ EDA, chưa gồm scikit-learn, torch hoặc transformers; cài file đó chưa đủ để chạy A/B/C. Môi trường mô hình cần cài bổ sung và khóa phiên bản sau khi chạy thành công.
+Mã EDA được repo ghi nhận đã kiểm tra trên Python 3.12.6. Xem `docs/EDA.md` để chạy lại.
+Baseline A đã kiểm tra trên Python 3.13.9 với `requirements-baseline.txt`; xem `docs/BASELINE.md`.
+`requirements.txt` hiện phục vụ EDA, chưa đủ để chạy A/B/C.
 
 Nhóm cần bổ sung môi trường mô hình riêng, ghi phiên bản đã kiểm tra và lựa chọn PyTorch phù hợp thiết bị. Không dùng lệnh placeholder `python=3.x` như một lệnh cài đặt hoàn chỉnh. Ví dụ ở phần B cần môi trường đã cài transformers và PyTorch.
 
