@@ -43,6 +43,9 @@ Weighting giúp Recall/Macro-F1 nhưng có thêm FP; Hamming không đồng th�
 Model và scores theo ID ở `data/processed/baseline/full/` và
 `data/processed/baseline/balanced/full/`, cần chia sẻ riêng hoặc tái chạy.
 EDA trước đó là đóng góp của đồng đội; không ghi toàn bộ EDA là công của tôi.
+Mã đã push lên fork `dzyuu1612`, mở [PR #3 vào repo chung](https://github.com/trangkhanh-ai/goemotions-multilabel-classification/pull/3),
+chưa merge tại ngày cập nhật. Kế hoạch và báo cáo này cũng được lưu trong
+[trang Notion mới](https://app.notion.com/p/3ed7c27769028185af2dfbaac4c4586b).
 
 ## Việc còn lại
 

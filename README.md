@@ -14,6 +14,10 @@ Xem [kế hoạch và phân công toàn nhóm](docs/KE_HOACH_NHOM.md),
 [báo cáo phần baseline đã làm](reports/BAO_CAO_BASELINE_BAO_DUY.md) và
 [bảng sáu cấu hình validation dạng CSV](reports/baseline_validation/comparison.csv).
 Kế hoạch ghi rõ việc đã có bằng chứng và việc còn chờ B/C/demo; test A chưa chạy.
+[Trang Notion tổng hợp kế hoạch, phân công và tiến độ baseline](https://app.notion.com/p/3ed7c27769028185af2dfbaac4c4586b).
+Phần A đã push lên fork của `dzyuu1612` và mở
+[PR #3 vào repo chung](https://github.com/trangkhanh-ai/goemotions-multilabel-classification/pull/3);
+PR chưa merge tại thời điểm cập nhật 02/10/2026.
 
 ## Thống kê dữ liệu đã khám phá — đã hoàn thành
 

@@ -77,7 +77,7 @@ hình/ngưỡng và phân tích lỗi phát triển phải dựa trên train/val
 | A4 | Bản balanced; ngưỡng 0.5/chung/riêng | Hai model × ba luật quyết định, bảng sáu hàng | Đã chạy validation |
 | A5 | Phân tích năm nhãn hiếm, FN/FP và ví dụ lỗi | CSV/JSON/report, ID kiểm chứng, top features | Đã có |
 | A6 | Notebook đơn giản và hướng dẫn học/chạy | 22 cell, 11 cell mã có output thật; thứ tự đọc | Đã có |
-| A7 | Xuất bảng nhỏ và bàn giao GitHub | JSON/CSV đã kiểm hash; branch/PR và README | Đang bàn giao ngày 02/10 |
+| A7 | Xuất bảng nhỏ và bàn giao GitHub | JSON/CSV đã kiểm hash; branch/PR và README | Đã push fork của TV1, PR #3 vào repo chung đang chờ merge |
 | A8 | Phối hợp B và ghép bảng A/B/C | B benchmark và bảng toàn nhóm từ số thật | Chờ B/C; chưa hoàn thành |
 | A9 | Freeze rồi test cuối | Protocol sáu cấu hình, test metrics và rare-label changes | Mã đã chuẩn bị, chưa chạy test thật |
 
@@ -246,3 +246,13 @@ bằng chứng đã kiểm, không suy đoán người khác chưa làm. Khi nh�
 
 Nguồn cô cung cấp là căn cứ yêu cầu môn học. Các nguồn kỹ thuật giải thích công cụ,
 không thay thế rubric của cô hoặc chứng minh nhóm đã chạy B/C.
+
+## 15. Nơi lưu kế hoạch và bàn giao
+
+- [Notion mới của đồ án](https://app.notion.com/p/3ed7c27769028185af2dfbaac4c4586b): toàn bộ kế hoạch, phân công, thứ tự đọc và báo cáo cá nhân.
+- [Nhánh baseline đã push](https://github.com/dzyuu1612/goemotions-multilabel-classification/tree/codex/baseline-starter): code/notebook/tables của TV1.
+- [PR #3 vào repo chung](https://github.com/trangkhanh-ai/goemotions-multilabel-classification/pull/3): chưa merge ngày 02/10; đang chờ nhóm review.
+
+Tài khoản GitHub `dzyuu1612` hiện chưa có quyền ghi repo chung, nên bàn giao qua
+fork và PR. Tên/email Git của các commit TV1 đã kiểm: `dzyuu1612` /
+`baoduynguyen1612@gmail.com`. Không thay author các commit EDA của đồng đội.
