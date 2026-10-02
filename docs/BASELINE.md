@@ -63,6 +63,7 @@ py -3.13 -m venv .venv
 .\.venv\Scripts\python.exe -m scripts.run_baseline
 .\.venv\Scripts\python.exe -m scripts.run_baseline --variant balanced
 .\.venv\Scripts\python.exe -m scripts.analyze_baseline
+.\.venv\Scripts\python.exe -m scripts.export_baseline_results
 ```
 
 Nếu không có `py -3.13`, dùng Python 3.13 đã cài để tạo `.venv`. Trên máy đang làm
@@ -222,6 +223,9 @@ bảng neutral và một bảng phụ các cặp không có neutral; metric vẫ
 `data/processed/` được `.gitignore` bỏ qua vì model/dữ liệu lớn. Chia sẻ thư mục
 này với đồng đội qua nơi lưu trữ chung kèm revision, variant và thứ tự nhãn.
 Mã và `reports/BASELINE_RESULTS.md` nằm trong repo.
+Các bảng JSON/CSV nhỏ được xuất bằng `scripts.export_baseline_results` vào
+`reports/baseline_validation/` và đưa lên Git để đồng đội xem số liệu ngay.
+Script kiểm hash model/scores/ngưỡng trước khi xuất; không mở test, không chép model.
 
 ## 9. Khi nào mới chạy test?
 

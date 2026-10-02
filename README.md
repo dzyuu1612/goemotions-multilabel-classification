@@ -1,5 +1,20 @@
 # GoEmotions: Phân loại cảm xúc đa nhãn trên văn bản mạng xã hội
 
+## Tài liệu để đọc và theo dõi tiến độ
+
+Phần baseline của Bảo Duy Nguyễn (`dzyuu1612`) có
+[trang lưu thứ tự đọc](docs/THU_TU_DOC_BASELINE.md). Đọc theo thứ tự:
+
+1. [Notebook baseline với output thật](notebooks/baseline.ipynb).
+2. [Hướng dẫn chạy và giải thích code](docs/BASELINE.md).
+3. [Bảng kết quả và phân tích lỗi](reports/BASELINE_RESULTS.md).
+4. [Hồ sơ đối chiếu yêu cầu cô](docs/BASELINE_REVIEW.md).
+
+Xem [kế hoạch và phân công toàn nhóm](docs/KE_HOACH_NHOM.md),
+[báo cáo phần baseline đã làm](reports/BAO_CAO_BASELINE_BAO_DUY.md) và
+[bảng sáu cấu hình validation dạng CSV](reports/baseline_validation/comparison.csv).
+Kế hoạch ghi rõ việc đã có bằng chứng và việc còn chờ B/C/demo; test A chưa chạy.
+
 ## Thống kê dữ liệu đã khám phá — đã hoàn thành
 
 Phần EDA đã chạy trên **54.263 mẫu GoEmotions simplified**, giữ nguyên train/validation/test
