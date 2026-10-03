@@ -1,23 +1,38 @@
 # GoEmotions: Phân loại cảm xúc đa nhãn trên văn bản mạng xã hội
 
-## Tài liệu để đọc và theo dõi tiến độ
+## Kế hoạch và phân công nhóm
 
-Phần baseline của Bảo Duy Nguyễn (`dzyuu1612`) có
-[trang lưu thứ tự đọc](docs/THU_TU_DOC_BASELINE.md). Đọc theo thứ tự:
+Xem [kế hoạch đầy đủ theo công việc và sản phẩm](docs/KE_HOACH_NHOM.md) hoặc
+[trang Notion của nhóm](https://app.notion.com/p/3ed7c27769028185af2dfbaac4c4586b).
 
-1. [Notebook baseline với output thật](notebooks/baseline.ipynb).
+| Người | Phần phụ trách |
+|---|---|
+| Duy | Baseline A, data/metrics và phần báo cáo A |
+| Đức Trí — Thợ Săn Thập Cẩm | Zero-shot B, phần báo cáo/kết quả B |
+| Quốc Khánh | BERT C1, phần đầu báo cáo và script fine-tune chung |
+| Hoàng Phúc | RoBERTa C2, tổng hợp nhãn hiếm/nâng cao và cặp lỗi |
+| Nhật Huy | DistilBERT C3, demo của mô hình C tốt nhất |
+
+**Theo đoạn chat:** Đức Trí nhận zero-shot; Quốc Khánh nhận phần đầu báo cáo và
+fine-tune một mô hình. BERT/RoBERTa/DistilBERT được phân bổ lần lượt cho Khánh/Phúc/Huy.
+
+<details>
+<summary>Phần của Duy — baseline, tài liệu và báo cáo</summary>
+
+[Mục riêng của Duy trên Notion](https://app.notion.com/p/3ee7c277690281e693c7f1cf985d569d)
+và [thứ tự đọc lưu trong repo](docs/THU_TU_DOC_BASELINE.md).
+
+1. [Notebook baseline](notebooks/baseline.ipynb).
 2. [Hướng dẫn chạy và giải thích code](docs/BASELINE.md).
 3. [Bảng kết quả và phân tích lỗi](reports/BASELINE_RESULTS.md).
 4. [Hồ sơ đối chiếu yêu cầu cô](docs/BASELINE_REVIEW.md).
 
-Xem [kế hoạch và phân công toàn nhóm](docs/KE_HOACH_NHOM.md),
-[báo cáo phần baseline đã làm](reports/BAO_CAO_BASELINE_BAO_DUY.md) và
-[bảng sáu cấu hình validation dạng CSV](reports/baseline_validation/comparison.csv).
-Kế hoạch ghi rõ việc đã có bằng chứng và việc còn chờ B/C/demo; test A chưa chạy.
-[Trang Notion tổng hợp kế hoạch, phân công và tiến độ baseline](https://app.notion.com/p/3ed7c27769028185af2dfbaac4c4586b).
-Phần A đã push lên fork của `dzyuu1612` và mở
-[PR #3 vào repo chung](https://github.com/trangkhanh-ai/goemotions-multilabel-classification/pull/3);
-PR chưa merge tại thời điểm cập nhật 02/10/2026.
+[Báo cáo baseline của Duy](reports/BAO_CAO_BASELINE_BAO_DUY.md) ·
+[CSV sáu cấu hình validation](reports/baseline_validation/comparison.csv) ·
+[PR #3 vào repo chung](https://github.com/trangkhanh-ai/goemotions-multilabel-classification/pull/3).
+Chưa chạy test thật; bảng hiện tại là validation.
+
+</details>
 
 ## Thống kê dữ liệu đã khám phá — đã hoàn thành
 

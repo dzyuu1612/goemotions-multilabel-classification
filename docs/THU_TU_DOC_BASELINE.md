@@ -16,11 +16,11 @@ tự đọc, chạy và giải thích được trước khi bảo vệ.
 Nếu GitHub chưa hiển thị notebook ngay, tải file và mở bằng Jupyter/VS Code.
 Notebook đã có output thật nên có thể đọc trước khi cài môi trường.
 
-## Lộ trình học gợi ý cho người mới
+## Các kiến thức cần học
 
-Các buổi dưới đây là gợi ý học, không phải hạn nộp do cô quy định.
+Đọc theo chủ đề dưới đây và tự kiểm bằng bài tập; không đặt thời lượng.
 
-| Buổi | Nội dung | Bài tập ngắn để tự kiểm |
+| Thứ tự chủ đề | Nội dung | Bài tập ngắn để tự kiểm |
 |---|---|---|
 | 1 | Python list, dict, hàm, import; NumPy shape và indexing | Với ba nhãn, đổi `[0, 2]` thành `[1, 0, 1]`; giải thích `Y.shape` |
 | 2 | Train/validation/test và TF-IDF | Chỉ ra dòng `.fit` dùng train; giải thích tại sao val không mở rộng từ vựng |
@@ -30,7 +30,8 @@ Các buổi dưới đây là gợi ý học, không phải hạn nộp do cô q
 | 6 | Bảng kết quả và lỗi theo ID | Chọn một ví dụ, đọc nhãn thật/đoán, chỉ ra FN và FP, nêu giới hạn diễn giải |
 
 Không cần học PyTorch/Transformer để chạy A. Cần hiểu khái quát B/C để giải thích
-baseline là mốc so sánh trong đồ án; nếu nhận thêm B thì học HF zero-shot pipeline.
+baseline là mốc so sánh trong đồ án. B do Đức Trí phụ trách; bạn hiểu giao diện
+scores/metrics để phối hợp.
 
 ## Code đọc sau khi hiểu notebook
 
@@ -44,7 +45,8 @@ baseline là mốc so sánh trong đồ án; nếu nhận thêm B thì học HF 
 
 ## Tài liệu nhóm và báo cáo cá nhân
 
-- [Kế hoạch toàn nhóm](KE_HOACH_NHOM.md): A/B/C/D, phân công và lịch 9 tuần.
+- [Kế hoạch toàn nhóm](KE_HOACH_NHOM.md): A/B/C/D, phân công theo tên và sản phẩm.
+- [Mục riêng của Duy trên Notion](https://app.notion.com/p/3ee7c277690281e693c7f1cf985d569d): tài liệu, bảng kết quả và báo cáo baseline.
 - [Báo cáo tiến độ của bạn](../reports/BAO_CAO_BASELINE_BAO_DUY.md): phần đã làm, kết quả và việc còn lại.
 - [Bảng validation dạng CSV](../reports/baseline_validation/comparison.csv): số đầy đủ để copy vào bảng báo cáo.
 

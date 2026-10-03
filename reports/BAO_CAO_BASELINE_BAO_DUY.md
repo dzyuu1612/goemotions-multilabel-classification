@@ -45,11 +45,11 @@ Model và scores theo ID ở `data/processed/baseline/full/` và
 EDA trước đó là đóng góp của đồng đội; không ghi toàn bộ EDA là công của tôi.
 Mã đã push lên fork `dzyuu1612`, mở [PR #3 vào repo chung](https://github.com/trangkhanh-ai/goemotions-multilabel-classification/pull/3),
 chưa merge tại ngày cập nhật. Kế hoạch và báo cáo này cũng được lưu trong
-[trang Notion mới](https://app.notion.com/p/3ed7c27769028185af2dfbaac4c4586b).
+[mục riêng của Duy trên Notion](https://app.notion.com/p/3ee7c277690281e693c7f1cf985d569d).
 
 ## Việc còn lại
 
-Tự học/chạy lại để bảo vệ, phối hợp B zero-shot, ghép bảng A/B/C khi nhận scores;
+Tự học/chạy lại để bảo vệ, phối hợp Đức Trí (người phụ trách B zero-shot), ghép bảng A/B/C khi nhận scores;
 sau khi nhóm chốt protocol chạy test cuối và bổ sung F1 nhãn hiếm trước/sau.
 Nhóm vẫn cần đủ ba C × ba seed, mean±std, demo best C và ≥3 nhóm lỗi đối chiếu C.
 Chưa tự công bố phần trăm đóng góp khi nhóm chưa thống kê công việc thực tế.

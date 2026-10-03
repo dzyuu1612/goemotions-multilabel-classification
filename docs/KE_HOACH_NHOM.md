@@ -1,258 +1,224 @@
-# Kế hoạch nhóm — Đề tài 1: GoEmotions
+# Kế hoạch và phân công nhóm — GoEmotions
 
-Cập nhật **02/10/2026**. Kho chung: `trangkhanh-ai/goemotions-multilabel-classification`.
-Người làm baseline: **Bảo Duy Nguyễn — dzyuu1612**. Các tên TV2–TV4 chưa được điền
-trong bản phân công nguồn; nhóm bổ sung tên thật trước khi nộp.
+Cập nhật **03/10/2026** theo trao đổi nhóm bạn gửi. Kế hoạch chia theo công việc,
+người phụ trách và đầu ra; không chia theo tuần, ngày hoặc thời lượng.
+Kho chung: [goemotions-multilabel-classification](https://github.com/trangkhanh-ai/goemotions-multilabel-classification).
 
-## 1. Mục tiêu và cơ sở lập kế hoạch
+## 1. Ghi nhận phân công từ trao đổi nhóm
 
-Phân loại cảm xúc đa nhãn trong bình luận Reddit tiếng Anh, so sánh A cổ điển,
-B zero-shot và C fine-tune; làm demo và giải thích kết quả bằng số liệu/lỗi cụ thể.
+- **Duy:** baseline A.
+- **Đức Trí chính là “Thợ Săn Thập Cẩm”** trong đoạn chat; Đức Trí đã nhận **zero-shot B**.
+- **Quốc Khánh** đã nhận **phần đầu báo cáo và fine-tune một mô hình**.
+- Kiến trúc cụ thể được phân bổ trong kế hoạch này: Khánh = BERT, Hoàng Phúc = RoBERTa, Nhật Huy = DistilBERT.
+- Phần RoBERTa/DistilBERT cùng việc hỗ trợ của Phúc/Huy là phân công bổ sung theo yêu cầu của Duy.
 
-Nguồn đối chiếu là ảnh đề tài 1 và nội dung yêu cầu chung của cô do bạn cung cấp,
-bản phân công ngày 28/09 và kế hoạch cập nhật ngày 30/09. Bản này cập nhật tiến độ A
-và sửa điểm phân công chưa khớp yêu cầu. Tài liệu kỹ thuật tham khảo ở mục 14.
+## 2. Bảng phân công chính
 
-| Mức | Nội dung |
-|---|---|
-| Yêu cầu cô | A: baseline cổ điển, một SV; B: pretrained dùng trực tiếp không fine-tune, làm chung hoặc cùng người A |
-| Yêu cầu cô | C: ba kiến trúc khác nhau, ba SV còn lại mỗi người sở hữu trọn một kiến trúc; mỗi kiến trúc ít nhất ba seed, mean ± std |
-| Yêu cầu cô | D: Gradio/Streamlit từ model tốt nhất trong ba kiến trúc C; ít nhất ba nhóm lỗi và so sánh C1/C2/C3 |
-| Yêu cầu đề tài 1 | Split chính thức; khảo sát phân bố nhãn, tiền xử lý, TF-IDF + LR, fine-tune; xử lý ngưỡng đa nhãn; Macro/Micro-F1, P/R, Hamming |
-| Yêu cầu nâng cao | Class weighting hoặc ngưỡng riêng từng nhãn hoặc contrastive; có số F1 nhãn hiếm trước/sau |
-| Đề xuất nhóm | BART-MNLI cho B; BERT/RoBERTa/DistilBERT cho C; seed 42/123/2026; ưu tiên tuning để tiết kiệm GPU |
+| Người | Phần chính | Việc hỗ trợ | Sản phẩm cần bàn giao |
+|---|---|---|---|
+| **Duy — Bảo Duy Nguyễn** | **A: TF-IDF + One-vs-Rest Logistic Regression** | Dữ liệu/metrics dùng chung, bảng A và phối hợp tổng hợp A/B/C | Code A, scores theo ID, cấu hình, metric và phần báo cáo A; chi tiết nằm trong mục riêng của Duy |
+| **Đức Trí — Thợ Săn Thập Cẩm** | **B: zero-shot BART-large-MNLI, không fine-tune** | Phần phương pháp/kết quả B, lỗi zero-shot và mapping nhãn | Pipeline B, prompt/checkpoint revision, scores val/test, metrics, ví dụ lỗi B |
+| **Quốc Khánh** | **C1: BERT-base + phần đầu báo cáo** | Khởi tạo script fine-tune chung, thống nhất cấu trúc báo cáo | BERT đủ ≥3 seed, checkpoint/log/scores, mean±std; mục tiêu, paper, dữ liệu/EDA và bố cục báo cáo |
+| **Hoàng Phúc** | **C2: RoBERTa-base** | Điều phối bảng nhãn hiếm, nâng cao và các cặp cảm xúc dễ nhầm | RoBERTa đủ ≥3 seed; phần báo cáo C2; bảng nâng cao trước/sau từ số liệu cả nhóm |
+| **Nhật Huy** | **C3: DistilBERT-base** | Tích hợp demo dùng mô hình C tốt nhất và hướng dẫn chạy demo | DistilBERT đủ ≥3 seed; phần báo cáo C3; app Gradio/Streamlit và minh chứng chạy được |
+| **Cả nhóm** | So sánh A/B/C và ≥3 nhóm lỗi giữa C1/C2/C3 | Đọc paper, kiểm số liệu, review code, giải thích độ ổn định và phản biện | Bảng so sánh chung, báo cáo hoàn chỉnh, nguồn, đóng góp thực tế và link demo |
 
-Ảnh đề 1 ghi nâng cao để đạt mức 8–10; rubric chung ghi nâng cao trong mức 9–10.
-Nhóm nên hoàn thành nâng cao cùng toàn bộ A/B/C/D. Không coi đây là cam kết điểm số.
-PDF không bắt nâng cao chỉ ở C: kết quả nâng cao A có thể đóng góp bằng chứng;
-áp dụng thêm ngưỡng cho C là đề xuất có ích, cần báo kết quả thật.
+Đức Trí sở hữu B; ba người sở hữu ba C lần lượt là Quốc Khánh, Hoàng Phúc, Nhật Huy.
+Mỗi người làm C thực hiện trọn kiến trúc của mình từ pilot đến đủ seed và phân tích kết quả.
+Nhật Huy tích hợp **mô hình C thắng theo validation**, kể cả model thắng do Khánh hoặc Phúc huấn luyện.
 
-## 2. Phân công bốn người
+## 3. Mục tiêu và điều kiện hoàn thành
 
-**Bảng dưới là phương án theo kế hoạch cập nhật, cần nhóm điền tên TV2–TV4 và xác
-nhận người chủ trì các việc phối hợp. Trạng thái chưa có bằng chứng được ghi là chưa kiểm chứng.**
+Phân loại cảm xúc **đa nhãn** trên bình luận Reddit tiếng Anh: một câu có thể có
+nhiều cảm xúc, với **27 cảm xúc + neutral**, tổng 28 đầu ra.
 
-| Thành viên | Sở hữu chính | Việc phối hợp đề xuất | Sản phẩm riêng | Trạng thái kiểm chứng |
-|---|---|---|---|---|
-| TV1 — Bảo Duy Nguyễn (`dzyuu1612`) | A: TF-IDF + OvR LR gốc và nâng cao, metrics/analysis A | Phối hợp B với TV2; chuẩn đầu ra; tổng hợp bảng khi B/C có số | Notebook A, model/scores local, metric, bảng nhãn hiếm/cặp lỗi, báo cáo A | A validation đã chạy và rà soát |
-| TV2 — chưa điền tên | C1: BERT-base, trọn ba seed | Chủ trì B zero-shot cùng TV1; khởi tạo script fine-tune chung | Ba checkpoint/log/scores; phần BERT; B val/test nếu nhận chủ trì | Chưa có run trong repo đã kiểm |
-| TV3 — chưa điền tên | C2: RoBERTa-base, trọn ba seed | Tích hợp demo best C, phối hợp QA demo | Ba checkpoint/log/scores; phần RoBERTa; app/demo và hướng dẫn | Chưa có run/app trong repo đã kiểm |
-| TV4 — chưa điền tên | C3: DistilBERT-base, trọn ba seed | Điều phối bảng nhãn hiếm/nâng cao; tổng hợp các nhóm lỗi | Ba checkpoint/log/scores; phần DistilBERT; bảng trước/sau | Chưa có run trong repo đã kiểm |
-| Cả nhóm | Đọc paper, bàn protocol, phân tích ≥3 nhóm lỗi C1/C2/C3, báo cáo/phản biện | Review chéo, lịch GPU, bảng đóng góp | Báo cáo tuần 4/7/9 và demo cuối | Cần cập nhật theo run thật |
+- A: baseline cổ điển TF-IDF + Logistic Regression.
+- B: pretrained dùng trực tiếp qua HF pipeline, **không fine-tune** trên GoEmotions.
+- C: **ba kiến trúc pretrained khác nhau**, mỗi kiến trúc **ít nhất ba seed**, có kết quả từng seed và **mean ± std**.
+- D: demo Gradio/Streamlit từ **mô hình tốt nhất trong ba C**.
+- Đánh giá: Macro/Micro-F1, Precision/Recall, Hamming Loss; phân tích cặp cảm xúc dễ nhầm.
+- Ít nhất ba nhóm lỗi cụ thể, có so sánh C1/C2/C3 và ví dụ thật theo ID.
+- Nâng cao: class weighting **hoặc** ngưỡng riêng từng nhãn **hoặc** contrastive; báo F1 nhãn hiếm trước/sau.
+- Báo cáo đủ phương pháp, tiền xử lý, cấu hình, số liệu, độ ổn định, hạn chế và đóng góp.
 
-Mỗi người viết phương pháp, cấu hình, kết quả và hạn chế cho phần mình; người tổng
-hợp ghép theo mẫu chung. Phần EDA đã tồn tại từ các commit khác của nhóm; không gán
-toàn bộ EDA cho TV1. Bản phân công cũ giao TV4 cả C2+C3 và cho phép một seed cần
-được thay bằng một người/một C và ít nhất ba seed cho mỗi C.
+Yêu cầu kỹ thuật lấy từ nội dung cô đã cung cấp. Các checkpoint, seed cụ thể và
+phân công hỗ trợ bên dưới là cách triển khai của nhóm. Phần nâng cao không bị
+giới hạn riêng ở C; mở rộng tuning sang C là lựa chọn của nhóm để đối chiếu.
 
-## 3. Dữ liệu và hợp đồng dùng chung
+## 4. Dữ liệu và giao diện dùng chung
 
 | Hạng mục | Quy ước |
 |---|---|
 | Dataset | `google-research-datasets/go_emotions`, config `simplified` |
-| Revision cố định | `add492243ff905527e67aeb8b80c082af02207c3` |
-| Split | Train 43.410 / validation 5.426 / test 5.427; tổng 54.263 |
-| Nhãn | 27 cảm xúc + neutral; thứ tự chính xác trong `data/labels.json`, N×28 multi-hot |
-| Văn bản | Giữ văn bản nguồn; A dùng TF-IDF, B/C dùng tokenizer của checkpoint |
-| Nạp dữ liệu | Tái sử dụng `src/data.py`; giữ ID, kiểm SHA-256 và mapping |
-| Prediction file | NPZ gồm `ids`, `scores` N×28 và `label_names`; join theo ID |
-| Scores | Hữu hạn, 0–1; lưu trước khi threshold, không chỉ lưu hard labels |
+| Revision | `add492243ff905527e67aeb8b80c082af02207c3` |
+| Split chính thức | Train 43.410 / validation 5.426 / test 5.427; tổng 54.263 |
+| Mapping | Giữ đúng 28 nhãn trong `data/labels.json`; nhãn thật multi-hot N×28 |
+| Text | Giữ văn bản nguồn; mỗi phương pháp dùng bộ biểu diễn/tokenizer phù hợp |
+| Module dữ liệu | Tái sử dụng `src/data.py`; kiểm ID, SHA-256 và label mapping |
+| File dự đoán | NPZ có `ids`, `scores` N×28, `label_names`; ghép bằng ID |
+| Scores | Hữu hạn trong 0–1, lưu trước ngưỡng; không chỉ lưu hard labels |
 | Metrics | Dùng chung `src/metrics.py`; đủ 28 nhãn, `zero_division=0` |
-| Train | Fit TF-IDF/weighting/model A/C; không fit trên validation/test |
-| Validation | Chọn config/checkpoint/prompt nếu có/ngưỡng; công bố việc dùng nhãn |
-| Test | Suy luận và tính metric sau freeze; không điều chỉnh lựa chọn theo test |
+| Train | Học A/C, fit TF-IDF và tính weighting |
+| Validation | Chọn config/checkpoint/prompt nếu có/ngưỡng; ghi rõ cách chọn |
+| Test | Chỉ đánh giá sau khi khóa các lựa chọn; không chọn lại bằng test |
 
-58.009 là số bình luận nguồn thô, 54.263 là simplified sử dụng trong đồ án.
-Không gộp 28 nhãn thành positive/negative/neutral trong bảng chính; không tự ép
-neutral loại trừ cảm xúc khác. EDA đã xem thống kê test mô tả, nhưng lựa chọn mô
-hình/ngưỡng và phân tích lỗi phát triển phải dựa trên train/validation.
+Nguồn thô có 58.009 bình luận; simplified đang dùng có 54.263. Không gộp nhãn
+thành positive/negative/neutral ở bảng chính; không ép neutral loại trừ cảm xúc khác.
+Model/scores lớn chia sẻ riêng hoặc tái chạy; code và bảng nhỏ lưu trên GitHub.
 
-## 4. A — kế hoạch và sản phẩm baseline của TV1
+## 5. Đức Trí — zero-shot B
 
-| Mã | Công việc | Đầu ra | Trạng thái |
-|---|---|---|---|
-| A1 | Kiểm dữ liệu và multi-hot; tái sử dụng module có sẵn | Mapping 28 nhãn, train/val đúng số, checks ID/hash | Đã có |
-| A2 | Metric chung micro/macro P/R/F1, Hamming, per-label | `src/metrics.py`, kiểm bằng ví dụ tính tay | Đã có |
-| A3 | TF-IDF + 28 LR nhị phân, bản standard | Full fit/train, validation scores/metrics, model | Đã chạy |
-| A4 | Bản balanced; ngưỡng 0.5/chung/riêng | Hai model × ba luật quyết định, bảng sáu hàng | Đã chạy validation |
-| A5 | Phân tích năm nhãn hiếm, FN/FP và ví dụ lỗi | CSV/JSON/report, ID kiểm chứng, top features | Đã có |
-| A6 | Notebook đơn giản và hướng dẫn học/chạy | 22 cell, 11 cell mã có output thật; thứ tự đọc | Đã có |
-| A7 | Xuất bảng nhỏ và bàn giao GitHub | JSON/CSV đã kiểm hash; branch/PR và README | Đã push fork của TV1, PR #3 vào repo chung đang chờ merge |
-| A8 | Phối hợp B và ghép bảng A/B/C | B benchmark và bảng toàn nhóm từ số thật | Chờ B/C; chưa hoàn thành |
-| A9 | Freeze rồi test cuối | Protocol sáu cấu hình, test metrics và rare-label changes | Mã đã chuẩn bị, chưa chạy test thật |
+1. Pilot một tập nhỏ validation, kiểm pipeline/mapping và khả năng chạy theo batch.
+2. Dùng `facebook/bart-large-mnli`, đủ 28 candidate labels, `multi_label=True`.
+   Template khởi đầu: `This text expresses {}.`.
+3. Mapping scores về thứ tự `data/labels.json`: pipeline trả nhãn theo score giảm dần.
+4. Chạy full validation, lưu từng phần kèm ID để tiếp tục khi phiên chạy gián đoạn.
+5. Báo kết quả gốc @0.5. Nếu dùng nhãn validation chỉnh template/ngưỡng, giữ hàng
+   riêng và ghi rõ **không cập nhật trọng số nhưng có hiệu chỉnh bằng nhãn đích**.
+6. Ghi checkpoint revision, template, batch, thiết bị, thư viện và cấu hình suy luận.
+7. Khi protocol chung đã khóa, chạy test với đúng model/prompt/ngưỡng đã chọn.
+8. Viết phần B và đọc ví dụ lỗi cụ thể; chuyển scores/metrics cho bảng so sánh chung.
 
-Cấu hình đã chạy: unigram+bigram, `min_df=2`, `max_features=100000`, thực tế
-58.338 đặc trưng; `OneVsRestClassifier(LogisticRegression(C=1, solver='liblinear',
-max_iter=1000, random_state=42))`. Standard `class_weight=None`, balanced
-`class_weight='balanced'` cho từng bài toán nhị phân. Không đổi TF-IDF giữa hai bản.
+Validation gồm 5.426 × 28 = 151.928 cặp text/giả thuyết, có thể xử lý theo batch.
+Neutral của MNLI khác neutral cảm xúc; giải thích kết quả B theo ground truth và ngữ cảnh.
 
-Lưới ngưỡng A 0.05–0.95 bước 0.05, chọn bằng Macro-F1 cho ngưỡng chung và F1 từng
-nhãn cho ngưỡng riêng; hòa chọn gần 0.5, rồi mức lớn hơn. Lưới là lựa chọn thực
-nghiệm của nhóm, không phải yêu cầu cô. Scores/ngưỡng liên kết hash đúng model.
+**Nghiệm thu B:** scores N×28 đúng ID/mapping, đủ metrics, không fine-tune, prompt/revision
+truy được, kết quả gốc và hiệu chỉnh được phân biệt, có phần viết và ví dụ lỗi.
 
-## 5. B — zero-shot không fine-tune
+## 6. Quốc Khánh — BERT và phần đầu báo cáo
 
-1. Người chủ trì B + TV1 pilot khoảng 100 câu validation để đo tốc độ và RAM/VRAM.
-2. Dùng HF pipeline trực tiếp với `facebook/bart-large-mnli`, đủ 28 candidate labels,
-   `multi_label=True`; hypothesis template khởi đầu `This text expresses {}.`.
-3. Mapping score về đúng `data/labels.json` vì pipeline trả nhãn theo score giảm dần.
-4. Chạy đủ validation theo batch, lưu từng phần và ID để tiếp tục khi Colab ngắt.
-5. Báo cấu hình cố định 0.5 trước. Nếu dùng nhãn val chọn template/ngưỡng, giữ hàng
-   riêng, ghi rõ zero-shot về trọng số nhưng đã hiệu chỉnh bằng nhãn dữ liệu đích.
-6. Lưu checkpoint revision, template, batch, thiết bị, thư viện, thời gian, scores.
-7. Khóa các lựa chọn trước test; sau đó chạy cùng split test như A/C.
+### C1 BERT
 
-5.426 × 28 = 151.928 cặp văn bản/giả thuyết trên validation, không phải 151.928
-API call. Có thể xử lý nhiều cặp trong một batch; không suy ra thời gian nếu chưa
-đo pilot. Neutral của MNLI không đồng nhất neutral cảm xúc; đọc lỗi B theo ngữ cảnh.
+1. Checkpoint `google-bert/bert-base-uncased`; khóa revision.
+2. Tạo script fine-tune tham số hóa checkpoint, seed và cấu hình để Phúc/Huy dùng.
+3. Pilot tokenizer, nhãn multi-hot, loss và luồng lưu checkpoint/scores.
+4. Chạy các seed đề xuất **42, 123, 2026**; giữ log và cấu hình riêng từng run.
+5. Chọn checkpoint bằng Macro-F1 validation @0.5; xuất sigmoid scores theo ID.
+6. Tính số từng seed và mean ± sample std, `ddof=1`, n=3; phân tích lỗi BERT.
+7. Bàn giao checkpoint, cấu hình, scores và phần phương pháp/kết quả C1.
 
-## 6. C — ba kiến trúc, mỗi kiến trúc ba seed
+### Phần đầu báo cáo — ghi nhận theo tin nhắn của Khánh
 
-| Kiến trúc | Checkpoint dự kiến | Chủ sở hữu | Seed chính |
-|---|---|---|---|
-| C1 BERT | `google-bert/bert-base-uncased` | TV2 | 42, 123, 2026 |
-| C2 RoBERTa | `FacebookAI/roberta-base` | TV3 | 42, 123, 2026 |
-| C3 DistilBERT | `distilbert/distilbert-base-uncased` | TV4 | 42, 123, 2026 |
+- Thông tin đề tài/nhóm, bố cục và mục tiêu.
+- Tóm tắt bài báo GoEmotions bằng lời nhóm: dữ liệu, đóng góp, bài toán đa nhãn.
+- Giới thiệu nguồn dữ liệu, split, nhãn và EDA; lấy bảng/biểu đồ đã kiểm của nhóm.
+- Mô tả thiết kế so sánh A/B/C/D và quy trình đánh giá chung.
+- Đặt mẫu bảng/cách trích nguồn để các bạn ghép phần riêng vào thống nhất.
+- Nhận phần A từ Duy, B từ Đức Trí, C2 từ Phúc, C3/demo từ Huy để tổng hợp.
+  Mỗi người vẫn tự viết phương pháp, kết quả và hạn chế của phần mình.
 
-Ba seed là đề xuất số cụ thể; số lượng ít nhất ba/kiến trúc là yêu cầu cô.
-Thiết lập pilot đề xuất: max_length 128, batch 16, learning_rate 2e-5, epoch 3.
-Điều chỉnh theo GPU và validation, chốt trước các run chính, ghi effective batch
-nếu dùng gradient accumulation. Khóa revision checkpoint trước khi benchmark.
+**Nghiệm thu Khánh:** BERT ≥3 seed có log/scores và mean±std; phần đầu báo cáo rõ,
+có nguồn, không gán kết quả chưa chạy thành số thực nghiệm.
 
-Luồng học: tokenizer riêng → encoder → head 28 logits → BCEWithLogitsLoss với
-multi-hot float. Loss nhận logits trực tiếp; sigmoid dùng lúc xuất scores.
-Không softmax chung 28 nhãn, không chuyển thành bài toán một lớp.
+## 7. Hoàng Phúc — RoBERTa và tổng hợp nâng cao
 
-Mỗi người thực hiện đầy đủ: môi trường → pilot → ba seed → chọn checkpoint bằng
-Macro-F1 validation @0.5 → lưu log/config/checkpoint/val scores → báo mean ± sample
-std (`ddof=1`, n=3). Ghi số từng seed trước bảng trung bình. Không chọn seed đẹp
-nhất để đại diện độ ổn định cả kiến trúc. Bảng baseline A không có yêu cầu ba seed.
+1. Checkpoint `FacebookAI/roberta-base`; dùng tokenizer tương ứng và khóa revision.
+2. Dùng script chung, kiểm riêng tokenization/truncation; chạy seed **42, 123, 2026**.
+3. Xuất scores/checkpoint/log riêng từng seed; tính metrics và mean±std cho C2.
+4. Viết phương pháp, kết quả và lỗi RoBERTa; đối chiếu với BERT/DistilBERT theo cùng ID.
+5. Điều phối tiêu chí nhãn hiếm từ train, nhận bảng F1/support của A/B/C.
+6. Tổng hợp trước/sau nâng cao, giữ cả nhãn tăng, không tăng hoặc giảm.
+7. Tổng hợp các cặp FN nhãn A + FP nhãn B nổi bật từ dự đoán; đọc văn bản có ID.
 
-## 7. Nâng cao và nhãn hiếm
+**Phúc điều phối bảng nâng cao; người sở hữu từng model tự tạo scores/ngưỡng đúng model.**
+Tuning riêng C2 không bắt Phúc huấn luyện thay C1/C3.
 
-Nhãn hiếm xác định từ support **train**: grief 77, pride 111, relief 153,
-nervousness 164, embarrassment 303. Ghi F1, P/R và support cho cả năm nhãn,
-bao gồm nhãn không tăng hoặc giảm. Số dương val 13–35 nên kết luận cần thận trọng.
+**Nghiệm thu Phúc:** RoBERTa ≥3 seed với mean±std; phần C2; bảng nhãn hiếm/nâng cao
+và cặp lỗi có nguồn artifact, tách kết quả đã chạy với cấu hình dự kiến.
 
-- A đã có weighting và threshold tuning, đủ cơ sở báo thực nghiệm A trước/sau.
-- Đề xuất C: chọn ngưỡng riêng từ val scores của từng model/seed; không cần train
-  lại cho tuning. Giữ mốc 0.5 để tách ảnh hưởng tuning.
-- Nếu thử `pos_weight`: tính `(N-positive)/positive` chỉ từ train, chốt cách cap
-  bằng pilot val; huấn luyện lại và tạo bộ ngưỡng mới đúng weighted model.
-- Ưu tiên hoàn tất chín run C trước khi mở rộng weighted C; contrastive là một
-  hướng thay thế, không bắt phải làm đồng thời cả ba phương pháp.
-- Bảng cuối ghi cấu hình gốc/weighting/tuning/kết hợp khi đã chạy thật; không ghi
-  các biến thể chưa chạy như kết quả.
+## 8. Nhật Huy — DistilBERT và demo
 
-## 8. Chọn best C và demo
+1. Checkpoint `distilbert/distilbert-base-uncased`; khóa revision/tokenizer.
+2. Pilot bằng script chung; chạy seed **42, 123, 2026**, lưu checkpoint/log/scores.
+3. Tính metrics, mean±std; viết phương pháp, kết quả và lỗi DistilBERT.
+4. Nhận checkpoint và bộ ngưỡng của kiến trúc C thắng theo validation để dựng demo.
+5. Dùng Gradio/Streamlit: nhập tiếng Anh, hiện nhiều nhãn cùng score; xử lý rỗng,
+   text dài/truncation và trường hợp không nhãn nào vượt ngưỡng.
+6. Kiểm một input cho cùng score/nhãn giữa demo và script suy luận tương ứng.
+7. Viết hướng dẫn cài/chạy, lưu revision/cấu hình, bàn giao link hoặc ảnh/video minh chứng.
 
-Chọn **kiến trúc C** theo mean Macro-F1 validation của ba seed ở mốc 0.5; nếu hòa
-xét độ ổn định/chi phí theo quy tắc nhóm chốt. Không cho A/B thắng để thay best C
-trong demo cô yêu cầu. Đề xuất chọn checkpoint có val Macro-F1 cao nhất trong
-kiến trúc thắng để triển khai một app; nói rõ đây là checkpoint demo, không phải
-điểm trung bình kiến trúc. Bộ ngưỡng phải thuộc checkpoint đó.
+**Nghiệm thu Huy:** DistilBERT ≥3 seed và mean±std; demo best C chạy được,
+khởi động lại được, cùng mapping/ngưỡng và có hướng dẫn.
 
-Demo Gradio/Streamlit: nhập tiếng Anh, hiện nhiều nhãn và score, thông báo nếu
-không nhãn nào vượt ngưỡng; xử lý rỗng, text dài/truncation, khởi động lại được.
-Kiểm cùng input với script evaluate cho cùng mapping/ngưỡng. Bàn giao hướng dẫn
-cài, model revision, lệnh chạy, link hoặc video/ảnh minh chứng. Không cần giao diện cầu kỳ.
+## 9. Quy tắc fine-tune và chọn mô hình chung
 
-## 9. Phân tích ít nhất ba nhóm lỗi
+- Tokenizer riêng → encoder → head **28 logits**.
+- Huấn luyện dùng `BCEWithLogitsLoss` với multi-hot float; đưa logits trực tiếp vào
+  loss. Sigmoid dùng khi xuất scores; không softmax chung 28 nhãn.
+- Pilot đề xuất: max_length 128, batch 16, learning rate 2e-5, epoch 3.
+  Điều chỉnh theo thiết bị/validation, chốt cấu hình và ghi effective batch nếu tích lũy gradient.
+- Ba người mỗi người làm trọn ba seed của kiến trúc mình; giữ số từng seed trước bảng mean±std.
+- Bảng chính dùng mốc @0.5; các hàng tuning/weighting phải ghi rõ.
+- Chọn kiến trúc C bằng **mean Macro-F1 validation** của ba seed. Nhóm chốt cách xử
+  lý khi gần bằng/hòa, cân nhắc std và chi phí.
+- Đề xuất checkpoint demo: checkpoint có Macro-F1 val tốt nhất trong kiến trúc thắng;
+  nói rõ đó là checkpoint demo, khác điểm trung bình kiến trúc.
+- Không chọn kiến trúc, seed hoặc ngưỡng bằng test.
 
-| Nhóm | Cách nhận diện và minh chứng | So sánh cần làm |
+## 10. Nâng cao và phân tích lỗi
+
+### Nhãn hiếm và ngưỡng
+
+Năm nhãn hiếm theo train: grief 77, pride 111, relief 153, nervousness 164,
+embarrassment 303. Ghi F1/P/R/support trước/sau, kể cả nhãn giảm.
+
+Chọn ngưỡng từ validation của **đúng model/seed**; giữ cấu hình gốc @0.5.
+Không chuyển ngưỡng A sang B/C. Nếu dùng `pos_weight`, tính từ train rồi train
+lại; ngưỡng của model cũ không thuộc model weighted mới. Tuning không cần train lại.
+Chốt lưới và luật hòa trước khi so sánh; điểm tuned trên cùng val có thể lạc quan.
+Mở rộng weighted C/contrastive khi đã có đầy đủ các cấu hình chính.
+
+### Ít nhất ba nhóm lỗi giữa C1/C2/C3
+
+| Nhóm lỗi | Cách xác định | Bằng chứng bàn giao |
 |---|---|---|
-| Cảm xúc gần nghĩa | FN nhãn A cùng FP nhãn B; đếm cả split, đọc ví dụ có ID | C1/C2/C3 có nhầm cùng cặp, cùng câu không? |
-| Thiếu cảm xúc thứ hai | Ground truth ≥2 nhãn, model chỉ tìm một phần; đọc scores gần ngưỡng | Tuning giúp từng kiến trúc thế nào? |
-| Hàm ý/mỉa mai/phủ định/ngữ cảnh | Lọc FN/FP rồi đọc thủ công, không tự coi mọi lỗi là mỉa mai | Ba model có cùng khó khăn ngữ cảnh không? |
-| Nhãn hiếm/neutral | F1/support và lỗi cụ thể; neutral không bị loại trừ cưỡng bức | Recall ổn định qua seed hay thay đổi nhiều? |
+| Cảm xúc gần nghĩa | FN nhãn thật A cùng FP nhãn B trong một câu | Cặp nhãn, số đếm, ID/text và prediction ba C |
+| Bỏ sót cảm xúc thứ hai | True có ≥2 nhãn, model chỉ tìm một phần | True/predicted labels, scores/ngưỡng và so sánh ba C |
+| Hàm ý, phủ định hoặc thiếu ngữ cảnh | Chọn FN/FP rồi đọc thủ công trước khi phân loại nguyên nhân | Ví dụ cụ thể và nhận xét model nào sai giống/khác nhau |
+| Nhãn hiếm hoặc neutral | Support thấp, FN/FP cụ thể | F1/P/R/support và độ ổn định qua seed |
 
-Chọn ít nhất ba nhóm cụ thể sau khi đọc dữ liệu. Bảng gồm ID, text, true labels,
-prediction C1/C2/C3, scores/ngưỡng và nhận xét. Đồng xuất hiện nhãn thật trong EDA
-khác nhầm lẫn từ prediction. Một câu có thể góp nhiều cặp FN/FP; không cộng bảng
-cặp để tính tổng câu lỗi. Không dùng số ví dụ chọn lọc làm tỷ lệ lỗi toàn split.
+Khánh/Phúc/Huy đưa lỗi của C mình; Phúc tổng hợp; Trí bổ sung lỗi B và Duy bổ sung
+lỗi A khi cần đối chiếu. Chọn ít nhất ba nhóm có minh chứng thật.
+Đồng xuất hiện nhãn thật trong EDA khác lỗi prediction; không cộng cặp FN/FP
+để suy ra tổng câu lỗi vì một câu có thể góp nhiều cặp.
 
-## 10. Lịch 9 tuần và báo cáo
+## 11. Trình tự triển khai theo đầu việc
 
-Tuần tương đối theo ngày bắt đầu/hạn cô; ngày cụ thể chưa có trong nguồn. Nhóm
-điền sau khi xác nhận lịch học, không suy ra tuần hiện tại từ ngày 02/10.
+1. Thống nhất split, mapping, metric, file scores, seed và cấu hình; chia sẻ giao diện data/metrics.
+2. Đức Trí dựng B; Khánh/Phúc/Huy pilot C riêng. Khánh chia sẻ script chung cho hai bạn.
+3. Mỗi người xuất đầy đủ validation scores, log/checkpoint và phần báo cáo mình.
+4. Ghép A/B/C, đủ chín run C và mean±std; phân tích lỗi, chọn best C.
+5. Huy tích hợp demo; Phúc tổng hợp nâng cao/nhãn hiếm từ artifacts của mỗi người.
+6. Khóa protocol, model/prompt/ngưỡng và danh sách configs; đánh giá test sau đó.
+7. Ghép báo cáo, kiểm nguồn/số liệu/đóng góp, chuẩn bị demo và phản biện.
 
-| Tuần | Công việc | Cổng hoàn thành |
+Mỗi bước có thể phối hợp song song khi đủ đầu vào. Kế hoạch không đặt thời lượng.
+
+## 12. Các báo cáo và bộ sản phẩm cuối
+
+| Sản phẩm | Nội dung phải có | Người phối hợp |
 |---|---|---|
-| 1 | Đọc paper/yêu cầu, EDA, chia một A + ba C; chốt label/revision/metrics | Bảng tên thật, protocol, lịch GPU, mỗi người đọc dữ liệu |
-| 2 | A + B full validation; mỗi người C setup và mini-run | A/B có số; C1/C2/C3 chạy pilot được |
-| 3 | C chạy seed 42, 123; kiểm mapping/log; A/B kiểm lỗi | Sáu run C hoặc status/vướng mắc rõ |
-| 4 | C chạy seed 2026; nộp tiến độ 1 | Tóm tắt paper/EDA, A+B có số cụ thể, tiến độ seed từng C, phân công và mức hoàn thành |
-| 5 | Tổng hợp đủ chín run, mean ± std; chọn best C; bắt đầu demo | Chín dòng riêng + ba dòng tổng hợp; app bản đầu |
-| 6 | ≥3 nhóm lỗi đối chiếu C1/C2/C3; hoàn thiện demo | Bảng lỗi có ID và app chạy local |
-| 7 | Nâng cao, F1 nhãn hiếm; nộp tiến độ 2 | Đủ 3×3, mean±std với A/B, lỗi, minh chứng demo, kế hoạch/kết quả nâng cao |
-| 8 | Freeze; chấm test theo protocol; viết báo cáo/slide | Test configs đã khóa, số truy được về artifacts, bản nháp đầy đủ |
-| 9 | Kiểm số, tổng duyệt và nộp/phản biện | DOCX/PDF, nâng cao, giải thích std, % đóng góp thật, code và link demo, hạn chế/hướng phát triển |
+| Báo cáo tiến độ lần 1 | Tóm tắt paper/EDA, A và B có số cụ thể, tiến độ seed của ba C, phân công thực tế | Khánh tổng hợp; Duy/Trí/Phúc/Huy cung cấp phần mình |
+| Báo cáo tiến độ lần 2 | Đủ ba C × ≥3 seed, mean±std so với A/B, ≥3 nhóm lỗi, minh chứng demo và nâng cao | Khánh tổng hợp; Phúc bảng nâng cao/lỗi; Huy demo |
+| Báo cáo cuối | Phương pháp/cấu hình/kết quả, nâng cao/nhãn hiếm, giải thích std, hạn chế, nguồn, đóng góp thực tế, code và demo | Cả nhóm |
+| Artifacts | Checkpoint/log/config, scores theo ID, metric JSON/CSV, threshold đúng model/seed | Từng người sở hữu model |
 
-## 11. Quy trình freeze và nghiệm thu
+Bảng cần ghép: A/B/C gốc, chín run C, mean±std từng kiến trúc, nâng cao trước/sau,
+F1/support nhãn hiếm và bảng lỗi đối chiếu. Chưa có số thì ghi chưa đo, không điền số giả định.
+Tỷ lệ đóng góp lấy từ công việc thực tế, không tự chia đều.
 
-Trước test: chốt dataset/label/metrics, checkpoint từng seed, prompt B, thresholds,
-bảng configs gốc+nâng cao, rare labels, quy tắc chọn best C, commit và nơi artifacts.
-Các hệ thống phải áp dụng cùng protocol, không chỉ khóa riêng A.
+## 13. Tài liệu và nguồn dùng chung
 
-Phần A đã có `scripts.freeze_baseline` khóa sáu configs và hash; tiếp theo
-`scripts.evaluate_baseline_test` kiểm hash, suy luận một lần/model, lưu metric
-các configs đã khóa, rare-label changes. Chạy lại cùng protocol đọc kết quả đã có.
-**Chưa chạy hai lệnh này với test thật.**
+- [Bài báo GoEmotions — ACL 2020](https://aclanthology.org/2020.acl-main.372/).
+- [Dữ liệu Google Research GoEmotions](https://github.com/google-research/google-research/tree/master/goemotions).
+- [BART-large-MNLI](https://huggingface.co/facebook/bart-large-mnli).
+- [BERT](https://huggingface.co/google-bert/bert-base-uncased), [RoBERTa](https://huggingface.co/FacebookAI/roberta-base), [DistilBERT](https://huggingface.co/distilbert/distilbert-base-uncased).
+- [BCEWithLogitsLoss](https://docs.pytorch.org/docs/stable/generated/torch.nn.BCEWithLogitsLoss.html).
+- [Chọn ngưỡng trên validation](https://scikit-learn.org/1.7/modules/classification_threshold.html).
+- [Notebook EDA](../notebooks/eda.ipynb), [EDA bổ sung](../notebooks/eda_extra.ipynb), [báo cáo dữ liệu](../reports/THONG_KE_DU_LIEU.md).
+- [Trang kế hoạch Notion](https://app.notion.com/p/3ed7c27769028185af2dfbaac4c4586b).
 
-Tiêu chí bàn giao từng C: ≥3 seed đã chạy; config/log, checkpoint, val/test scores
-theo ID; P/R/F1/Hamming; mean±std; phần viết phương pháp/lỗi/hạn chế. Demo dùng
-best C, bản báo cáo cuối phải có đóng góp thực tế, không tự chia 25% khi chưa đo.
+## Mục riêng của Duy
 
-## 12. Tiến độ đã kiểm chứng ngày 02/10
-
-| Hạng mục | Đã có | Còn lại |
-|---|---|---|
-| EDA | Notebook/statistics từ đồng đội; đã nhập cập nhật main vào baseline branch | Nhóm tự kiểm và viết tóm tắt paper bằng lời mình |
-| A | Hai model full train, sáu hàng validation, rare labels/cặp lỗi, notebook, 16 tests mã | Test cuối sau freeze; phối hợp B và bảng toàn nhóm |
-| B | Mô tả/ ví dụ pipeline trong README | Chưa có benchmark val/test trong repo kiểm được |
-| C1/C2/C3 | Kế hoạch/checkpoint | Chưa có chín run/checkpoint/scores trong repo kiểm được |
-| Demo | Kế hoạch best C | Chưa có app kiểm chứng |
-| Nâng cao | A weighting/tuning validation thực | Xác nhận test cuối; C nâng cao nếu chọn |
-
-Các việc chưa có trong repo có thể đang ở Colab của đồng đội; trạng thái ở đây là
-bằng chứng đã kiểm, không suy đoán người khác chưa làm. Khi nhận artifact cập nhật trạng thái.
-
-## 13. Việc tiếp theo và phối hợp Git
-
-1. TV1 đọc [thứ tự tài liệu](THU_TU_DOC_BASELINE.md), tập giải thích A và dùng
-   [báo cáo cá nhân](../reports/BAO_CAO_BASELINE_BAO_DUY.md) làm bản nháp tiến độ.
-2. Cả nhóm điền tên TV2–TV4, người B/demo/nâng cao, ngày bắt đầu/hạn báo cáo,
-   nơi chia sẻ model/scores lớn và lịch GPU.
-3. TV2 + TV1 triển khai B full val, đủ số cho cuối tuần 4.
-4. TV2/TV3/TV4 pilot đúng C được giao rồi chạy ba seed; cập nhật run tracker:
-   architecture/seed/config/val score/runtime/artifact/status.
-5. Gộp code qua PR; xem diff từ main mới nhất. GitHub author của TV1 là `dzyuu1612`
-   với email Git đã cấu hình. Giữ authorship EDA của đồng đội.
-6. Model/raw/scores ở `data/processed/` không đưa vào Git; chia sẻ riêng. Các bảng
-   validation nhỏ đã xuất tại `reports/baseline_validation/` để đọc trực tiếp.
-7. Nghiệm thu các phần bắt buộc, freeze chung, test cuối, báo cáo/phản biện.
-
-## 14. Nguồn phương pháp để học và trích dẫn
-
-- [Demszky và cộng sự, GoEmotions — ACL 2020](https://aclanthology.org/2020.acl-main.372/): nguồn bài toán/dataset/BERT gốc.
-- [Google Research GoEmotions](https://github.com/google-research/google-research/tree/master/goemotions): nhãn và split nguồn.
-- [TF-IDF, scikit-learn 1.7](https://scikit-learn.org/1.7/modules/generated/sklearn.feature_extraction.text.TfidfVectorizer.html).
-- [OneVsRestClassifier, scikit-learn 1.7](https://scikit-learn.org/1.7/modules/generated/sklearn.multiclass.OneVsRestClassifier.html).
-- [LogisticRegression, scikit-learn 1.7](https://scikit-learn.org/1.7/modules/generated/sklearn.linear_model.LogisticRegression.html): weighting và solver.
-- [Threshold tuning, scikit-learn 1.7](https://scikit-learn.org/1.7/modules/classification_threshold.html): validation tách train, tránh dùng test chọn ngưỡng.
-- [BART-large-MNLI model card](https://huggingface.co/facebook/bart-large-mnli): pipeline zero-shot/multi_label.
-- [BERT](https://huggingface.co/google-bert/bert-base-uncased), [RoBERTa](https://huggingface.co/FacebookAI/roberta-base), [DistilBERT](https://huggingface.co/distilbert/distilbert-base-uncased): checkpoint dự kiến, cần khóa revision khi chạy.
-- [PyTorch BCEWithLogitsLoss](https://docs.pytorch.org/docs/stable/generated/torch.nn.BCEWithLogitsLoss.html): loss đa nhãn dùng logits.
-
-Nguồn cô cung cấp là căn cứ yêu cầu môn học. Các nguồn kỹ thuật giải thích công cụ,
-không thay thế rubric của cô hoặc chứng minh nhóm đã chạy B/C.
-
-## 15. Nơi lưu kế hoạch và bàn giao
-
-- [Notion mới của đồ án](https://app.notion.com/p/3ed7c27769028185af2dfbaac4c4586b): toàn bộ kế hoạch, phân công, thứ tự đọc và báo cáo cá nhân.
-- [Nhánh baseline đã push](https://github.com/dzyuu1612/goemotions-multilabel-classification/tree/codex/baseline-starter): code/notebook/tables của TV1.
-- [PR #3 vào repo chung](https://github.com/trangkhanh-ai/goemotions-multilabel-classification/pull/3): chưa merge ngày 02/10; đang chờ nhóm review.
-
-Tài khoản GitHub `dzyuu1612` hiện chưa có quyền ghi repo chung, nên bàn giao qua
-fork và PR. Tên/email Git của các commit TV1 đã kiểm: `dzyuu1612` /
-`baoduynguyen1612@gmail.com`. Không thay author các commit EDA của đồng đội.
+[Phần của Duy — baseline, tài liệu và báo cáo](https://app.notion.com/p/3ee7c277690281e693c7f1cf985d569d).
+Notebook, hướng dẫn, bảng kết quả, hồ sơ đối chiếu và báo cáo baseline nằm trong mục này.
