@@ -1,6 +1,6 @@
 # Thứ tự đọc phần baseline của Bảo Duy Nguyễn
 
-Cập nhật 02/10/2026. Vai trò: TV1, baseline A; GitHub `dzyuu1612`.
+Cập nhật 03/10/2026. Vai trò trong nhóm 4 người: baseline A và điều phối B làm chung; GitHub `dzyuu1612`.
 Đây là trang đánh dấu để bạn quay lại học sau. Mã và output đã có, nhưng bạn cần
 tự đọc, chạy và giải thích được trước khi bảo vệ.
 
@@ -30,8 +30,12 @@ Notebook đã có output thật nên có thể đọc trước khi cài môi tr�
 | 6 | Bảng kết quả và lỗi theo ID | Chọn một ví dụ, đọc nhãn thật/đoán, chỉ ra FN và FP, nêu giới hạn diễn giải |
 
 Không cần học PyTorch/Transformer để chạy A. Cần hiểu khái quát B/C để giải thích
-baseline là mốc so sánh trong đồ án. B do Đức Trí phụ trách; bạn hiểu giao diện
-scores/metrics để phối hợp.
+baseline là mốc so sánh trong đồ án. Bạn điều phối B làm chung, tiếp nhận phần
+zero-shot Đức Trí đã nhận trước nếu có; Đức Trí sở hữu RoBERTa C2.
+Để làm B, học thêm NLI/entailment, candidate labels, `multi_label=True`,
+template và ánh xạ scores về thứ tự nhãn chuẩn. Tham khảo R07/R08/R18 trong
+[kế hoạch nhóm](KE_HOACH_NHOM.md). A đã có kết quả validation; B chưa được
+ghi nhận hoàn thành khi chưa có artifacts/số liệu bàn giao.
 
 ## Code đọc sau khi hiểu notebook
 

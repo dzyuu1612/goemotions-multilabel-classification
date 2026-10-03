@@ -7,14 +7,15 @@ Xem [kế hoạch đầy đủ theo công việc và sản phẩm](docs/KE_HOACH
 
 | Người | Phần phụ trách |
 |---|---|
-| Duy | Baseline A, data/metrics và phần báo cáo A |
-| Đức Trí — Thợ Săn Thập Cẩm | Zero-shot B, phần báo cáo/kết quả B |
+| Duy | Baseline A; điều phối zero-shot B làm chung; data/metrics và bảng nâng cao/lỗi |
+| Đức Trí — Thợ Săn Thập Cẩm | RoBERTa C2; bàn giao/hỗ trợ B đã nhận trước |
 | Quốc Khánh | BERT C1, phần đầu báo cáo và script fine-tune chung |
-| Hoàng Phúc | RoBERTa C2, tổng hợp nhãn hiếm/nâng cao và cặp lỗi |
 | Nhật Huy | DistilBERT C3, demo của mô hình C tốt nhất |
 
-**Theo đoạn chat:** Đức Trí nhận zero-shot; Quốc Khánh nhận phần đầu báo cáo và
-fine-tune một mô hình. BERT/RoBERTa/DistilBERT được phân bổ lần lượt cho Khánh/Phúc/Huy.
+**Cập nhật nhóm 4 người:** Duy phụ trách A và điều phối B làm chung;
+Khánh/Trí/Huy mỗi người làm trọn BERT/RoBERTa/DistilBERT, mỗi kiến trúc ≥3 seed.
+Đức Trí đã nhận zero-shot trong trao đổi trước, bàn giao phần đã làm nếu có.
+Quốc Khánh giữ phần đầu báo cáo. Xem mục 13 của kế hoạch để đọc 25 nguồn NLP.
 
 <details>
 <summary>Phần của Duy — baseline, tài liệu và báo cáo</summary>

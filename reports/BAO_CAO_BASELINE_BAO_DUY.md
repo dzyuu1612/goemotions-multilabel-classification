@@ -1,7 +1,10 @@
 # Báo cáo tiến độ cá nhân — baseline A
 
 **Người phụ trách:** Bảo Duy Nguyễn — GitHub `dzyuu1612`.
-**Ngày cập nhật:** 02/10/2026. **Phạm vi:** phần A của đề tài GoEmotions.
+**Ngày cập nhật:** 03/10/2026. **Phạm vi kết quả đã đo:** phần A của đề tài GoEmotions.
+Vai trò cập nhật trong nhóm 4 người: A và điều phối B làm chung. B chưa có kết quả
+được ghi nhận trong báo cáo này; tiếp nhận phần Đức Trí đã nhận trước nếu có,
+trong khi Đức Trí sở hữu RoBERTa C2.
 
 ## Những việc đã thực hiện
 
@@ -49,7 +52,7 @@ chưa merge tại ngày cập nhật. Kế hoạch và báo cáo này cũng đư
 
 ## Việc còn lại
 
-Tự học/chạy lại để bảo vệ, phối hợp Đức Trí (người phụ trách B zero-shot), ghép bảng A/B/C khi nhận scores;
+Tự học/chạy lại để bảo vệ, điều phối B zero-shot và tiếp nhận bàn giao của Đức Trí nếu có, ghép bảng A/B/C khi nhận scores;
 sau khi nhóm chốt protocol chạy test cuối và bổ sung F1 nhãn hiếm trước/sau.
 Nhóm vẫn cần đủ ba C × ba seed, mean±std, demo best C và ≥3 nhóm lỗi đối chiếu C.
 Chưa tự công bố phần trăm đóng góp khi nhóm chưa thống kê công việc thực tế.
