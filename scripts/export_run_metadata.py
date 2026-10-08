@@ -332,6 +332,7 @@ def export_metadata(root, seeds=(42, 123, 2026), output=None, *, max_bytes=MAX_J
                 "c_full_completed": sum(group["status"] == "complete" for name, group in groups.items() if name.startswith("C/")),
                 "c_full_expected": len(ARCHITECTURES) * len(seeds),
                 "notes": ["JSON bytes are copied from existing verified artifacts; configs/history are not invented.",
+                          "Repository .gitattributes marks artifact mirrors -text to preserve source bytes in Git blobs and clones.",
                           "Git HEAD and source hashes describe the repository at export time, not the unrecorded training commit.",
                           "Weights, prediction NPZ, raw text, datasets, tokenizer vocabulary and virtual environments are omitted.",
                           "Missing/incomplete/invalid/conflict entries are not results. Read only status=exported entries."]}

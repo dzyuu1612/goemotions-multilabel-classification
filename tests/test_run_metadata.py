@@ -1,6 +1,9 @@
 """Exporter chỉ kiểm/copy JSON GIẢ; không đọc dataset hay tải model/GPU."""
+import hashlib
 import json
 from pathlib import Path
+import shutil
+import subprocess
 import tempfile
 import unittest
 from unittest.mock import patch
@@ -12,6 +15,42 @@ from src.neural import run_folder
 
 
 class RunMetadataTest(unittest.TestCase):
+    @unittest.skipUnless(shutil.which("git"), "Git is required for the transport check")
+    def test_git_transport_preserves_crlf_metadata_with_repository_attributes(self):
+        """Kiểm Git blob thật, không chỉ hash bản copy trong working tree."""
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+
+            def git(*arguments):
+                return subprocess.run(["git", *arguments], cwd=root, check=True,
+                                      stdout=subprocess.PIPE, stderr=subprocess.PIPE).stdout
+
+            git("init", "--quiet")
+            git("config", "core.autocrlf", "true")
+            git("config", "core.safecrlf", "false")
+            relative = "reports/reproducibility/artifacts/fixture.json"
+            fixture = root / relative
+            fixture.parent.mkdir(parents=True)
+            payload = b'{\r\n  "seed": 42\r\n}\r\n'
+            fixture.write_bytes(payload)
+
+            # Đối chứng: chưa có rule -text, autocrlf chuyển CRLF thành LF trong blob.
+            git("add", "--", relative)
+            normalized = git("cat-file", "blob", ":" + relative)
+            self.assertEqual(normalized, payload.replace(b"\r\n", b"\n"))
+            self.assertNotEqual(hashlib.sha256(normalized).hexdigest(),
+                                hashlib.sha256(payload).hexdigest())
+
+            # Dùng đúng .gitattributes của repo; stage lại như bước sửa vận chuyển.
+            attributes = Path(__file__).resolve().parents[1] / ".gitattributes"
+            (root / ".gitattributes").write_bytes(attributes.read_bytes())
+            git("add", "--", ".gitattributes")
+            git("add", "--renormalize", "--", relative)
+            preserved = git("cat-file", "blob", ":" + relative)
+            self.assertEqual(preserved, payload)
+            self.assertEqual(hashlib.sha256(preserved).hexdigest(),
+                             hashlib.sha256(payload).hexdigest())
+
     def test_copy_keeps_original_json_bytes_and_hash(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary) / "source"

@@ -8,6 +8,12 @@ cần đọc được cấu hình, seed, môi trường, revision, lịch sử e
 đã tồn tại** sang `reports/reproducibility/artifacts/`, giữ cấu trúc đường dẫn
 nguồn. `manifest.json` ghi source path, source/export SHA-256, bytes và trạng thái.
 
+`.gitattributes` áp dụng `reports/reproducibility/artifacts/** -text` để Git giữ
+nguyên byte cho các bản copy metadata. Nếu thiếu rule này, `core.autocrlf=true`
+có thể đổi CRLF ở working tree thành LF trong Git blob: hash kiểm trên máy
+Windows đúng nhưng bản tải từ GitHub hoặc clone trên Linux không khớp manifest.
+Quy tắc `-text` giữ cả newline gốc; không chuẩn hóa lại JSON đã được hash.
+
 Hồ sơ chứa metadata và kết quả có thật; các mục đang thiếu/chưa chạy xong vẫn
 được ghi rõ, không sinh config, scores hoặc metric thay thế. File config/history
 của A/B/C nằm trong metadata gốc; history C không được dựng từ mô tả kế hoạch.
@@ -65,7 +71,8 @@ model lớn, prediction NPZ, Parquet, văn bản ví dụ, tokenizer vocabulary 
 3. Mở metadata đúng architecture/seed: kiểm checkpoint và **model_revision SHA
    thật**, data revision, labels, config, environment, sizes và history.
 4. So `source_sha256` với `export_sha256`: phải bằng nhau. Đây là copy nguyên
-   byte, không sửa số hoặc viết lại JSON cho đẹp.
+   byte, không sửa số hoặc viết lại JSON cho đẹp. Hash bản clone/raw GitHub cũng
+   phải bằng `export_sha256`; không chỉ kiểm working tree của máy đã export.
 5. Với bảng test, kiểm frozen protocol, thời điểm khóa và hash metadata/scores.
    Validation tuned đã dùng nhãn validation để chọn ngưỡng; phân biệt với test.
 6. Khi có model/scores đầy đủ, dùng module kiểm của A/C và protocol checker của
@@ -110,4 +117,7 @@ python -m unittest tests.test_run_metadata -v
 
 Tests dùng thư mục tạm/metadata giả để kiểm copy nguyên byte, whitelist/no raw
 text, JSON quá lớn, path traversal, incomplete C, missing sources và bảo toàn
-file đã được người khác sửa. Không chạy training hoặc GPU.
+file đã được người khác sửa. Test Git transport tạo repo tạm với autocrlf=true,
+chứng minh CRLF bị đổi khi chưa có attributes rồi kiểm byte/hash của Git blob
+sau khi áp dụng đúng `.gitattributes` của dự án và stage lại. Test đó cần Git;
+không commit hoặc thay index của repo đang làm việc. Không chạy training/GPU.

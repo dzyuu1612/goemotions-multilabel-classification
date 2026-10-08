@@ -56,7 +56,7 @@ và [thứ tự đọc lưu trong repo](docs/THU_TU_DOC_BASELINE.md).
 
 [Báo cáo baseline của Duy](reports/BAO_CAO_BASELINE_BAO_DUY.md) ·
 [CSV sáu cấu hình validation](reports/baseline_validation/comparison.csv) ·
-[PR #3 vào repo chung](https://github.com/trangkhanh-ai/goemotions-multilabel-classification/pull/3).
+[PR #3 baseline — đã merge ngày 05/10/2026](https://github.com/trangkhanh-ai/goemotions-multilabel-classification/pull/3).
 Chưa chạy test thật; bảng hiện tại là validation.
 
 </details>
