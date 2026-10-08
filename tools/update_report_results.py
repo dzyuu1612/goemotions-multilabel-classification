@@ -140,6 +140,15 @@ def main():
                 extra = extra.replace("| Nhãn | Mô hình |", "**Bảng 5-2d. F1 năm nhãn hiếm trước/sau cải tiến.**\n\n| Nhãn | Mô hình |", 1)
                 extra = extra.replace("| Kiến trúc | Full seeds", "**Bảng 5-2e. Thời gian hoàn thành run C và số tham số.**\n\n| Kiến trúc | Full seeds", 1)
                 extra = re.sub(r"(!\[[^\]]+\]\([^\n]+\))", r"\1\n\n**Hình 5.1. Đường học validation: mean và sample std theo epoch.**", extra, count=1)
+                for split, figure_number in (("validation", "5.2"), ("test", "5.3")):
+                    graph = ROOT / "reports/project_results/figures" / f"fixed_tuned_{split}.png"
+                    if graph.exists():
+                        target = graph.relative_to(ROOT / "reports").as_posix()
+                        extra += (f"\n\n![So sánh ngưỡng trên {split}]({target})\n\n"
+                                  f"**Hình {figure_number}. Macro-F1 ba C: ngưỡng 0,5 và ngưỡng riêng trên {split}.**\n\n"
+                                  "Cột là mean và thanh sai số là sample std qua ba seed. "
+                                  "Ngưỡng riêng được chọn trên validation của từng seed; "
+                                  "điểm tuned-validation có thể lạc quan. Test sử dụng các ngưỡng đã khóa.")
             additional.extend(["", title, "", extra])
     evidence = ROOT / "reports/demo_verification.json"
     if evidence.exists():
