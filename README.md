@@ -1,5 +1,20 @@
 # GoEmotions: Phân loại cảm xúc đa nhãn trên văn bản mạng xã hội
 
+## Code và báo cáo toàn đồ án
+
+Đã bổ sung mã A/B/C/D, kiểm thử và báo cáo theo mẫu sáu chương của cô, dùng trích
+dẫn IEEE. Thực nghiệm full đang chạy; kết quả hợp lệ chỉ lấy từ artifacts, không
+lấy smoke làm benchmark.
+
+- [Báo cáo Word](reports/BAO_CAO_DO_AN_GOEMOTIONS_IEEE.docx) · [PDF](reports/BAO_CAO_DO_AN_GOEMOTIONS_IEEE.pdf) · [Nội dung dễ đọc](reports/BAO_CAO_DO_AN_NOI_DUNG.md).
+- [Thứ tự đọc toàn đồ án](docs/THU_TU_DOC_DO_AN.md) · [Cách chạy](docs/CHAY_THUC_NGHIEM.md) · [Đối chiếu yêu cầu cô](docs/DOI_CHIEU_YEU_CAU_CO.md).
+- [Notebook B](notebooks/zero_shot.ipynb) · [Notebook C](notebooks/transformers.ipynb) · [Demo C](app.py).
+- [Bảng số thực tế](reports/project_results/RESULTS.md); mỗi C chỉ có mean±std khi đủ ba seed.
+
+Lệnh chạy toàn bộ: `python -m scripts.complete_project --device cuda`.
+Các trọng số/scores lớn được giữ ở máy chạy và tái tạo bằng script; Git giữ code,
+hướng dẫn, bảng nhỏ và báo cáo. Thông tin giảng viên/lớp/MSSV trên bìa để trống.
+
 ## Kế hoạch và phân công nhóm
 
 Xem [kế hoạch đầy đủ theo công việc và sản phẩm](docs/KE_HOACH_NHOM.md) hoặc
@@ -53,8 +68,8 @@ Phần EDA đã chạy trên **54.263 mẫu GoEmotions simplified**, giữ nguy�
 
 Đã đối chiếu số mẫu, support/tỷ lệ từng nhãn và 30 ví dụ với dữ liệu nguồn.
 Với bài toán đa nhãn, một bình luận được tính vào nhiều nhãn nên tổng support có thể
-lớn hơn số mẫu. Trên nhánh triển khai baseline, đã có mã A và số đo validation đầu tiên;
-zero-shot và ba mô hình fine-tune vẫn là kế hoạch của đồ án.
+lớn hơn số mẫu. Nhánh triển khai đã có A và số đo validation thật; B/C/D có mã,
+smoke đã kiểm và quy trình chạy full để bổ sung kết quả cuối.
 
 ## Bài toán và bài báo nền tảng
 
@@ -87,7 +102,8 @@ Repo hiện có mã và sản phẩm EDA. Nhánh baseline đã chạy TF-IDF + O
 Logistic Regression ở hai cấu hình: chuẩn và cân bằng lớp. Xem [hướng dẫn từng bước](docs/BASELINE.md)
 và [bảng kết quả validation thật](reports/BASELINE_RESULTS.md). Cấu hình chuẩn ở ngưỡng
 0,5 có Macro-F1 **0,2025**, Micro-F1 **0,3760**; cấu hình cân bằng lớp có Macro-F1
-**0,4562**, Micro-F1 **0,5099**. Test chưa được đánh giá; B và C chưa có kết quả trong repo.
+**0,4562**, Micro-F1 **0,5099**. Đây là số validation ở ngưỡng0,5; trạng thái B/C/test
+và các kết quả mới xem tại bảng `reports/project_results/RESULTS.md`.
 Có [notebook baseline với output đã chạy](notebooks/baseline.ipynb) để học từng bước.
 Xem [hồ sơ rà soát phần A ngày 01/10](docs/BASELINE_REVIEW.md) để biết các lỗi đã sửa,
 bằng chứng kiểm chứng và phần việc còn cần cả nhóm hoàn thành.
@@ -123,7 +139,7 @@ GoEmotions: split gốc + 28 nhãn + quy tắc đánh giá chung
             So sánh trên cùng tập test và phân tích lỗi
 ```
 
-Danh sách checkpoint dự kiến: `google-bert/bert-base-uncased`, `FacebookAI/roberta-base`, `distilbert/distilbert-base-uncased`. Ba mô hình này thuộc **cùng hướng fine-tuning**, nhưng được huấn luyện và đánh giá riêng.
+Danh sách checkpoint: `google-bert/bert-base-cased`, `FacebookAI/roberta-base`, `distilbert/distilbert-base-uncased`. Ba mô hình thuộc **cùng hướng fine-tuning**, được huấn luyện và đánh giá riêng. C1 chọn cased để gần cấu hình tác giả GoEmotions.
 
 ### A — TF-IDF + One-vs-Rest Logistic Regression
 
@@ -228,15 +244,16 @@ Dùng dự đoán theo ID, thống kê lỗi và ví dụ nguyên văn để ch�
 
 ## Kết quả thực nghiệm
 
-| Hệ thống | Thiết lập dự kiến | Trạng thái |
+| Hệ thống | Thiết lập | Hồ sơ kết quả |
 |---|---|---|
 | A | TF-IDF + One-vs-Rest Logistic Regression | Đã có hai biến thể và bảng validation trong `reports/BASELINE_RESULTS.md`; chưa đo test |
-| B | BART-large-MNLI, multi_label=True | Dự kiến, chưa có số đo trong repo |
-| C1 | BERT-base-uncased, 28 đầu ra | Dự kiến, chưa có số đo trong repo |
-| C2 | RoBERTa-base, 28 đầu ra | Dự kiến, chưa có số đo trong repo |
-| C3 | DistilBERT-base-uncased, 28 đầu ra | Dự kiến, chưa có số đo trong repo |
+| B | BART-large-MNLI, multi_label=True | Code và smoke đã kiểm; số full tại bảng tổng hợp |
+| C1 | BERT-base-cased, 28 đầu ra | Code và smoke đã kiểm; full3seed và mean/std tại bảng tổng hợp |
+| C2 | RoBERTa-base, 28 đầu ra | Code và head/backward đã kiểm; full3seed và mean/std tại bảng tổng hợp |
+| C3 | DistilBERT-base-uncased, 28 đầu ra | Code và smoke đã kiểm; full3seed và mean/std tại bảng tổng hợp |
 
-Khi B/C có kết quả, bổ sung số cùng split/metric và link log chạy thật; không điền số giả định.
+Đọc [bảng tổng hợp thực nghiệm](reports/project_results/RESULTS.md), log và danh sách
+`missing` để kiểm mức hoàn thành. Source code có sẵn không thay thế hồ sơ full.
 
 ## Môi trường và cài đặt
 
@@ -254,7 +271,7 @@ Nhóm cần bổ sung môi trường mô hình riêng, ghi phiên bản đã ki�
 - [TF-IDF trong scikit-learn](https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.TfidfVectorizer.html)
 - [BART-large-MNLI model card](https://huggingface.co/facebook/bart-large-mnli)
 - [Zero-shot pipeline](https://huggingface.co/docs/transformers/main/en/main_classes/pipelines#transformers.ZeroShotClassificationPipeline)
-- [BERT-base-uncased model card](https://huggingface.co/google-bert/bert-base-uncased)
+- [BERT-base-cased model card](https://huggingface.co/google-bert/bert-base-cased)
 - [RoBERTa-base model card](https://huggingface.co/FacebookAI/roberta-base)
 - [DistilBERT-base-uncased model card](https://huggingface.co/distilbert/distilbert-base-uncased)
 - [BCEWithLogitsLoss trong mã nguồn PyTorch](https://github.com/pytorch/pytorch/blob/main/torch/nn/modules/loss.py)

@@ -87,7 +87,7 @@ Full validation cần 5.426 × 28 = 151.928 cặp câu/giả thuyết; đo tài 
 
 ### C1 BERT
 
-1. Checkpoint đề xuất `google-bert/bert-base-uncased`; tokenizer tương ứng; khóa revision.
+1. Checkpoint `google-bert/bert-base-cased` để gần lựa chọn cased trong code/README bài gốc; tokenizer tương ứng; khóa revision.
 2. Tạo script fine-tune chung nhận checkpoint/seed/config; chia sẻ cho Đức Trí và Nhật Huy. Mỗi bạn vẫn chạy, kiểm và sở hữu kết quả kiến trúc mình.
 3. Pilot multi-hot float, head 28 logits, loss và lưu checkpoint/scores; không dùng nhãn đơn.
 4. Chốt cấu hình sau pilot; chạy ≥3 seed đề xuất **42, 123, 2026**.
@@ -236,7 +236,7 @@ Kiểm tra nguồn ngày **03/10/2026**. Dùng paper gốc, model card của bê
 | R06 | [Sanh et al. (2019), DistilBERT](https://arxiv.org/abs/1910.01108) | C3, Huy: distillation, mô hình nhỏ và đánh đổi hiệu quả/chi phí |
 | R07 | [Yin, Hay, Roth (2019), Benchmarking Zero-shot Text Classification](https://arxiv.org/abs/1909.00161) | B, Duy/nhóm: cách dùng entailment cho zero-shot |
 | R08 | [facebook/bart-large-mnli — model card](https://huggingface.co/facebook/bart-large-mnli) | B: checkpoint đã học MNLI, candidate labels và dùng nhiều nhãn |
-| R09 | [google-bert/bert-base-uncased — model card](https://huggingface.co/google-bert/bert-base-uncased) | Checkpoint/tokenizer C1; log revision tải thực tế |
+| R09 | [google-bert/bert-base-cased — model card](https://huggingface.co/google-bert/bert-base-cased) | Checkpoint/tokenizer C1; log revision tải thực tế |
 | R10 | [FacebookAI/roberta-base — model card](https://huggingface.co/FacebookAI/roberta-base) | Checkpoint/tokenizer C2; log revision |
 | R11 | [distilbert/distilbert-base-uncased — model card](https://huggingface.co/distilbert/distilbert-base-uncased) | Checkpoint/tokenizer C3; log revision |
 
