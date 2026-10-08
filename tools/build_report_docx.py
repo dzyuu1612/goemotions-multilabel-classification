@@ -443,7 +443,7 @@ def build(source: Path, output: Path):
             i += 1
             continue
         title = plain(line)
-        if re.match(r"^(Hình\s+\d+[.\-]\d+|Bảng\s+(?:\d+|[A-Z])[.\-]\d+)\.", title):
+        if re.match(r"^(Hình\s+\d+[.\-]\d+|Bảng\s+(?:\d+|[A-Z])[.\-]\d+[a-z]?)\.", title):
             caption(document, title)
             i += 1
             continue

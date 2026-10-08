@@ -62,6 +62,10 @@ resume: kiểm nguyên nhân rồi chạy lại đúng run với `--overwrite`. 
 run đã hoàn tất. B checkpoint từng batch, có thể chạy lại để tiếp phần chưa xong.
 
 Sau khi đã đủ C/B validation, có thể dùng `--skip-training` để tiếp các bước sau.
+Run C dở có thể chạy lại bằng `--restart-incomplete`; các run hoàn tất vẫn được
+kiểm rồi bỏ qua. Windows có thể ngủ khi máy nhàn rỗi: `tools/keep_awake_for_process.ps1`
+cho phép giữ máy thức theo PID của tiến trình thí nghiệm và tự bỏ yêu cầu khi
+tiến trình kết thúc. Script không thay power plan hoặc giữ màn hình sáng.
 Nếu đã mở test, giữ model/protocol đã khóa. Không sửa tham số rồi dùng cùng test
 để chọn lại. Bản EDA đã khảo sát các split; nguyên tắc ở đây là **không dùng test
 để fit/chọn cấu hình/ngưỡng**, không tuyên bố chưa từng nhìn dữ liệu test.

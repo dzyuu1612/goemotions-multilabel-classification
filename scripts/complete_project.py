@@ -25,6 +25,12 @@ def main():
     parser.add_argument("--skip-training", action="store_true", help="Chỉ khi đã đủ C full và B validation")
     parser.add_argument("--restart-incomplete", action="store_true", help="Chạy lại run C dở; giữ các run hoàn tất đã kiểm hash")
     args = parser.parse_args()
+    # Yêu cầu chỉ sống cùng thread/process này; không thay power plan của máy.
+    if os.name == "nt":
+        import ctypes
+        state = ctypes.windll.kernel32.SetThreadExecutionState(0x80000001)
+        print("Giữ máy thức trong thời gian thực nghiệm." if state else
+              "Không đặt được yêu cầu giữ máy thức; kiểm chế độ ngủ của máy.", flush=True)
     output = ROOT / "reports/execution"
     output.mkdir(parents=True, exist_ok=True)
     environment = dict(os.environ, PYTHONUTF8="1", PYTHONUNBUFFERED="1")

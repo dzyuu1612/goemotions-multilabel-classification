@@ -345,6 +345,8 @@ Cấu hình đã khai báo cho thực nghiệm dùng max_length128, batch16 và 
 
 Lần chạy fixed padding đầu tiên được dừng trước khi hoàn thành epoch1 để đổi cách gom batch; không có kết quả benchmark từ lần đó. Hồ sơ này được lưu riêng trong log. Các run full dùng cùng cấu hình đệm theo batch và batch hiệu dụng16. Seed đã được thiết lập nhưng CUDA attention có cảnh báo thuật toán không bảo đảm xác định tuyệt đối; nhóm ghi giới hạn này và đo mean±std từ ba lần chạy thực tế, không cam kết tái tạo giống từng bit.
 
+Hệ thống Windows ghi nhận trở lại từ chế độ ngủ lúc09:38:56 ngày08/10/2026 khi BERT seed42 đang chạy epoch1. Vì vậy elapsed_seconds/epoch_seconds của lần chạy này bao gồm gián đoạn, không dùng riêng số đó để kết luận BERT chậm hơn kiến trúc khác. Bảng chi phí mô tả thời gian hoàn thành run trên máy tại lần đo, chịu ảnh hưởng của cache và trạng thái máy; chưa phải benchmark tốc độ được kiểm soát. Các phần còn lại được chạy với yêu cầu giữ máy thức tạm thời theo vòng đời tiến trình, không thay power plan lâu dài.
+
 Ba seed đề xuất là 42, 123 và 2026; mỗi kiến trúc giữ cùng cấu hình giữa các seed. Trước khi đánh giá test, nhóm chọn kiến trúc theo mean Macro-F1 validation @0,5. Khi hòa, ưu tiên std thấp hơn, rồi chi phí suy luận. Checkpoint demo được chọn trong kiến trúc thắng bằng validation; điểm của checkpoint demo khác điểm trung bình kiến trúc. Những run smoke hoặc thử ít bước không được tính vào yêu cầu ba run full.
 
 ### 4.2.4. Ngưỡng và nâng cao

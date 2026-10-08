@@ -9,14 +9,17 @@ ROOT = Path(__file__).resolve().parents[1]
 def main():
     summary = json.loads((ROOT / "reports/project_results/summary.json").read_text(encoding="utf-8"))
     content = (ROOT / "reports/project_results/RESULTS.md").read_text(encoding="utf-8")
-    content = content.replace("# Kết quả thí nghiệm thực tế", "**Bảng 5-2. Kết quả A/B/C thực tế.**", 1)
+    content = content.replace("# Kết quả thí nghiệm thực tế", "**Bảng 5-2a. Kết quả A/B/C thực tế.**", 1)
+    content = content.replace("Bảng 5-3. Precision/Recall", "Bảng 5-2b. Precision/Recall")
     content = content.replace("## Phần chưa có bằng chứng đầy đủ", "### 5.2.1. Kiểm tra mức hoàn thành")
     additional = ["", "### 5.2.2. Cấu hình, seed và lựa chọn demo", ""]
     selection_path = ROOT / "data/processed/transformers/selected_model.json"
     if selection_path.exists():
         selection = json.loads(selection_path.read_text(encoding="utf-8"))
         additional.append("Danh tính mô hình được chọn lưu trong selected_model.json; lựa chọn dựa trên mean validation Macro-F1@0,5 của ba seed, không dựa trên test.")
-        additional.append("```json\n" + json.dumps(selection, ensure_ascii=False, indent=2) + "\n```")
+        selected_summary = {key: selection[key] for key in
+                            ("architecture", "seed", "run_dir", "selection_rule", "checkpoint_rule", "default_threshold")}
+        additional.append("```json\n" + json.dumps(selected_summary, ensure_ascii=False, indent=2) + "\n```")
     else:
         additional.append("Chưa đủ hồ sơ để chọn demo C; không dùng kết quả smoke hoặc A/B để thay thế.")
     extra_paths = [("reports/errors_test_standard_fixed/summary.md", "### 5.2.3. Ba nhóm lỗi C1/C2/C3 trên test"),
@@ -35,6 +38,12 @@ def main():
                     target = image_path.as_posix()
                 return f"![{match[1]}]({target})"
             extra = re.sub(r"!\[([^\]]*)\]\(<([^>]+)>\)", portable_image, extra)
+            if "errors_test" in filename:
+                extra = extra.replace("| Kiến trúc | Seed | Nhóm lỗi", "**Bảng 5-2c. So sánh ba nhóm lỗi trên test.**\n\n| Kiến trúc | Seed | Nhóm lỗi", 1)
+            else:
+                extra = extra.replace("| Nhãn | Mô hình |", "**Bảng 5-2d. F1 năm nhãn hiếm trước/sau cải tiến.**\n\n| Nhãn | Mô hình |", 1)
+                extra = extra.replace("| Kiến trúc | Full seeds", "**Bảng 5-2e. Thời gian hoàn thành run C và số tham số.**\n\n| Kiến trúc | Full seeds", 1)
+                extra = re.sub(r"(!\[[^\]]+\]\([^\n]+\))", r"\1\n\n**Hình 5.1. Đường học validation: mean và sample std theo epoch.**", extra, count=1)
             additional.extend(["", title, "", extra])
     evidence = ROOT / "reports/demo_verification.json"
     if evidence.exists():
