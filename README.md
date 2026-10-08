@@ -6,6 +6,9 @@
 dẫn IEEE. Thực nghiệm full đang chạy; kết quả hợp lệ chỉ lấy từ artifacts, không
 lấy smoke làm benchmark.
 
+[PR #4 — phần mở rộng code và báo cáo, đang ở trạng thái nháp](https://github.com/trangkhanh-ai/goemotions-multilabel-classification/pull/4).
+Đánh giá test cuối và kiểm demo còn chờ hoàn tất thực nghiệm.
+
 - [Báo cáo Word](reports/BAO_CAO_DO_AN_GOEMOTIONS_IEEE.docx) · [PDF](reports/BAO_CAO_DO_AN_GOEMOTIONS_IEEE.pdf) · [Nội dung dễ đọc](reports/BAO_CAO_DO_AN_NOI_DUNG.md).
 - [Bài báo IEEE hai cột — Word](reports/BAI_BAO_GOEMOTIONS_IEEE.docx) · [PDF](reports/BAI_BAO_GOEMOTIONS_IEEE.pdf) · [Nội dung](reports/BAI_BAO_GOEMOTIONS_IEEE_NOI_DUNG.md) · [Kiểm định dạng và nguồn](reports/BAI_BAO_GOEMOTIONS_IEEE_KIEM_CHUNG.json).
 - [Báo cáo tiến độ 1](reports/BAO_CAO_TIEN_DO_1.docx) · [Báo cáo tiến độ 2](reports/BAO_CAO_TIEN_DO_2.docx); số liệu theo trạng thái khi xuất, không xác nhận đã nộp.
@@ -15,8 +18,8 @@ lấy smoke làm benchmark.
 - [Hồ sơ tái hiện có cấu hình/revision/hash](reports/reproducibility/README.md) · [Cách đối chiếu](docs/REPRODUCIBILITY.md).
 
 Báo cáo sáu chương giữ bố cục mẫu cô. Bài hai cột dùng định dạng bài báo IEEE;
-cả hai lấy cùng số thực đo và ghi rõ những thí nghiệm đang thiếu. Cập nhật sau
-khi đã tổng hợp artifacts: `python tools/update_report_results.py`,
+số liệu từng bản theo trạng thái tại thời điểm xuất và ghi rõ thí nghiệm đang thiếu.
+Đồng bộ các bản sau khi tổng hợp artifacts: `python tools/update_report_results.py`,
 `python tools/build_report_docx.py --pdf`, `python tools/build_ieee_paper.py --pdf`
 và `python tools/build_progress_reports.py --pdf` trong môi trường tạo tài liệu.
 
@@ -259,9 +262,9 @@ Dùng dự đoán theo ID, thống kê lỗi và ví dụ nguyên văn để ch�
 |---|---|---|
 | A | TF-IDF + One-vs-Rest Logistic Regression | Đã có hai biến thể và bảng validation trong `reports/BASELINE_RESULTS.md`; chưa đo test |
 | B | BART-large-MNLI, multi_label=True | Code và smoke đã kiểm; số full tại bảng tổng hợp |
-| C1 | BERT-base-cased, 28 đầu ra | Code và smoke đã kiểm; full3seed và mean/std tại bảng tổng hợp |
-| C2 | RoBERTa-base, 28 đầu ra | Code và head/backward đã kiểm; full3seed và mean/std tại bảng tổng hợp |
-| C3 | DistilBERT-base-uncased, 28 đầu ra | Code và smoke đã kiểm; full3seed và mean/std tại bảng tổng hợp |
+| C1 | BERT-base-cased, 28 đầu ra | Code và smoke đã kiểm; tiến độ ba seed và mean/std xem bảng tổng hợp |
+| C2 | RoBERTa-base, 28 đầu ra | Code và head/backward đã kiểm; tiến độ ba seed và mean/std xem bảng tổng hợp |
+| C3 | DistilBERT-base-uncased, 28 đầu ra | Code và smoke đã kiểm; tiến độ ba seed và mean/std xem bảng tổng hợp |
 
 Đọc [bảng tổng hợp thực nghiệm](reports/project_results/RESULTS.md), log và danh sách
 `missing` để kiểm mức hoàn thành. Source code có sẵn không thay thế hồ sơ full.
@@ -272,20 +275,25 @@ Mã EDA được repo ghi nhận đã kiểm tra trên Python 3.12.6. Xem `docs/
 Baseline A đã kiểm tra trên Python 3.13.9 với `requirements-baseline.txt`; xem `docs/BASELINE.md`.
 `requirements.txt` hiện phục vụ EDA, chưa đủ để chạy A/B/C.
 
-Nhóm cần bổ sung môi trường mô hình riêng, ghi phiên bản đã kiểm tra và lựa chọn PyTorch phù hợp thiết bị. Không dùng lệnh placeholder `python=3.x` như một lệnh cài đặt hoàn chỉnh. Ví dụ ở phần B cần môi trường đã cài transformers và PyTorch.
+Môi trường mô hình `.venv-models` đã được kiểm tra với Python 3.13.9,
+PyTorch 2.13.0+cu130 và Transformers 4.57.6. Các phiên bản dùng để tái lập nằm trong
+[requirements-models-lock.txt](requirements-models-lock.txt); môi trường thực tế
+ghi trong [environment_models.json](reports/environment_models.json).
+Xem [hướng dẫn cài mới và chạy thí nghiệm](docs/CHAY_THUC_NGHIEM.md) để chọn wheel
+PyTorch phù hợp máy. Giữ nguyên môi trường đang chạy thực nghiệm; cài mới dùng venv sạch.
 
 ## Tài liệu tham khảo
 
 - [Bài báo GoEmotions, ACL 2020](https://aclanthology.org/2020.acl-main.372/)
 - [GoEmotions của Google Research](https://github.com/google-research/google-research/tree/master/goemotions)
-- [OneVsRestClassifier và nhãn multi-hot](https://scikit-learn.org/stable/modules/generated/sklearn.multiclass.OneVsRestClassifier.html)
-- [TF-IDF trong scikit-learn](https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.TfidfVectorizer.html)
+- [OneVsRestClassifier và nhãn multi-hot — scikit-learn 1.7](https://scikit-learn.org/1.7/modules/generated/sklearn.multiclass.OneVsRestClassifier.html)
+- [TF-IDF trong scikit-learn 1.7](https://scikit-learn.org/1.7/modules/generated/sklearn.feature_extraction.text.TfidfVectorizer.html)
 - [BART-large-MNLI model card](https://huggingface.co/facebook/bart-large-mnli)
 - [Zero-shot pipeline](https://huggingface.co/docs/transformers/main/en/main_classes/pipelines#transformers.ZeroShotClassificationPipeline)
 - [BERT-base-cased model card](https://huggingface.co/google-bert/bert-base-cased)
 - [RoBERTa-base model card](https://huggingface.co/FacebookAI/roberta-base)
 - [DistilBERT-base-uncased model card](https://huggingface.co/distilbert/distilbert-base-uncased)
-- [BCEWithLogitsLoss trong mã nguồn PyTorch](https://github.com/pytorch/pytorch/blob/main/torch/nn/modules/loss.py)
+- [BCEWithLogitsLoss trong mã nguồn PyTorch v2.13.0](https://github.com/pytorch/pytorch/blob/v2.13.0/torch/nn/modules/loss.py)
 
 Trích dẫn bài báo nền tảng: Demszky, D., Movshovitz-Attias, D., Ko, J.,
 Cowen, A., Nemade, G., & Ravi, S. (2020). *GoEmotions: A Dataset of Fine-Grained
