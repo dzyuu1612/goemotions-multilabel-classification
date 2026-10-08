@@ -1,0 +1,55 @@
+﻿path,status,reason
+D:\DoAn\Đồ án NLP\goemotions-multilabel-classification\data\processed\baseline\final_protocol.json,missing,File chưa có
+D:\DoAn\Đồ án NLP\goemotions-multilabel-classification\data\processed\baseline\final\final_results.json,missing,File chưa có
+D:\DoAn\Đồ án NLP\goemotions-multilabel-classification\data\processed\zero_shot\full\run_metadata.json,missing,File chưa có
+D:\DoAn\Đồ án NLP\goemotions-multilabel-classification\data\processed\zero_shot\full\test_run_metadata.json,missing,File chưa có
+D:\DoAn\Đồ án NLP\goemotions-multilabel-classification\data\processed\transformers\bert\seed_42\full\standard\final_protocol.json,missing,File chưa có
+D:\DoAn\Đồ án NLP\goemotions-multilabel-classification\data\processed\transformers\bert\seed_42\full\standard\test_results.json,missing,File chưa có
+D:\DoAn\Đồ án NLP\goemotions-multilabel-classification\data\processed\transformers\bert\seed_123\full\standard\test_results.json,missing,File chưa có
+D:\DoAn\Đồ án NLP\goemotions-multilabel-classification\data\processed\transformers\bert\seed_2026\full\standard\run_metadata.json,missing,File chưa có
+D:\DoAn\Đồ án NLP\goemotions-multilabel-classification\data\processed\transformers\bert\seed_2026\full\standard\test_results.json,missing,File chưa có
+D:\DoAn\Đồ án NLP\goemotions-multilabel-classification\data\processed\transformers\roberta\seed_42\full\standard\run_metadata.json,missing,File chưa có
+D:\DoAn\Đồ án NLP\goemotions-multilabel-classification\data\processed\transformers\roberta\seed_42\full\standard\test_results.json,missing,File chưa có
+D:\DoAn\Đồ án NLP\goemotions-multilabel-classification\data\processed\transformers\roberta\seed_123\full\standard\run_metadata.json,missing,File chưa có
+D:\DoAn\Đồ án NLP\goemotions-multilabel-classification\data\processed\transformers\roberta\seed_123\full\standard\test_results.json,missing,File chưa có
+D:\DoAn\Đồ án NLP\goemotions-multilabel-classification\data\processed\transformers\roberta\seed_2026\full\standard\run_metadata.json,missing,File chưa có
+D:\DoAn\Đồ án NLP\goemotions-multilabel-classification\data\processed\transformers\roberta\seed_2026\full\standard\test_results.json,missing,File chưa có
+D:\DoAn\Đồ án NLP\goemotions-multilabel-classification\data\processed\transformers\distilbert\seed_42\full\standard\run_metadata.json,missing,File chưa có
+D:\DoAn\Đồ án NLP\goemotions-multilabel-classification\data\processed\transformers\distilbert\seed_42\full\standard\test_results.json,missing,File chưa có
+D:\DoAn\Đồ án NLP\goemotions-multilabel-classification\data\processed\transformers\distilbert\seed_123\full\standard\run_metadata.json,missing,File chưa có
+D:\DoAn\Đồ án NLP\goemotions-multilabel-classification\data\processed\transformers\distilbert\seed_123\full\standard\test_results.json,missing,File chưa có
+D:\DoAn\Đồ án NLP\goemotions-multilabel-classification\data\processed\transformers\distilbert\seed_2026\full\standard\run_metadata.json,missing,File chưa có
+D:\DoAn\Đồ án NLP\goemotions-multilabel-classification\data\processed\transformers\distilbert\seed_2026\full\standard\test_results.json,missing,File chưa có
+D:\DoAn\Đồ án NLP\goemotions-multilabel-classification\reports\project_results\figures\learning_curves_validation.png,missing,Cần history đủ ba C với cùng >=3 seeds
+D:\DoAn\Đồ án NLP\goemotions-multilabel-classification\reports\project_results\figures\fixed_tuned_validation.png,missing,Chưa đủ mean/std của ba C
+D:\DoAn\Đồ án NLP\goemotions-multilabel-classification\reports\project_results\figures\fixed_tuned_test.png,missing,Chưa đủ mean/std của ba C
+D:\DoAn\Đồ án NLP\goemotions-multilabel-classification\data\processed\baseline\final\final_results.json,missing,Chưa có kết quả A hợp lệ cho cấu hình này
+D:\DoAn\Đồ án NLP\goemotions-multilabel-classification\data\processed\zero_shot\full\validation_metrics.json,missing,Chưa có run full/protocol/kết quả hợp lệ
+D:\DoAn\Đồ án NLP\goemotions-multilabel-classification\data\processed\zero_shot\full\final_protocol.json,missing,Chưa có run full/protocol/kết quả hợp lệ
+D:\DoAn\Đồ án NLP\goemotions-multilabel-classification\data\processed\zero_shot\full\test_run_metadata.json,missing,Chưa có run full/protocol/kết quả hợp lệ
+D:\DoAn\Đồ án NLP\goemotions-multilabel-classification\data\processed\transformers\bert\seed_42\full\standard\final_protocol.json,missing,Chưa có run full/protocol/kết quả hợp lệ
+D:\DoAn\Đồ án NLP\goemotions-multilabel-classification\data\processed\transformers\bert\seed_42\full\standard\test_results.json,missing,Chưa có run full/protocol/kết quả hợp lệ
+D:\DoAn\Đồ án NLP\goemotions-multilabel-classification\data\processed\transformers\bert\seed_123\full\standard\validation_metrics.json,missing,Chưa có run full/protocol/kết quả hợp lệ
+D:\DoAn\Đồ án NLP\goemotions-multilabel-classification\data\processed\transformers\bert\seed_123\full\standard\final_protocol.json,missing,Chưa có run full/protocol/kết quả hợp lệ
+D:\DoAn\Đồ án NLP\goemotions-multilabel-classification\data\processed\transformers\bert\seed_123\full\standard\test_results.json,missing,Chưa có run full/protocol/kết quả hợp lệ
+D:\DoAn\Đồ án NLP\goemotions-multilabel-classification\data\processed\transformers\bert\seed_2026\full\standard\validation_metrics.json,missing,Chưa có run full/protocol/kết quả hợp lệ
+D:\DoAn\Đồ án NLP\goemotions-multilabel-classification\data\processed\transformers\bert\seed_2026\full\standard\final_protocol.json,missing,Chưa có run full/protocol/kết quả hợp lệ
+D:\DoAn\Đồ án NLP\goemotions-multilabel-classification\data\processed\transformers\bert\seed_2026\full\standard\test_results.json,missing,Chưa có run full/protocol/kết quả hợp lệ
+D:\DoAn\Đồ án NLP\goemotions-multilabel-classification\data\processed\transformers\roberta\seed_42\full\standard\validation_metrics.json,missing,Chưa có run full/protocol/kết quả hợp lệ
+D:\DoAn\Đồ án NLP\goemotions-multilabel-classification\data\processed\transformers\roberta\seed_42\full\standard\final_protocol.json,missing,Chưa có run full/protocol/kết quả hợp lệ
+D:\DoAn\Đồ án NLP\goemotions-multilabel-classification\data\processed\transformers\roberta\seed_42\full\standard\test_results.json,missing,Chưa có run full/protocol/kết quả hợp lệ
+D:\DoAn\Đồ án NLP\goemotions-multilabel-classification\data\processed\transformers\roberta\seed_123\full\standard\validation_metrics.json,missing,Chưa có run full/protocol/kết quả hợp lệ
+D:\DoAn\Đồ án NLP\goemotions-multilabel-classification\data\processed\transformers\roberta\seed_123\full\standard\final_protocol.json,missing,Chưa có run full/protocol/kết quả hợp lệ
+D:\DoAn\Đồ án NLP\goemotions-multilabel-classification\data\processed\transformers\roberta\seed_123\full\standard\test_results.json,missing,Chưa có run full/protocol/kết quả hợp lệ
+D:\DoAn\Đồ án NLP\goemotions-multilabel-classification\data\processed\transformers\roberta\seed_2026\full\standard\validation_metrics.json,missing,Chưa có run full/protocol/kết quả hợp lệ
+D:\DoAn\Đồ án NLP\goemotions-multilabel-classification\data\processed\transformers\roberta\seed_2026\full\standard\final_protocol.json,missing,Chưa có run full/protocol/kết quả hợp lệ
+D:\DoAn\Đồ án NLP\goemotions-multilabel-classification\data\processed\transformers\roberta\seed_2026\full\standard\test_results.json,missing,Chưa có run full/protocol/kết quả hợp lệ
+D:\DoAn\Đồ án NLP\goemotions-multilabel-classification\data\processed\transformers\distilbert\seed_42\full\standard\validation_metrics.json,missing,Chưa có run full/protocol/kết quả hợp lệ
+D:\DoAn\Đồ án NLP\goemotions-multilabel-classification\data\processed\transformers\distilbert\seed_42\full\standard\final_protocol.json,missing,Chưa có run full/protocol/kết quả hợp lệ
+D:\DoAn\Đồ án NLP\goemotions-multilabel-classification\data\processed\transformers\distilbert\seed_42\full\standard\test_results.json,missing,Chưa có run full/protocol/kết quả hợp lệ
+D:\DoAn\Đồ án NLP\goemotions-multilabel-classification\data\processed\transformers\distilbert\seed_123\full\standard\validation_metrics.json,missing,Chưa có run full/protocol/kết quả hợp lệ
+D:\DoAn\Đồ án NLP\goemotions-multilabel-classification\data\processed\transformers\distilbert\seed_123\full\standard\final_protocol.json,missing,Chưa có run full/protocol/kết quả hợp lệ
+D:\DoAn\Đồ án NLP\goemotions-multilabel-classification\data\processed\transformers\distilbert\seed_123\full\standard\test_results.json,missing,Chưa có run full/protocol/kết quả hợp lệ
+D:\DoAn\Đồ án NLP\goemotions-multilabel-classification\data\processed\transformers\distilbert\seed_2026\full\standard\validation_metrics.json,missing,Chưa có run full/protocol/kết quả hợp lệ
+D:\DoAn\Đồ án NLP\goemotions-multilabel-classification\data\processed\transformers\distilbert\seed_2026\full\standard\final_protocol.json,missing,Chưa có run full/protocol/kết quả hợp lệ
+D:\DoAn\Đồ án NLP\goemotions-multilabel-classification\data\processed\transformers\distilbert\seed_2026\full\standard\test_results.json,missing,Chưa có run full/protocol/kết quả hợp lệ

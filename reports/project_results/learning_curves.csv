@@ -1,0 +1,13 @@
+﻿architecture,seed,epoch,status,reason,train_loss,validation_macro_f1,validation_micro_f1,epoch_seconds,validation_seconds,selected_epoch
+bert,42,1.0,ok,,0.14516290026246828,0.28932570137857805,0.5345868381989114,4267.464758099988,25.17490500002168,4.0
+bert,42,2.0,ok,,0.08347089201850404,0.4162335558241992,0.563139611304103,779.7304453998804,23.61907949997112,4.0
+bert,42,3.0,ok,,0.06492102134177292,0.4401987027279973,0.5767167381974249,10425.745326099917,24.595382899977267,4.0
+bert,42,4.0,ok,,0.047236827343137645,0.46414774478497617,0.5759768451519537,731.4480180998798,25.55298350006342,4.0
+bert,123,,missing,Chưa có history của run full hoàn tất,,,,,,
+bert,2026,,missing,Chưa có history của run full hoàn tất,,,,,,
+roberta,42,,missing,Chưa có history của run full hoàn tất,,,,,,
+roberta,123,,missing,Chưa có history của run full hoàn tất,,,,,,
+roberta,2026,,missing,Chưa có history của run full hoàn tất,,,,,,
+distilbert,42,,missing,Chưa có history của run full hoàn tất,,,,,,
+distilbert,123,,missing,Chưa có history của run full hoàn tất,,,,,,
+distilbert,2026,,missing,Chưa có history của run full hoàn tất,,,,,,

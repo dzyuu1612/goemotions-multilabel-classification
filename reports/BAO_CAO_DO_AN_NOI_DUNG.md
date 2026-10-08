@@ -345,7 +345,7 @@ Cấu hình đã khai báo cho thực nghiệm dùng max_length128, batch16 và 
 
 Lần chạy fixed padding đầu tiên được dừng trước khi hoàn thành epoch1 để đổi cách gom batch; không có kết quả benchmark từ lần đó. Hồ sơ này được lưu riêng trong log. Các run full dùng cùng cấu hình đệm theo batch và batch hiệu dụng16. Seed đã được thiết lập nhưng CUDA attention có cảnh báo thuật toán không bảo đảm xác định tuyệt đối; nhóm ghi giới hạn này và đo mean±std từ ba lần chạy thực tế, không cam kết tái tạo giống từng bit.
 
-Hệ thống Windows ghi nhận trở lại từ chế độ ngủ lúc09:38:56 ngày08/10/2026 khi BERT seed42 đang chạy epoch1. Vì vậy elapsed_seconds/epoch_seconds của lần chạy này bao gồm gián đoạn, không dùng riêng số đó để kết luận BERT chậm hơn kiến trúc khác. Bảng chi phí mô tả thời gian hoàn thành run trên máy tại lần đo, chịu ảnh hưởng của cache và trạng thái máy; chưa phải benchmark tốc độ được kiểm soát. Các phần còn lại được chạy với yêu cầu giữ máy thức tạm thời theo vòng đời tiến trình, không thay power plan lâu dài.
+Hệ thống Windows ghi nhận trở lại từ chế độ ngủ lúc 09:38:56, 10:36:02 và 12:47:55 ngày 08/10/2026 trong lần chạy BERT seed 42. Vì vậy elapsed_seconds/epoch_seconds của lần chạy này bao gồm gián đoạn, không dùng riêng số đó để kết luận BERT chậm hơn kiến trúc khác. Bảng chi phí mô tả thời gian hoàn thành run trên máy tại lần đo, chịu ảnh hưởng của cache và trạng thái máy; chưa phải benchmark tốc độ được kiểm soát. Các phần còn lại được chạy với yêu cầu giữ máy thức tạm thời theo vòng đời tiến trình; thao tác ngủ máy thủ công vẫn có thể làm gián đoạn phép đo.
 
 Ba seed đề xuất là 42, 123 và 2026; mỗi kiến trúc giữ cùng cấu hình giữa các seed. Trước khi đánh giá test, nhóm chọn kiến trúc theo mean Macro-F1 validation @0,5. Khi hòa, ưu tiên std thấp hơn, rồi chi phí suy luận. Checkpoint demo được chọn trong kiến trúc thắng bằng validation; điểm của checkpoint demo khác điểm trung bình kiến trúc. Những run smoke hoặc thử ít bước không được tính vào yêu cầu ba run full.
 
@@ -429,19 +429,122 @@ Bằng chứng số gồm `reports/baseline_validation/comparison.csv`, các JSO
 ## 5.2. Kết quả B, ba C và demo
 
 <!-- AUTO_RESULTS -->
-Phần này dành cho kết quả được tổng hợp từ run thật của B/C/D. Trước khi có bằng chứng full, các ô chưa đo được để trống trạng thái; mã nguồn hoặc một run smoke không thay thế số liệu thực nghiệm.
+**Bảng 5-2a. Kết quả A/B/C thực tế.**
 
-**Bảng 5-2. Bảng nghiệm thu B/C/D; cần cập nhật bằng artifacts thực tế.**
+Std mẫu ddof=1; dấu — nghĩa là không áp dụng hoặc chưa đủ ba seed.
 
-| Hệ thống | Kết quả full validation | Seed full | Test sau khóa | Demo/ghi chú |
-|---|---|---|---|---|
-| B BART-MNLI | Chưa xác nhận trong phần nội dung này | Không áp dụng | Chưa xác nhận | Báo @0,5 và threshold hiệu chỉnh riêng |
-| C1 BERT-base-cased | Chưa xác nhận | Cần ≥3 | Chưa xác nhận | Mean ± sample std, config từng run |
-| C2 RoBERTa-base | Chưa xác nhận | Cần ≥3 | Chưa xác nhận | Mean ± sample std, config từng run |
-| C3 DistilBERT-base | Chưa xác nhận | Cần ≥3 | Chưa xác nhận | Mean ± sample std, config từng run |
-| D best C | Chưa chọn khi chưa đủ C | Theo checkpoint | Không dùng test để chọn | Cần chạy app và kiểm score |
+| Hệ thống | Split | Ngưỡng | Số run | Macro-F1 mean±std | Micro-F1 mean±std | Hamming Loss |
+|---|---|---|---:|---:|---:|---:|
+| A_standard | validation | fixed | 1 | 0.2025 | 0.3760 | 0.0354 |
+| A_standard | validation | global | 1 | 0.4094 | 0.5100 | 0.0544 |
+| A_standard | validation | tuned | 1 | 0.4391 | 0.5427 | 0.0433 |
+| A_balanced | validation | fixed | 1 | 0.4562 | 0.5099 | 0.0532 |
+| A_balanced | validation | global | 1 | 0.4660 | 0.5176 | 0.0473 |
+| A_balanced | validation | tuned | 1 | 0.4901 | 0.5467 | 0.0443 |
 
-Không xếp hạng các C hoặc kết luận vượt baseline khi bảng chưa đủ. Sau khi có artifacts, bảng này phải bao gồm số từng seed, mean ± std, số mẫu, ngưỡng, phiên bản, thiết bị và thời gian. Nếu một run chỉ dùng subset hoặc giới hạn số bước, ghi rõ pilot và không tính là full benchmark.
+**Bảng 5-2b. Precision/Recall theo cùng split và cấu hình.**
+
+| Hệ thống | Split | Ngưỡng | Macro-P | Macro-R | Micro-P | Micro-R |
+|---|---|---|---:|---:|---:|---:|
+| A_standard | validation | fixed | 0.5571 | 0.1436 | 0.7254 | 0.2538 |
+| A_standard | validation | global | 0.4578 | 0.4455 | 0.4102 | 0.6741 |
+| A_standard | validation | tuned | 0.5408 | 0.4513 | 0.4876 | 0.6119 |
+| A_balanced | validation | fixed | 0.3858 | 0.5801 | 0.4158 | 0.6592 |
+| A_balanced | validation | global | 0.4142 | 0.5470 | 0.4524 | 0.6047 |
+| A_balanced | validation | tuned | 0.4874 | 0.5219 | 0.4796 | 0.6356 |
+
+### 5.2.1. Kiểm tra mức hoàn thành
+
+- A test
+- B full validation + frozen protocol
+- C bert seed 42 frozen thresholds
+- C bert seed 42 test
+- C bert seed 123 full
+- C bert seed 2026 full
+- C roberta seed 42 full
+- C roberta seed 123 full
+- C roberta seed 2026 full
+- C distilbert seed 42 full
+- C distilbert seed 123 full
+- C distilbert seed 2026 full
+- D selected_model from 3 architectures × 3 seeds
+
+
+### 5.2.2. Cấu hình, seed và lựa chọn demo
+
+Chưa đủ hồ sơ để chọn demo C; không dùng kết quả smoke hoặc A/B để thay thế.
+
+**Bảng 5-2f. Kết quả từng seed C đã hoàn tất; Macro-F1.**
+
+| Kiến trúc | Seed | Epoch chọn | Val @0,5 | Test @0,5 | Test ngưỡng riêng |
+|---|---:|---:|---:|---:|---:|
+| bert | 42 | 4 | 0.4641 | Chưa đo | Chưa đo |
+
+Epoch chọn theo validation @0,5 của đúng seed. File all_runs.csv giữ đủ bảy metrics cho từng seed, split và luật ngưỡng; mean_std.csv giữ sample std. Những run chưa hoàn tất không được tính vào bảng. Cấu hình/revision/hash nhỏ lưu trong reports/reproducibility; trọng số lớn nằm trong data/processed để chạy demo hoặc chia sẻ riêng.
+
+### 5.2.4. Nhãn hiếm và chi phí huấn luyện
+
+
+#### 1. Năm nhãn hiếm: trước và sau cải tiến
+
+**Bảng tạm: VALIDATION — có calibration.** Test chưa đủ mọi cặp A/C1/C2/C3 nên chưa dùng để đưa ra bảng so sánh cuối. Các cấu hình tuned được đo trên cùng validation đã dùng để chọn ngưỡng; mức tăng có thể lạc quan, không được gọi là kết quả test. Các ô thiếu được ghi rõ.
+
+Nhãn hiếm lấy theo năm support thấp nhất trên train từ metadata A standard; hòa theo ID nhãn. A: standard fixed → balanced tuned. C1/C2/C3: cùng kiến trúc, cùng ít nhất ba seed, fixed → tuned. C báo mean ± sample std (`ddof=1`); Δ tính theo cặp seed. A là một run, không tạo std bằng 0.
+
+**Bảng 5-2d. F1 năm nhãn hiếm trước/sau cải tiến.**
+
+| Nhãn | Mô hình | Train + | Validation + | Test + | F1 trước | F1 sau | Δ F1 |
+|---|---|---:|---:|---:|---:|---:|---:|
+| grief | A: TF-IDF + LR | 77 | 13 | Chưa có/không khớp | 0.0000 | 0.4375 | +0.4375 |
+| grief | C1: BERT | 77 | 13 | Chưa có/không khớp | Thiếu kết quả | Thiếu kết quả | Thiếu kết quả |
+| grief | C2: RoBERTa | 77 | 13 | Chưa có/không khớp | Thiếu kết quả | Thiếu kết quả | Thiếu kết quả |
+| grief | C3: DistilBERT | 77 | 13 | Chưa có/không khớp | Thiếu kết quả | Thiếu kết quả | Thiếu kết quả |
+| pride | A: TF-IDF + LR | 111 | 15 | Chưa có/không khớp | 0.0000 | 0.6087 | +0.6087 |
+| pride | C1: BERT | 111 | 15 | Chưa có/không khớp | Thiếu kết quả | Thiếu kết quả | Thiếu kết quả |
+| pride | C2: RoBERTa | 111 | 15 | Chưa có/không khớp | Thiếu kết quả | Thiếu kết quả | Thiếu kết quả |
+| pride | C3: DistilBERT | 111 | 15 | Chưa có/không khớp | Thiếu kết quả | Thiếu kết quả | Thiếu kết quả |
+| relief | A: TF-IDF + LR | 153 | 18 | Chưa có/không khớp | 0.0000 | 0.1739 | +0.1739 |
+| relief | C1: BERT | 153 | 18 | Chưa có/không khớp | Thiếu kết quả | Thiếu kết quả | Thiếu kết quả |
+| relief | C2: RoBERTa | 153 | 18 | Chưa có/không khớp | Thiếu kết quả | Thiếu kết quả | Thiếu kết quả |
+| relief | C3: DistilBERT | 153 | 18 | Chưa có/không khớp | Thiếu kết quả | Thiếu kết quả | Thiếu kết quả |
+| nervousness | A: TF-IDF + LR | 164 | 21 | Chưa có/không khớp | 0.0000 | 0.3125 | +0.3125 |
+| nervousness | C1: BERT | 164 | 21 | Chưa có/không khớp | Thiếu kết quả | Thiếu kết quả | Thiếu kết quả |
+| nervousness | C2: RoBERTa | 164 | 21 | Chưa có/không khớp | Thiếu kết quả | Thiếu kết quả | Thiếu kết quả |
+| nervousness | C3: DistilBERT | 164 | 21 | Chưa có/không khớp | Thiếu kết quả | Thiếu kết quả | Thiếu kết quả |
+| embarrassment | A: TF-IDF + LR | 303 | 35 | Chưa có/không khớp | 0.1081 | 0.5507 | +0.4426 |
+| embarrassment | C1: BERT | 303 | 35 | Chưa có/không khớp | Thiếu kết quả | Thiếu kết quả | Thiếu kết quả |
+| embarrassment | C2: RoBERTa | 303 | 35 | Chưa có/không khớp | Thiếu kết quả | Thiếu kết quả | Thiếu kết quả |
+| embarrassment | C3: DistilBERT | 303 | 35 | Chưa có/không khớp | Thiếu kết quả | Thiếu kết quả | Thiếu kết quả |
+
+Support là số câu có nhãn thật, không phải số lần model dự đoán nhãn. Δ > 0 là tăng, Δ < 0 là giảm. Bảng làm tròn bốn chữ số; số gốc và mọi mức giảm được giữ trong `rare_before_after.csv`. Các nhóm C thiếu seed/config/revision nhất quán sẽ không có mean/std.
+
+#### 2. Chi phí thực nghiệm C
+
+Lấy `elapsed_seconds` từ metadata của từng run full hoàn tất. Đây là thời gian toàn run C (chuẩn bị dữ liệu/model, train, validation và ghi checkpoint), không phải riêng thời gian optimizer. Tổng và trung bình chỉ hiển thị khi đủ tập seed yêu cầu; chi phí phụ thuộc máy và cache.
+
+**Bảng 5-2e. Thời gian hoàn thành run C và số tham số.**
+
+| Kiến trúc | Full seeds đủ chi phí | Số tham số | Tổng elapsed (giây) | Mean elapsed/run (giây) | Trạng thái |
+|---|---|---:|---:|---:|---|
+| bert | 1/3 | Thiếu kết quả | Thiếu kết quả | Thiếu kết quả | Thiếu run/metadata |
+| roberta | 0/3 | Thiếu kết quả | Thiếu kết quả | Thiếu kết quả | Thiếu run/metadata |
+| distilbert | 0/3 | Thiếu kết quả | Thiếu kết quả | Thiếu kết quả | Thiếu run/metadata |
+
+Nguồn chi tiết: `training_costs.csv`. Phép đo chi phí B cần tổng thời gian suy luận có xử lý resume; không dùng thời gian của một lần tiếp tục để đại diện toàn dataset.
+
+#### 3. Learning curves trên validation
+
+**Chưa có hình đủ ba kiến trúc × các seed:** xem `learning_curves.csv` và `missing_artifacts.csv`; không dựng đường giả hoặc thay model thiếu bằng điểm 0.
+
+#### 4. Hồ sơ đối chiếu
+
+- `per_label.csv`: P/R/F1 và TP/FP/FN/support cho từng nhãn, split, cấu hình và seed.
+- `aggregate_metrics.csv`: Macro/Micro-F1 fixed/tuned mean ± sample std của ba C.
+- `rare_before_after.csv`: nhãn hiếm, cặp trước/sau và Δ, giữ toàn bộ tăng/giảm.
+- `learning_curves.csv`, `training_costs.csv`: epoch và chi phí từ metadata thật.
+- `missing_artifacts.csv`, `analysis_manifest.json`: trạng thái thiếu/không hợp lệ và phạm vi dữ liệu.
+
+Script chỉ đọc artifact và kết quả đã lưu; không huấn luyện, chọn lại ngưỡng hoặc mở nhãn test.
 <!-- END_AUTO_RESULTS -->
 
 ## 5.3. Nâng cao và hiệu quả ở nhãn hiếm

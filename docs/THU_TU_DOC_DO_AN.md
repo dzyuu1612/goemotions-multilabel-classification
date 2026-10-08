@@ -81,7 +81,8 @@ fine-tuning và đa nhãn. Bảng A là validation/test riêng; Macro-F1 không 
 
 ## 5. Thứ tự chạy từ dữ liệu đến kết quả
 
-Dùng môi trường Python đã được cài đúng dependencies của repo. Các lệnh dưới chạy
+Dùng môi trường Python đã được cài đúng dependencies của repo; xem
+[hướng dẫn môi trường và thực nghiệm](CHAY_THUC_NGHIEM.md). Các lệnh dưới chạy
 tại gốc kho mã. Nếu dùng môi trường cục bộ `.venv-models`, thay `python` bằng
 `.\.venv-models\Scripts\python.exe`. Không cài lại hoặc huấn luyện lại chỉ để đọc bảng có sẵn.
 
@@ -101,24 +102,41 @@ python -m scripts.export_baseline_results
 ### B. Pretrained không fine-tune
 
 ```powershell
-python -m scripts.run_zero_shot --smoke --device auto --batch-size 8
-python -m scripts.run_zero_shot --device auto --batch-size 8
+python -m scripts.run_zero_shot --smoke --device cuda --dtype float16 --batch-size 16
+python -m scripts.run_zero_shot --device cuda --dtype float16 --batch-size 16
 ```
 
 Full B cần đủ 5.426 câu validation × 28 nhãn. Ngưỡng @0,5 là mốc gốc; ngưỡng
 chọn bằng nhãn val phải ghi là có hiệu chỉnh trên val dù trọng số không fine-tune.
+Các lệnh B trên khớp run CUDA float16 của máy hiện tại. Máy CPU chạy thí nghiệm
+riêng với `--device cpu --dtype float32 --batch-size 16`. Khi resume B, giữ nguyên
+device/dtype/batch-size/môi trường và model SHA; không chuyển run GPU sang CPU.
 
 ### C. Fine-tune và chọn kiến trúc
 
 ```powershell
-python -m scripts.train_transformer --architecture bert --seed 42 --smoke --device auto
-python -m scripts.run_transformer_seeds --seeds 42 123 2026 --device auto --resume
+python -m scripts.train_transformer --architecture bert --seed 42 --smoke --device cuda
+python -m scripts.run_transformer_seeds --seeds 42 123 2026 --device cuda --resume
 python -m scripts.select_best_transformer --seeds 42 123 2026
 ```
 
 Ba kiến trúc khác nhau, mỗi kiến trúc ít nhất ba seed; kế hoạch chính gồm 9 run.
 `--resume` chỉ bỏ qua run đã hoàn tất đúng config/hash. Run bị ngắt giữa epoch cần
 chạy lại riêng với `--overwrite`, không bỏ vào bảng chính như run hoàn tất.
+Config C hiện tại: batch **16**, accumulation **1**, max length **128**;
+`dynamic_batch_trim` chỉ bỏ padding dư. Lệnh `--device cuda` giữ đúng config các
+run GPU đang có; máy CPU bắt đầu run riêng với `--device cpu`. Run complete chỉ
+được resume khi config khớp, kể cả lựa chọn device đã khai báo.
+
+Để điều phối toàn bộ thay cho gọi riêng từng script:
+
+```powershell
+python -m scripts.complete_project --device cuda
+# Sau khi xác định cần chạy lại run dở:
+python -m scripts.complete_project --device cuda --restart-incomplete
+```
+
+Không chạy đồng thời pipeline và các lệnh train/predict khác trên cùng GPU.
 
 ### D. Khóa trước test, rồi tổng hợp và phân tích lỗi
 
@@ -126,7 +144,7 @@ chạy lại riêng với `--overwrite`, không bỏ vào bảng chính như run
 python -m scripts.freeze_baseline
 python -m scripts.evaluate_baseline_test
 python -m scripts.freeze_experiment --run-dir data/processed/zero_shot/full
-python -m scripts.run_zero_shot --split test --device auto --batch-size 8 --protocol data/processed/zero_shot/full/final_protocol.json
+python -m scripts.run_zero_shot --split test --device cuda --dtype float16 --batch-size 16 --protocol data/processed/zero_shot/full/final_protocol.json
 ```
 
 Với **từng run C full**, chạy hai lệnh sau, thay đường dẫn cho đúng kiến trúc/seed:
@@ -148,9 +166,17 @@ thủ công. Nhãn đồng xuất hiện trong EDA không phải cặp dự đo�
 
 ### E. Demo và báo cáo
 
+Chỉ chạy sau khi C full và lựa chọn demo đã hoàn tất:
+
 ```powershell
+python -m scripts.verify_demo --device cuda
 python app.py --device auto
 ```
+
+`reports/demo_verification.json` ghi đối chiếu ba câu validation và các trường
+hợp nhập rỗng/quá dài/cắt token. Kiểm suy luận dùng ngưỡng 0,5 và không chọn lại
+mô hình; việc app/HTTP chạy và ảnh giao diện cần minh chứng riêng. Không dùng chữ
+PASS suy luận để kết luận đã kiểm giao diện.
 
 Demo phải dùng checkpoint C full được chọn. Nếu dùng ngưỡng tuned, truyền
 `--thresholds` là `final_protocol.json` của **chính run được chọn**. Đọc run được
@@ -159,9 +185,17 @@ chọn trong `selected_model.json`, không mặc định BERT hoặc DistilBERT 
 Tổng hợp số thực nghiệm vào báo cáo, kèm nguồn IEEE `[n]`, cấu hình khác bài gốc,
 ≥3 loại lỗi, nâng cao/F1 nhãn hiếm, hạn chế, đóng góp thực tế và minh chứng demo.
 Các mẫu hành chính chưa biết như MSSV/lớp/giảng viên phải do nhóm điền đúng.
+Khi bàn giao GitHub, đọc bản metadata nhỏ/cấu hình/SHA/protocol ở
+`reports/reproducibility/` nếu đã được xuất. Checkpoint/scores nguồn nằm trong
+`data/processed/` và không tự xuất hiện chỉ vì đã clone repo; bản metadata giúp
+đối chiếu lần chạy, không thay thế mô hình để mở demo.
 
 ## 6. Cách biết nhóm đã đủ yêu cầu
 
+- B/C notebooks chỉ đọc trạng thái/kết quả local và in lệnh; chạy các ô không
+  tự train hay mở test. C incomplete hiện số epoch đã log; chỉ C complete có
+  metric cuối sau kiểm hash. B incomplete hiện số batch/mẫu đã ghi. JSON/hash
+  hỏng báo lỗi, không bị che thành “đang làm”. Chạy lại các ô trạng thái để cập nhật.
 - Code và unit tests chứng minh logic; **cần log full** để chứng minh kết quả A/B/C.
 - C cần đủ 9 run, bảng từng seed và mean±sample std; không lấy smoke hoặc một seed thay bảng này.
 - Nâng cao dùng weighting **hoặc** ngưỡng riêng **hoặc** contrastive; cần số trước/sau

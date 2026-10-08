@@ -70,6 +70,7 @@ def collect(root=ROOT):
         missing.append("B full validation + frozen protocol")
 
     for architecture in ARCHITECTURES:
+        reference_run = None
         for seed in SEEDS:
             folder = run_folder(root, architecture, seed)
             metadata_path = folder / "run_metadata.json"
@@ -77,6 +78,12 @@ def collect(root=ROOT):
                 missing.append(f"C {architecture} seed {seed} full")
                 continue
             metadata = load_transformer_run(folder, require_full=True)
+            # Ba seed phải lặp cùng một thí nghiệm, không gộp learning rate/revision khác.
+            if reference_run is None:
+                reference_run = metadata
+            elif (metadata["config"] != reference_run["config"] or
+                  metadata.get("model_revision") != reference_run.get("model_revision")):
+                raise ValueError(f"C {architecture}: các seed khác cấu hình hoặc revision checkpoint")
             frozen = folder / "final_protocol.json"
             if frozen.exists():
                 protocol = read_json(frozen)

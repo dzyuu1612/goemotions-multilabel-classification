@@ -1,0 +1,13 @@
+﻿architecture,split,threshold_mode,expected_seeds,n_seeds_available,status,ddof,reason,validation_calibrated,macro_f1_mean,macro_f1_std,micro_f1_mean,micro_f1_std
+bert,validation,fixed,"42,123,2026",1,missing,1,Cần đủ >=3 cùng seed/config/revision; không bỏ run thiếu để lấy trung bình,False,,,,
+bert,validation,tuned,"42,123,2026",0,missing,1,Cần đủ >=3 cùng seed/config/revision; không bỏ run thiếu để lấy trung bình,True,,,,
+roberta,validation,fixed,"42,123,2026",0,missing,1,Cần đủ >=3 cùng seed/config/revision; không bỏ run thiếu để lấy trung bình,False,,,,
+roberta,validation,tuned,"42,123,2026",0,missing,1,Cần đủ >=3 cùng seed/config/revision; không bỏ run thiếu để lấy trung bình,True,,,,
+distilbert,validation,fixed,"42,123,2026",0,missing,1,Cần đủ >=3 cùng seed/config/revision; không bỏ run thiếu để lấy trung bình,False,,,,
+distilbert,validation,tuned,"42,123,2026",0,missing,1,Cần đủ >=3 cùng seed/config/revision; không bỏ run thiếu để lấy trung bình,True,,,,
+bert,test,fixed,"42,123,2026",0,missing,1,Cần đủ >=3 cùng seed/config/revision; không bỏ run thiếu để lấy trung bình,False,,,,
+bert,test,tuned,"42,123,2026",0,missing,1,Cần đủ >=3 cùng seed/config/revision; không bỏ run thiếu để lấy trung bình,False,,,,
+roberta,test,fixed,"42,123,2026",0,missing,1,Cần đủ >=3 cùng seed/config/revision; không bỏ run thiếu để lấy trung bình,False,,,,
+roberta,test,tuned,"42,123,2026",0,missing,1,Cần đủ >=3 cùng seed/config/revision; không bỏ run thiếu để lấy trung bình,False,,,,
+distilbert,test,fixed,"42,123,2026",0,missing,1,Cần đủ >=3 cùng seed/config/revision; không bỏ run thiếu để lấy trung bình,False,,,,
+distilbert,test,tuned,"42,123,2026",0,missing,1,Cần đủ >=3 cùng seed/config/revision; không bỏ run thiếu để lấy trung bình,False,,,,

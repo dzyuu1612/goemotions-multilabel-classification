@@ -1,12 +1,12 @@
 """Suy luận test bằng checkpoint C và ba ngưỡng đã khóa từ validation."""
 import argparse
 from pathlib import Path
-import numpy as np
 
 from src.baseline import load_aligned_scores
 from src.data import load_goemotions, multi_hot, sha256
 from src.experiment import read_json, save_json, validate_protocol
 from src.metrics import evaluate_multilabel
+from src.zero_shot import write_scores
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -51,8 +51,8 @@ def evaluate_run(folder, protocol_path, *, device="auto", batch_size=16):
         loader = torch.utils.data.DataLoader(dataset, batch_size=batch_size, shuffle=False,
                                              collate_fn=trim_padding_collate)
         scores = predict_scores(model, loader, target)
-        np.savez_compressed(scores_path, ids=frame["id"].to_numpy(dtype=str),
-                            scores=scores, label_names=np.asarray(labels, dtype=str))
+        # Chỉ tạo file đích sau khi ghi đủ: bị ngắt giữa chừng có thể chạy lại.
+        write_scores(scores_path, frame["id"].tolist(), scores, labels)
     truth = multi_hot(frame["labels"].tolist(), len(labels))
     rows = [{"threshold_mode": cfg["threshold_mode"],
              "metrics": evaluate_multilabel(truth, scores, labels, cfg["thresholds"])}

@@ -6,6 +6,71 @@ import re
 ROOT = Path(__file__).resolve().parents[1]
 
 
+def interpret_results(summary):
+    """Nhận xét chỉ từ bảng thật; thứ hạng C dùng validation đã quy định."""
+    rows = summary["averages"]
+    original = [r for r in rows if r["system"].startswith("C_")
+                and r["split"] == "validation" and r["threshold_mode"] == "fixed"]
+    if len(original) != 3 or any(r["n_runs"] != 3 for r in original):
+        return []
+    ordered = sorted(original, key=lambda r: -r["macro_f1_mean"])
+    best, worst = ordered[0], ordered[-1]
+    stable = min(original, key=lambda r: r["macro_f1_std"])
+    lines = ["", "### 5.2.6. Thứ hạng, độ ổn định và đánh đổi", "",
+             f"Theo tiêu chí mean Macro-F1 validation @0,5 đã chốt, {best['system']} "
+             f"đạt cao nhất ({best['macro_f1_mean']:.4f} ± {best['macro_f1_std']:.4f}); "
+             f"{worst['system']} thấp nhất ({worst['macro_f1_mean']:.4f} ± {worst['macro_f1_std']:.4f}). "
+             "Đây là thứ hạng trong ba cấu hình đã thử, không phải khẳng định một kiến trúc luôn tốt nhất.",
+             f"{stable['system']} có sample std Macro-F1 nhỏ nhất trên validation "
+             f"({stable['macro_f1_std']:.4f}). Std được tính giữa ba seed, khác biến động giữa các nhãn. "
+             "Ba seed giúp mô tả độ ổn định trong lần đo nhưng chưa đủ để suy ra ý nghĩa thống kê hoặc bảo đảm tái hiện trên mọi máy."]
+    for system in (r["system"] for r in original):
+        test = {r["threshold_mode"]: r for r in rows
+                if r["system"] == system and r["split"] == "test"}
+        if "fixed" in test and "tuned" in test:
+            before, after = test["fixed"], test["tuned"]
+            change = after["macro_f1_mean"] - before["macro_f1_mean"]
+            lines.append(f"{system} trên test: Macro-F1 @0,5 "
+                         f"{before['macro_f1_mean']:.4f} ± {before['macro_f1_std']:.4f}; "
+                         f"ngưỡng riêng {after['macro_f1_mean']:.4f} ± {after['macro_f1_std']:.4f} "
+                         f"(chênh lệch mean {change:+.4f}). Micro-F1 tương ứng "
+                         f"{before['micro_f1_mean']:.4f} và {after['micro_f1_mean']:.4f}. "
+                         "Ngưỡng được chọn trên validation của từng seed, không chọn lại trên test.")
+    lines.append("Nguyên nhân thứ hạng cần xét cùng dữ liệu, tokenizer, số tham số, learning rate, số epoch và ví dụ lỗi; "
+                 "các kết quả này chưa tách riêng ảnh hưởng của từng yếu tố. Xem P/R và Hamming cùng F1: "
+                 "hạ ngưỡng có thể tăng recall nhưng thêm false positives. Nhãn hiếm có support nhỏ nên F1 dễ thay đổi; "
+                 "giữ cả nhãn giảm điểm trong bảng trước/sau. Thời gian BERT seed 42 có gián đoạn máy ngủ, "
+                 "vì vậy không dùng bảng elapsed để xếp hạng tốc độ các kiến trúc.")
+    return lines
+
+
+def seed_table(summary):
+    """Giữ từng seed bên cạnh bảng mean/std, kể cả khi mới có một run full."""
+    records = summary["records"]
+    originals = [r for r in records if r["system"].startswith("C_")
+                 and r["split"] == "validation" and r["threshold_mode"] == "fixed"]
+    if not originals:
+        return []
+    lookup = {(r["system"], r["seed"], r["split"], r["threshold_mode"]): r for r in records}
+    lines = ["", "**Bảng 5-2f. Kết quả từng seed C đã hoàn tất; Macro-F1.**", "",
+             "| Kiến trúc | Seed | Epoch chọn | Val @0,5 | Test @0,5 | Test ngưỡng riêng |",
+             "|---|---:|---:|---:|---:|---:|"]
+    for row in originals:
+        architecture = row["system"].removeprefix("C_")
+        folder = ROOT / "data/processed/transformers" / architecture / f"seed_{row['seed']}" / "full/standard"
+        metadata = json.loads((folder / "run_metadata.json").read_text(encoding="utf-8"))
+        def test_value(mode):
+            value = lookup.get((row["system"], row["seed"], "test", mode))
+            return f"{value['macro_f1']:.4f}" if value else "Chưa đo"
+        lines.append(f"| {architecture} | {row['seed']} | {metadata['selected_epoch']} | "
+                     f"{row['macro_f1']:.4f} | {test_value('fixed')} | {test_value('tuned')} |")
+    lines.extend(["", "Epoch chọn theo validation @0,5 của đúng seed. File all_runs.csv giữ đủ bảy metrics "
+                  "cho từng seed, split và luật ngưỡng; mean_std.csv giữ sample std. Những run chưa hoàn tất "
+                  "không được tính vào bảng. Cấu hình/revision/hash nhỏ lưu trong reports/reproducibility; "
+                  "trọng số lớn nằm trong data/processed để chạy demo hoặc chia sẻ riêng."])
+    return lines
+
+
 def main():
     summary = json.loads((ROOT / "reports/project_results/summary.json").read_text(encoding="utf-8"))
     content = (ROOT / "reports/project_results/RESULTS.md").read_text(encoding="utf-8")
@@ -22,6 +87,7 @@ def main():
         additional.append("```json\n" + json.dumps(selected_summary, ensure_ascii=False, indent=2) + "\n```")
     else:
         additional.append("Chưa đủ hồ sơ để chọn demo C; không dùng kết quả smoke hoặc A/B để thay thế.")
+    additional.extend(seed_table(summary))
     extra_paths = [("reports/errors_test_standard_fixed/summary.md", "### 5.2.3. Ba nhóm lỗi C1/C2/C3 trên test"),
                    ("reports/project_results/ANALYSIS.md", "### 5.2.4. Nhãn hiếm và chi phí huấn luyện")]
     for filename, title in extra_paths:
@@ -50,6 +116,7 @@ def main():
         verified = json.loads(evidence.read_text(encoding="utf-8"))
         additional.extend(["", "### 5.2.5. Kiểm giao diện demo", "", "```json",
                            json.dumps(verified, ensure_ascii=False, indent=2), "```"])
+    additional.extend(interpret_results(summary))
     replacement = "<!-- AUTO_RESULTS -->\n" + content + "\n" + "\n".join(additional) + "\n<!-- END_AUTO_RESULTS -->"
     source = ROOT / "reports/BAO_CAO_DO_AN_NOI_DUNG.md"
     report = source.read_text(encoding="utf-8")
