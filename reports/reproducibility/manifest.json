@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "exported_at_utc": "2026-10-08T06:45:11.590451+00:00",
+  "exported_at_utc": "2026-10-08T07:08:06.570480+00:00",
   "data_revision": "add492243ff905527e67aeb8b80c082af02207c3",
   "label_names": [
     "admiration",
@@ -61,12 +61,15 @@
       "data_revision": "add492243ff905527e67aeb8b80c082af02207c3"
     },
     "C/bert/seed_123": {
-      "status": "incomplete",
-      "reason": "Run chưa hoàn tất hoặc revision dữ liệu sai"
+      "status": "complete",
+      "checkpoint": "google-bert/bert-base-cased",
+      "model_revision": "cd5ef92a9fb2f889e972770a36d4ed042daf221e",
+      "seed": 123,
+      "data_revision": "add492243ff905527e67aeb8b80c082af02207c3"
     },
     "C/bert/seed_2026": {
       "status": "incomplete",
-      "reason": "[Errno 2] No such file or directory: 'D:\\\\DoAn\\\\Đồ án NLP\\\\goemotions-multilabel-classification\\\\data\\\\processed\\\\transformers\\\\bert\\\\seed_2026\\\\full\\\\standard\\\\run_metadata.json'"
+      "reason": "Run chưa hoàn tất hoặc revision dữ liệu sai"
     },
     "C/roberta/seed_42": {
       "status": "incomplete",
@@ -387,62 +390,62 @@
     {
       "group": "C/bert/seed_123",
       "source_path": "data/processed/transformers/bert/seed_123/full/standard/run_metadata.json",
-      "export_path": null,
-      "source_sha256": "57fb4fc61c30de8ed6ad3b0415149a7ebedf34c5032870a59f0bc83201704875",
-      "export_sha256": null,
-      "bytes": 3649,
-      "status": "incomplete",
-      "reason": "C full/protocol/test chưa hoàn tất hoặc artifact không hợp lệ"
+      "export_path": "artifacts/data/processed/transformers/bert/seed_123/full/standard/run_metadata.json",
+      "source_sha256": "68669e33e916efd6ff85db78b4be5485d29dade7fe58946055bfcf8d600627b9",
+      "export_sha256": "68669e33e916efd6ff85db78b4be5485d29dade7fe58946055bfcf8d600627b9",
+      "bytes": 5180,
+      "status": "exported",
+      "reason": ""
     },
     {
       "group": "C/bert/seed_123",
       "source_path": "data/processed/transformers/bert/seed_123/full/standard/label_mapping.json",
-      "export_path": null,
+      "export_path": "artifacts/data/processed/transformers/bert/seed_123/full/standard/label_mapping.json",
       "source_sha256": "604873f980b214ff5fcf5682b18c21552444b59a98aaaba698648c59033589db",
-      "export_sha256": null,
+      "export_sha256": "604873f980b214ff5fcf5682b18c21552444b59a98aaaba698648c59033589db",
       "bytes": 1751,
-      "status": "incomplete",
-      "reason": "C full/protocol/test chưa hoàn tất hoặc artifact không hợp lệ"
+      "status": "exported",
+      "reason": ""
     },
     {
       "group": "C/bert/seed_123",
       "source_path": "data/processed/transformers/bert/seed_123/full/standard/validation_metrics.json",
-      "export_path": null,
-      "source_sha256": "421bfee860894dfe365bd8de3fad4df3d1e8bf78c784b3d7793b6af2035ceb87",
-      "export_sha256": null,
-      "bytes": 8592,
-      "status": "incomplete",
-      "reason": "C full/protocol/test chưa hoàn tất hoặc artifact không hợp lệ"
+      "export_path": "artifacts/data/processed/transformers/bert/seed_123/full/standard/validation_metrics.json",
+      "source_sha256": "fab661971f574e1ed5c7ebad2974fc3bf5afadc8e7adca732f393c1c4a6d2c0b",
+      "export_sha256": "fab661971f574e1ed5c7ebad2974fc3bf5afadc8e7adca732f393c1c4a6d2c0b",
+      "bytes": 8680,
+      "status": "exported",
+      "reason": ""
     },
     {
       "group": "C/bert/seed_123",
       "source_path": "data/processed/transformers/bert/seed_123/full/standard/checkpoint/config.json",
-      "export_path": null,
+      "export_path": "artifacts/data/processed/transformers/bert/seed_123/full/standard/checkpoint/config.json",
       "source_sha256": "b9c139f92a29904515580cc22999e7f0ed35bddfbb26365f84ccca70f14d44d9",
-      "export_sha256": null,
+      "export_sha256": "b9c139f92a29904515580cc22999e7f0ed35bddfbb26365f84ccca70f14d44d9",
       "bytes": 1956,
-      "status": "incomplete",
-      "reason": "C full/protocol/test chưa hoàn tất hoặc artifact không hợp lệ"
+      "status": "exported",
+      "reason": ""
     },
     {
       "group": "C/bert/seed_123",
       "source_path": "data/processed/transformers/bert/seed_123/full/standard/checkpoint/tokenizer_config.json",
-      "export_path": null,
+      "export_path": "artifacts/data/processed/transformers/bert/seed_123/full/standard/checkpoint/tokenizer_config.json",
       "source_sha256": "42a16d6d6e24ee14d4b42a81e86cbc74a8c8e8565d770905c2b07c0798235570",
-      "export_sha256": null,
+      "export_sha256": "42a16d6d6e24ee14d4b42a81e86cbc74a8c8e8565d770905c2b07c0798235570",
       "bytes": 1278,
-      "status": "incomplete",
-      "reason": "C full/protocol/test chưa hoàn tất hoặc artifact không hợp lệ"
+      "status": "exported",
+      "reason": ""
     },
     {
       "group": "C/bert/seed_123",
       "source_path": "data/processed/transformers/bert/seed_123/full/standard/checkpoint/special_tokens_map.json",
-      "export_path": null,
+      "export_path": "artifacts/data/processed/transformers/bert/seed_123/full/standard/checkpoint/special_tokens_map.json",
       "source_sha256": "3c3507f36dff57bce437223db3b3081d1e2b52ec3e56ee55438193ecb2c94dd6",
-      "export_sha256": null,
+      "export_sha256": "3c3507f36dff57bce437223db3b3081d1e2b52ec3e56ee55438193ecb2c94dd6",
       "bytes": 132,
-      "status": "incomplete",
-      "reason": "C full/protocol/test chưa hoàn tất hoặc artifact không hợp lệ"
+      "status": "exported",
+      "reason": ""
     },
     {
       "group": "C/bert/seed_123",
@@ -468,21 +471,21 @@
       "group": "C/bert/seed_2026",
       "source_path": "data/processed/transformers/bert/seed_2026/full/standard/run_metadata.json",
       "export_path": null,
-      "source_sha256": null,
+      "source_sha256": "ae9fd7d0168bb9105954aeb8b20c93c470ccb01ec1b90b91277a1b6db0640e39",
       "export_sha256": null,
-      "bytes": null,
-      "status": "missing",
-      "reason": "File nguồn chưa có"
+      "bytes": 3166,
+      "status": "incomplete",
+      "reason": "C full/protocol/test chưa hoàn tất hoặc artifact không hợp lệ"
     },
     {
       "group": "C/bert/seed_2026",
       "source_path": "data/processed/transformers/bert/seed_2026/full/standard/label_mapping.json",
       "export_path": null,
-      "source_sha256": null,
+      "source_sha256": "604873f980b214ff5fcf5682b18c21552444b59a98aaaba698648c59033589db",
       "export_sha256": null,
-      "bytes": null,
-      "status": "missing",
-      "reason": "File nguồn chưa có"
+      "bytes": 1751,
+      "status": "incomplete",
+      "reason": "C full/protocol/test chưa hoàn tất hoặc artifact không hợp lệ"
     },
     {
       "group": "C/bert/seed_2026",
@@ -1047,10 +1050,10 @@
   ],
   "code_provenance": {
     "scope": "repository_at_export_time_not_training_commit",
-    "git_head": "92138cca1a08f574f67c15f51c24c5af2f7db29d",
+    "git_head": "7d5ce4610298455de33cc4d998afb1641561eb5d",
     "working_tree_dirty": true,
     "source_file_sha256": {
-      "src/data.py": "044e1bc0fe1dacceac169db519dbf7c5b6cf46acb1301dc0c6b8263caac4743d",
+      "src/data.py": "3aec398ec258ab6e400bcbb0737f73a79725ead4263c28092e5ba894e491cef0",
       "src/metrics.py": "55732477a434c77d8ef3599e6b85ba7ca6909efd601006df4a75c6aeee47d04a",
       "src/baseline.py": "c5d73f4be0f0b98ff46073002aae32cf895b1dbe1da3637a9aca829edac8e02c",
       "src/zero_shot.py": "364958a8522440bee2674e0fe89dbc3b6ba073bfa98a6439c49643bfa6036dbf",
@@ -1065,9 +1068,9 @@
       "scripts/evaluate_transformer_test.py": "3e8fba80b061ecfc5b9825574445527f7785e0d3df67ff3c63cdef9320c575fe"
     }
   },
-  "n_exported": 14,
-  "n_not_exported": 81,
-  "c_full_completed": 1,
+  "n_exported": 20,
+  "n_not_exported": 75,
+  "c_full_completed": 2,
   "c_full_expected": 9,
   "notes": [
     "JSON bytes are copied from existing verified artifacts; configs/history are not invented.",

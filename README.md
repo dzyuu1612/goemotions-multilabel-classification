@@ -7,9 +7,18 @@ dẫn IEEE. Thực nghiệm full đang chạy; kết quả hợp lệ chỉ lấ
 lấy smoke làm benchmark.
 
 - [Báo cáo Word](reports/BAO_CAO_DO_AN_GOEMOTIONS_IEEE.docx) · [PDF](reports/BAO_CAO_DO_AN_GOEMOTIONS_IEEE.pdf) · [Nội dung dễ đọc](reports/BAO_CAO_DO_AN_NOI_DUNG.md).
+- [Bài báo IEEE hai cột — Word](reports/BAI_BAO_GOEMOTIONS_IEEE.docx) · [PDF](reports/BAI_BAO_GOEMOTIONS_IEEE.pdf) · [Nội dung](reports/BAI_BAO_GOEMOTIONS_IEEE_NOI_DUNG.md) · [Kiểm định dạng và nguồn](reports/BAI_BAO_GOEMOTIONS_IEEE_KIEM_CHUNG.json).
+- [Báo cáo tiến độ 1](reports/BAO_CAO_TIEN_DO_1.docx) · [Báo cáo tiến độ 2](reports/BAO_CAO_TIEN_DO_2.docx); số liệu theo trạng thái khi xuất, không xác nhận đã nộp.
 - [Thứ tự đọc toàn đồ án](docs/THU_TU_DOC_DO_AN.md) · [Cách chạy](docs/CHAY_THUC_NGHIEM.md) · [Đối chiếu yêu cầu cô](docs/DOI_CHIEU_YEU_CAU_CO.md).
 - [Notebook B](notebooks/zero_shot.ipynb) · [Notebook C](notebooks/transformers.ipynb) · [Demo C](app.py).
 - [Bảng số thực tế](reports/project_results/RESULTS.md); mỗi C chỉ có mean±std khi đủ ba seed.
+- [Hồ sơ tái hiện có cấu hình/revision/hash](reports/reproducibility/README.md) · [Cách đối chiếu](docs/REPRODUCIBILITY.md).
+
+Báo cáo sáu chương giữ bố cục mẫu cô. Bài hai cột dùng định dạng bài báo IEEE;
+cả hai lấy cùng số thực đo và ghi rõ những thí nghiệm đang thiếu. Cập nhật sau
+khi đã tổng hợp artifacts: `python tools/update_report_results.py`,
+`python tools/build_report_docx.py --pdf`, `python tools/build_ieee_paper.py --pdf`
+và `python tools/build_progress_reports.py --pdf` trong môi trường tạo tài liệu.
 
 Lệnh chạy toàn bộ: `python -m scripts.complete_project --device cuda`.
 Các trọng số/scores lớn được giữ ở máy chạy và tái tạo bằng script; Git giữ code,

@@ -28,7 +28,8 @@ Std mẫu ddof=1; dấu — nghĩa là không áp dụng hoặc chưa đủ ba s
 - B full validation + frozen protocol
 - C bert seed 42 frozen thresholds
 - C bert seed 42 test
-- C bert seed 123 full
+- C bert seed 123 frozen thresholds
+- C bert seed 123 test
 - C bert seed 2026 full
 - C roberta seed 42 full
 - C roberta seed 123 full

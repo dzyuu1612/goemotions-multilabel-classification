@@ -103,6 +103,20 @@
       "micro_recall": 0.5302507836990595,
       "hamming_loss": 0.03278526670528145,
       "n_samples": 5426
+    },
+    {
+      "system": "C_bert",
+      "seed": 123,
+      "split": "validation",
+      "threshold_mode": "fixed",
+      "macro_f1": 0.4772943277612574,
+      "micro_f1": 0.5839001291433491,
+      "macro_precision": 0.5593460209133573,
+      "macro_recall": 0.4310736188941046,
+      "micro_precision": 0.6477554918815663,
+      "micro_recall": 0.5315047021943574,
+      "hamming_loss": 0.031811121057342955,
+      "n_samples": 5426
     }
   ],
   "averages": [
@@ -232,7 +246,8 @@
     "B full validation + frozen protocol",
     "C bert seed 42 frozen thresholds",
     "C bert seed 42 test",
-    "C bert seed 123 full",
+    "C bert seed 123 frozen thresholds",
+    "C bert seed 123 test",
     "C bert seed 2026 full",
     "C roberta seed 42 full",
     "C roberta seed 123 full",
@@ -271,6 +286,10 @@
     {
       "path": "data/processed/transformers/bert/seed_42/full/standard/run_metadata.json",
       "sha256": "0713fb195a22a955c712ea261e7d0d3d78e729144a7641aacbc55efea38382a8"
+    },
+    {
+      "path": "data/processed/transformers/bert/seed_123/full/standard/run_metadata.json",
+      "sha256": "68669e33e916efd6ff85db78b4be5485d29dade7fe58946055bfcf8d600627b9"
     }
   ],
   "note": "Validation ngưỡng tuned là dữ liệu đã dùng chọn ngưỡng; không diễn giải thành test."
