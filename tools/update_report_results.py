@@ -68,7 +68,7 @@ def interpret_results(summary):
     lines.append("Nguyên nhân thứ hạng cần xét cùng dữ liệu, tokenizer, số tham số, learning rate, số epoch và ví dụ lỗi; "
                  "các kết quả này chưa tách riêng ảnh hưởng của từng yếu tố. Xem P/R và Hamming cùng F1: "
                  "hạ ngưỡng có thể tăng recall nhưng thêm false positives. Nhãn hiếm có support nhỏ nên F1 dễ thay đổi; "
-                 "giữ cả nhãn giảm điểm trong bảng trước/sau. Thời gian BERT seed 42 có gián đoạn máy ngủ, "
+                 "giữ cả nhãn giảm điểm trong bảng trước/sau. Thời gian BERT seed 42 và 2026 có gián đoạn máy ngủ, "
                  "vì vậy không dùng bảng elapsed để xếp hạng tốc độ các kiến trúc.")
     return lines
 
