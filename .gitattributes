@@ -1,3 +1,5 @@
 # Metadata snapshots retain their exact source bytes for SHA-256 verification.
 # This also prevents CRLF conversion when collaborators clone on Linux/macOS.
 reports/reproducibility/artifacts/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+# This CSV is cited by its exact byte hash in paired_examples_manifest.json.
+reports/baseline_validation/paired_examples.csv -text

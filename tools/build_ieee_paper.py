@@ -289,6 +289,11 @@ def rare(data):
 
 
 def errors():
+    try:
+        from tools.update_report_results import select_error_case_ids
+    except ModuleNotFoundError:
+        from update_report_results import select_error_case_ids
+
     parts = ["**Ví dụ A standard @0,5 trên validation đã kiểm.** ID eczwil0, “I am so proud of this community.”, "
              "nhãn thật pride nhưng dự đoán rỗng, score pride=0,3776; ID ed832y6, “Homeopaths love it!”, "
              "nhãn thật neutral nhưng dự đoán love, score love≈1; ID eczdvun, “Thank you. I really appreciate your response”, "
@@ -306,14 +311,20 @@ def errors():
               table(["C", "Seed", "Nhóm", "Lỗi", "Đủ điều kiện", "Tỷ lệ"], tab),
               "Các seed đại diện chọn theo validation của từng C. Đếm lỗi này không phải mean±std qua ba seed; "
               "nhóm có thể chồng lấp. Manifest lưu mapping, nguồn và hash."]
+    selected = select_error_case_ids(examples)
+    used = set()
     for category in ("partial_multi_label", "rare_false_negative", "missed_extra_pair"):
-        ids = sorted({row["id"] for row in examples if row["category"] == category})
-        if not ids:
+        if category not in selected:
             parts += [f"Nhóm {category}: không có ví dụ đáp ứng trong hồ sơ; giữ trạng thái này."]
             continue
-        chosen = [row for row in examples if row["category"] == category and row["id"] == ids[0]]
-        parts += [f"**{category}, ID {ids[0]}.** Văn bản: “{chosen[0]['text']}”. Nhãn thật: "
+        sample_id = selected[category]
+        chosen = [row for row in examples if row["category"] == category and row["id"] == sample_id]
+        parts += [f"**{category}, ID {sample_id}.** Văn bản: “{chosen[0]['text']}”. Nhãn thật: "
                   + ", ".join(json.loads(chosen[0]["true_labels"])) + "."]
+        if sample_id in used:
+            parts += ["ID trùng ví dụ trước vì nhóm này không có ID khác đủ dữ liệu ba C; "
+                      "đó là nhóm lỗi chồng lấp trên cùng câu, không phải một câu mới."]
+        used.add(sample_id)
         for row in chosen:
             predicted = ", ".join(json.loads(row["predicted_labels"])) or "không nhãn"
             missed = ", ".join(json.loads(row["missed_labels"])) or "không"
@@ -322,7 +333,8 @@ def errors():
                       f"dự đoán {predicted}; bỏ sót {missed}; nhãn thừa {extra}; "
                       f"gặp nhóm lỗi đang xét: {row['error_present']}. "
                       + (f"Nhận xét đã điền: {row['manual_linguistic_notes']}" if row.get("manual_linguistic_notes") else "Nhận xét ngôn ngữ cần nhóm đọc thủ công.")]
-    parts += ["Ví dụ chọn theo ID có thứ tự từ union các model, cùng ID cho cả ba C; không chọn riêng những câu thuận lợi cho một mô hình. "
+    parts += [f"Có {len(used)} ID khác nhau được đối chiếu. Ví dụ chọn theo ID có thứ tự từ union các model, cùng ID cho cả ba C; "
+              "không chọn riêng những câu thuận lợi cho một mô hình. "
               "Đầy đủ điểm 28 nhãn, các ví dụ còn lại và cặp nhầm nằm trong examples.csv/pairs.csv."]
     return "\n\n".join(parts)
 
@@ -367,7 +379,7 @@ def discussion(data):
     ui = json.loads(ui_path.read_text(encoding="utf-8")) if ui_path.exists() else {}
     if demo:
         parts += ["Đã có hồ sơ kiểm suy luận demo (reports/demo_verification.json). Trạng thái ghi nhận: "
-                  + str(demo.get("status", demo.get("passed", demo.get("checks", "xem hồ sơ"))))
+                  + str(demo.get("model_inference_status", demo.get("status", demo.get("passed", demo.get("checks", "xem hồ sơ")))))
                   + "; đây là kiểm tại thời điểm hồ sơ, không tự khẳng định server hiện đang mở."]
     else:
         parts += ["Chưa có hồ sơ verify_demo hoàn tất tại thời điểm xuất. Giao diện cần kiểm với checkpoint thật."]

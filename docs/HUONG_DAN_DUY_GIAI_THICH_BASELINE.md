@@ -321,3 +321,134 @@ artifacts/bảng tổng hợp thay vì nhớ một thứ hạng chưa hoàn tấ
 - Yêu cầu toàn nhóm: [hồ sơ đối chiếu cô](DOI_CHIEU_YEU_CAU_CO.md) và
   [thứ tự đọc đồ án](THU_TU_DOC_DO_AN.md). Tài liệu này hướng dẫn hiểu A;
   không thay việc chạy đủ C/B/D, báo cáo và minh chứng mà cô yêu cầu.
+
+## 10. Đọc ba lỗi thật: cùng câu, hai baseline, hai cách đặt ngưỡng
+
+Phần này dùng **ba ID validation có thật**, lấy text và nhãn chuẩn từ
+`data/processed/baseline/full/error_examples_validation.csv`. Điểm bên dưới
+được đọc lại từ `validation_scores.npz` của từng mô hình; CSV đối chiếu giữ
+độ chính xác của điểm lưu, không lấy cột điểm đã làm tròn trong CSV nguồn.
+Hai file điểm đã được kiểm SHA-256 với metadata, đủ 5.426 ID không trùng,
+ma trận 5.426 × 28, đúng thứ tự nhãn và các điểm hữu hạn trong [0, 1].
+Ngưỡng riêng được kiểm thuộc **đúng model và file điểm của model đó**.
+
+Đọc [bảng 12 hàng](../reports/baseline_validation/paired_examples.csv) và
+[manifest đối chiếu](../reports/baseline_validation/paired_examples_manifest.json)
+để thấy điểm, ngưỡng, nhãn được chọn, FN/FP, hash nguồn và thời điểm tạo thật.
+Ba câu được chọn để học từ lỗi standard; **không phải mẫu ngẫu nhiên**, không
+phải kết quả test, không đủ để kết luận model nào tốt hơn trên toàn tập.
+Tuned dùng chính validation để chọn ngưỡng nên đây là minh họa sau hiệu chỉnh.
+
+### 10.1. Cách tự đọc từng hàng
+
+1. Giữ nguyên **ID, text và tập nhãn chuẩn** khi chuyển standard ↔ balanced.
+   Đối chiếu file điểm bằng ID, không bằng vị trí dòng.
+2. Chọn một model. Model đó tạo 28 điểm trước khi đặt ngưỡng.
+3. Với fixed, xét mỗi điểm ≥ 0,50. Với tuned, xét điểm của nhãn j ≥ ngưỡng
+   j đã lưu cho **chính model đang đọc**; không chuyển ngưỡng giữa hai model.
+4. Gom tất cả nhãn đạt ngưỡng. Đây là đa nhãn, không lấy duy nhất điểm cao nhất.
+   Không có nhãn đạt ngưỡng thì tập dự đoán rỗng; code không tự gán neutral.
+5. **FN = nhãn chuẩn − nhãn dự đoán**; **FP = nhãn dự đoán − nhãn chuẩn**.
+   Dự đoán trúng một nhãn vẫn có thể còn nhãn thừa hoặc nhãn thiếu.
+
+`focus_label` trong CSV là nhãn đang soi kỹ, không giới hạn mô hình chỉ đoán
+nhãn đó. Câu thứ ba soi `love` vì model chọn thừa love; nhãn chuẩn vẫn là neutral.
+**Bảng và lời giải dưới đây làm tròn điểm đến 4 chữ số thập phân, ngưỡng
+đến 2 chữ số cho dễ đọc.** CSV giữ độ chính xác số đã lưu để đối chiếu;
+FN/FP và quyết định chọn nhãn được tính từ điểm/ngưỡng đầy đủ, không từ
+số đã làm tròn trong hướng dẫn. Điểm hiển thị `1.0000` có thể vẫn nhỏ hơn 1.
+
+### 10.2. Câu pride: sửa nhãn thiếu nhưng xuất hiện nhãn thừa
+
+**ID `eczwil0`:** “I am so proud of this community.”
+**Nhãn chuẩn:** `{pride}`.
+
+| Model | Luật ngưỡng | Điểm pride | Ngưỡng pride | Toàn bộ nhãn được chọn | FN | FP |
+|---|---|---:|---:|---|---|---|
+| standard | fixed | 0.3776 | 0.50 | ∅ | pride | ∅ |
+| standard | tuned | 0.3776 | 0.15 | admiration, pride | ∅ | admiration |
+| balanced | fixed | 0.9994 | 0.50 | admiration, pride | ∅ | admiration |
+| balanced | tuned | 0.9994 | 0.80 | admiration, pride | ∅ | admiration |
+
+**Tự diễn giải:** ở standard fixed, điểm khoảng 0,3776 < 0,50 nên pride không được
+chọn: có FN pride. Khi dùng standard tuned, điểm pride **không đổi**; ngưỡng
+giảm xuống 0,15 nên pride được chọn. Tuy nhiên còn chọn admiration, trong khi
+nhãn chuẩn chỉ có pride, nên vẫn có FP admiration. Không nói “đã sửa hết lỗi”.
+
+Balanced có điểm pride khác vì đó là **một model đã fit với objective có
+class weighting**, không phải bản standard được đổi tên. Tại câu này cả fixed
+và tuned đều nhận pride, nhưng đều thêm admiration. Số liệu này mô tả quyết
+định đã xảy ra; chưa chỉ ra từ/đặc trưng nào gây ra điểm cao hoặc FP.
+
+**Câu trả lời ngắn khi bảo vệ:** “Tune chỉ đổi luật quyết định, không train
+lại. Cùng điểm khoảng 0,3776, hạ ngưỡng pride từ 0,50 xuống 0,15 sửa FN pride,
+nhưng tập dự đoán vẫn thừa admiration so với nhãn chuẩn.”
+
+### 10.3. Câu grief: weighting nhận được grief nhưng neutral vẫn thừa
+
+**ID `edwloev`:** “He died 4 days later of dehydration”
+**Nhãn chuẩn:** `{grief}`.
+
+| Model | Luật ngưỡng | Điểm grief | Ngưỡng grief | Toàn bộ nhãn được chọn | FN | FP |
+|---|---|---:|---:|---|---|---|
+| standard | fixed | 0.0189 | 0.50 | neutral | grief | neutral |
+| standard | tuned | 0.0189 | 0.50 | neutral | grief | neutral |
+| balanced | fixed | 0.9858 | 0.50 | grief, neutral | ∅ | neutral |
+| balanced | tuned | 0.9858 | 0.55 | grief, neutral | ∅ | neutral |
+
+**Tự diễn giải:** ở standard, điểm grief khoảng 0,0189 chưa đạt 0,50. Ngưỡng
+tuned của **riêng grief vẫn là 0,50**, nên tuning không sửa FN này. Không phải
+mọi ngưỡng tuned đều thấp hơn 0,50. Neutral standard có điểm khoảng
+**0,5799**, vượt cả fixed 0,50 và ngưỡng neutral tuned 0,30;
+do đó vẫn được chọn và vẫn là FP theo nhãn chuẩn của câu.
+
+Balanced cho grief khoảng **0,9858**, vượt 0,50 và 0,55 nên không còn
+FN grief. Nhưng neutral balanced có điểm khoảng **0,7136**, vượt cả
+0,50 và ngưỡng neutral tuned 0,45; vì vậy vẫn còn FP neutral. Các bộ LR xét
+độc lập: code không cưỡng ép neutral loại trừ mọi cảm xúc khác.
+
+**Câu trả lời ngắn khi bảo vệ:** “Ở câu này balanced giúp nhận được nhãn
+grief mà standard bỏ sót, nhưng chưa đúng toàn bộ tập nhãn vì vẫn đoán thừa
+neutral. Kết quả từng câu không chứng minh weighting luôn tốt hơn.”
+
+### 10.4. Câu có từ love: điểm rất cao vẫn sai theo ground truth
+
+**ID `ed832y6`:** văn bản nguyên gốc có dấu ngoặc kép: `"Homeopaths love it!"`.
+**Nhãn chuẩn:** `{neutral}`. Nhãn đang soi là **love**.
+
+| Model | Luật ngưỡng | Điểm love | Ngưỡng love | Toàn bộ nhãn được chọn | FN | FP |
+|---|---|---:|---:|---|---|---|
+| standard | fixed | 1.0000 | 0.50 | love | neutral | love |
+| standard | tuned | 1.0000 | 0.15 | love | neutral | love |
+| balanced | fixed | 1.0000 | 0.50 | love | neutral | love |
+| balanced | tuned | 1.0000 | 0.70 | love | neutral | love |
+
+**Tự diễn giải:** cả bốn cấu hình đều chọn love và không chọn neutral.
+Điểm neutral standard khoảng **0,0015**, dưới cả 0,50 và 0,30;
+điểm neutral balanced khoảng **0,0021**, dưới cả 0,50 và 0,45.
+Vì nhãn chuẩn chỉ có neutral, mỗi hàng có một FN neutral và một FP love.
+
+Điểm love gần 1 **không đồng nghĩa dự đoán đúng hoặc đã có độ chắc chắn
+được hiệu chuẩn**. Ta biết score, nhãn chuẩn và lỗi đo được; chưa có kiểm
+tra ngữ cảnh/chú giải hay phân tích đóng góp đặc trưng để kết luận nguyên
+nhân. Không tự gọi câu này là mỉa mai, không tự sửa neutral thành love và
+không khẳng định model “chỉ nhìn chữ love” từ riêng kết quả này.
+
+**Câu trả lời ngắn khi bảo vệ:** “Mô hình cho điểm love gần 1 nhưng benchmark
+ghi neutral. Theo nhãn chuẩn, love là FP và neutral là FN ở cả bốn cấu hình.
+Điểm cao chưa bảo đảm đúng; em cần đọc thêm ngữ cảnh/chú giải trước khi
+kết luận nguyên nhân ngôn ngữ.”
+
+### 10.5. Ba điều Duy phải phân biệt khi trình bày
+
+- **Đổi ngưỡng:** cùng model, cùng scores; chỉ đổi tập nhãn được chọn.
+  Ví dụ pride standard sửa FN nhưng thêm FP; grief standard vẫn chưa sửa.
+- **Đổi model bằng weighting:** objective lúc fit khác nên scores có thể khác.
+  Ví dụ grief được nhận ở balanced, nhưng vẫn đoán thừa neutral. Không suy ra
+  nguyên nhân từ ba câu hay coi điểm hai model đã được hiệu chuẩn giống nhau.
+- **Đo lỗi theo nhãn chuẩn:** phải ghi đủ FN/FP, kể cả khi câu có vẻ dễ hoặc
+  điểm rất cao. Không dùng ba câu để tính thứ hạng toàn tập hay số liệu test.
+
+Phần này giúp Duy giải thích **A**. Nghĩa vụ đồ án về ít nhất ba nhóm lỗi và
+so sánh C1/C2/C3 vẫn cần bộ phân tích chung trên các run C thật, cùng ID và
+protocol; ba ví dụ A này không thay yêu cầu đó.

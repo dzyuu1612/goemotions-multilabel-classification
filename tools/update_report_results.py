@@ -1,9 +1,80 @@
 """Chèn bảng số từ artifacts thật vào báo cáo; không tính lại/chọn bằng test."""
+import csv
+import hashlib
+import itertools
 import json
+import math
 from pathlib import Path
 import re
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+ERROR_CATEGORIES = ("partial_multi_label", "rare_false_negative", "missed_extra_pair")
+
+
+def select_error_case_ids(examples):
+    """Chọn ID có đủ ba C, ưu tiên ID khác nhau; thiếu được giữ nguyên."""
+    choices = []
+    for category in ERROR_CATEGORIES:
+        valid = []
+        for sample_id in sorted({row["id"] for row in examples if row["category"] == category}):
+            rows = [row for row in examples if row["category"] == category and row["id"] == sample_id]
+            if len(rows) != 3 or {row["architecture"] for row in rows} != {"bert", "roberta", "distilbert"}:
+                continue
+            if len({(row["text"], row["true_labels"]) for row in rows}) != 1:
+                raise ValueError(f"Ví dụ {sample_id}: text/nhãn thật khác nhau giữa ba C")
+            valid.append(sample_id)
+        choices.append(valid or [None])
+    # Chỉ ba nhóm, mỗi nhóm tối đa vài ID: thử tổ hợp để tránh việc chọn
+    # sớm một ID làm nhóm sau bị trùng dù thực ra có bộ ba khác nhau.
+    best = max(itertools.product(*choices),
+               key=lambda ids: len({sample_id for sample_id in ids if sample_id is not None}))
+    return {category: sample_id for category, sample_id in zip(ERROR_CATEGORIES, best)
+            if sample_id is not None}
+
+
+def error_case_examples():
+    """Fallback từ CSV thật khi chưa có hồ sơ đọc lỗi bằng văn bản."""
+    path = ROOT / "reports/errors_test_standard_fixed/examples.csv"
+    if not path.exists():
+        return ["Chưa có CSV ví dụ test của ba C; chưa xác nhận đủ ba case đối chiếu."]
+    with path.open(encoding="utf-8-sig", newline="") as stream:
+        examples = list(csv.DictReader(stream))
+    selected = select_error_case_ids(examples)
+    lines = ["Các ví dụ sau trích tự động theo ID từ CSV của checkpoint đại diện đã chọn bằng validation. "
+             "Nhóm lỗi có thể chồng lấp. Khi trường manual_linguistic_notes còn trống, chưa có "
+             "nhận xét ngôn ngữ được ghi trong CSV; không tự quy kết mỉa mai, phủ định hoặc nguyên nhân."]
+    used = set()
+    for index, category in enumerate(ERROR_CATEGORIES):
+        if category not in selected:
+            lines += ["", f"Nhóm {category}: chưa có một ID đủ dữ liệu đối chiếu ba C."]
+            continue
+        sample_id = selected[category]
+        rows = [row for row in examples if row["category"] == category and row["id"] == sample_id]
+        lines += ["", f"**Case {index + 1}: {category}, ID {sample_id}.**",
+                  f"Văn bản: “{rows[0]['text']}”. Nhãn thật: {', '.join(json.loads(rows[0]['true_labels']))}.", ""]
+        if sample_id in used:
+            lines += ["ID trùng case trước vì trong nhóm này không còn ID khác đủ ba C; "
+                      "đây là nhóm lỗi chồng lấp, không tính thành một câu mới.", ""]
+        used.add(sample_id)
+        lines += [f"**Bảng 5-2{chr(ord('g') + index)}. Ba C trên cùng ID {sample_id}.**", "",
+                  "| C | Seed | Nhãn dự đoán | Bỏ sót | Nhãn thừa | Score nhãn bỏ sót/thừa | Gặp nhóm lỗi |",
+                  "|---|---:|---|---|---|---|---|"]
+        for row in sorted(rows, key=lambda item: ("bert", "roberta", "distilbert").index(item["architecture"])):
+            predicted, missed, extra = (json.loads(row[key]) for key in ("predicted_labels", "missed_labels", "extra_labels"))
+            scores = json.loads(row["scores_by_label"])
+            related = ", ".join(f"{label}={scores[label]:.4f}" for label in dict.fromkeys(missed + extra)) or "—"
+            name = {"bert": "C1 BERT", "roberta": "C2 RoBERTa", "distilbert": "C3 DistilBERT"}[row["architecture"]]
+            cells = [name, row["seed"], ", ".join(predicted) or "không nhãn", ", ".join(missed) or "không",
+                     ", ".join(extra) or "không", related, row["error_present"]]
+            lines.append("| " + " | ".join(str(cell).replace("|", "/").replace("\n", " ") for cell in cells) + " |")
+        for row in rows:
+            if row.get("manual_linguistic_notes"):
+                lines += ["", f"Nhận xét đã ghi ({row['architecture']}): {row['manual_linguistic_notes']}"]
+    lines += ["", f"Số ID khác nhau được đối chiếu ở đây: {len(used)}. Đầy đủ scores 28 nhãn/những ví dụ khác "
+              "nằm trong reports/errors_test_standard_fixed/examples.csv; nhóm cần đọc nội dung và ghi hồ sơ case study."]
+    return lines
 
 
 def final_abstract(summary):
@@ -14,6 +85,14 @@ def final_abstract(summary):
               for r in summary["averages"]}
     selection = json.loads((ROOT / "data/processed/transformers/selected_model.json").read_text(encoding="utf-8"))
     system = "C_" + selection["architecture"]
+    original = [lookup[("C_" + architecture, "validation", "fixed")]
+                for architecture in ("bert", "roberta", "distilbert")]
+    validation = lookup[(system, "validation", "fixed")]
+    if (selection.get("method") != "C" or selection.get("smoke") is not False
+            or any(row["n_runs"] != 3 for row in original)
+            or not math.isclose(validation["macro_f1_mean"], max(row["macro_f1_mean"] for row in original),
+                                rel_tol=0, abs_tol=1e-12)):
+        raise ValueError("Selection C không khớp winner mean validation của đủ ba seed")
     before = lookup[("A_standard", "test", "fixed")]
     after = lookup[("A_balanced", "test", "tuned")]
     selected = lookup[(system, "test", "fixed")]
@@ -23,7 +102,8 @@ def final_abstract(summary):
     return (f"Phần A đã được đo trên toàn bộ 5.427 mẫu test sau khi khóa cấu hình trên validation. "
             f"Bản standard với ngưỡng 0,5 đạt Macro-F1 {before['macro_f1_mean']:.4f}; "
             f"bản balanced với ngưỡng riêng đạt {after['macro_f1_mean']:.4f}. "
-            f"Kiến trúc C được chọn bằng mean Macro-F1 validation @0,5 là {selection['architecture']}; "
+            f"Kiến trúc C được chọn bằng mean Macro-F1 validation @0,5 là {selection['architecture']} "
+            f"({validation['macro_f1_mean']:.4f} ± {validation['macro_f1_std']:.4f}); "
             f"trên test, kiến trúc này đạt Macro-F1 {selected['macro_f1_mean']:.4f} ± {selected['macro_f1_std']:.4f} "
             f"và Micro-F1 {selected['micro_f1_mean']:.4f} ± {selected['micro_f1_std']:.4f}. "
             f"Ngưỡng riêng chọn trên validation đưa Macro-F1 test tới "
@@ -43,6 +123,12 @@ def interpret_results(summary):
     if len(original) != 3 or any(r["n_runs"] != 3 for r in original):
         return []
     ordered = sorted(original, key=lambda r: -r["macro_f1_mean"])
+    selection_path = ROOT / "data/processed/transformers/selected_model.json"
+    if selection_path.exists():
+        selected_system = "C_" + json.loads(selection_path.read_text(encoding="utf-8"))["architecture"]
+        selected = next((row for row in original if row["system"] == selected_system), None)
+        if selected and math.isclose(selected["macro_f1_mean"], ordered[0]["macro_f1_mean"], rel_tol=0, abs_tol=1e-12):
+            ordered = [selected] + [row for row in ordered if row["system"] != selected_system]
     best, worst = ordered[0], ordered[-1]
     stable = min(original, key=lambda r: r["macro_f1_std"])
     lines = ["", "### 5.2.6. Thứ hạng, độ ổn định và đánh đổi", "",
@@ -100,6 +186,42 @@ def seed_table(summary):
     return lines
 
 
+def demo_evidence_lines():
+    """Giữ riêng kiểm suy luận và kiểm UI; ảnh phải khớp hash đã ghi."""
+    lines = ["", "### 5.2.5. Kiểm suy luận và giao diện demo", ""]
+    inference_path = ROOT / "reports/demo_verification.json"
+    if inference_path.exists():
+        evidence = json.loads(inference_path.read_text(encoding="utf-8"))
+        lines += [f"Kiểm hàm suy luận lúc {evidence.get('checked_at_utc', '—')}: "
+                  f"{evidence.get('model_inference_status', '—')}. Hồ sơ này đối chiếu scores/nhãn "
+                  "với dữ liệu validation đã lưu và kiểm luồng nhập; không kiểm giao diện trình duyệt. "
+                  "Đây là bằng chứng tại thời điểm ghi, không xác nhận server đang mở.",
+                  "", "```json", json.dumps(evidence, ensure_ascii=False, indent=2), "```"]
+    else:
+        lines += ["Chưa có reports/demo_verification.json: chưa xác nhận kiểm suy luận demo hoàn tất."]
+    ui_path = ROOT / "reports/demo_ui/evidence.json"
+    if not ui_path.exists():
+        return lines + ["", "Chưa có hồ sơ kiểm giao diện; không suy ra UI đã đạt từ kiểm suy luận."]
+    ui = json.loads(ui_path.read_text(encoding="utf-8"))
+    lines += ["", f"Kiểm giao diện lúc {ui.get('checked_at_utc', '—')}: "
+              f"{ui.get('interface_status', '—')}; đã kiểm {ui.get('rendered_row_count', '—')}/28 hàng trong DOM. "
+              f"Cờ kiểm đủ 28 hàng: {ui.get('all_28_rows_checked', '—')}. "
+              f"Tương đương scores mô hình trong phép kiểm UI: {ui.get('model_score_equivalence', '—')}. "
+              "Bằng chứng UI kiểm thao tác và hiển thị; phép đối chiếu scores thuộc hồ sơ suy luận riêng."]
+    image_path = ui_path.parent / "demo_ui.png"
+    if image_path.exists():
+        if (ui.get("screenshot") != image_path.name
+                or hashlib.sha256(image_path.read_bytes()).hexdigest() != ui.get("screenshot_sha256")):
+            raise ValueError("Ảnh demo không khớp tên/hash trong hồ sơ kiểm UI")
+        lines += ["", "![Giao diện demo được chụp sau thao tác thật](demo_ui/demo_ui.png)", "",
+                  "**Hình 5.4. Giao diện demo trên app thật; ảnh khớp SHA-256 trong hồ sơ kiểm UI.**",
+                  "", "Ảnh là bằng chứng hiển thị ở thời điểm chụp; không thay bảng test, "
+                  "không chứng minh ROI và không xác nhận app đang mở ở thời điểm đọc báo cáo."]
+    else:
+        lines += ["", "Hồ sơ UI có nhưng thiếu ảnh minh chứng; chưa chèn ảnh vào báo cáo."]
+    return lines
+
+
 def main():
     summary = json.loads((ROOT / "reports/project_results/summary.json").read_text(encoding="utf-8"))
     content = (ROOT / "reports/project_results/RESULTS.md").read_text(encoding="utf-8")
@@ -136,7 +258,7 @@ def main():
             extra = re.sub(r"!\[([^\]]*)\]\(<([^>]+)>\)", portable_image, extra)
             if "errors_test" in filename:
                 extra = extra.replace("| Kiến trúc | Seed | Nhóm lỗi", "**Bảng 5-2c. So sánh ba nhóm lỗi trên test.**\n\n| Kiến trúc | Seed | Nhóm lỗi", 1)
-            else:
+            elif filename.endswith("ANALYSIS.md"):
                 extra = extra.replace("| Nhãn | Mô hình |", "**Bảng 5-2d. F1 năm nhãn hiếm trước/sau cải tiến.**\n\n| Nhãn | Mô hình |", 1)
                 extra = extra.replace("| Kiến trúc | Full seeds", "**Bảng 5-2e. Thời gian hoàn thành run C và số tham số.**\n\n| Kiến trúc | Full seeds", 1)
                 extra = re.sub(r"(!\[[^\]]+\]\([^\n]+\))", r"\1\n\n**Hình 5.1. Đường học validation: mean và sample std theo epoch.**", extra, count=1)
@@ -150,11 +272,9 @@ def main():
                                   "Ngưỡng riêng được chọn trên validation của từng seed; "
                                   "điểm tuned-validation có thể lạc quan. Test sử dụng các ngưỡng đã khóa.")
             additional.extend(["", title, "", extra])
-    evidence = ROOT / "reports/demo_verification.json"
-    if evidence.exists():
-        verified = json.loads(evidence.read_text(encoding="utf-8"))
-        additional.extend(["", "### 5.2.5. Kiểm giao diện demo", "", "```json",
-                           json.dumps(verified, ensure_ascii=False, indent=2), "```"])
+        elif filename == "reports/error_case_studies.md":
+            additional.extend(["", title, "", *error_case_examples()])
+    additional.extend(demo_evidence_lines())
     additional.extend(interpret_results(summary))
     replacement = "<!-- AUTO_RESULTS -->\n" + content + "\n" + "\n".join(additional) + "\n<!-- END_AUTO_RESULTS -->"
     source = ROOT / "reports/BAO_CAO_DO_AN_NOI_DUNG.md"
@@ -176,6 +296,12 @@ def main():
                                 "Duy trì hồ sơ A/B/C đủ seed, kiểm demo khi chuyển máy và đọc thủ công ví dụ lỗi; không chọn lại model/ngưỡng bằng test.")
         paragraph = "Các thí nghiệm A/B/C đã chạy full và khóa protocol trước test. Ba kiến trúc C được huấn luyện bằng cùng split và ba seed; bảng5-2 lưu từng cấu hình cùng mean±std. Phân tích lỗi đối chiếu checkpoint đại diện chọn trên validation. Kết quả demo cần được kiểm trực tiếp bằng hồ sơ đi kèm; bảng phân công và tỷ lệ đóng góp vẫn cần nhóm xác nhận."
         report = re.sub(r"Thiết kế toàn đồ án bao gồm B, ba C và D theo phân công bốn người\..*?(?=\n\n)", paragraph, report, count=1, flags=re.DOTALL)
+        final_results = ("Nhóm đã tổ chức dữ liệu/mapping, EDA và các mô hình A/B/C với module đánh giá dùng chung. "
+                         + final_abstract(summary))
+        report, conclusion_count = re.subn(r"(## 6\.1\. Kết quả đạt được\n\n).*?(?=\n\n)",
+                                          lambda match: match[1] + final_results, report, count=1, flags=re.DOTALL)
+        if conclusion_count != 1:
+            raise ValueError("Không tìm thấy đoạn kết quả trong mục 6.1")
     source.write_text(report, encoding="utf-8")
     print("Cập nhật báo cáo từ số thực nghiệm; complete =", summary["complete"])
 
