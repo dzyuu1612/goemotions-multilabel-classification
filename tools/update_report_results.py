@@ -6,6 +6,35 @@ import re
 ROOT = Path(__file__).resolve().parents[1]
 
 
+def final_abstract(summary):
+    """Tóm tắt chỉ có số test khi bảng thực nghiệm đã qua đủ các điều kiện."""
+    if not summary["complete"]:
+        return None
+    lookup = {(r["system"], r["split"], r["threshold_mode"]): r
+              for r in summary["averages"]}
+    selection = json.loads((ROOT / "data/processed/transformers/selected_model.json").read_text(encoding="utf-8"))
+    system = "C_" + selection["architecture"]
+    before = lookup[("A_standard", "test", "fixed")]
+    after = lookup[("A_balanced", "test", "tuned")]
+    selected = lookup[(system, "test", "fixed")]
+    tuned = lookup[(system, "test", "tuned")]
+    if selected["n_runs"] != 3 or tuned["n_runs"] != 3:
+        raise ValueError("Tóm tắt C cần đủ ba seed; không thay bằng điểm checkpoint demo")
+    return (f"Phần A đã được đo trên toàn bộ 5.427 mẫu test sau khi khóa cấu hình trên validation. "
+            f"Bản standard với ngưỡng 0,5 đạt Macro-F1 {before['macro_f1_mean']:.4f}; "
+            f"bản balanced với ngưỡng riêng đạt {after['macro_f1_mean']:.4f}. "
+            f"Kiến trúc C được chọn bằng mean Macro-F1 validation @0,5 là {selection['architecture']}; "
+            f"trên test, kiến trúc này đạt Macro-F1 {selected['macro_f1_mean']:.4f} ± {selected['macro_f1_std']:.4f} "
+            f"và Micro-F1 {selected['micro_f1_mean']:.4f} ± {selected['micro_f1_std']:.4f}. "
+            f"Ngưỡng riêng chọn trên validation đưa Macro-F1 test tới "
+            f"{tuned['macro_f1_mean']:.4f} ± {tuned['macro_f1_std']:.4f} "
+            f"(chênh lệch mean {tuned['macro_f1_mean'] - selected['macro_f1_mean']:+.4f}). "
+            f"Mean và sample std tính giữa ba seed 42, 123, 2026; seed {selection['seed']} "
+            "của demo là một checkpoint đại diện, không phải ensemble hay điểm trung bình. "
+            "Báo cáo giữ cả các thay đổi F1 âm của nhãn hiếm, đối chiếu lỗi giữa ba C và thảo luận giá trị "
+            "ứng dụng dự kiến. Kết quả này chưa xác nhận hiệu quả trên dữ liệu tiếng Việt hoặc ROI công nghiệp.")
+
+
 def interpret_results(summary):
     """Nhận xét chỉ từ bảng thật; thứ hạng C dùng validation đã quy định."""
     rows = summary["averages"]
@@ -89,6 +118,7 @@ def main():
         additional.append("Chưa đủ hồ sơ để chọn demo C; không dùng kết quả smoke hoặc A/B để thay thế.")
     additional.extend(seed_table(summary))
     extra_paths = [("reports/errors_test_standard_fixed/summary.md", "### 5.2.3. Ba nhóm lỗi C1/C2/C3 trên test"),
+                   ("reports/error_case_studies.md", "#### 5.2.3.1. Đọc và giải thích các ví dụ lỗi cụ thể"),
                    ("reports/project_results/ANALYSIS.md", "### 5.2.4. Nhãn hiếm và chi phí huấn luyện")]
     for filename, title in extra_paths:
         path = ROOT / filename
@@ -125,6 +155,10 @@ def main():
     if count != 1:
         raise ValueError("Cần đúng một khối AUTO_RESULTS")
     if summary["complete"]:
+        report, abstract_count = re.subn(r"Phần A đã được đo trên toàn bộ .*?(?=\n\n)",
+                                        lambda _: final_abstract(summary), report, count=1, flags=re.DOTALL)
+        if abstract_count != 1:
+            raise ValueError("Không tìm thấy đoạn số liệu trong tóm tắt báo cáo")
         report = report.replace("Các kết quả B/C/D chỉ được bổ sung từ tệp chạy thật; không suy ra kết quả thực nghiệm từ việc có mã nguồn.",
                                 "Toàn bộ A/B/C đã có kết quả full; mỗi kiến trúc C gồm ba seed 42,123,2026 với mean và sample std. Bảng test sử dụng ngưỡng/mô hình đã khóa trên validation.")
         report = report.replace("Kết quả A hiện dùng validation; tuning trên cùng validation có thể lạc quan.",

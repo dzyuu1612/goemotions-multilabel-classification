@@ -347,7 +347,7 @@ Lần chạy fixed padding đầu tiên được dừng trước khi hoàn thàn
 
 Hệ thống Windows ghi nhận trở lại từ chế độ ngủ lúc 09:38:56, 10:36:02 và 12:47:55 ngày 08/10/2026 trong lần chạy BERT seed 42. Vì vậy elapsed_seconds/epoch_seconds của lần chạy này bao gồm gián đoạn, không dùng riêng số đó để kết luận BERT chậm hơn kiến trúc khác. Bảng chi phí mô tả thời gian hoàn thành run trên máy tại lần đo, chịu ảnh hưởng của cache và trạng thái máy; chưa phải benchmark tốc độ được kiểm soát. Các phần còn lại được chạy với yêu cầu giữ máy thức tạm thời theo vòng đời tiến trình; thao tác ngủ máy thủ công vẫn có thể làm gián đoạn phép đo.
 
-Ba seed đề xuất là 42, 123 và 2026; mỗi kiến trúc giữ cùng cấu hình giữa các seed. Trước khi đánh giá test, nhóm chọn kiến trúc theo mean Macro-F1 validation @0,5. Khi hòa, ưu tiên std thấp hơn, rồi chi phí suy luận. Checkpoint demo được chọn trong kiến trúc thắng bằng validation; điểm của checkpoint demo khác điểm trung bình kiến trúc. Những run smoke hoặc thử ít bước không được tính vào yêu cầu ba run full.
+Ba seed đề xuất là 42, 123 và 2026; mỗi kiến trúc giữ cùng cấu hình giữa các seed. Trước khi đánh giá test, nhóm chọn kiến trúc theo mean Macro-F1 validation @0,5. Khi hòa, ưu tiên std thấp hơn, rồi số tham số ít hơn, cuối cùng thứ tự tên kiến trúc để lựa chọn xác định. Checkpoint demo được chọn trong kiến trúc thắng bằng validation; điểm của checkpoint demo khác điểm trung bình kiến trúc. Những run smoke hoặc thử ít bước không được tính vào yêu cầu ba run full.
 
 ### 4.2.4. Ngưỡng và nâng cao
 
@@ -656,7 +656,7 @@ Kết quả A hiện dùng validation; tuning trên cùng validation có thể l
 
 [3] Google Research Datasets, “go_emotions dataset card,” Hugging Face. Accessed: Oct. 8, 2026. [Online]. Available: https://huggingface.co/datasets/google-research-datasets/go_emotions
 
-[4] IEEE Publication Operations, IEEE Reference Guide, ver. Nov. 29, 2023. Accessed: Oct. 8, 2026. [Online]. Available: https://journals.ieeeauthorcenter.ieee.org/wp-content/uploads/sites/7/IEEE_Reference_Guide.pdf
+[4] IEEE Publication Operations, IEEE Reference Guide. Accessed: Oct. 8, 2026. [Online]. Available: https://journals.ieeeauthorcenter.ieee.org/wp-content/uploads/sites/7/IEEE_Reference_Guide.pdf
 
 [5] scikit-learn developers, “TfidfVectorizer,” scikit-learn 1.7.2 documentation. Accessed: Oct. 8, 2026. [Online]. Available: https://scikit-learn.org/1.7/modules/generated/sklearn.feature_extraction.text.TfidfVectorizer.html
 
@@ -678,7 +678,7 @@ Kết quả A hiện dùng validation; tuning trên cùng validation có thể l
 
 [14] Hugging Face, “ZeroShotClassificationPipeline,” Transformers documentation. Accessed: Oct. 8, 2026. [Online]. Available: https://huggingface.co/docs/transformers/main_classes/pipelines#transformers.ZeroShotClassificationPipeline
 
-[15] PyTorch contributors, “BCEWithLogitsLoss,” PyTorch 2.14 documentation. Accessed: Oct. 8, 2026. [Online]. Available: https://docs.pytorch.org/docs/2.14/generated/torch.nn.BCEWithLogitsLoss.html
+[15] PyTorch contributors, “BCEWithLogitsLoss,” PyTorch v2.13.0 source and API documentation, torch/nn/modules/loss.py. Accessed: Oct. 8, 2026. [Online]. Available: https://github.com/pytorch/pytorch/blob/v2.13.0/torch/nn/modules/loss.py
 
 [16] scikit-learn developers, “precision_recall_fscore_support,” scikit-learn 1.7.2 documentation. Accessed: Oct. 8, 2026. [Online]. Available: https://scikit-learn.org/1.7/modules/generated/sklearn.metrics.precision_recall_fscore_support.html
 
@@ -694,7 +694,7 @@ Kết quả A hiện dùng validation; tuning trên cùng validation có thể l
 
 [22] Hugging Face DistilBERT, “distilbert-base-uncased model card,” Hugging Face. Accessed: Oct. 8, 2026. [Online]. Available: https://huggingface.co/distilbert/distilbert-base-uncased
 
-[23] PyTorch contributors, “Reproducibility,” PyTorch 2.14 documentation. Accessed: Oct. 8, 2026. [Online]. Available: https://docs.pytorch.org/docs/2.14/notes/randomness.html
+[23] PyTorch contributors, “Reproducibility,” PyTorch v2.13.0 documentation source. Accessed: Oct. 8, 2026. [Online]. Available: https://github.com/pytorch/pytorch/blob/v2.13.0/docs/source/notes/randomness.md
 
 [24] Hugging Face, “Text classification,” Transformers documentation. Accessed: Oct. 8, 2026. [Online]. Available: https://huggingface.co/docs/transformers/tasks/sequence_classification
 

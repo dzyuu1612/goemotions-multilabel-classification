@@ -40,7 +40,7 @@ không dùng số ROI trong case này làm ROI hệ thống NLP.
 | 1 | [Kế hoạch nhóm](KE_HOACH_NHOM.md), [đối chiếu yêu cầu](DOI_CHIEU_YEU_CAU_CO.md) | Phân công, sản phẩm và điều kiện nghiệm thu |
 | 2 | [GoEmotions ACL 2020](https://aclanthology.org/2020.acl-main.372/) — mục 3–5 | Nguồn dữ liệu, taxonomy, phân tích và BERT bài gốc |
 | 3 | [EDA](../notebooks/eda.ipynb), rồi [EDA bổ sung](../notebooks/eda_extra.ipynb) | Split, phân bố nhãn, multi-label, nhãn hiếm và đồng xuất hiện |
-| 4 | [Baseline](../notebooks/baseline.ipynb), [hướng dẫn A](BASELINE.md) | Luồng A của Duy và các kết quả validation đã có |
+| 4 | [Baseline](../notebooks/baseline.ipynb), [hướng dẫn A](BASELINE.md), [tính tay và câu hỏi bảo vệ](HUONG_DAN_DUY_GIAI_THICH_BASELINE.md) | Luồng A của Duy, cách giải thích code và các kết quả validation đã có |
 | 5 | [Zero-shot](../notebooks/zero_shot.ipynb), [hướng dẫn B](ZERO_SHOT.md) | NLI, template, candidate labels và mapping |
 | 6 | [Transformer](../notebooks/transformers.ipynb), [hướng dẫn C/D](TRANSFORMERS.md) | Tokenizer, BCE, seed, checkpoint và demo |
 | 7 | [Phân tích lỗi](ERROR_ANALYSIS.md) | Ít nhất ba loại lỗi trên cùng ID giữa ba C |

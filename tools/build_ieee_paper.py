@@ -97,6 +97,51 @@ def value(row, metric):
     return fmt(row.get(metric + "_mean"), row.get(metric + "_std")) if row else "—"
 
 
+def final_c_finding(data):
+    """Kết luận chính chỉ từ đủ benchmark và selection, không chọn C bằng test."""
+    selection = data.get("selection", {})
+    if (not data["summary"].get("complete") or selection.get("method") != "C"
+            or selection.get("smoke") is not False or selection.get("artifact_version") != 1
+            or selection.get("seed") not in data["summary"].get("seeds", (42, 123, 2026))):
+        return ""
+    names = {"bert": "C1 BERT", "roberta": "C2 RoBERTa", "distilbert": "C3 DistilBERT"}
+    architecture = selection.get("architecture")
+    if architecture not in names:
+        return ""
+    averages = aggregate_lookup(data)
+    validation = [averages.get(("C_" + name, "validation", "fixed")) for name in names]
+    if any(not row or row.get("n_runs") != 3
+           or number(row.get("macro_f1_mean")) is None
+           or number(row.get("macro_f1_std")) is None for row in validation):
+        return ""
+    selected = averages[("C_" + architecture, "validation", "fixed")]
+    # Selection được tạo bởi rule validation (kèm tie-break); không thay bằng test cao nhất.
+    if not math.isclose(selected["macro_f1_mean"], max(row["macro_f1_mean"] for row in validation),
+                        rel_tol=0, abs_tol=1e-12):
+        return ""
+
+    def enough(row):
+        return bool(row and row.get("n_runs") == 3 and all(
+            number(row.get(metric + suffix)) is not None
+            for metric in ("macro_f1", "micro_f1") for suffix in ("_mean", "_std")))
+
+    fixed = averages.get(("C_" + architecture, "test", "fixed"))
+    if not enough(fixed):
+        return ""
+    text = (f"{names[architecture]} được chọn theo mean Macro-F1 validation @0,5 "
+            f"({value(selected, 'macro_f1')}). Trên test @0,5, kiến trúc này đạt "
+            f"Macro-F1 {value(fixed, 'macro_f1')} và Micro-F1 {value(fixed, 'micro_f1')} "
+            "(mean ± sample std của ba seed, ddof=1). ")
+    tuned = averages.get(("C_" + architecture, "test", "tuned"))
+    if enough(tuned):
+        text += (f"Với ngưỡng riêng khóa trên validation, test Macro-F1 {value(tuned, 'macro_f1')}, "
+                 f"Micro-F1 {value(tuned, 'micro_f1')}; Δ mean so với @0,5 lần lượt "
+                 f"{fmt(tuned['macro_f1_mean'] - fixed['macro_f1_mean'], sign=True)} và "
+                 f"{fmt(tuned['micro_f1_mean'] - fixed['micro_f1_mean'], sign=True)}. ")
+    return text + (f"Demo dùng một checkpoint seed {selection['seed']} của {names[architecture]}; "
+                   "các điểm trên tổng hợp ba seed của kiến trúc, không phải điểm riêng checkpoint demo. ")
+
+
 def abstract(data):
     completed = sum(run["completed"] for run in data["runs"])
     complete = data["summary"].get("complete", False)
@@ -105,8 +150,8 @@ def abstract(data):
     status = ("Đã có kết quả full A/B/C; mỗi C gồm ba seed, mean và sample standard deviation. "
               if complete else
               f"Bản cập nhật này có {completed}/9 run C full; những bảng thiếu chưa được dùng xếp hạng. ")
-    findings = ""
-    if standard and improved:
+    findings = final_c_finding(data)
+    if not findings and standard and improved:
         findings = (f"Trên validation, A standard @0,5 đạt Macro-F1 {fmt(standard.get('macro_f1'))}; "
                     f"A balanced với ngưỡng riêng đạt {fmt(improved.get('macro_f1'))}. "
                     "Điểm tuned-validation có thể lạc quan vì dùng lại dữ liệu chọn ngưỡng. ")
@@ -289,6 +334,11 @@ def discussion(data):
     parts = []
     if len(candidates) == 3:
         ordered = sorted(candidates, key=lambda row: -row["macro_f1_mean"])
+        selected_system = "C_" + data.get("selection", {}).get("architecture", "")
+        selected = next((row for row in candidates if row["system"] == selected_system), None)
+        if selected and math.isclose(selected["macro_f1_mean"], ordered[0]["macro_f1_mean"], rel_tol=0, abs_tol=1e-12):
+            # Khi mean hòa, giữ đúng winner đã chọn bằng tie-break trong selection.
+            ordered = [selected] + [row for row in ordered if row["system"] != selected_system]
         stable = min(candidates, key=lambda row: row["macro_f1_std"])
         parts += [f"Trong ba cấu hình đã thử, {SHORT[ordered[0]['system']]} đạt mean Macro-F1 validation @0,5 cao nhất "
                   f"({value(ordered[0], 'macro_f1')}); {SHORT[ordered[-1]['system']]} thấp nhất "
@@ -336,7 +386,9 @@ def conclusion(data):
             "Class weighting và ngưỡng riêng được đối chiếu bằng ablation, support nhãn hiếm và các ví dụ lỗi. ")
     if complete:
         text += ("Đã có A/B/C full cùng bảng validation/test; C gồm đủ ba seed mỗi kiến trúc. "
-                 "Test sử dụng mô hình/ngưỡng đã khóa trên validation. Demo và hồ sơ đối chiếu vẫn cần nhóm kiểm khi chuyển máy. ")
+                 "Test sử dụng mô hình/ngưỡng đã khóa trên validation. ")
+        text += final_c_finding(data)
+        text += "Demo và hồ sơ đối chiếu vẫn cần nhóm kiểm khi chuyển máy. "
     else:
         text += (f"Hiện C hoàn tất {completed}/9 run full; phần chưa có B/C/test/lỗi/demo được đánh dấu trong bảng. "
                  "Không dùng pilot hoặc điểm tuned-validation để thay kết luận test. "

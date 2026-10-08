@@ -16,6 +16,10 @@ tự đọc, chạy và giải thích được trước khi bảo vệ.
 Nếu GitHub chưa hiển thị notebook ngay, tải file và mở bằng Jupyter/VS Code.
 Notebook đã có output thật nên có thể đọc trước khi cài môi trường.
 
+**Học để giải thích:** [TF-IDF tính tay, sigmoid/OvR, từng dòng code và 20 câu hỏi bảo vệ](HUONG_DAN_DUY_GIAI_THICH_BASELINE.md).
+Đọc tài liệu này sau notebook và mục 1–5 của BASELINE.md; ví dụ toán được ghi rõ
+là minh họa, tách với số GoEmotions đo thật.
+
 ## Các kiến thức cần học
 
 Đọc theo chủ đề dưới đây và tự kiểm bằng bài tập; không đặt thời lượng.

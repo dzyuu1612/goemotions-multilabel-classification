@@ -52,6 +52,8 @@ và [thứ tự đọc lưu trong repo](docs/THU_TU_DOC_BASELINE.md).
 3. [Bảng kết quả và phân tích lỗi](reports/BASELINE_RESULTS.md).
 4. [Hồ sơ đối chiếu yêu cầu cô](docs/BASELINE_REVIEW.md).
 
+Để tự giải thích với cô, đọc thêm [TF-IDF tính tay, từng dòng code và 20 câu hỏi bảo vệ](docs/HUONG_DAN_DUY_GIAI_THICH_BASELINE.md).
+
 [Báo cáo baseline của Duy](reports/BAO_CAO_BASELINE_BAO_DUY.md) ·
 [CSV sáu cấu hình validation](reports/baseline_validation/comparison.csv) ·
 [PR #3 vào repo chung](https://github.com/trangkhanh-ai/goemotions-multilabel-classification/pull/3).

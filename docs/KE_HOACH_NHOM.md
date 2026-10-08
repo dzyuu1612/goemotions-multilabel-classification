@@ -142,7 +142,7 @@ Full validation cần 5.426 × 28 = 151.928 cặp câu/giả thuyết; đo tài 
 - Nếu tích lũy gradient, ghi effective batch; dùng cùng cấu hình giữa các seed của một thí nghiệm.
 - Seed tác động khởi tạo head, dropout và thứ tự batch. Ghi seed Python/NumPy/PyTorch cùng thiết bị/thư viện; cùng seed không bảo đảm mọi máy cho số giống hệt. [PyTorch reproducibility](https://docs.pytorch.org/docs/2.14/notes/randomness.html).
 - Bảng chính: A/B/C @0.5; C có từng seed và **mean ± sample std**. Dùng `np.std(values, ddof=1)`; ghi n. Không chỉ báo seed đẹp nhất. [NumPy std](https://numpy.org/doc/stable/reference/generated/numpy.std.html).
-- Chọn kiến trúc C bằng **mean Macro-F1 validation @0.5** trên ba seed; giữ quy tắc này trước khi đọc test. Khi bằng nhau, xét std thấp hơn, rồi chi phí suy luận; ghi cách xử lý.
+- Chọn kiến trúc C bằng **mean Macro-F1 validation @0.5** trên ba seed; giữ quy tắc này trước khi đọc test. Khi bằng nhau, xét std thấp hơn, rồi số tham số ít hơn, cuối cùng thứ tự tên kiến trúc; giữ đúng quy tắc trong code.
 - Checkpoint demo đề xuất là checkpoint có Macro-F1 val tốt nhất trong kiến trúc thắng. Điểm checkpoint demo khác điểm trung bình kiến trúc.
 - Ngưỡng cải tiến chọn trên validation của đúng checkpoint/seed. Điểm tuned-val có thể lạc quan; không dùng test chọn kiến trúc/seed/ngưỡng.
 - Sau khi khóa cấu hình, đánh giá các run/config đã khai báo trên test; báo C mean±std test và A/B theo protocol. Không thay cấu hình theo thứ hạng test.

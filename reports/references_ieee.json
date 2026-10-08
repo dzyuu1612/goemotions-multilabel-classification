@@ -47,10 +47,10 @@
     ],
     "title": "IEEE Reference Guide",
     "type": "guide",
-    "year": 2023,
+    "year": null,
     "doi": null,
     "url": "https://journals.ieeeauthorcenter.ieee.org/wp-content/uploads/sites/7/IEEE_Reference_Guide.pdf",
-    "ieee": "IEEE Publication Operations, IEEE Reference Guide, ver. Nov. 29, 2023. Accessed: Oct. 8, 2026. [Online]. Available: https://journals.ieeeauthorcenter.ieee.org/wp-content/uploads/sites/7/IEEE_Reference_Guide.pdf"
+    "ieee": "IEEE Publication Operations, IEEE Reference Guide. Accessed: Oct. 8, 2026. [Online]. Available: https://journals.ieeeauthorcenter.ieee.org/wp-content/uploads/sites/7/IEEE_Reference_Guide.pdf"
   },
   {
     "id": 5,
@@ -205,8 +205,8 @@
     "type": "documentation",
     "year": 2026,
     "doi": null,
-    "url": "https://docs.pytorch.org/docs/2.14/generated/torch.nn.BCEWithLogitsLoss.html",
-    "ieee": "PyTorch contributors, “BCEWithLogitsLoss,” PyTorch 2.14 documentation. Accessed: Oct. 8, 2026. [Online]. Available: https://docs.pytorch.org/docs/2.14/generated/torch.nn.BCEWithLogitsLoss.html"
+    "url": "https://github.com/pytorch/pytorch/blob/v2.13.0/torch/nn/modules/loss.py",
+    "ieee": "PyTorch contributors, “BCEWithLogitsLoss,” PyTorch v2.13.0 source and API documentation, torch/nn/modules/loss.py. Accessed: Oct. 8, 2026. [Online]. Available: https://github.com/pytorch/pytorch/blob/v2.13.0/torch/nn/modules/loss.py"
   },
   {
     "id": 16,
@@ -301,8 +301,8 @@
     "type": "documentation",
     "year": 2026,
     "doi": null,
-    "url": "https://docs.pytorch.org/docs/2.14/notes/randomness.html",
-    "ieee": "PyTorch contributors, “Reproducibility,” PyTorch 2.14 documentation. Accessed: Oct. 8, 2026. [Online]. Available: https://docs.pytorch.org/docs/2.14/notes/randomness.html"
+    "url": "https://github.com/pytorch/pytorch/blob/v2.13.0/docs/source/notes/randomness.md",
+    "ieee": "PyTorch contributors, “Reproducibility,” PyTorch v2.13.0 documentation source. Accessed: Oct. 8, 2026. [Online]. Available: https://github.com/pytorch/pytorch/blob/v2.13.0/docs/source/notes/randomness.md"
   },
   {
     "id": 24,
