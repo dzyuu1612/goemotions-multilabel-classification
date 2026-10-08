@@ -54,7 +54,7 @@ Phần EDA đã chạy trên **54.263 mẫu GoEmotions simplified**, giữ nguy�
 Đã đối chiếu số mẫu, support/tỷ lệ từng nhãn và 30 ví dụ với dữ liệu nguồn.
 Với bài toán đa nhãn, một bình luận được tính vào nhiều nhãn nên tổng support có thể
 lớn hơn số mẫu. Trên nhánh triển khai baseline, đã có mã A và số đo validation đầu tiên;
-zero-shot và ba mô hình fine-tune vẫn là kế hoạch của đồ án.
+C3 DistilBERT đã có kết quả full ba seed; các phần còn lại xem trạng thái bên dưới.
 
 ## Bài toán và bài báo nền tảng
 
@@ -87,7 +87,8 @@ Repo hiện có mã và sản phẩm EDA. Nhánh baseline đã chạy TF-IDF + O
 Logistic Regression ở hai cấu hình: chuẩn và cân bằng lớp. Xem [hướng dẫn từng bước](docs/BASELINE.md)
 và [bảng kết quả validation thật](reports/BASELINE_RESULTS.md). Cấu hình chuẩn ở ngưỡng
 0,5 có Macro-F1 **0,2025**, Micro-F1 **0,3760**; cấu hình cân bằng lớp có Macro-F1
-**0,4562**, Micro-F1 **0,5099**. Test chưa được đánh giá; B và C chưa có kết quả trong repo.
+**0,4562**, Micro-F1 **0,5099**. Test chưa được đánh giá. C3 DistilBERT đã chạy đủ ba seed
+trên full train/validation; xem [báo cáo C3](reports/c3_distilbert/full/C3_RESULTS.md).
 Có [notebook baseline với output đã chạy](notebooks/baseline.ipynb) để học từng bước.
 Xem [hồ sơ rà soát phần A ngày 01/10](docs/BASELINE_REVIEW.md) để biết các lỗi đã sửa,
 bằng chứng kiểm chứng và phần việc còn cần cả nhóm hoàn thành.
@@ -234,14 +235,31 @@ Dùng dự đoán theo ID, thống kê lỗi và ví dụ nguyên văn để ch�
 | B | BART-large-MNLI, multi_label=True | Dự kiến, chưa có số đo trong repo |
 | C1 | BERT-base-uncased, 28 đầu ra | Dự kiến, chưa có số đo trong repo |
 | C2 | RoBERTa-base, 28 đầu ra | Dự kiến, chưa có số đo trong repo |
-| C3 | DistilBERT-base-uncased, 28 đầu ra | Dự kiến, chưa có số đo trong repo |
+| C3 | DistilBERT-base-uncased, 28 đầu ra | Đã chạy full 43.410 train / 5.426 validation, ba seed 42/123/2026; chưa đánh giá test |
 
 Khi B/C có kết quả, bổ sung số cùng split/metric và link log chạy thật; không điền số giả định.
+
+Phần C3 của Nhật Huy đã có [notebook 16 bước, 33 cell với output](notebooks/distilbert_huy.ipynb),
+[bản HTML để đọc](reports/c3_distilbert/distilbert_huy.html),
+[báo cáo full ba seed](reports/c3_distilbert/full/C3_RESULTS.md),
+[phân tích lỗi từ mẫu thật](reports/c3_distilbert/full/ERROR_ANALYSIS.md),
+[phương pháp](reports/PHUONG_PHAP_C3_NHAT_HUY.md) và [hướng dẫn chạy](docs/HUY_DISTILBERT.md).
+
+Kết quả validation cơ sở @0,5: **Macro-F1 0,406084 ± 0,004544**, **Micro-F1 0,572944 ± 0,003683**
+(mean ± sample std, đủ ba seed). Ngưỡng riêng đạt Macro-F1 0,510645 ± 0,001230 và
+Micro-F1 0,602453 ± 0,003956 trên cùng validation đã dùng chọn ngưỡng, nên có thể lạc quan;
+micro precision giảm và Hamming Loss tăng. Không coi đây là kết quả test.
+
+Demo dùng checkpoint C3 seed 123 theo quy tắc chọn seed đại diện, hỗ trợ ngưỡng cơ sở/ngưỡng riêng.
+Xem [minh chứng demo và khởi động lại](reports/c3_distilbert/full/DEMO_EVIDENCE.md).
+Pilot chỉ kiểm pipeline, không đưa vào bảng kết quả full. Demo cuối còn cần kết quả C1/C2
+để chọn kiến trúc thắng; C3 hiện chưa được tuyên bố là mô hình tốt nhất của nhóm.
 
 ## Môi trường và cài đặt
 
 Mã EDA được repo ghi nhận đã kiểm tra trên Python 3.12.6. Xem `docs/EDA.md` để chạy lại.
 Baseline A đã kiểm tra trên Python 3.13.9 với `requirements-baseline.txt`; xem `docs/BASELINE.md`.
+C3 dùng môi trường riêng `.venv-huy` (Python 3.12.6, PyTorch CUDA); xem `docs/HUY_DISTILBERT.md` và `requirements-c3.txt`.
 `requirements.txt` hiện phục vụ EDA, chưa đủ để chạy A/B/C.
 
 Nhóm cần bổ sung môi trường mô hình riêng, ghi phiên bản đã kiểm tra và lựa chọn PyTorch phù hợp thiết bị. Không dùng lệnh placeholder `python=3.x` như một lệnh cài đặt hoàn chỉnh. Ví dụ ở phần B cần môi trường đã cài transformers và PyTorch.

@@ -1,0 +1,16 @@
+# Keep byte-level provenance hashes reproducible after checkout.
+# These shared sources were read with CRLF by the recorded C3 runs.
+src/data.py text eol=crlf
+src/metrics.py text eol=crlf
+src/baseline.py text eol=crlf
+# These C3 sources were executed with LF.
+src/c3.py text eol=lf
+src/c3_thresholds.py text eol=lf
+scripts/*distilbert*.py text eol=lf
+scripts/*c3*.py text eol=lf
+# Preserve original bytes of recorded configurations and evidence.
+configs/distilbert_*.json -text
+reports/c3_distilbert/** -text
+notebooks/distilbert_huy.ipynb -text
+docs/HUY_DISTILBERT.md -text
+/README.md -text
