@@ -192,6 +192,28 @@ Các nhãn hiển thị là **kết quả tính thật của model**, không gá
 cho ví dụ này. Khi viết báo cáo, chụp kết quả thực tế và lưu seed/checkpoint/ngưỡng.
 App bind localhost và không tự công khai qua Gradio share.
 
+### Kiểm giao diện thật và lưu ảnh
+
+Sau khi đủ C full, chọn checkpoint và chạy `app.py`, mở terminal thứ hai tại gốc
+repo. Trên máy hiện tại dùng Node/Playwright đã có sẵn; không cần cài thêm:
+
+```powershell
+& 'C:\Users\dzyuu\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\bin\node.exe' tools/capture_demo.js --url http://127.0.0.1:7860 --output reports/demo_ui
+```
+
+Script mở app thật, nhập mẫu tiếng Anh, bấm **Nhận diện cảm xúc**, chờ thông báo
+dự đoán và bảng **Điểm của 28 nhãn** cùng bốn tiêu đề cột. Nó kiểm điểm/ngưỡng các
+hàng đang có trong DOM, rồi lưu `reports/demo_ui/demo_ui.png` và `evidence.json`
+khi đạt. Số hàng đã kiểm được ghi rõ; bảng có cuộn/virtualize không được tự xem
+là đã đối chiếu đủ 28 điểm. Script không khởi động app, tải model hoặc tạo dự đoán giả.
+
+Máy khác có thể truyền `--playwright-path` thư mục Playwright đã cài và
+`--browser-path` executable Chromium có sẵn; `--help` in các lựa chọn.
+`interface_status=PASS` chỉ chứng minh tương tác/giao diện. Kiểm tính nhất quán
+scores với checkpoint vẫn dùng `python -m scripts.verify_demo --device cuda`
+riêng; cả hai phép kiểm không thay thế chỉ số test. Nếu công cụ báo lỗi, không
+có evidence mới: đọc thời điểm/hash ảnh trong evidence để tránh nhầm bản cũ.
+
 ## 10. Kiểm thử và thứ tự đọc code
 
 ```powershell

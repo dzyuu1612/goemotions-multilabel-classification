@@ -2,6 +2,8 @@
   "checked_on": "2026-10-08",
   "unit_tests": {"command": "python -m unittest discover -s tests -v", "passed": 59, "failed": 0, "seconds": 31.924, "log": "reports/execution/unit_tests.log"},
   "completion_audit_tests": {"command": "python -m unittest tests.test_project_completion tests.test_experiment -v", "passed": 7, "failed": 0, "new_tests": 3, "overlap_with_previous_suite": 4, "seconds": 0.798, "log": "reports/execution/completion_tests.log"},
+  "run_metadata_tests": {"command": "python -m unittest tests.test_run_metadata -v", "passed": 6, "failed": 0, "seconds": 0.890, "log": "reports/execution/run_metadata_tests.log"},
+  "streamed_checksum_check": {"buffer_bytes": 1048576, "real_files_checked": ["C bert seed42 checkpoint/model.safetensors", "C bert seed42 validation_scores.npz"], "matches_existing_recorded_sha256": true},
   "cuda_backward": "PASS: torch2.13.0+cu130, RTX5060Laptop, actual CUDA matrix backward",
   "transformer_smoke": {"architecture": "distilbert", "seed": 42, "train_samples": 64, "validation_samples": 32, "epochs": 1, "status": "PASS", "is_benchmark_result": false},
   "zero_shot_smoke": {"validation_samples": 8, "checkpoint": "facebook/bart-large-mnli", "dtype": "float16", "device": "cuda", "batch_size": 16, "status": "PASS", "is_benchmark_result": false},

@@ -91,6 +91,7 @@ def main():
             run("scripts.evaluate_transformer_test", "--run-dir", folder, "--device", args.device)
         run("scripts.summarize_project", "--require-complete")
         run("scripts.export_project_analysis")
+        run("scripts.export_run_metadata")
         run("scripts.analyze_project_errors", "--split", "validation")
         run("scripts.analyze_project_errors", "--split", "test")
     print("Đã hoàn tất thí nghiệm. Xem reports/project_results/RESULTS.md và full_pipeline.log.")

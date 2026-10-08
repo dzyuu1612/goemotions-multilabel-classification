@@ -1,0 +1,1078 @@
+{
+  "schema_version": 1,
+  "exported_at_utc": "2026-10-08T06:45:11.590451+00:00",
+  "data_revision": "add492243ff905527e67aeb8b80c082af02207c3",
+  "label_names": [
+    "admiration",
+    "amusement",
+    "anger",
+    "annoyance",
+    "approval",
+    "caring",
+    "confusion",
+    "curiosity",
+    "desire",
+    "disappointment",
+    "disapproval",
+    "disgust",
+    "embarrassment",
+    "excitement",
+    "fear",
+    "gratitude",
+    "grief",
+    "joy",
+    "love",
+    "nervousness",
+    "optimism",
+    "pride",
+    "realization",
+    "relief",
+    "remorse",
+    "sadness",
+    "surprise",
+    "neutral"
+  ],
+  "seeds": [
+    42,
+    123,
+    2026
+  ],
+  "max_json_bytes": 1048576,
+  "groups": {
+    "A/standard": {
+      "status": "complete",
+      "seed": 42,
+      "data_revision": "add492243ff905527e67aeb8b80c082af02207c3"
+    },
+    "A/balanced": {
+      "status": "complete",
+      "seed": 42,
+      "data_revision": "add492243ff905527e67aeb8b80c082af02207c3"
+    },
+    "B": {
+      "status": "incomplete",
+      "reason": "[Errno 2] No such file or directory: 'D:\\\\DoAn\\\\Đồ án NLP\\\\goemotions-multilabel-classification\\\\data\\\\processed\\\\zero_shot\\\\full\\\\run_metadata.json'"
+    },
+    "C/bert/seed_42": {
+      "status": "complete",
+      "checkpoint": "google-bert/bert-base-cased",
+      "model_revision": "cd5ef92a9fb2f889e972770a36d4ed042daf221e",
+      "seed": 42,
+      "data_revision": "add492243ff905527e67aeb8b80c082af02207c3"
+    },
+    "C/bert/seed_123": {
+      "status": "incomplete",
+      "reason": "Run chưa hoàn tất hoặc revision dữ liệu sai"
+    },
+    "C/bert/seed_2026": {
+      "status": "incomplete",
+      "reason": "[Errno 2] No such file or directory: 'D:\\\\DoAn\\\\Đồ án NLP\\\\goemotions-multilabel-classification\\\\data\\\\processed\\\\transformers\\\\bert\\\\seed_2026\\\\full\\\\standard\\\\run_metadata.json'"
+    },
+    "C/roberta/seed_42": {
+      "status": "incomplete",
+      "reason": "[Errno 2] No such file or directory: 'D:\\\\DoAn\\\\Đồ án NLP\\\\goemotions-multilabel-classification\\\\data\\\\processed\\\\transformers\\\\roberta\\\\seed_42\\\\full\\\\standard\\\\run_metadata.json'"
+    },
+    "C/roberta/seed_123": {
+      "status": "incomplete",
+      "reason": "[Errno 2] No such file or directory: 'D:\\\\DoAn\\\\Đồ án NLP\\\\goemotions-multilabel-classification\\\\data\\\\processed\\\\transformers\\\\roberta\\\\seed_123\\\\full\\\\standard\\\\run_metadata.json'"
+    },
+    "C/roberta/seed_2026": {
+      "status": "incomplete",
+      "reason": "[Errno 2] No such file or directory: 'D:\\\\DoAn\\\\Đồ án NLP\\\\goemotions-multilabel-classification\\\\data\\\\processed\\\\transformers\\\\roberta\\\\seed_2026\\\\full\\\\standard\\\\run_metadata.json'"
+    },
+    "C/distilbert/seed_42": {
+      "status": "incomplete",
+      "reason": "[Errno 2] No such file or directory: 'D:\\\\DoAn\\\\Đồ án NLP\\\\goemotions-multilabel-classification\\\\data\\\\processed\\\\transformers\\\\distilbert\\\\seed_42\\\\full\\\\standard\\\\run_metadata.json'"
+    },
+    "C/distilbert/seed_123": {
+      "status": "incomplete",
+      "reason": "[Errno 2] No such file or directory: 'D:\\\\DoAn\\\\Đồ án NLP\\\\goemotions-multilabel-classification\\\\data\\\\processed\\\\transformers\\\\distilbert\\\\seed_123\\\\full\\\\standard\\\\run_metadata.json'"
+    },
+    "C/distilbert/seed_2026": {
+      "status": "incomplete",
+      "reason": "[Errno 2] No such file or directory: 'D:\\\\DoAn\\\\Đồ án NLP\\\\goemotions-multilabel-classification\\\\data\\\\processed\\\\transformers\\\\distilbert\\\\seed_2026\\\\full\\\\standard\\\\run_metadata.json'"
+    }
+  },
+  "artifacts": [
+    {
+      "group": "shared_data",
+      "source_path": "data/labels.json",
+      "export_path": "artifacts/data/labels.json",
+      "source_sha256": "274dda2b3485f9b28aee37275b63a2d231cb9928f9a8d74822756d39e44ae373",
+      "export_sha256": "274dda2b3485f9b28aee37275b63a2d231cb9928f9a8d74822756d39e44ae373",
+      "bytes": 420,
+      "status": "exported",
+      "reason": ""
+    },
+    {
+      "group": "shared_data",
+      "source_path": "data/manifest.json",
+      "export_path": "artifacts/data/manifest.json",
+      "source_sha256": "08768867492d6b700ea937d97b868689edb120dd7adfbbd67457ce5088e349ba",
+      "export_sha256": "08768867492d6b700ea937d97b868689edb120dd7adfbbd67457ce5088e349ba",
+      "bytes": 2002,
+      "status": "exported",
+      "reason": ""
+    },
+    {
+      "group": "A/standard",
+      "source_path": "data/processed/baseline/full/validation_metrics.json",
+      "export_path": "artifacts/data/processed/baseline/full/validation_metrics.json",
+      "source_sha256": "8727a58ab41665a074db4c2cfb151ffebf56bc1eb0a87f8ffd7ebf1577093924",
+      "export_sha256": "8727a58ab41665a074db4c2cfb151ffebf56bc1eb0a87f8ffd7ebf1577093924",
+      "bytes": 11685,
+      "status": "exported",
+      "reason": ""
+    },
+    {
+      "group": "A/standard",
+      "source_path": "data/processed/baseline/full/analysis_validation.json",
+      "export_path": "artifacts/data/processed/baseline/full/analysis_validation.json",
+      "source_sha256": "13feaba3c28430c7c2e0915d4063b7a511d7d4af636dec04b03eb122f48b58d4",
+      "export_sha256": "13feaba3c28430c7c2e0915d4063b7a511d7d4af636dec04b03eb122f48b58d4",
+      "bytes": 29138,
+      "status": "exported",
+      "reason": ""
+    },
+    {
+      "group": "A/standard",
+      "source_path": "data/processed/baseline/full/thresholds_validation.json",
+      "export_path": "artifacts/data/processed/baseline/full/thresholds_validation.json",
+      "source_sha256": "ae2ddfed2fb59f4233101451d016441cd94986315295c02cdc7e98473afeaa7d",
+      "export_sha256": "ae2ddfed2fb59f4233101451d016441cd94986315295c02cdc7e98473afeaa7d",
+      "bytes": 1390,
+      "status": "exported",
+      "reason": ""
+    },
+    {
+      "group": "A/balanced",
+      "source_path": "data/processed/baseline/balanced/full/validation_metrics.json",
+      "export_path": "artifacts/data/processed/baseline/balanced/full/validation_metrics.json",
+      "source_sha256": "24524b65b031ce3aba8b11135ac6df058ea1df603f2ebc875934546155fdea35",
+      "export_sha256": "24524b65b031ce3aba8b11135ac6df058ea1df603f2ebc875934546155fdea35",
+      "bytes": 11976,
+      "status": "exported",
+      "reason": ""
+    },
+    {
+      "group": "A/balanced",
+      "source_path": "data/processed/baseline/balanced/full/analysis_validation.json",
+      "export_path": "artifacts/data/processed/baseline/balanced/full/analysis_validation.json",
+      "source_sha256": "8c0a529d34705529b50484bea92e7cc6082a138314cac2fc4132b3d85ba38e78",
+      "export_sha256": "8c0a529d34705529b50484bea92e7cc6082a138314cac2fc4132b3d85ba38e78",
+      "bytes": 29664,
+      "status": "exported",
+      "reason": ""
+    },
+    {
+      "group": "A/balanced",
+      "source_path": "data/processed/baseline/balanced/full/thresholds_validation.json",
+      "export_path": "artifacts/data/processed/baseline/balanced/full/thresholds_validation.json",
+      "source_sha256": "9b7568b414f5c9891683d4b485bfb184b4f2928eb073bc10169d756eabd8179c",
+      "export_sha256": "9b7568b414f5c9891683d4b485bfb184b4f2928eb073bc10169d756eabd8179c",
+      "bytes": 1397,
+      "status": "exported",
+      "reason": ""
+    },
+    {
+      "group": "A/frozen",
+      "source_path": "data/processed/baseline/final_protocol.json",
+      "export_path": null,
+      "source_sha256": null,
+      "export_sha256": null,
+      "bytes": null,
+      "status": "missing",
+      "reason": "File nguồn chưa có"
+    },
+    {
+      "group": "A/test",
+      "source_path": "data/processed/baseline/final/final_results.json",
+      "export_path": null,
+      "source_sha256": null,
+      "export_sha256": null,
+      "bytes": null,
+      "status": "missing",
+      "reason": "File nguồn chưa có"
+    },
+    {
+      "group": "A/test",
+      "source_path": "data/processed/baseline/final/standard_fixed_test_metrics.json",
+      "export_path": null,
+      "source_sha256": null,
+      "export_sha256": null,
+      "bytes": null,
+      "status": "missing",
+      "reason": "File nguồn chưa có"
+    },
+    {
+      "group": "A/test",
+      "source_path": "data/processed/baseline/final/standard_global_test_metrics.json",
+      "export_path": null,
+      "source_sha256": null,
+      "export_sha256": null,
+      "bytes": null,
+      "status": "missing",
+      "reason": "File nguồn chưa có"
+    },
+    {
+      "group": "A/test",
+      "source_path": "data/processed/baseline/final/standard_tuned_test_metrics.json",
+      "export_path": null,
+      "source_sha256": null,
+      "export_sha256": null,
+      "bytes": null,
+      "status": "missing",
+      "reason": "File nguồn chưa có"
+    },
+    {
+      "group": "A/test",
+      "source_path": "data/processed/baseline/final/balanced_fixed_test_metrics.json",
+      "export_path": null,
+      "source_sha256": null,
+      "export_sha256": null,
+      "bytes": null,
+      "status": "missing",
+      "reason": "File nguồn chưa có"
+    },
+    {
+      "group": "A/test",
+      "source_path": "data/processed/baseline/final/balanced_global_test_metrics.json",
+      "export_path": null,
+      "source_sha256": null,
+      "export_sha256": null,
+      "bytes": null,
+      "status": "missing",
+      "reason": "File nguồn chưa có"
+    },
+    {
+      "group": "A/test",
+      "source_path": "data/processed/baseline/final/balanced_tuned_test_metrics.json",
+      "export_path": null,
+      "source_sha256": null,
+      "export_sha256": null,
+      "bytes": null,
+      "status": "missing",
+      "reason": "File nguồn chưa có"
+    },
+    {
+      "group": "B",
+      "source_path": "data/processed/zero_shot/full/run_metadata.json",
+      "export_path": null,
+      "source_sha256": null,
+      "export_sha256": null,
+      "bytes": null,
+      "status": "missing",
+      "reason": "File nguồn chưa có"
+    },
+    {
+      "group": "B",
+      "source_path": "data/processed/zero_shot/full/validation_metrics.json",
+      "export_path": null,
+      "source_sha256": null,
+      "export_sha256": null,
+      "bytes": null,
+      "status": "missing",
+      "reason": "File nguồn chưa có"
+    },
+    {
+      "group": "B",
+      "source_path": "data/processed/zero_shot/full/final_protocol.json",
+      "export_path": null,
+      "source_sha256": null,
+      "export_sha256": null,
+      "bytes": null,
+      "status": "missing",
+      "reason": "File nguồn chưa có"
+    },
+    {
+      "group": "B",
+      "source_path": "data/processed/zero_shot/full/test_run_metadata.json",
+      "export_path": null,
+      "source_sha256": null,
+      "export_sha256": null,
+      "bytes": null,
+      "status": "missing",
+      "reason": "File nguồn chưa có"
+    },
+    {
+      "group": "B",
+      "source_path": "data/processed/zero_shot/full/test_metrics.json",
+      "export_path": null,
+      "source_sha256": null,
+      "export_sha256": null,
+      "bytes": null,
+      "status": "missing",
+      "reason": "File nguồn chưa có"
+    },
+    {
+      "group": "C/bert/seed_42",
+      "source_path": "data/processed/transformers/bert/seed_42/full/standard/run_metadata.json",
+      "export_path": "artifacts/data/processed/transformers/bert/seed_42/full/standard/run_metadata.json",
+      "source_sha256": "0713fb195a22a955c712ea261e7d0d3d78e729144a7641aacbc55efea38382a8",
+      "export_sha256": "0713fb195a22a955c712ea261e7d0d3d78e729144a7641aacbc55efea38382a8",
+      "bytes": 5188,
+      "status": "exported",
+      "reason": ""
+    },
+    {
+      "group": "C/bert/seed_42",
+      "source_path": "data/processed/transformers/bert/seed_42/full/standard/label_mapping.json",
+      "export_path": "artifacts/data/processed/transformers/bert/seed_42/full/standard/label_mapping.json",
+      "source_sha256": "604873f980b214ff5fcf5682b18c21552444b59a98aaaba698648c59033589db",
+      "export_sha256": "604873f980b214ff5fcf5682b18c21552444b59a98aaaba698648c59033589db",
+      "bytes": 1751,
+      "status": "exported",
+      "reason": ""
+    },
+    {
+      "group": "C/bert/seed_42",
+      "source_path": "data/processed/transformers/bert/seed_42/full/standard/validation_metrics.json",
+      "export_path": "artifacts/data/processed/transformers/bert/seed_42/full/standard/validation_metrics.json",
+      "source_sha256": "895dfd7d37c545339add204392e5c572e278fb4121dfd5f4138ebd9e1189ed6f",
+      "export_sha256": "895dfd7d37c545339add204392e5c572e278fb4121dfd5f4138ebd9e1189ed6f",
+      "bytes": 8678,
+      "status": "exported",
+      "reason": ""
+    },
+    {
+      "group": "C/bert/seed_42",
+      "source_path": "data/processed/transformers/bert/seed_42/full/standard/checkpoint/config.json",
+      "export_path": "artifacts/data/processed/transformers/bert/seed_42/full/standard/checkpoint/config.json",
+      "source_sha256": "b9c139f92a29904515580cc22999e7f0ed35bddfbb26365f84ccca70f14d44d9",
+      "export_sha256": "b9c139f92a29904515580cc22999e7f0ed35bddfbb26365f84ccca70f14d44d9",
+      "bytes": 1956,
+      "status": "exported",
+      "reason": ""
+    },
+    {
+      "group": "C/bert/seed_42",
+      "source_path": "data/processed/transformers/bert/seed_42/full/standard/checkpoint/tokenizer_config.json",
+      "export_path": "artifacts/data/processed/transformers/bert/seed_42/full/standard/checkpoint/tokenizer_config.json",
+      "source_sha256": "42a16d6d6e24ee14d4b42a81e86cbc74a8c8e8565d770905c2b07c0798235570",
+      "export_sha256": "42a16d6d6e24ee14d4b42a81e86cbc74a8c8e8565d770905c2b07c0798235570",
+      "bytes": 1278,
+      "status": "exported",
+      "reason": ""
+    },
+    {
+      "group": "C/bert/seed_42",
+      "source_path": "data/processed/transformers/bert/seed_42/full/standard/checkpoint/special_tokens_map.json",
+      "export_path": "artifacts/data/processed/transformers/bert/seed_42/full/standard/checkpoint/special_tokens_map.json",
+      "source_sha256": "3c3507f36dff57bce437223db3b3081d1e2b52ec3e56ee55438193ecb2c94dd6",
+      "export_sha256": "3c3507f36dff57bce437223db3b3081d1e2b52ec3e56ee55438193ecb2c94dd6",
+      "bytes": 132,
+      "status": "exported",
+      "reason": ""
+    },
+    {
+      "group": "C/bert/seed_42",
+      "source_path": "data/processed/transformers/bert/seed_42/full/standard/final_protocol.json",
+      "export_path": null,
+      "source_sha256": null,
+      "export_sha256": null,
+      "bytes": null,
+      "status": "missing",
+      "reason": "File nguồn chưa có"
+    },
+    {
+      "group": "C/bert/seed_42",
+      "source_path": "data/processed/transformers/bert/seed_42/full/standard/test_results.json",
+      "export_path": null,
+      "source_sha256": null,
+      "export_sha256": null,
+      "bytes": null,
+      "status": "missing",
+      "reason": "File nguồn chưa có"
+    },
+    {
+      "group": "C/bert/seed_123",
+      "source_path": "data/processed/transformers/bert/seed_123/full/standard/run_metadata.json",
+      "export_path": null,
+      "source_sha256": "57fb4fc61c30de8ed6ad3b0415149a7ebedf34c5032870a59f0bc83201704875",
+      "export_sha256": null,
+      "bytes": 3649,
+      "status": "incomplete",
+      "reason": "C full/protocol/test chưa hoàn tất hoặc artifact không hợp lệ"
+    },
+    {
+      "group": "C/bert/seed_123",
+      "source_path": "data/processed/transformers/bert/seed_123/full/standard/label_mapping.json",
+      "export_path": null,
+      "source_sha256": "604873f980b214ff5fcf5682b18c21552444b59a98aaaba698648c59033589db",
+      "export_sha256": null,
+      "bytes": 1751,
+      "status": "incomplete",
+      "reason": "C full/protocol/test chưa hoàn tất hoặc artifact không hợp lệ"
+    },
+    {
+      "group": "C/bert/seed_123",
+      "source_path": "data/processed/transformers/bert/seed_123/full/standard/validation_metrics.json",
+      "export_path": null,
+      "source_sha256": "421bfee860894dfe365bd8de3fad4df3d1e8bf78c784b3d7793b6af2035ceb87",
+      "export_sha256": null,
+      "bytes": 8592,
+      "status": "incomplete",
+      "reason": "C full/protocol/test chưa hoàn tất hoặc artifact không hợp lệ"
+    },
+    {
+      "group": "C/bert/seed_123",
+      "source_path": "data/processed/transformers/bert/seed_123/full/standard/checkpoint/config.json",
+      "export_path": null,
+      "source_sha256": "b9c139f92a29904515580cc22999e7f0ed35bddfbb26365f84ccca70f14d44d9",
+      "export_sha256": null,
+      "bytes": 1956,
+      "status": "incomplete",
+      "reason": "C full/protocol/test chưa hoàn tất hoặc artifact không hợp lệ"
+    },
+    {
+      "group": "C/bert/seed_123",
+      "source_path": "data/processed/transformers/bert/seed_123/full/standard/checkpoint/tokenizer_config.json",
+      "export_path": null,
+      "source_sha256": "42a16d6d6e24ee14d4b42a81e86cbc74a8c8e8565d770905c2b07c0798235570",
+      "export_sha256": null,
+      "bytes": 1278,
+      "status": "incomplete",
+      "reason": "C full/protocol/test chưa hoàn tất hoặc artifact không hợp lệ"
+    },
+    {
+      "group": "C/bert/seed_123",
+      "source_path": "data/processed/transformers/bert/seed_123/full/standard/checkpoint/special_tokens_map.json",
+      "export_path": null,
+      "source_sha256": "3c3507f36dff57bce437223db3b3081d1e2b52ec3e56ee55438193ecb2c94dd6",
+      "export_sha256": null,
+      "bytes": 132,
+      "status": "incomplete",
+      "reason": "C full/protocol/test chưa hoàn tất hoặc artifact không hợp lệ"
+    },
+    {
+      "group": "C/bert/seed_123",
+      "source_path": "data/processed/transformers/bert/seed_123/full/standard/final_protocol.json",
+      "export_path": null,
+      "source_sha256": null,
+      "export_sha256": null,
+      "bytes": null,
+      "status": "missing",
+      "reason": "File nguồn chưa có"
+    },
+    {
+      "group": "C/bert/seed_123",
+      "source_path": "data/processed/transformers/bert/seed_123/full/standard/test_results.json",
+      "export_path": null,
+      "source_sha256": null,
+      "export_sha256": null,
+      "bytes": null,
+      "status": "missing",
+      "reason": "File nguồn chưa có"
+    },
+    {
+      "group": "C/bert/seed_2026",
+      "source_path": "data/processed/transformers/bert/seed_2026/full/standard/run_metadata.json",
+      "export_path": null,
+      "source_sha256": null,
+      "export_sha256": null,
+      "bytes": null,
+      "status": "missing",
+      "reason": "File nguồn chưa có"
+    },
+    {
+      "group": "C/bert/seed_2026",
+      "source_path": "data/processed/transformers/bert/seed_2026/full/standard/label_mapping.json",
+      "export_path": null,
+      "source_sha256": null,
+      "export_sha256": null,
+      "bytes": null,
+      "status": "missing",
+      "reason": "File nguồn chưa có"
+    },
+    {
+      "group": "C/bert/seed_2026",
+      "source_path": "data/processed/transformers/bert/seed_2026/full/standard/validation_metrics.json",
+      "export_path": null,
+      "source_sha256": null,
+      "export_sha256": null,
+      "bytes": null,
+      "status": "missing",
+      "reason": "File nguồn chưa có"
+    },
+    {
+      "group": "C/bert/seed_2026",
+      "source_path": "data/processed/transformers/bert/seed_2026/full/standard/checkpoint/config.json",
+      "export_path": null,
+      "source_sha256": null,
+      "export_sha256": null,
+      "bytes": null,
+      "status": "missing",
+      "reason": "File nguồn chưa có"
+    },
+    {
+      "group": "C/bert/seed_2026",
+      "source_path": "data/processed/transformers/bert/seed_2026/full/standard/checkpoint/tokenizer_config.json",
+      "export_path": null,
+      "source_sha256": null,
+      "export_sha256": null,
+      "bytes": null,
+      "status": "missing",
+      "reason": "File nguồn chưa có"
+    },
+    {
+      "group": "C/bert/seed_2026",
+      "source_path": "data/processed/transformers/bert/seed_2026/full/standard/checkpoint/special_tokens_map.json",
+      "export_path": null,
+      "source_sha256": null,
+      "export_sha256": null,
+      "bytes": null,
+      "status": "missing",
+      "reason": "File nguồn chưa có"
+    },
+    {
+      "group": "C/bert/seed_2026",
+      "source_path": "data/processed/transformers/bert/seed_2026/full/standard/final_protocol.json",
+      "export_path": null,
+      "source_sha256": null,
+      "export_sha256": null,
+      "bytes": null,
+      "status": "missing",
+      "reason": "File nguồn chưa có"
+    },
+    {
+      "group": "C/bert/seed_2026",
+      "source_path": "data/processed/transformers/bert/seed_2026/full/standard/test_results.json",
+      "export_path": null,
+      "source_sha256": null,
+      "export_sha256": null,
+      "bytes": null,
+      "status": "missing",
+      "reason": "File nguồn chưa có"
+    },
+    {
+      "group": "C/roberta/seed_42",
+      "source_path": "data/processed/transformers/roberta/seed_42/full/standard/run_metadata.json",
+      "export_path": null,
+      "source_sha256": null,
+      "export_sha256": null,
+      "bytes": null,
+      "status": "missing",
+      "reason": "File nguồn chưa có"
+    },
+    {
+      "group": "C/roberta/seed_42",
+      "source_path": "data/processed/transformers/roberta/seed_42/full/standard/label_mapping.json",
+      "export_path": null,
+      "source_sha256": null,
+      "export_sha256": null,
+      "bytes": null,
+      "status": "missing",
+      "reason": "File nguồn chưa có"
+    },
+    {
+      "group": "C/roberta/seed_42",
+      "source_path": "data/processed/transformers/roberta/seed_42/full/standard/validation_metrics.json",
+      "export_path": null,
+      "source_sha256": null,
+      "export_sha256": null,
+      "bytes": null,
+      "status": "missing",
+      "reason": "File nguồn chưa có"
+    },
+    {
+      "group": "C/roberta/seed_42",
+      "source_path": "data/processed/transformers/roberta/seed_42/full/standard/checkpoint/config.json",
+      "export_path": null,
+      "source_sha256": null,
+      "export_sha256": null,
+      "bytes": null,
+      "status": "missing",
+      "reason": "File nguồn chưa có"
+    },
+    {
+      "group": "C/roberta/seed_42",
+      "source_path": "data/processed/transformers/roberta/seed_42/full/standard/checkpoint/tokenizer_config.json",
+      "export_path": null,
+      "source_sha256": null,
+      "export_sha256": null,
+      "bytes": null,
+      "status": "missing",
+      "reason": "File nguồn chưa có"
+    },
+    {
+      "group": "C/roberta/seed_42",
+      "source_path": "data/processed/transformers/roberta/seed_42/full/standard/checkpoint/special_tokens_map.json",
+      "export_path": null,
+      "source_sha256": null,
+      "export_sha256": null,
+      "bytes": null,
+      "status": "missing",
+      "reason": "File nguồn chưa có"
+    },
+    {
+      "group": "C/roberta/seed_42",
+      "source_path": "data/processed/transformers/roberta/seed_42/full/standard/final_protocol.json",
+      "export_path": null,
+      "source_sha256": null,
+      "export_sha256": null,
+      "bytes": null,
+      "status": "missing",
+      "reason": "File nguồn chưa có"
+    },
+    {
+      "group": "C/roberta/seed_42",
+      "source_path": "data/processed/transformers/roberta/seed_42/full/standard/test_results.json",
+      "export_path": null,
+      "source_sha256": null,
+      "export_sha256": null,
+      "bytes": null,
+      "status": "missing",
+      "reason": "File nguồn chưa có"
+    },
+    {
+      "group": "C/roberta/seed_123",
+      "source_path": "data/processed/transformers/roberta/seed_123/full/standard/run_metadata.json",
+      "export_path": null,
+      "source_sha256": null,
+      "export_sha256": null,
+      "bytes": null,
+      "status": "missing",
+      "reason": "File nguồn chưa có"
+    },
+    {
+      "group": "C/roberta/seed_123",
+      "source_path": "data/processed/transformers/roberta/seed_123/full/standard/label_mapping.json",
+      "export_path": null,
+      "source_sha256": null,
+      "export_sha256": null,
+      "bytes": null,
+      "status": "missing",
+      "reason": "File nguồn chưa có"
+    },
+    {
+      "group": "C/roberta/seed_123",
+      "source_path": "data/processed/transformers/roberta/seed_123/full/standard/validation_metrics.json",
+      "export_path": null,
+      "source_sha256": null,
+      "export_sha256": null,
+      "bytes": null,
+      "status": "missing",
+      "reason": "File nguồn chưa có"
+    },
+    {
+      "group": "C/roberta/seed_123",
+      "source_path": "data/processed/transformers/roberta/seed_123/full/standard/checkpoint/config.json",
+      "export_path": null,
+      "source_sha256": null,
+      "export_sha256": null,
+      "bytes": null,
+      "status": "missing",
+      "reason": "File nguồn chưa có"
+    },
+    {
+      "group": "C/roberta/seed_123",
+      "source_path": "data/processed/transformers/roberta/seed_123/full/standard/checkpoint/tokenizer_config.json",
+      "export_path": null,
+      "source_sha256": null,
+      "export_sha256": null,
+      "bytes": null,
+      "status": "missing",
+      "reason": "File nguồn chưa có"
+    },
+    {
+      "group": "C/roberta/seed_123",
+      "source_path": "data/processed/transformers/roberta/seed_123/full/standard/checkpoint/special_tokens_map.json",
+      "export_path": null,
+      "source_sha256": null,
+      "export_sha256": null,
+      "bytes": null,
+      "status": "missing",
+      "reason": "File nguồn chưa có"
+    },
+    {
+      "group": "C/roberta/seed_123",
+      "source_path": "data/processed/transformers/roberta/seed_123/full/standard/final_protocol.json",
+      "export_path": null,
+      "source_sha256": null,
+      "export_sha256": null,
+      "bytes": null,
+      "status": "missing",
+      "reason": "File nguồn chưa có"
+    },
+    {
+      "group": "C/roberta/seed_123",
+      "source_path": "data/processed/transformers/roberta/seed_123/full/standard/test_results.json",
+      "export_path": null,
+      "source_sha256": null,
+      "export_sha256": null,
+      "bytes": null,
+      "status": "missing",
+      "reason": "File nguồn chưa có"
+    },
+    {
+      "group": "C/roberta/seed_2026",
+      "source_path": "data/processed/transformers/roberta/seed_2026/full/standard/run_metadata.json",
+      "export_path": null,
+      "source_sha256": null,
+      "export_sha256": null,
+      "bytes": null,
+      "status": "missing",
+      "reason": "File nguồn chưa có"
+    },
+    {
+      "group": "C/roberta/seed_2026",
+      "source_path": "data/processed/transformers/roberta/seed_2026/full/standard/label_mapping.json",
+      "export_path": null,
+      "source_sha256": null,
+      "export_sha256": null,
+      "bytes": null,
+      "status": "missing",
+      "reason": "File nguồn chưa có"
+    },
+    {
+      "group": "C/roberta/seed_2026",
+      "source_path": "data/processed/transformers/roberta/seed_2026/full/standard/validation_metrics.json",
+      "export_path": null,
+      "source_sha256": null,
+      "export_sha256": null,
+      "bytes": null,
+      "status": "missing",
+      "reason": "File nguồn chưa có"
+    },
+    {
+      "group": "C/roberta/seed_2026",
+      "source_path": "data/processed/transformers/roberta/seed_2026/full/standard/checkpoint/config.json",
+      "export_path": null,
+      "source_sha256": null,
+      "export_sha256": null,
+      "bytes": null,
+      "status": "missing",
+      "reason": "File nguồn chưa có"
+    },
+    {
+      "group": "C/roberta/seed_2026",
+      "source_path": "data/processed/transformers/roberta/seed_2026/full/standard/checkpoint/tokenizer_config.json",
+      "export_path": null,
+      "source_sha256": null,
+      "export_sha256": null,
+      "bytes": null,
+      "status": "missing",
+      "reason": "File nguồn chưa có"
+    },
+    {
+      "group": "C/roberta/seed_2026",
+      "source_path": "data/processed/transformers/roberta/seed_2026/full/standard/checkpoint/special_tokens_map.json",
+      "export_path": null,
+      "source_sha256": null,
+      "export_sha256": null,
+      "bytes": null,
+      "status": "missing",
+      "reason": "File nguồn chưa có"
+    },
+    {
+      "group": "C/roberta/seed_2026",
+      "source_path": "data/processed/transformers/roberta/seed_2026/full/standard/final_protocol.json",
+      "export_path": null,
+      "source_sha256": null,
+      "export_sha256": null,
+      "bytes": null,
+      "status": "missing",
+      "reason": "File nguồn chưa có"
+    },
+    {
+      "group": "C/roberta/seed_2026",
+      "source_path": "data/processed/transformers/roberta/seed_2026/full/standard/test_results.json",
+      "export_path": null,
+      "source_sha256": null,
+      "export_sha256": null,
+      "bytes": null,
+      "status": "missing",
+      "reason": "File nguồn chưa có"
+    },
+    {
+      "group": "C/distilbert/seed_42",
+      "source_path": "data/processed/transformers/distilbert/seed_42/full/standard/run_metadata.json",
+      "export_path": null,
+      "source_sha256": null,
+      "export_sha256": null,
+      "bytes": null,
+      "status": "missing",
+      "reason": "File nguồn chưa có"
+    },
+    {
+      "group": "C/distilbert/seed_42",
+      "source_path": "data/processed/transformers/distilbert/seed_42/full/standard/label_mapping.json",
+      "export_path": null,
+      "source_sha256": null,
+      "export_sha256": null,
+      "bytes": null,
+      "status": "missing",
+      "reason": "File nguồn chưa có"
+    },
+    {
+      "group": "C/distilbert/seed_42",
+      "source_path": "data/processed/transformers/distilbert/seed_42/full/standard/validation_metrics.json",
+      "export_path": null,
+      "source_sha256": null,
+      "export_sha256": null,
+      "bytes": null,
+      "status": "missing",
+      "reason": "File nguồn chưa có"
+    },
+    {
+      "group": "C/distilbert/seed_42",
+      "source_path": "data/processed/transformers/distilbert/seed_42/full/standard/checkpoint/config.json",
+      "export_path": null,
+      "source_sha256": null,
+      "export_sha256": null,
+      "bytes": null,
+      "status": "missing",
+      "reason": "File nguồn chưa có"
+    },
+    {
+      "group": "C/distilbert/seed_42",
+      "source_path": "data/processed/transformers/distilbert/seed_42/full/standard/checkpoint/tokenizer_config.json",
+      "export_path": null,
+      "source_sha256": null,
+      "export_sha256": null,
+      "bytes": null,
+      "status": "missing",
+      "reason": "File nguồn chưa có"
+    },
+    {
+      "group": "C/distilbert/seed_42",
+      "source_path": "data/processed/transformers/distilbert/seed_42/full/standard/checkpoint/special_tokens_map.json",
+      "export_path": null,
+      "source_sha256": null,
+      "export_sha256": null,
+      "bytes": null,
+      "status": "missing",
+      "reason": "File nguồn chưa có"
+    },
+    {
+      "group": "C/distilbert/seed_42",
+      "source_path": "data/processed/transformers/distilbert/seed_42/full/standard/final_protocol.json",
+      "export_path": null,
+      "source_sha256": null,
+      "export_sha256": null,
+      "bytes": null,
+      "status": "missing",
+      "reason": "File nguồn chưa có"
+    },
+    {
+      "group": "C/distilbert/seed_42",
+      "source_path": "data/processed/transformers/distilbert/seed_42/full/standard/test_results.json",
+      "export_path": null,
+      "source_sha256": null,
+      "export_sha256": null,
+      "bytes": null,
+      "status": "missing",
+      "reason": "File nguồn chưa có"
+    },
+    {
+      "group": "C/distilbert/seed_123",
+      "source_path": "data/processed/transformers/distilbert/seed_123/full/standard/run_metadata.json",
+      "export_path": null,
+      "source_sha256": null,
+      "export_sha256": null,
+      "bytes": null,
+      "status": "missing",
+      "reason": "File nguồn chưa có"
+    },
+    {
+      "group": "C/distilbert/seed_123",
+      "source_path": "data/processed/transformers/distilbert/seed_123/full/standard/label_mapping.json",
+      "export_path": null,
+      "source_sha256": null,
+      "export_sha256": null,
+      "bytes": null,
+      "status": "missing",
+      "reason": "File nguồn chưa có"
+    },
+    {
+      "group": "C/distilbert/seed_123",
+      "source_path": "data/processed/transformers/distilbert/seed_123/full/standard/validation_metrics.json",
+      "export_path": null,
+      "source_sha256": null,
+      "export_sha256": null,
+      "bytes": null,
+      "status": "missing",
+      "reason": "File nguồn chưa có"
+    },
+    {
+      "group": "C/distilbert/seed_123",
+      "source_path": "data/processed/transformers/distilbert/seed_123/full/standard/checkpoint/config.json",
+      "export_path": null,
+      "source_sha256": null,
+      "export_sha256": null,
+      "bytes": null,
+      "status": "missing",
+      "reason": "File nguồn chưa có"
+    },
+    {
+      "group": "C/distilbert/seed_123",
+      "source_path": "data/processed/transformers/distilbert/seed_123/full/standard/checkpoint/tokenizer_config.json",
+      "export_path": null,
+      "source_sha256": null,
+      "export_sha256": null,
+      "bytes": null,
+      "status": "missing",
+      "reason": "File nguồn chưa có"
+    },
+    {
+      "group": "C/distilbert/seed_123",
+      "source_path": "data/processed/transformers/distilbert/seed_123/full/standard/checkpoint/special_tokens_map.json",
+      "export_path": null,
+      "source_sha256": null,
+      "export_sha256": null,
+      "bytes": null,
+      "status": "missing",
+      "reason": "File nguồn chưa có"
+    },
+    {
+      "group": "C/distilbert/seed_123",
+      "source_path": "data/processed/transformers/distilbert/seed_123/full/standard/final_protocol.json",
+      "export_path": null,
+      "source_sha256": null,
+      "export_sha256": null,
+      "bytes": null,
+      "status": "missing",
+      "reason": "File nguồn chưa có"
+    },
+    {
+      "group": "C/distilbert/seed_123",
+      "source_path": "data/processed/transformers/distilbert/seed_123/full/standard/test_results.json",
+      "export_path": null,
+      "source_sha256": null,
+      "export_sha256": null,
+      "bytes": null,
+      "status": "missing",
+      "reason": "File nguồn chưa có"
+    },
+    {
+      "group": "C/distilbert/seed_2026",
+      "source_path": "data/processed/transformers/distilbert/seed_2026/full/standard/run_metadata.json",
+      "export_path": null,
+      "source_sha256": null,
+      "export_sha256": null,
+      "bytes": null,
+      "status": "missing",
+      "reason": "File nguồn chưa có"
+    },
+    {
+      "group": "C/distilbert/seed_2026",
+      "source_path": "data/processed/transformers/distilbert/seed_2026/full/standard/label_mapping.json",
+      "export_path": null,
+      "source_sha256": null,
+      "export_sha256": null,
+      "bytes": null,
+      "status": "missing",
+      "reason": "File nguồn chưa có"
+    },
+    {
+      "group": "C/distilbert/seed_2026",
+      "source_path": "data/processed/transformers/distilbert/seed_2026/full/standard/validation_metrics.json",
+      "export_path": null,
+      "source_sha256": null,
+      "export_sha256": null,
+      "bytes": null,
+      "status": "missing",
+      "reason": "File nguồn chưa có"
+    },
+    {
+      "group": "C/distilbert/seed_2026",
+      "source_path": "data/processed/transformers/distilbert/seed_2026/full/standard/checkpoint/config.json",
+      "export_path": null,
+      "source_sha256": null,
+      "export_sha256": null,
+      "bytes": null,
+      "status": "missing",
+      "reason": "File nguồn chưa có"
+    },
+    {
+      "group": "C/distilbert/seed_2026",
+      "source_path": "data/processed/transformers/distilbert/seed_2026/full/standard/checkpoint/tokenizer_config.json",
+      "export_path": null,
+      "source_sha256": null,
+      "export_sha256": null,
+      "bytes": null,
+      "status": "missing",
+      "reason": "File nguồn chưa có"
+    },
+    {
+      "group": "C/distilbert/seed_2026",
+      "source_path": "data/processed/transformers/distilbert/seed_2026/full/standard/checkpoint/special_tokens_map.json",
+      "export_path": null,
+      "source_sha256": null,
+      "export_sha256": null,
+      "bytes": null,
+      "status": "missing",
+      "reason": "File nguồn chưa có"
+    },
+    {
+      "group": "C/distilbert/seed_2026",
+      "source_path": "data/processed/transformers/distilbert/seed_2026/full/standard/final_protocol.json",
+      "export_path": null,
+      "source_sha256": null,
+      "export_sha256": null,
+      "bytes": null,
+      "status": "missing",
+      "reason": "File nguồn chưa có"
+    },
+    {
+      "group": "C/distilbert/seed_2026",
+      "source_path": "data/processed/transformers/distilbert/seed_2026/full/standard/test_results.json",
+      "export_path": null,
+      "source_sha256": null,
+      "export_sha256": null,
+      "bytes": null,
+      "status": "missing",
+      "reason": "File nguồn chưa có"
+    },
+    {
+      "group": "C/selection",
+      "source_path": "data/processed/transformers/selected_model.json",
+      "export_path": null,
+      "source_sha256": null,
+      "export_sha256": null,
+      "bytes": null,
+      "status": "missing",
+      "reason": "File nguồn chưa có"
+    },
+    {
+      "group": "C/selection",
+      "source_path": "data/processed/transformers/seed_summary.json",
+      "export_path": null,
+      "source_sha256": null,
+      "export_sha256": null,
+      "bytes": null,
+      "status": "missing",
+      "reason": "File nguồn chưa có"
+    }
+  ],
+  "code_provenance": {
+    "scope": "repository_at_export_time_not_training_commit",
+    "git_head": "92138cca1a08f574f67c15f51c24c5af2f7db29d",
+    "working_tree_dirty": true,
+    "source_file_sha256": {
+      "src/data.py": "044e1bc0fe1dacceac169db519dbf7c5b6cf46acb1301dc0c6b8263caac4743d",
+      "src/metrics.py": "55732477a434c77d8ef3599e6b85ba7ca6909efd601006df4a75c6aeee47d04a",
+      "src/baseline.py": "c5d73f4be0f0b98ff46073002aae32cf895b1dbe1da3637a9aca829edac8e02c",
+      "src/zero_shot.py": "364958a8522440bee2674e0fe89dbc3b6ba073bfa98a6439c49643bfa6036dbf",
+      "src/neural.py": "da57e190f07fb490417db9e02a58a102f4ee828ba04ad832507104ad6a40e464",
+      "src/experiment.py": "84c64fa23f0aae2ea07257d524ae6facb5af49f5973e2ffd8cc09eb41682033f",
+      "scripts/run_baseline.py": "fcd26451b0d825a6be264768258a5caa7d21444f5948884ecec32ca64ebabf21",
+      "scripts/train_transformer.py": "4a96a73abd496d1990c091d41db3cc068f8fe9be306e68da5ffae5282ad21ac2",
+      "scripts/run_zero_shot.py": "ab4c0a43682f308b3b0667e6f48c20a1acdbd5064e75f7b3da5772a93b51a914",
+      "scripts/freeze_baseline.py": "534a8624ddf722bda4b6d90425c77ff2324e85f7a2cc809d02c1a50bb547c2f3",
+      "scripts/freeze_experiment.py": "bfb290c1a6e415fd254c4b5c2eabe51b4e8b3d636f916e7122fa671a24f9a2d1",
+      "scripts/evaluate_baseline_test.py": "49f07f5eb09bcabd77bcc56a7ad0e4cdadc25376e14960b19f4fa1d83d19cccf",
+      "scripts/evaluate_transformer_test.py": "3e8fba80b061ecfc5b9825574445527f7785e0d3df67ff3c63cdef9320c575fe"
+    }
+  },
+  "n_exported": 14,
+  "n_not_exported": 81,
+  "c_full_completed": 1,
+  "c_full_expected": 9,
+  "notes": [
+    "JSON bytes are copied from existing verified artifacts; configs/history are not invented.",
+    "Git HEAD and source hashes describe the repository at export time, not the unrecorded training commit.",
+    "Weights, prediction NPZ, raw text, datasets, tokenizer vocabulary and virtual environments are omitted.",
+    "Missing/incomplete/invalid/conflict entries are not results. Read only status=exported entries."
+  ]
+}
