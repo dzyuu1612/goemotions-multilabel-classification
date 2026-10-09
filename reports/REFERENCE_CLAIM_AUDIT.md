@@ -2,13 +2,15 @@
 
 **Ngày kiểm tra:** 08/10/2026. **Phạm vi:** nguồn nền tảng, phương pháp, số liệu nguồn và liên hệ Case Study 4. Đây là hồ sơ kiểm chứng tài liệu; trạng thái huấn luyện và kết quả cuối phải lấy từ artifacts của các lần chạy thực tế.
 
+**Cập nhật bản bàn giao 09/10/2026:** đã xuất báo cáo sáu chương **55 trang** và bài IEEE hai cột **8 trang**, cùng hai báo cáo tiến độ **5/10 trang**. Kết quả đầy đủ có **9/9 run C**, 72 bản ghi và 36 nhóm tổng hợp; kiểm thử sau tích hợp **77/77 PASS**. Đối chiếu số cuối tại [bảng kết quả](project_results/RESULTS.md) và [hồ sơ kiểm bản Word/PDF](execution/final_report_verification.json). Các số trang 45/6 bên dưới ghi lại lượt đọc nguồn ban đầu, không phải bản cuối. Lần cập nhật này chỉ đối chiếu trạng thái bàn giao, không tuyên bố đã đọc lại nguồn ngoài.
+
 ## 1. Tài liệu đã đối chiếu
 
 - `reports/references_ieee.json`: danh mục 26 nguồn của báo cáo sáu chương.
 - `reports/BAO_CAO_DO_AN_NOI_DUNG.md`: các phần dữ liệu, nền tảng, phương pháp, đánh giá, lựa chọn mô hình và giá trị ứng dụng.
 - `reports/BAI_BAO_GOEMOTIONS_IEEE_NOI_DUNG.md`: bản bài viết hai cột; có danh mục riêng 20 nguồn.
 - `reports/BAI_BAO_GOEMOTIONS_IEEE_KIEM_CHUNG.json`: hồ sơ định dạng và thời điểm xuất bài viết.
-- Hai bản PDF tương ứng: bản sáu chương 45 trang và bài viết 6 trang tại thời điểm đọc; đã kiểm tra nội dung Case Study 4 trong bản xuất.
+- Hai bản PDF tương ứng ở lượt đọc nguồn ban đầu ngày 08/10: bản sáu chương 45 trang và bài viết 6 trang tại thời điểm đó; đã kiểm tra nội dung Case Study 4 trong bản xuất. Bản cuối 55/8 trang được kiểm riêng trong hồ sơ bàn giao nêu trên.
 - PDF người dùng cung cấp `C:\Users\dzyuu\Downloads\lee2020.pdf`: đọc trực tiếp bảy trang PDF 98–104, tương ứng trang in 82–88. Không dùng bản tóm tắt thứ cấp để xác nhận nội dung case.
 
 Đối với GoEmotions, đã đọc bài PDF gốc cùng README chính thức. Đối với BERT, RoBERTa, DistilBERT, Yin và BART, kiểm tra metadata/abstract của nguồn gốc và model card chính thức cho các nhận định khái quát; không tuyên bố đã đọc lại toàn bộ các PDF đó trong lượt kiểm tra này. Tài liệu phần mềm được đối chiếu tại nội dung API liên quan. Việc kiểm tra không chạy model, không sử dụng GPU và không thay đổi quá trình huấn luyện đang hoạt động.
@@ -17,7 +19,7 @@
 
 Các nhận định nền tảng được kiểm tra phù hợp với nguồn: bài toán GoEmotions có 28 nhãn, giữ official split, phân loại đa nhãn bằng scores độc lập, dùng BERT theo hướng bài gốc và bổ sung các hệ thống so sánh theo đồ án. Phần công nghiệp dùng Case Study 4 đúng trường hợp và ghi rõ giới hạn khi liên hệ sang NLP.
 
-Quy tắc hòa khi chọn kiến trúc đã được sửa cho khớp code; hai citation PyTorch đã đổi sang đúng tag v2.13.0; mốc edition IEEE Guide chưa xác minh lại được đã được bỏ khỏi metadata. Các sửa đổi này nằm trong nguồn báo cáo và references. DOCX/PDF đang là bản nháp chờ xuất lại sau tổng hợp kết quả cuối; không dùng chúng để tuyên bố benchmark test hoặc chín run C đã hoàn thành.
+Quy tắc hòa khi chọn kiến trúc đã được sửa cho khớp code; hai citation PyTorch đã đổi sang đúng tag v2.13.0; mốc edition IEEE Guide chưa xác minh lại được đã được bỏ khỏi metadata. Các sửa đổi này nằm trong nguồn báo cáo và references. Tại lượt kiểm nguồn ban đầu, DOCX/PDF là bản nháp chờ tổng hợp cuối; trạng thái này đã được thay bằng bản xuất 55/8 trang và kết quả full nêu ở cập nhật 09/10. Bằng chứng hoàn tất thí nghiệm lấy từ artifacts thực tế, không suy từ việc có file Word/PDF.
 
 ## 3. Bảng nguồn → nhận định → căn cứ → giới hạn
 
