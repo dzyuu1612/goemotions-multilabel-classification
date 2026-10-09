@@ -110,6 +110,8 @@ def snapshot():
     return {"summary": summary, "baseline": baseline, "eda": eda, "runs": run_rows,
             "zero_shot": zero_shot, "selection": read_json(ROOT / "data/processed/transformers/selected_model.json", {}),
             "demo": read_json(ROOT / "reports/demo_verification.json", {}),
+            "demo_ui": read_json(ROOT / "reports/demo_ui/evidence.json", {}),
+            "verification": read_json(ROOT / "reports/verification_project.json", {}),
             "summary_hash": digest(summary_path) if summary_path.exists() else None}
 
 
@@ -200,6 +202,13 @@ def append_references(original_ids):
 
 def progress_one(data, stamp):
     completed = sum(row["completed"] for row in data["runs"])
+    next_steps = ("- Đã đủ B full và 9/9 run C; duy trì logs/checkpoints/scores/config khi bàn giao.\n"
+                  "- Đã khóa lựa chọn/ngưỡng trên validation và có test; không chọn lại bằng test.\n"
+                  "- Đã có ba case đối chiếu và hồ sơ demo; nhóm cần tự đọc, diễn giải và kiểm khi chuyển máy."
+                  if data["summary"].get("complete") else
+                  "- Hoàn tất B full và ba C đủ seed; giữ logs/checkpoints/scores/config.\n"
+                  "- Dùng validation để khóa kiến trúc/seed/ngưỡng trước test.\n"
+                  "- Đối chiếu ít nhất ba nhóm lỗi cùng ID C1/C2/C3; dựng demo từ C được chọn.")
     return f"""# BÁO CÁO TIẾN ĐỘ LẦN 1
 
 ## Phân loại cảm xúc đa nhãn với GoEmotions
@@ -256,9 +265,7 @@ BERT cased theo lựa chọn kho GoEmotions; RoBERTa và DistilBERT có tokenize
 
 ## 7. Vướng mắc và đầu việc tiếp theo
 
-- Hoàn tất B full và ba C đủ seed; giữ logs/checkpoints/scores/config.
-- Dùng validation để khóa kiến trúc/seed/ngưỡng trước test; tránh tuned-val bị diễn giải thành test.
-- Đối chiếu ít nhất ba nhóm lỗi cùng ID C1/C2/C3; dựng demo từ C được chọn.
+{next_steps}
 - Thiết bị từng bị ngủ trong quá trình C; thời gian elapsed có gián đoạn, không coi là benchmark tốc độ được kiểm soát.
 - Cần đọc và giải thích code, xác nhận metadata hành chính và đóng góp trước khi nộp theo kênh cô chỉ định.
 
@@ -293,15 +300,47 @@ def progress_two(data, stamp):
         # Báo cáo tiến độ ngắn: giữ tối đa 12.000 ký tự, liên kết hồ sơ đầy đủ.
         if len(errors) > 12000:
             errors = errors[:12000].rsplit("\n", 1)[0] + "\n\nXem đầy đủ tại `reports/errors_test_standard_fixed/summary.md`."
+    cases_path = ROOT / "reports/error_case_studies.md"
+    if cases_path.exists():
+        cases = re.sub(r"^# .*\n", "", cases_path.read_text(encoding="utf-8"), count=1)
+        errors += "\n\n" + re.sub(r"^## ", "### ", cases, flags=re.MULTILINE)
     selection = data["selection"]
     if selection:
         selected_text = f"Selection manifest đã có: `{selection.get('architecture', '—')}`, seed `{selection.get('seed', '—')}`. Luật lựa chọn lấy từ validation; cần đọc `selected_model.json` và hồ sơ demo."
     else:
         selected_text = "Chưa có selection manifest best C. Không dùng A/B hoặc checkpoint smoke để thay demo môn học."
     if data["demo"]:
-        demo_text = "Có `reports/demo_verification.json` ghi minh chứng đã kiểm; kiểm thời điểm/câu/model và kết quả score trong hồ sơ trước khi trình bày. Việc có hồ sơ không bảo đảm máy/server đang chạy tại lúc đọc báo cáo."
+        evidence = data["demo"]
+        demo_text = (f"Kiểm suy luận lúc {evidence.get('checked_at_utc', '—')}: "
+                     f"{evidence.get('model_inference_status', '—')}, model {evidence.get('architecture', '—')}, "
+                     f"seed {evidence.get('seed', '—')}; đối chiếu {len(evidence.get('validation_cases', []))} câu "
+                     "với scores validation và kiểm luồng nhập. Đây là kiểm suy luận, không phải kiểm UI.")
     else:
         demo_text = "Chưa có hồ sơ kiểm demo tại thời điểm render. Khi hoàn tất cần URL chạy tại buổi demo hoặc ảnh/video, checkpoint/ngưỡng và so score với script suy luận."
+    ui = data.get("demo_ui", {})
+    if ui:
+        demo_text += (f"\n\nKiểm UI riêng lúc {ui.get('checked_at_utc', '—')}: "
+                      f"{ui.get('interface_status', '—')}, {ui.get('rendered_row_count', '—')}/28 hàng trong DOM. "
+                      "Ảnh thực tế: reports/demo_ui/demo_ui.png; hash nằm trong evidence.json. "
+                      "Hồ sơ ghi nhận thời điểm kiểm, không bảo đảm server đang chạy khi đọc báo cáo.")
+    rare_path = ROOT / "reports/project_results/ANALYSIS.md"
+    rare_text = "Chưa có bảng nhãn hiếm test đủ dữ liệu."
+    if rare_path.exists():
+        rare_text = rare_path.read_text(encoding="utf-8").split("## 2.", 1)[0]
+        rare_text = re.sub(r"^# .*\n", "", rare_text, count=1)
+        rare_text = re.sub(r"^## ", "### ", rare_text, flags=re.MULTILINE)
+    verification = data.get("verification", {})
+    final_tests = verification.get("final_unit_tests", {})
+    notebook_tests = verification.get("notebook_verification", {})
+    qa_text = (f"Kiểm mã: {final_tests.get('passed', '—')}/{final_tests.get('tests_run', '—')} unit tests đạt; "
+               f"notebook {notebook_tests.get('passed', '—')}/{notebook_tests.get('completed', '—')} đạt. "
+               "Nguồn verification_project.json; phép kiểm mã không thay benchmark full.")
+    next_advanced = ("Đã có bảng test trước/sau với support, mean±std và cả mức giảm/không đổi. "
+                     "C weighting chưa chạy; chín C standard dùng threshold tuning, không làm encoder học thêm. "
+                     "Nhóm cần đọc và xác nhận các case, giữ nguyên protocol và artifacts khi bàn giao."
+                     if summary.get("complete") else
+                     "Đầu việc nâng cao tiếp theo: khóa threshold từng run, tổng hợp rare-label P/R/F1/support, "
+                     "giữ cả nhãn không cải thiện và đánh giá cuối trên test. Nếu weighted C được bổ sung, phải train lại.")
     return f"""# BÁO CÁO TIẾN ĐỘ LẦN 2
 
 ## Phân loại cảm xúc đa nhãn với GoEmotions
@@ -346,7 +385,7 @@ Ngưỡng riêng được chọn bằng validation của đúng model; không d�
 
 {errors}
 
-Ba nhóm cần đọc thủ công: cảm xúc gần nghĩa; bỏ sót một phần nhãn của câu đa nhãn; phủ định/hàm ý/slang hoặc thiếu ngữ cảnh. Mỗi ví dụ đối chiếu phải cùng ID và true labels, kèm predictions/scores/threshold của C1/C2/C3. Một câu có thể đóng góp nhiều cặp FN/FP; không cộng mọi cặp để tính số câu sai.
+Ba nhóm tự động gồm bỏ sót một phần nhãn, bỏ nhãn hiếm và cùng lúc FN/FP; các nhóm có thể chồng lấp. Ba case được diễn giải từ câu/nhãn/scores, không tự quy thành mỉa mai hoặc nguyên nhân trong encoder. Mỗi ví dụ đối chiếu giữ cùng ID và true labels. Một câu có thể đóng góp nhiều cặp FN/FP; không cộng mọi cặp để tính số câu sai.
 
 Ví dụ A standard @0,5 đã kiểm: `eczwil0` bỏ sót pride; `ed832y6` dự đoán love thừa; `eczdvun` tìm gratitude nhưng thiếu admiration. Đây là ví dụ A thực tế, chưa phải lỗi của các C. Chỉ suy ra nguyên nhân sau khi đọc ngữ cảnh/annotation.
 
@@ -355,6 +394,8 @@ Ví dụ A standard @0,5 đã kiểm: `eczwil0` bỏ sót pride; `ed832y6` dự 
 {selected_text}
 
 {demo_text}
+
+{qa_text}
 
 Gradio nối hàm suy luận với giao diện nhập văn bản [5]. Demo cần đúng checkpoint/tokenizer/threshold đã chọn, hỗ trợ nhiều nhãn, xử lý input rỗng và không ép neutral khi mọi score dưới ngưỡng. URL đang chạy/ảnh/video được điền sau khi xác minh, không tạo link giả.
 
@@ -368,7 +409,9 @@ Gradio nối hàm suy luận với giao diện nhập văn bản [5]. Demo cần
 
 Ngưỡng phải được chọn trên validation của đúng model, tránh dùng test để điều chỉnh [4]. Năm nhãn hiếm chọn bằng train: grief, pride, relief, nervousness, embarrassment. Có bảng F1 trước/sau A tại `reports/BASELINE_RESULTS.md` và bảng per-label. Cải tiến C nếu có phải báo cùng seed/config và mean±std đủ run; pilot một seed được ghi đúng pilot.
 
-Đầu việc nâng cao tiếp theo: khóa threshold từng run, tổng hợp rare-label P/R/F1/support, giữ cả nhãn không cải thiện và đánh giá cuối trên test. Nếu weighted C được bổ sung, phải train lại; threshold tuning riêng không làm encoder học thêm.
+{rare_text}
+
+{next_advanced}
 
 ## 6. Vai trò, đóng góp và phần chưa hoàn thành
 
@@ -378,9 +421,9 @@ Ngưỡng phải được chọn trên validation của đúng model, tránh dù
 
 Theo summary hiện đọc: `complete={str(summary.get('complete', False)).lower()}`. Những phần cần bổ sung:
 
-{chr(10).join('- ' + item for item in summary.get('missing', [])) or '- Không còn mục thiếu trong summary A/B/C; vẫn cần kiểm demo, đọc lỗi, thông tin hành chính và đóng góp.'}
+{chr(10).join('- ' + item for item in summary.get('missing', [])) or '- Không còn mục thiếu trong summary A/B/C; hồ sơ kiểm demo và đọc lỗi đã nêu trên. Nhóm cần xác nhận thông tin hành chính, đóng góp và kiểm demo khi chuyển máy.'}
 
-Chưa đủ C/mean±std/lỗi/demo thì bản hiện trạng chưa đáp ứng toàn bộ tiêu chí tiến độ 2; không xác nhận đạt điểm hoặc đã nộp. Nhóm cần kiểm và cập nhật sau khi artifacts hoàn tất.
+Mức hoàn thành được ghi theo artifacts hiện có; không xác nhận điểm số hoặc đã nộp giảng viên. Các thông tin hành chính và tỷ lệ đóng góp vẫn để trống cho nhóm xác nhận.
 
 ## 7. Hồ sơ và bước hoàn tất
 
@@ -388,7 +431,7 @@ Summary: `reports/project_results/summary.json`; SHA-256: `{data['summary_hash']
 
 Kho chung: https://github.com/trangkhanh-ai/goemotions-multilabel-classification
 
-Thứ tự tiếp tục: đủ seed → tổng hợp validation/lỗi/nâng cao → chọn C/demo → khóa protocol → test → hoàn thiện báo cáo cuối/slide/đóng góp. Script tạo báo cáo chỉ đọc artifacts, không chạy GPU, không thay summary và không tự gửi/nộp.
+Quy trình đã áp dụng: đủ seed → tổng hợp validation → chọn C/ngưỡng → khóa protocol → test → đối chiếu lỗi/demo → hoàn thiện báo cáo. Bước tiếp theo là đọc code, tập bảo vệ, điền thông tin hành chính và xác nhận đóng góp. Script tạo báo cáo chỉ đọc artifacts, không chạy GPU, không thay summary và không tự gửi/nộp.
 
 ## Tài liệu tham khảo
 

@@ -1,6 +1,9 @@
 # Kết quả phần A — baseline cổ điển GoEmotions
 
-Bản này sinh tự động từ các file validation đã chạy. Dữ liệu: GoEmotions `simplified`, revision `add492243ff905527e67aeb8b80c082af02207c3`; train 43.410, validation 5.426, 28 nhãn. **Chưa dùng nhãn test.**
+Bảng validation được sinh từ artifacts A; phần test cập nhật **08/10/2026** từ
+protocol đã khóa và kết quả thật. GoEmotions `simplified`, revision
+`add492243ff905527e67aeb8b80c082af02207c3`; train 43.410, validation 5.426,
+**test 5.427**, đủ 28 nhãn. A đã đo cả sáu cấu hình test sau khi chọn bằng val.
 
 ## Thiết lập
 
@@ -19,7 +22,32 @@ Bản này sinh tự động từ các file validation đã chạy. Dữ liệu:
 | balanced | Chung 0.55, chọn trên val | 0.4660 | 0.5176 | 0.4524 | 0.6047 | 0.4142 | 0.5470 | 0.0473 |
 | balanced | Chọn theo từng nhãn trên val | 0.4901 | 0.5467 | 0.4796 | 0.6356 | 0.4874 | 0.5219 | 0.0443 |
 
-**Cách hiểu:** các hàng chọn ngưỡng được đo trên chính validation đã dùng để chọn ngưỡng; mức tăng ở đó có thể lạc quan. Chỉ dùng test một lần sau khi cả nhóm khóa cấu hình để xác nhận kết luận.
+**Cách hiểu:** các hàng chọn ngưỡng được đo trên chính validation đã dùng để chọn
+ngưỡng; mức tăng có thể lạc quan. `final_protocol.json` đã khóa sáu cấu hình và
+chọn `balanced_tuned` theo validation; test dưới đây đo các cấu hình đó, không tune lại.
+
+## Bảng test sau khóa protocol — 5.427 mẫu
+
+Nguồn: [all_runs.csv](project_results/all_runs.csv),
+[mean_std.csv](project_results/mean_std.csv) và sáu JSON metrics trong
+[hồ sơ tái hiện](reproducibility/README.md). A chỉ có một seed nên không tạo std.
+
+| Cấu hình | Ngưỡng từ val | Macro-F1 | Micro-F1 | Micro-P | Micro-R | Macro-P | Macro-R | Hamming Loss |
+|---|---|---:|---:|---:|---:|---:|---:|---:|
+| standard | Cố định 0,5 | 0.1963 | 0.3800 | 0.7383 | 0.2558 | 0.6128 | 0.1396 | 0.0348 |
+| standard | Chung 0,10 | 0.4096 | 0.5047 | 0.4025 | 0.6766 | 0.4631 | 0.4476 | 0.0553 |
+| standard | Riêng từng nhãn | 0.4134 | 0.5330 | 0.4744 | 0.6082 | 0.4384 | 0.4361 | 0.0444 |
+| balanced | Cố định 0,5 | 0.4441 | 0.5024 | 0.4043 | 0.6631 | 0.3777 | 0.5696 | 0.0547 |
+| balanced | Chung 0,55 | 0.4530 | 0.5157 | 0.4447 | 0.6135 | 0.4029 | 0.5363 | 0.0480 |
+| balanced | Riêng từng nhãn — đã chọn bằng val | 0.4493 | 0.5277 | 0.4561 | 0.6260 | 0.4372 | 0.4883 | 0.0467 |
+
+- A balanced global có Macro-F1 test **0,4530**, cao hơn balanced tuned **0,4493**,
+  dù tuned đạt Macro-F1 validation cao hơn. Đây là giới hạn tổng quát hóa của tuning;
+  không đổi cấu hình đã chọn sang global dựa vào test.
+- Standard tuned có Micro-F1 test **0,5330**, cao hơn balanced tuned **0,5277**;
+  balanced tuned có Macro-F1 cao hơn. Weighting/ngưỡng có đánh đổi giữa các nhãn.
+- Standard fixed có Hamming thấp nhất A nhưng Recall thấp và năm nhãn hiếm F1=0.
+  Không dùng riêng Hamming để khẳng định tốt nhất.
 
 ## Môi trường và thời gian đo
 
@@ -42,9 +70,32 @@ Danh sách được chọn bằng train trước khi nhìn kết quả validatio
 | nervousness | 164 | 21 | 0.0000 | 0.0909 | 0.3077 | 0.3125 |
 | embarrassment | 303 | 35 | 0.1081 | 0.3636 | 0.5135 | 0.5507 |
 
+### F1 nhãn hiếm trên test: trước/sau và nhãn giảm khi thêm tuning
+
+Nhóm hiếm vẫn là năm nhãn chọn từ **train**, không chọn lại theo kết quả test.
+Nguồn: `data/processed/baseline/final/rare_labels_test.csv`, per-label metrics
+và [rare_before_after.csv](project_results/rare_before_after.csv).
+Delta là chênh lệch F1 tuyệt đối, không phải phần trăm cải thiện tương đối.
+
+| Nhãn | Test + | Trước: standard fixed | Sau: balanced tuned | Δ so trước | Balanced fixed | Δ tuning sau weighting |
+|---|---:|---:|---:|---:|---:|---:|
+| grief | 6 | 0.0000 | 0.4615 | +0.4615 | 0.4286 | +0.0330 |
+| pride | 16 | 0.0000 | 0.4167 | +0.4167 | 0.4615 | −0.0449 |
+| relief | 11 | 0.0000 | 0.1176 | +0.1176 | 0.1333 | −0.0157 |
+| nervousness | 23 | 0.0000 | 0.1714 | +0.1714 | 0.2979 | −0.1264 |
+| embarrassment | 37 | 0.0000 | 0.2778 | +0.2778 | 0.3333 | −0.0556 |
+
+Cấu hình kết hợp tăng cả năm nhãn so baseline fixed, nhưng tuning sau weighting
+làm **bốn nhãn giảm** so balanced fixed. `grief` của standard vẫn F1=0 ở cả fixed,
+global và tuned trên test; không che trường hợp không cải thiện. Support chỉ
+6–37 mẫu dương nên cần thận trọng khi diễn giải một nhãn riêng.
+
 ## Phân tích lỗi và khả năng giải thích
 
-Mỗi biến thể lưu `error_examples_validation.csv` với ID, văn bản, nhãn thật, nhãn dự đoán và điểm số. Bốn nhóm: bỏ sót nhãn hiếm, dự đoán nhãn thừa, đúng một phần ở mẫu đa nhãn, và không dự đoán nhãn nào. Cần đọc lại từng ví dụ trước khi trích vào báo cáo, vì nhãn gốc cũng có thể thiếu.
+Các ví dụ/bảng cặp bên dưới là **validation**. Mỗi biến thể lưu
+`error_examples_validation.csv` với ID, văn bản, nhãn thật, nhãn dự đoán và điểm số.
+Bốn nhóm: bỏ sót nhãn hiếm, dự đoán nhãn thừa, đúng một phần ở mẫu đa nhãn, và
+không dự đoán nhãn nào. Cần đọc lại từng ví dụ trước khi trích vì nhãn gốc cũng có thể thiếu.
 
 Các nhóm FP/FN là dấu hiệu thống kê; khi trình bày cần giải thích thêm về ngữ cảnh, từ ngữ, nhiều cảm xúc hoặc ít mẫu của nhãn. Số ví dụ được chọn không phải tỷ lệ lỗi của toàn split.
 
@@ -107,7 +158,15 @@ Các nhóm FP/FN là dấu hiệu thống kê; khi trình bày cần giải thí
 - `validation_scores.npz` gồm `ids`, `scores` N×28, `label_names`; ghép theo ID, không ghép theo thứ tự dòng. Các file lớn nằm trong `data/processed/` và được Git bỏ qua.
 - Môi trường, thời gian fit, số đặc trưng và cấu hình nằm trong `validation_metrics.json` của từng biến thể.
 - Hash model/scores đã được kiểm, nạp lại model dự đoán toàn validation và đối chiếu với scores lưu trước đó, sai số tối đa ≤1e-12.
-- Báo cáo này chỉ mô tả phần A. Nhóm vẫn cần B zero-shot, ba kiến trúc C mỗi kiến trúc ba seed, demo từ C tốt nhất và so sánh lỗi giữa C1/C2/C3.
+- A đã có `data/processed/baseline/final_protocol.json` và `final/` với sáu JSON
+  test, scores theo ID và bảng nhãn hiếm; bản JSON nhỏ có trong hồ sơ 95 JSON.
+- Toàn nhóm đã có B full, C đủ 9 run, mean±std, ba nhóm lỗi giữa C và demo BERT seed 123
+  chọn bằng validation. Xem [bảng chung](project_results/RESULTS.md),
+  [kiểm suy luận](demo_verification.json), [UI thật](demo_ui/evidence.json)
+  và [ảnh](demo_ui/demo_ui.png). Báo cáo A không nhận các phần này là công cá nhân Duy.
+- Đã kiểm 69 tests ngày 08/10; notebook A12/B4/C7 cell mã PASS theo
+  [bằng chứng chạy](execution/notebook_verification.json).
+  Duy học từ [hướng dẫn tính tay/code/Q&A](../docs/HUONG_DAN_DUY_GIAI_THICH_BASELINE.md).
 
 ## Nguồn phương pháp
 

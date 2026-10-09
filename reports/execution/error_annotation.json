@@ -1,0 +1,69 @@
+{
+  "annotated_at_utc": "2026-10-08T16:32:19.025394+00:00",
+  "reviewer": "Codex assistant; team confirmation pending",
+  "source": "reports/errors_test_standard_fixed/examples.csv",
+  "source_sha256_before": "e0eb2d10e01959ac13f23c25d5013bf08ae01c2b9756086ee7c5a3e284fcdf1a",
+  "source_sha256_after": "727d7be0354d80111f2d1b4369d3b9f158b503813c85a5a5c57e608a0dff66c3",
+  "updated_rows": [
+    {
+      "category": "partial_multi_label",
+      "id": "eczj48j",
+      "architecture": "bert",
+      "seed": "123"
+    },
+    {
+      "category": "partial_multi_label",
+      "id": "eczj48j",
+      "architecture": "roberta",
+      "seed": "2026"
+    },
+    {
+      "category": "partial_multi_label",
+      "id": "eczj48j",
+      "architecture": "distilbert",
+      "seed": "123"
+    },
+    {
+      "category": "rare_false_negative",
+      "id": "ed0jr9i",
+      "architecture": "bert",
+      "seed": "123"
+    },
+    {
+      "category": "rare_false_negative",
+      "id": "ed0jr9i",
+      "architecture": "roberta",
+      "seed": "2026"
+    },
+    {
+      "category": "rare_false_negative",
+      "id": "ed0jr9i",
+      "architecture": "distilbert",
+      "seed": "123"
+    },
+    {
+      "category": "missed_extra_pair",
+      "id": "eczcvgx",
+      "architecture": "bert",
+      "seed": "123"
+    },
+    {
+      "category": "missed_extra_pair",
+      "id": "eczcvgx",
+      "architecture": "roberta",
+      "seed": "2026"
+    },
+    {
+      "category": "missed_extra_pair",
+      "id": "eczcvgx",
+      "architecture": "distilbert",
+      "seed": "123"
+    }
+  ],
+  "columns_changed": [
+    "manual_linguistic_notes"
+  ],
+  "fit_or_inference_executed": false,
+  "case_studies": "reports/error_case_studies.md",
+  "case_studies_sha256": "c8c0b5099277925a86beed1b88480a3ede93d91418dec8c36b072899255bba86"
+}

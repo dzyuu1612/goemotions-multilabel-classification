@@ -41,7 +41,9 @@ class TransformerDemo:
             return "Vui lòng nhập một câu hoặc bình luận tiếng Anh.", []
         if len(text) > 20000:
             return "Văn bản quá dài. Vui lòng dùng một bình luận dưới 20.000 ký tự.", []
-        raw_tokens = self.tokenizer(text, truncation=False, add_special_tokens=True)["input_ids"]
+        # Chỉ đếm để báo cắt token; chuỗi dài này không được đưa vào encoder.
+        raw_tokens = self.tokenizer(text, truncation=False, add_special_tokens=True,
+                                    verbose=False)["input_ids"]
         encoded = self.tokenizer(text, truncation=True, max_length=self.max_length,
                                  return_tensors="pt")
         inputs = {key: value.to(self.device) for key, value in encoded.items()}

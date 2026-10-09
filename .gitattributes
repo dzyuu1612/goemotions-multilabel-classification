@@ -3,3 +3,11 @@
 reports/reproducibility/artifacts/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
 # This CSV is cited by its exact byte hash in paired_examples_manifest.json.
 reports/baseline_validation/paired_examples.csv -text
+# Verification records cite these files by their actual local byte hashes.
+# Preserve the bytes when collaborators read them from Git or clone elsewhere.
+reports/execution/*.log -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+notebooks/*.ipynb -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+reports/*NOI_DUNG.md -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+reports/error_case_studies.md -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+reports/errors_*/examples.csv -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+reports/references_ieee.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol

@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-10-08T06:22:42.667874+00:00",
+  "generated_at_utc": "2026-10-08T16:22:06.254040+00:00",
   "data_revision": "add492243ff905527e67aeb8b80c082af02207c3",
   "labels": [
     "admiration",
@@ -37,12 +37,16 @@
     2026
   ],
   "ddof": 1,
-  "n_configurations_ok": 7,
+  "n_configurations_ok": 72,
   "n_configurations_expected": 72,
-  "n_missing_or_invalid_sources": 54,
-  "figures": [],
-  "rare_primary_split": "validation",
-  "rare_test_complete": false,
+  "n_missing_or_invalid_sources": 0,
+  "figures": [
+    "D:\\DoAn\\Đồ án NLP\\goemotions-multilabel-classification\\reports\\project_results\\figures\\learning_curves_validation.png",
+    "D:\\DoAn\\Đồ án NLP\\goemotions-multilabel-classification\\reports\\project_results\\figures\\fixed_tuned_validation.png",
+    "D:\\DoAn\\Đồ án NLP\\goemotions-multilabel-classification\\reports\\project_results\\figures\\fixed_tuned_test.png"
+  ],
+  "rare_primary_split": "test",
+  "rare_test_complete": true,
   "rare_labels": [
     "grief",
     "pride",

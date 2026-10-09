@@ -4,7 +4,7 @@
 <!-- ADMIN_FIELDS: affiliation/email/lecturer/class/student_ids intentionally blank -->
 
 <!-- AUTO_ABSTRACT -->
-**Tóm tắt—** Nghiên cứu triển khai phân loại cảm xúc đa nhãn trên GoEmotions, gồm 27 cảm xúc và neutral, giữ official split 43.410/5.426/5.427 câu train/validation/test. A sử dụng TF-IDF + One-vs-Rest Logistic Regression; B dùng BART-MNLI zero-shot không fine-tune; C gồm BERT-base-cased, RoBERTa-base và DistilBERT với seed 42, 123, 2026. Nghiên cứu đánh giá Macro/Micro-F1, precision/recall và Hamming Loss; khảo sát class weighting, ngưỡng riêng và F1 năm nhãn hiếm xác định từ train. Trên validation, A standard @0,5 đạt Macro-F1 0.2025; A balanced với ngưỡng riêng đạt 0.4901. Điểm tuned-validation có thể lạc quan vì dùng lại dữ liệu chọn ngưỡng. Bản cập nhật này có 2/9 run C full; những bảng thiếu chưa được dùng xếp hạng. Mọi số lấy từ artifacts thực tế, tách smoke/full và validation/test. Demo được thiết kế dùng C chọn bằng validation. Bài viết diễn giải đầu ra, lỗi và giới hạn domain; liên hệ chuỗi dữ liệu→quyết định→giá trị trong Case Study 4 của Jay Lee, không quy số tiết kiệm của nhà máy thành ROI của mô hình NLP.
+**Tóm tắt—** Nghiên cứu triển khai phân loại cảm xúc đa nhãn trên GoEmotions, gồm 27 cảm xúc và neutral, giữ official split 43.410/5.426/5.427 câu train/validation/test. A sử dụng TF-IDF + One-vs-Rest Logistic Regression; B dùng BART-MNLI zero-shot không fine-tune; C gồm BERT-base-cased, RoBERTa-base và DistilBERT với seed 42, 123, 2026. Nghiên cứu đánh giá Macro/Micro-F1, precision/recall và Hamming Loss; khảo sát class weighting, ngưỡng riêng và F1 năm nhãn hiếm xác định từ train. C1 BERT được chọn theo mean Macro-F1 validation @0,5 (0.4713 ± 0.0066). Trên test @0,5, kiến trúc này đạt Macro-F1 0.4720 ± 0.0045 và Micro-F1 0.5820 ± 0.0040 (mean ± sample std của ba seed, ddof=1). Với ngưỡng riêng khóa trên validation, test Macro-F1 0.5038 ± 0.0097, Micro-F1 0.5900 ± 0.0029; Δ mean so với @0,5 lần lượt +0.0318 và +0.0080. Demo dùng một checkpoint seed 123 của C1 BERT; các điểm trên tổng hợp ba seed của kiến trúc, không phải điểm riêng checkpoint demo. Đã có kết quả full A/B/C; mỗi C gồm ba seed, mean và sample standard deviation. Mọi số lấy từ artifacts thực tế, tách smoke/full và validation/test. Demo được thiết kế dùng C chọn bằng validation. Bài viết diễn giải đầu ra, lỗi và giới hạn domain; liên hệ chuỗi dữ liệu→quyết định→giá trị trong Case Study 4 của Jay Lee, không quy số tiết kiệm của nhà máy thành ROI của mô hình NLP.
 <!-- END_AUTO_ABSTRACT -->
 
 **Từ khóa—** GoEmotions; xử lý ngôn ngữ tự nhiên; phân loại đa nhãn; TF-IDF; Logistic Regression; Transformer; ngưỡng dự đoán.
@@ -106,18 +106,18 @@ Python, NumPy, PyTorch CPU/CUDA đều được gieo seed. PyTorch nêu rõ kh�
 ### B. Bảng thực nghiệm theo trạng thái thực tế
 
 <!-- AUTO_RESULTS -->
-**Trạng thái 08/10/2026 14:09 (UTC+7): Bản cập nhật chưa đủ benchmark cuối.** Có 8/72 hàng kết quả và 6/36 nhóm tổng hợp theo thiết kế; C full 2/9, B full chưa có. Số hàng phụ thuộc artifact đã hoàn thành, không tính smoke. Dấu — là thiếu/chưa đủ ba seed hoặc không áp dụng, không phải F1=0. A-S là A standard; A-W là A balanced; C1/C2/C3 là BERT/RoBERTa/DistilBERT. Val là validation, N=5.426; Test N=5.427.
+**Trạng thái 09/10/2026 06:58 (UTC+7): Đủ hồ sơ benchmark theo summary.** Có 72/72 hàng kết quả và 36/36 nhóm tổng hợp theo thiết kế; C full 9/9, B full đã có. Số hàng phụ thuộc artifact đã hoàn thành, không tính smoke. Dấu — là thiếu/chưa đủ ba seed hoặc không áp dụng, không phải F1=0. A-S là A standard; A-W là A balanced; C1/C2/C3 là BERT/RoBERTa/DistilBERT. Val là validation, N=5.426; Test N=5.427.
 
 **BẢNG I. SO SÁNH HỆ THỐNG GỐC, NGƯỠNG 0,5.**
 
 | Hệ | Run | Val Macro | Test Macro | Test Micro | Test H |
 | --- | --- | --- | --- | --- | --- |
-| A-S | 1 | 0.2025 | — | — | — |
-| A-W | 1 | 0.4562 | — | — | — |
-| B | — | — | — | — | — |
-| C1 | — | — | — | — | — |
-| C2 | — | — | — | — | — |
-| C3 | — | — | — | — | — |
+| A-S | 1 | 0.2025 | 0.1963 | 0.3800 | 0.0348 |
+| A-W | 1 | 0.4562 | 0.4441 | 0.5024 | 0.0547 |
+| B | 1 | 0.1060 | 0.1035 | 0.1008 | 0.5315 |
+| C1 | 3 | 0.4713 ± 0.0066 | 0.4720 ± 0.0045 | 0.5820 ± 0.0040 | 0.0318 ± 0.0003 |
+| C2 | 3 | 0.4234 ± 0.0108 | 0.4219 ± 0.0088 | 0.5803 ± 0.0009 | 0.0295 ± 0.0001 |
+| C3 | 3 | 0.4064 ± 0.0060 | 0.4116 ± 0.0035 | 0.5731 ± 0.0017 | 0.0297 ± 0.0001 |
 
 Cần đủ ba seed để có hàng C mean±std. Một C đã hoàn tất vẫn xuất hiện trong bảng từng seed ở dưới; không điền điểm đó vào hàng trung bình ba seed.
 
@@ -134,14 +134,29 @@ Cần đủ ba seed để có hàng C mean±std. Một C đã hoàn tất vẫn 
 
 fixed: ngưỡng 0,5; global: một ngưỡng chọn trên val; tuned: riêng từng nhãn chọn trên val. Các số là full validation, nhưng global/tuned không phải ước lượng độc lập với bước calibration.
 
-**Bảng test ablation chưa có đủ artifact.** Chưa thể kết luận cải thiện tổng quát trên test từ bảng tuned-validation.
+**BẢNG III. ABLATION NGƯỠNG TRÊN TEST ĐÃ KHÓA.**
+
+| Hệ | MF fixed | MF global | MF tuned | Micro tuned | Δ MF |
+| --- | --- | --- | --- | --- | --- |
+| A-S | 0.1963 | 0.4096 | 0.4134 | 0.5330 | +0.2171 |
+| A-W | 0.4441 | 0.4530 | 0.4493 | 0.5277 | +0.0052 |
+| B | 0.1035 | 0.1473 | 0.1609 | 0.1752 | +0.0574 |
+| C1 | 0.4720 ± 0.0045 | 0.4929 ± 0.0084 | 0.5038 ± 0.0097 | 0.5900 ± 0.0029 | +0.0318 |
+| C2 | 0.4219 ± 0.0088 | 0.4697 ± 0.0092 | 0.4872 ± 0.0156 | 0.6048 ± 0.0057 | +0.0653 |
+| C3 | 0.4116 ± 0.0035 | 0.4646 ± 0.0045 | 0.4866 ± 0.0093 | 0.5935 ± 0.0047 | +0.0751 |
+
+MF là Macro-F1; Δ của bảng này so fixed→tuned trên cùng hệ. Std, nếu có, là giữa seed; không tuning lại bằng test. Hamming/P/R cho mọi chế độ vẫn được giữ trong mean_std.csv.
 
 **BẢNG IV. PRECISION/RECALL CÙNG NGƯỠNG 0,5.**
 
 | Hệ | Split | P macro | R macro | P micro | R micro |
 | --- | --- | --- | --- | --- | --- |
-| A-S | Val | 0.5571 | 0.1436 | 0.7254 | 0.2538 |
-| A-W | Val | 0.3858 | 0.5801 | 0.4158 | 0.6592 |
+| A-S | Test | 0.6128 | 0.1396 | 0.7383 | 0.2558 |
+| A-W | Test | 0.3777 | 0.5696 | 0.4043 | 0.6631 |
+| B | Test | 0.0635 | 0.8935 | 0.0542 | 0.7148 |
+| C1 | Test | 0.5578 ± 0.0255 | 0.4300 ± 0.0033 | 0.6421 ± 0.0062 | 0.5322 ± 0.0055 |
+| C2 | Test | 0.5674 ± 0.0032 | 0.3740 ± 0.0070 | 0.7115 ± 0.0062 | 0.4901 ± 0.0041 |
+| C3 | Test | 0.5912 ± 0.0050 | 0.3535 ± 0.0027 | 0.7124 ± 0.0025 | 0.4794 ± 0.0014 |
 
 Split được ghi theo từng hàng. Không xếp hạng một hàng val với một hàng test như cùng phép đo.
 
@@ -149,21 +164,17 @@ Split được ghi theo từng hàng. Không xếp hạng một hàng val với 
 
 | C | Seed | Epoch | Val fixed | Test fixed | Test tuned |
 | --- | --- | --- | --- | --- | --- |
-| C1 | 42 | 4 | 0.4641 | — | — |
-| C1 | 123 | 4 | 0.4773 | — | — |
-| C1 | 2026 | — | — | — | — |
-| C2 | 42 | — | — | — | — |
-| C2 | 123 | — | — | — | — |
-| C2 | 2026 | — | — | — | — |
-| C3 | 42 | — | — | — | — |
-| C3 | 123 | — | — | — | — |
-| C3 | 2026 | — | — | — | — |
+| C1 | 42 | 4 | 0.4641 | 0.4697 | 0.4950 |
+| C1 | 123 | 4 | 0.4773 | 0.4772 | 0.5141 |
+| C1 | 2026 | 4 | 0.4723 | 0.4691 | 0.5021 |
+| C2 | 42 | 3 | 0.4286 | 0.4213 | 0.4835 |
+| C2 | 123 | 3 | 0.4111 | 0.4135 | 0.4738 |
+| C2 | 2026 | 3 | 0.4306 | 0.4311 | 0.5043 |
+| C3 | 42 | 3 | 0.4018 | 0.4097 | 0.4804 |
+| C3 | 123 | 3 | 0.4132 | 0.4156 | 0.4821 |
+| C3 | 2026 | 3 | 0.4042 | 0.4093 | 0.4974 |
 
 Epoch chọn bằng validation @0,5 của chính seed. Bảy metrics từng seed/split/ngưỡng nằm trong reports/project_results/all_runs.csv; mean_std.csv giữ toàn bộ nhóm, không chỉ bảng rút gọn.
-
-**B pilot, ngoài bảng benchmark:** mới đo 8 câu, Macro-F1 0.0721, Micro-F1 0.0781, Hamming 0.5268. Số này chỉ kiểm pipeline; không dùng để kết luận B tốt/kém hơn các hàng full.
-
-Các phần chưa đủ trong summary: A test; B full validation + frozen protocol; C bert seed 42 frozen thresholds; C bert seed 42 test; C bert seed 123 frozen thresholds; C bert seed 123 test; C bert seed 2026 full; C roberta seed 42 full; C roberta seed 123 full; C roberta seed 2026 full; C distilbert seed 42 full; C distilbert seed 123 full; C distilbert seed 2026 full; D selected_model from 3 architectures × 3 seeds.
 
 Hồ sơ đối chiếu gồm summary.json (revision, sources và hashes), all_runs.csv, mean_std.csv, per_label.csv, final_protocol.json của từng run và reports/reproducibility. SHA-256 summary của bản xuất này lưu trong BAI_BAO_GOEMOTIONS_IEEE_KIEM_CHUNG.json. Trọng số lớn/checkpoint lưu riêng trong data/processed, không coi việc vắng chúng trên Git là thiếu mô tả phương pháp.
 <!-- END_AUTO_RESULTS -->
@@ -171,34 +182,36 @@ Hồ sơ đối chiếu gồm summary.json (revision, sources và hashes), all_r
 ### C. Nhãn hiếm, weighting và threshold tuning
 
 <!-- AUTO_RARE -->
-**BẢNG VI. NĂM NHÃN HIẾM TRƯỚC/SAU — VALIDATION CÓ CALIBRATION.**
+**BẢNG VI. NĂM NHÃN HIẾM TRƯỚC/SAU — TEST.**
 
 | Nhãn | Hệ | Train+ | Eval+ | F1 trước | F1 sau | Δ |
 | --- | --- | --- | --- | --- | --- | --- |
-| grief | A | 77 | 13 | 0.0000 | 0.4375 | +0.4375 |
-| grief | C1 | 77 | — | — | — | — |
-| grief | C3 | 77 | — | — | — | — |
-| grief | C2 | 77 | — | — | — | — |
-| pride | A | 111 | 15 | 0.0000 | 0.6087 | +0.6087 |
-| pride | C1 | 111 | — | — | — | — |
-| pride | C3 | 111 | — | — | — | — |
-| pride | C2 | 111 | — | — | — | — |
-| relief | A | 153 | 18 | 0.0000 | 0.1739 | +0.1739 |
-| relief | C1 | 153 | — | — | — | — |
-| relief | C3 | 153 | — | — | — | — |
-| relief | C2 | 153 | — | — | — | — |
-| nervousness | A | 164 | 21 | 0.0000 | 0.3125 | +0.3125 |
-| nervousness | C1 | 164 | — | — | — | — |
-| nervousness | C3 | 164 | — | — | — | — |
-| nervousness | C2 | 164 | — | — | — | — |
-| embarrassment | A | 303 | 35 | 0.1081 | 0.5507 | +0.4426 |
-| embarrassment | C1 | 303 | — | — | — | — |
-| embarrassment | C3 | 303 | — | — | — | — |
-| embarrassment | C2 | 303 | — | — | — | — |
+| grief | A | 77 | 6 | 0.0000 | 0.4615 | +0.4615 |
+| grief | C1 | 77 | 6 | 0.0000 ± 0.0000 | 0.0444 ± 0.0770 | +0.0444 |
+| grief | C3 | 77 | 6 | 0.0000 ± 0.0000 | 0.0000 ± 0.0000 | +0.0000 |
+| grief | C2 | 77 | 6 | 0.0000 ± 0.0000 | 0.0000 ± 0.0000 | +0.0000 |
+| pride | A | 111 | 16 | 0.0000 | 0.4167 | +0.4167 |
+| pride | C1 | 111 | 16 | 0.1133 ± 0.1112 | 0.4713 ± 0.0445 | +0.3580 |
+| pride | C3 | 111 | 16 | 0.0000 ± 0.0000 | 0.4458 ± 0.0710 | +0.4458 |
+| pride | C2 | 111 | 16 | 0.0000 ± 0.0000 | 0.1000 ± 0.1732 | +0.1000 |
+| relief | A | 153 | 11 | 0.0000 | 0.1176 | +0.1176 |
+| relief | C1 | 153 | 11 | 0.0000 ± 0.0000 | 0.2356 ± 0.1042 | +0.2356 |
+| relief | C3 | 153 | 11 | 0.0000 ± 0.0000 | 0.0417 ± 0.0722 | +0.0417 |
+| relief | C2 | 153 | 11 | 0.0000 ± 0.0000 | 0.0800 ± 0.1386 | +0.0800 |
+| nervousness | A | 164 | 23 | 0.0000 | 0.1714 | +0.1714 |
+| nervousness | C1 | 164 | 23 | 0.3318 ± 0.0503 | 0.3457 ± 0.0408 | +0.0139 |
+| nervousness | C3 | 164 | 23 | 0.0000 ± 0.0000 | 0.3316 ± 0.1238 | +0.3316 |
+| nervousness | C2 | 164 | 23 | 0.0000 ± 0.0000 | 0.3078 ± 0.0443 | +0.3078 |
+| embarrassment | A | 303 | 37 | 0.0000 | 0.2778 | +0.2778 |
+| embarrassment | C1 | 303 | 37 | 0.5089 ± 0.0175 | 0.4831 ± 0.0536 | -0.0257 |
+| embarrassment | C3 | 303 | 37 | 0.1297 ± 0.0258 | 0.3730 ± 0.0700 | +0.2432 |
+| embarrassment | C2 | 303 | 37 | 0.1222 ± 0.1347 | 0.4461 ± 0.0268 | +0.3238 |
 
 Train+/Eval+ là support dương trong train/split đánh giá. A: standard fixed→balanced tuned, một run; C: fixed→tuned cùng checkpoint/seed, đủ ba seed mới có mean±std. Δ là trung bình chênh lệch cặp seed; mọi tăng/giảm và std của Δ được giữ trong rare_before_after.csv. Ô — là thiếu/chưa đủ dữ liệu.
 
-Bảng hiện tại dùng validation đã hiệu chỉnh ngưỡng; test trước/sau chưa đủ. Không gọi các mức tăng này là cải thiện test hay chứng cứ triển khai thực tế.
+Các cặp F1 vẫn bằng 0 trên test: C2/grief; C3/grief. Hạ ngưỡng không bảo đảm tạo được dự đoán đúng cho mọi nhãn hiếm.
+
+Các cặp giảm F1 trên test: C1/embarrassment -0.0257 ± 0.0370. Support nhỏ khiến một vài TP/FP/FN có ảnh hưởng lớn; không kết luận mọi nhãn đều cải thiện.
 <!-- END_AUTO_RARE -->
 
 Khi đối chiếu standard fixed với balanced tuned của A, cả class weighting và luật ngưỡng đều thay đổi. Mức tăng tổng hợp không được quy toàn bộ cho một yếu tố. Hàng standard tuned và balanced fixed giúp đọc riêng từng tác động. Với C, so sánh fixed→tuned trên cùng seed/checkpoint rồi báo mean±std giữa ba seed. Báo đủ mọi nhãn đã xác định từ train, kể cả nhãn giảm, và giữ support để diễn giải biến động. Việc không tăng F1 ở một nhãn hiếm vẫn là kết quả đáng báo cáo.
@@ -208,7 +221,47 @@ Khi đối chiếu standard fixed với balanced tuned của A, cả class weigh
 <!-- AUTO_ERRORS -->
 **Ví dụ A standard @0,5 trên validation đã kiểm.** ID eczwil0, “I am so proud of this community.”, nhãn thật pride nhưng dự đoán rỗng, score pride=0,3776; ID ed832y6, “Homeopaths love it!”, nhãn thật neutral nhưng dự đoán love, score love≈1; ID eczdvun, “Thank you. I really appreciate your response”, nhãn thật admiration/gratitude nhưng chỉ tìm gratitude, score admiration=0,4989. Đây là lỗi A; không gán các ví dụ này thành lỗi của C khi chưa đọc scores C.
 
-**C1/C2/C3 chưa có hồ sơ so sánh lỗi test đầy đủ.** Cần ba checkpoint đại diện chọn bằng validation, cùng ID và ít nhất ba nhóm. Có code phân tích chưa chứng minh đã hoàn tất số đo.
+**BẢNG VII. BA NHÓM LỖI C TRÊN CÙNG TEST, NGƯỠNG 0,5.**
+
+| C | Seed | Nhóm | Lỗi | Đủ điều kiện | Tỷ lệ |
+| --- | --- | --- | --- | --- | --- |
+| C1 | 123 | Thiếu nhãn | 482 | 837 | 57.59% |
+| C1 | 123 | Bỏ nhãn hiếm | 72 | 93 | 77.42% |
+| C1 | 123 | FN+FP | 1582 | 5427 | 29.15% |
+| C2 | 2026 | Thiếu nhãn | 473 | 837 | 56.51% |
+| C2 | 2026 | Bỏ nhãn hiếm | 87 | 93 | 93.55% |
+| C2 | 2026 | FN+FP | 1216 | 5427 | 22.41% |
+| C3 | 123 | Thiếu nhãn | 449 | 837 | 53.64% |
+| C3 | 123 | Bỏ nhãn hiếm | 90 | 93 | 96.77% |
+| C3 | 123 | FN+FP | 1140 | 5427 | 21.01% |
+
+Các seed đại diện chọn theo validation của từng C. Đếm lỗi này không phải mean±std qua ba seed; nhóm có thể chồng lấp. Manifest lưu mapping, nguồn và hash.
+
+**partial_multi_label, ID eczj48j.** Văn bản: “This!!! 🐃 and 💍 for your hard work!”. Nhãn thật: admiration, excitement, neutral.
+
+C1 seed 123: dự đoán caring; bỏ sót admiration, excitement, neutral; nhãn thừa caring; gặp nhóm lỗi đang xét: False. Nhận xét đã điền: Văn bản rất ngắn, có dấu chấm than, emoji và cụm 'hard work'. Đây là các dấu hiệu có thể khiến việc suy ra đủ bộ nhãn khó hơn, nhưng không chứng minh nguyên nhân trong mô hình. C1 dự đoán caring và bỏ cả ba nhãn thật; cờ partial=False ở C1 chỉ vì không có TP, không có nghĩa là dự đoán đúng. C2/C3 nhận ra admiration nhưng bỏ excitement và neutral. Giữ nguyên ground truth kể cả neutral đồng xuất hiện.
+
+C2 seed 2026: dự đoán admiration; bỏ sót excitement, neutral; nhãn thừa không; gặp nhóm lỗi đang xét: True. Nhận xét đã điền: Văn bản rất ngắn, có dấu chấm than, emoji và cụm 'hard work'. Đây là các dấu hiệu có thể khiến việc suy ra đủ bộ nhãn khó hơn, nhưng không chứng minh nguyên nhân trong mô hình. C1 dự đoán caring và bỏ cả ba nhãn thật; cờ partial=False ở C1 chỉ vì không có TP, không có nghĩa là dự đoán đúng. C2/C3 nhận ra admiration nhưng bỏ excitement và neutral. Giữ nguyên ground truth kể cả neutral đồng xuất hiện.
+
+C3 seed 123: dự đoán admiration; bỏ sót excitement, neutral; nhãn thừa không; gặp nhóm lỗi đang xét: True. Nhận xét đã điền: Văn bản rất ngắn, có dấu chấm than, emoji và cụm 'hard work'. Đây là các dấu hiệu có thể khiến việc suy ra đủ bộ nhãn khó hơn, nhưng không chứng minh nguyên nhân trong mô hình. C1 dự đoán caring và bỏ cả ba nhãn thật; cờ partial=False ở C1 chỉ vì không có TP, không có nghĩa là dự đoán đúng. C2/C3 nhận ra admiration nhưng bỏ excitement và neutral. Giữ nguyên ground truth kể cả neutral đồng xuất hiện.
+
+**rare_false_negative, ID ed0jr9i.** Văn bản: “Try nonchalantly handing them your card as if they had dropped it. I think its normal to be shy. *handing on exit, otherwise it could get awkward”. Nhãn thật: embarrassment.
+
+C1 seed 123: dự đoán embarrassment; bỏ sót không; nhãn thừa không; gặp nhóm lỗi đang xét: False. Nhận xét đã điền: Các từ 'shy', 'awkward' và tình huống đưa danh thiếp là dấu hiệu ngôn ngữ về sự ngượng ngùng. C1 nhận ra embarrassment; C2/C3 có score nhãn này dưới 0.5 nên bỏ sót. Embarrassment có 303 mẫu train và thuộc nhóm năm nhãn hiếm đã xác định từ train. Không suy diễn cơ chế attention, nguyên nhân do độ dài hoặc tác dụng của weighting từ riêng một ví dụ.
+
+C2 seed 2026: dự đoán không nhãn; bỏ sót embarrassment; nhãn thừa không; gặp nhóm lỗi đang xét: True. Nhận xét đã điền: Các từ 'shy', 'awkward' và tình huống đưa danh thiếp là dấu hiệu ngôn ngữ về sự ngượng ngùng. C1 nhận ra embarrassment; C2/C3 có score nhãn này dưới 0.5 nên bỏ sót. Embarrassment có 303 mẫu train và thuộc nhóm năm nhãn hiếm đã xác định từ train. Không suy diễn cơ chế attention, nguyên nhân do độ dài hoặc tác dụng của weighting từ riêng một ví dụ.
+
+C3 seed 123: dự đoán không nhãn; bỏ sót embarrassment; nhãn thừa không; gặp nhóm lỗi đang xét: True. Nhận xét đã điền: Các từ 'shy', 'awkward' và tình huống đưa danh thiếp là dấu hiệu ngôn ngữ về sự ngượng ngùng. C1 nhận ra embarrassment; C2/C3 có score nhãn này dưới 0.5 nên bỏ sót. Embarrassment có 303 mẫu train và thuộc nhóm năm nhãn hiếm đã xác định từ train. Không suy diễn cơ chế attention, nguyên nhân do độ dài hoặc tác dụng của weighting từ riêng một ví dụ.
+
+**missed_extra_pair, ID eczcvgx.** Văn bản: “I always plan that, my wife usually has other ideas though. ”. Nhãn thật: neutral.
+
+C1 seed 123: dự đoán neutral; bỏ sót không; nhãn thừa không; gặp nhóm lỗi đang xét: False. Nhận xét đã điền: Câu kể về dự định và ý kiến khác của vợ; không có từ thể hiện sự tán thành rõ ràng. Ground truth là neutral. C1/C2 trả đúng neutral; C3 chọn approval và bỏ neutral vì hai score nằm ở hai phía ngưỡng 0.5. Đây là cặp FN neutral / FP approval ở C3, không phải bằng chứng chắc chắn về mỉa mai hay cảm xúc thật của người viết.
+
+C2 seed 2026: dự đoán neutral; bỏ sót không; nhãn thừa không; gặp nhóm lỗi đang xét: False. Nhận xét đã điền: Câu kể về dự định và ý kiến khác của vợ; không có từ thể hiện sự tán thành rõ ràng. Ground truth là neutral. C1/C2 trả đúng neutral; C3 chọn approval và bỏ neutral vì hai score nằm ở hai phía ngưỡng 0.5. Đây là cặp FN neutral / FP approval ở C3, không phải bằng chứng chắc chắn về mỉa mai hay cảm xúc thật của người viết.
+
+C3 seed 123: dự đoán approval; bỏ sót neutral; nhãn thừa approval; gặp nhóm lỗi đang xét: True. Nhận xét đã điền: Câu kể về dự định và ý kiến khác của vợ; không có từ thể hiện sự tán thành rõ ràng. Ground truth là neutral. C1/C2 trả đúng neutral; C3 chọn approval và bỏ neutral vì hai score nằm ở hai phía ngưỡng 0.5. Đây là cặp FN neutral / FP approval ở C3, không phải bằng chứng chắc chắn về mỉa mai hay cảm xúc thật của người viết.
+
+Có 3 ID khác nhau được đối chiếu. Ví dụ chọn theo ID có thứ tự từ union các model, cùng ID cho cả ba C; không chọn riêng những câu thuận lợi cho một mô hình. Đầy đủ điểm 28 nhãn, các ví dụ còn lại và cặp nhầm nằm trong examples.csv/pairs.csv.
 <!-- END_AUTO_ERRORS -->
 
 Ba nhóm lỗi đối chiếu C1/C2/C3 là bỏ sót nhãn hiếm (rare_false_negative), đoán đúng một phần nhưng thiếu nhãn khác trong câu đa nhãn (partial_multi_label), và đồng thời bỏ sót nhãn thật/thêm nhãn sai (missed_extra_pair). Ví dụ A còn minh họa false positive. Một mẫu có thể nằm trong nhiều nhóm; không cộng số lượng nhóm như các tập rời nhau. Các cặp “nhãn thật bị bỏ sót → nhãn dự đoán thừa” trên cùng câu hỗ trợ tìm cảm xúc dễ nhầm, nhưng không thay một confusion matrix đơn nhãn. Ví dụ ngữ nghĩa phải được đọc thủ công trước khi gọi là mỉa mai, phủ định hay slang; chỉ từ score không suy ra chắc chắn nguyên nhân.
@@ -218,11 +271,31 @@ Ba nhóm lỗi đối chiếu C1/C2/C3 là bỏ sót nhãn hiếm (rare_false_ne
 ### A. Diễn giải kết quả và demo C
 
 <!-- AUTO_DISCUSSION -->
-Chưa đủ ba seed của cả ba C nên chưa xếp hạng hoặc khẳng định C1/C2/C3 tốt nhất/ổn định nhất. Một run full giúp kiểm triển khai, nhưng không thay điều kiện so sánh mean±std. A-W tuned-validation không được so với một C fixed-validation rồi quy ưu thế hoàn toàn cho mô hình.
+Trong ba cấu hình đã thử, C1 đạt mean Macro-F1 validation @0,5 cao nhất (0.4713 ± 0.0066); C3 thấp nhất (0.4064 ± 0.0060). C3 có sample std Macro-F1 nhỏ nhất (0.0060). Đây là thứ hạng các hệ được triển khai với cấu hình đã ghi, không khẳng định một kiến trúc luôn tốt nhất.
 
-Chưa có selected_model.json hợp lệ cho best C ở thời điểm xuất; chưa xác nhận demo đạt yêu cầu D.
+C1 test Macro-F1 fixed→tuned: 0.4720 ± 0.0045→0.5038 ± 0.0097; Micro-F1 0.5820 ± 0.0040→0.5900 ± 0.0029. Đối chiếu support/P/R/Hamming và mức giảm ở từng nhãn trước khi gọi cải thiện tổng thể.
 
-Chưa có hồ sơ verify_demo hoàn tất tại thời điểm xuất. Giao diện cần kiểm với checkpoint thật.
+C2 test Macro-F1 fixed→tuned: 0.4219 ± 0.0088→0.4872 ± 0.0156; Micro-F1 0.5803 ± 0.0009→0.6048 ± 0.0057. Đối chiếu support/P/R/Hamming và mức giảm ở từng nhãn trước khi gọi cải thiện tổng thể.
+
+C3 test Macro-F1 fixed→tuned: 0.4116 ± 0.0035→0.4866 ± 0.0093; Micro-F1 0.5731 ± 0.0017→0.5935 ± 0.0047. Đối chiếu support/P/R/Hamming và mức giảm ở từng nhãn trước khi gọi cải thiện tổng thể.
+
+Demo C được chọn theo hồ sơ: bert, seed 123; rule kiến trúc: highest validation mean Macro-F1@0.5; tie: lower sample std, fewer parameters, name; rule checkpoint: best validation Macro-F1 seed in winning architecture; smaller seed on tie; ngưỡng mặc định: 0.5. Nguồn selected_model.json; không chọn lại bằng test.
+
+Đã có hồ sơ kiểm suy luận demo (reports/demo_verification.json). Trạng thái ghi nhận: PASS; đây là kiểm tại thời điểm hồ sơ, không tự khẳng định server hiện đang mở.
+
+Kiểm giao diện lúc 2026-10-08T16:33:39.810Z: PASS, 28/28 hàng score; tương đương điểm model ở kiểm UI: NOT_CHECKED_HERE. Kiểm giao diện và kiểm suy luận là hai bằng chứng riêng.
+
+A balanced ngưỡng chung trên test đạt Macro-F1 0.4530, cao hơn ngưỡng riêng 0.4493. A standard ngưỡng riêng đạt Micro-F1 0.5330, cao hơn A balanced ngưỡng riêng 0.5277. Vì vậy weighting và ngưỡng riêng không làm mọi metric tăng. Các luật đã khóa trên validation; quan sát test này dùng để báo cáo đánh đổi, không dùng chọn lại cấu hình.
+
+Đối chiếu riêng threshold ở A balanced trên test: 4/5 nhãn hiếm giảm F1 khi chuyển fixed→tuned; grief 0.4286→0.4615 (+0.0330); pride 0.4615→0.4167 (-0.0449); relief 0.1333→0.1176 (-0.0157); nervousness 0.2979→0.1714 (-0.1264); embarrassment 0.3333→0.2778 (-0.0556). Bảng standard fixed→balanced tuned là thay đổi kết hợp weighting/ngưỡng, khác ablation này. Ngưỡng tốt trên validation có thể không giữ lợi thế trên test; không quy mọi mức tăng của bảng kết hợp cho threshold.
+
+B zero-shot trên test đạt Macro-F1 0.1035 ở ngưỡng 0,5 và 0.1609 với ngưỡng riêng. Ở ngưỡng 0,5, Micro-Precision 0.0542 thấp trong khi Micro-Recall 0.7148, cho thấy nhiều nhãn dự đoán thừa. Đây là kết quả của checkpoint, taxonomy và template đang dùng; chưa khảo sát prompt/model B khác. Điểm yếu không tự chứng minh lỗi cài đặt hoặc mọi hệ zero-shot đều kém.
+
+Audit B ghi trung bình 15.3818 nhãn dự đoán/câu ở ngưỡng 0,5, so với 1.1662 nhãn thật/câu trên test. Lượt audit đã kiểm code, cấu hình/head MNLI ba lớp, remap nhãn, scores/checksum và metrics đã lưu; chưa phát hiện lỗi triển khai cụ thể trong phạm vi đó. Lượt này không chạy inference mới, không đối chiếu raw logits và không kiểm lại toàn byte trọng số. NLI-neutral khác candidate neutral của GoEmotions; score hai lớp entailment/contradiction không mặc nhiên là xác suất cảm xúc đã được hiệu chuẩn. Hồ sơ: ZERO_SHOT_DIAGNOSTICS.md và execution/zero_shot_audit.json; chưa chứng minh nguyên nhân của mọi FP.
+
+Tiêu chí chọn C là mean Macro-F1 validation @0,5; C_bert thắng tiêu chí này. Trên test với ngưỡng riêng, C_roberta đạt Micro-F1 cao nhất 0.6048 ± 0.0057, còn C_bert đạt 0.5900 ± 0.0029. Không gọi mô hình chọn cho demo là tốt nhất trên mọi metric; không thay đổi rule lựa chọn sau khi đọc test.
+
+Chín run C đều là standard, chưa huấn luyện C với class weighting/pos_weight. Nâng cao đã đo gồm class weighting ở A và ngưỡng riêng ở A/B/C. Threshold tuning không cập nhật encoder; chưa có bằng chứng thực nghiệm về lợi ích weighting ở C. Nhãn hiếm cần đọc cả mức tăng, giảm và không đổi, không chọn riêng những hàng có lợi.
 <!-- END_AUTO_DISCUSSION -->
 
 Demo sử dụng Gradio để nhập câu tiếng Anh, hiển thị nhãn vượt ngưỡng, điểm số và các trạng thái dự đoán [19]. Giao diện không giả lập kết quả của một model chưa có checkpoint. Hồ sơ selected_model.json, mapping nhãn, threshold và hash checkpoint phải khớp. Kiểm demo gồm câu thường, câu đa cảm xúc, dữ liệu rỗng và tình huống không nhãn vượt ngưỡng. Smoke hoặc ảnh chụp một lần không bảo đảm máy khác vẫn chạy; cần hướng dẫn môi trường, kiểm import/khởi động và thời điểm ghi nhận bằng chứng.
@@ -248,7 +321,7 @@ Một mở rộng phù hợp là nghiên cứu calibration, phụ thuộc giữa
 ## VI. KẾT LUẬN
 
 <!-- AUTO_CONCLUSION -->
-Đồ án giữ bài toán 28 nhãn và official split của GoEmotions, xây A dễ giải thích, B không fine-tune và ba C fine-tune, cùng module đánh giá/threshold. Class weighting và ngưỡng riêng được đối chiếu bằng ablation, support nhãn hiếm và các ví dụ lỗi. Hiện C hoàn tất 2/9 run full; phần chưa có B/C/test/lỗi/demo được đánh dấu trong bảng. Không dùng pilot hoặc điểm tuned-validation để thay kết luận test. Cần hoàn tất các artifact thiếu, khóa protocol rồi đánh giá test và kiểm demo trước khi dùng bản nộp cuối. Giá trị đầu ra là cung cấp điểm và nhãn hỗ trợ đọc/phân tích phản hồi. Hiệu quả tại domain doanh nghiệp, tiếng Việt và ROI cần dữ liệu cùng quy trình đo riêng. Liên hệ Case Study 4 giúp giải thích mối quan hệ dữ liệu→quyết định→giá trị, không biến ví dụ tiết kiệm năng lượng thành bằng chứng tài chính của NLP.
+Đồ án giữ bài toán 28 nhãn và official split của GoEmotions, xây A dễ giải thích, B không fine-tune và ba C fine-tune, cùng module đánh giá/threshold. Class weighting và ngưỡng riêng được đối chiếu bằng ablation, support nhãn hiếm và các ví dụ lỗi. Đã có A/B/C full cùng bảng validation/test; C gồm đủ ba seed mỗi kiến trúc. Test sử dụng mô hình/ngưỡng đã khóa trên validation. C1 BERT được chọn theo mean Macro-F1 validation @0,5 (0.4713 ± 0.0066). Trên test @0,5, kiến trúc này đạt Macro-F1 0.4720 ± 0.0045 và Micro-F1 0.5820 ± 0.0040 (mean ± sample std của ba seed, ddof=1). Với ngưỡng riêng khóa trên validation, test Macro-F1 0.5038 ± 0.0097, Micro-F1 0.5900 ± 0.0029; Δ mean so với @0,5 lần lượt +0.0318 và +0.0080. Demo dùng một checkpoint seed 123 của C1 BERT; các điểm trên tổng hợp ba seed của kiến trúc, không phải điểm riêng checkpoint demo. Demo và hồ sơ đối chiếu vẫn cần nhóm kiểm khi chuyển máy. Giá trị đầu ra là cung cấp điểm và nhãn hỗ trợ đọc/phân tích phản hồi. Hiệu quả tại domain doanh nghiệp, tiếng Việt và ROI cần dữ liệu cùng quy trình đo riêng. Liên hệ Case Study 4 giúp giải thích mối quan hệ dữ liệu→quyết định→giá trị, không biến ví dụ tiết kiệm năng lượng thành bằng chứng tài chính của NLP.
 <!-- END_AUTO_CONCLUSION -->
 
 ## PHÂN CÔNG VÀ GHI NHẬN HỖ TRỢ
@@ -284,7 +357,7 @@ Mã nguồn dùng scikit-learn, PyTorch, Hugging Face và Gradio. Công cụ h�
 
 [12] scikit-learn developers, “OneVsRestClassifier,” scikit-learn 1.7.2 documentation. Accessed: Oct. 8, 2026. [Online]. Available: https://scikit-learn.org/1.7/modules/generated/sklearn.multiclass.OneVsRestClassifier.html
 
-[13] PyTorch contributors, “BCEWithLogitsLoss,” PyTorch 2.14 documentation. Accessed: Oct. 8, 2026. [Online]. Available: https://docs.pytorch.org/docs/2.14/generated/torch.nn.BCEWithLogitsLoss.html
+[13] PyTorch contributors, “BCEWithLogitsLoss,” PyTorch v2.13.0 source and API documentation, torch/nn/modules/loss.py. Accessed: Oct. 8, 2026. [Online]. Available: https://github.com/pytorch/pytorch/blob/v2.13.0/torch/nn/modules/loss.py
 
 [14] scikit-learn developers, “Tuning the decision threshold for class prediction,” scikit-learn 1.7.2 documentation. Accessed: Oct. 8, 2026. [Online]. Available: https://scikit-learn.org/1.7/modules/classification_threshold.html
 
@@ -294,7 +367,7 @@ Mã nguồn dùng scikit-learn, PyTorch, Hugging Face và Gradio. Công cụ h�
 
 [17] NumPy developers, “numpy.std,” NumPy documentation. Accessed: Oct. 8, 2026. [Online]. Available: https://numpy.org/doc/stable/reference/generated/numpy.std.html
 
-[18] PyTorch contributors, “Reproducibility,” PyTorch 2.14 documentation. Accessed: Oct. 8, 2026. [Online]. Available: https://docs.pytorch.org/docs/2.14/notes/randomness.html
+[18] PyTorch contributors, “Reproducibility,” PyTorch v2.13.0 documentation source. Accessed: Oct. 8, 2026. [Online]. Available: https://github.com/pytorch/pytorch/blob/v2.13.0/docs/source/notes/randomness.md
 
 [19] Gradio, “Quickstart,” Gradio documentation. Accessed: Oct. 8, 2026. [Online]. Available: https://www.gradio.app/guides/quickstart
 

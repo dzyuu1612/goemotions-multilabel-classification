@@ -155,7 +155,85 @@ def interpret_results(summary):
                  "các kết quả này chưa tách riêng ảnh hưởng của từng yếu tố. Xem P/R và Hamming cùng F1: "
                  "hạ ngưỡng có thể tăng recall nhưng thêm false positives. Nhãn hiếm có support nhỏ nên F1 dễ thay đổi; "
                  "giữ cả nhãn giảm điểm trong bảng trước/sau. Thời gian BERT seed 42 và 2026 có gián đoạn máy ngủ, "
+                 "RoBERTa seed 2026 cũng có gián đoạn máy ngủ; "
                  "vì vậy không dùng bảng elapsed để xếp hạng tốc độ các kiến trúc.")
+    lines.extend(observed_tradeoffs(summary))
+    return lines
+
+
+def observed_tradeoffs(summary):
+    """Ghi cả đánh đổi và giới hạn từ bảng cuối, không chọn lại bằng test."""
+    if not summary.get("complete"):
+        return []
+    lookup = {(row["system"], row["split"], row["threshold_mode"]): row for row in summary["averages"]}
+    standard = lookup[("A_standard", "test", "tuned")]
+    global_a = lookup[("A_balanced", "test", "global")]
+    tuned_a = lookup[("A_balanced", "test", "tuned")]
+    direction_macro = "cao hơn" if global_a["macro_f1_mean"] > tuned_a["macro_f1_mean"] else "không cao hơn"
+    direction_micro = "cao hơn" if standard["micro_f1_mean"] > tuned_a["micro_f1_mean"] else "không cao hơn"
+    lines = [f"A balanced ngưỡng chung trên test đạt Macro-F1 {global_a['macro_f1_mean']:.4f}, "
+             f"{direction_macro} ngưỡng riêng {tuned_a['macro_f1_mean']:.4f}. "
+             f"A standard ngưỡng riêng đạt Micro-F1 {standard['micro_f1_mean']:.4f}, "
+             f"{direction_micro} A balanced ngưỡng riêng {tuned_a['micro_f1_mean']:.4f}. "
+             "Vì vậy weighting và ngưỡng riêng không làm mọi metric tăng. Các luật đã khóa trên validation; "
+             "quan sát test này dùng để báo cáo đánh đổi, không dùng chọn lại cấu hình."]
+    per_label_path = ROOT / "reports/project_results/per_label.csv"
+    if per_label_path.exists():
+        with per_label_path.open(encoding="utf-8-sig", newline="") as stream:
+            per_label = list(csv.DictReader(stream))
+        rare_labels = ("grief", "pride", "relief", "nervousness", "embarrassment")
+        pairs = {(row["label"], row["threshold_mode"]): row for row in per_label
+                 if row.get("method") == "A" and row.get("variant") == "balanced"
+                 and row.get("split") == "test" and row.get("status") == "ok"
+                 and row.get("label") in rare_labels}
+        if all((label, mode) in pairs for label in rare_labels for mode in ("fixed", "tuned")):
+            changes = []
+            reduced = 0
+            for label in rare_labels:
+                before_f1, after_f1 = (float(pairs[(label, mode)]["f1"]) for mode in ("fixed", "tuned"))
+                reduced += after_f1 < before_f1
+                changes.append(f"{label} {before_f1:.4f}→{after_f1:.4f} ({after_f1-before_f1:+.4f})")
+            lines.append(f"Đối chiếu riêng threshold ở A balanced trên test: {reduced}/5 nhãn hiếm giảm F1 "
+                         "khi chuyển fixed→tuned; " + "; ".join(changes) + ". "
+                         "Bảng standard fixed→balanced tuned là thay đổi kết hợp weighting/ngưỡng, "
+                         "khác ablation này. Ngưỡng tốt trên validation có thể không giữ lợi thế trên test; "
+                         "không quy mọi mức tăng của bảng kết hợp cho threshold.")
+    b_fixed = lookup[("B_bart_mnli", "test", "fixed")]
+    b_tuned = lookup[("B_bart_mnli", "test", "tuned")]
+    lines.append(f"B zero-shot trên test đạt Macro-F1 {b_fixed['macro_f1_mean']:.4f} ở ngưỡng 0,5 "
+                 f"và {b_tuned['macro_f1_mean']:.4f} với ngưỡng riêng. Ở ngưỡng 0,5, "
+                 f"Micro-Precision {b_fixed['micro_precision_mean']:.4f} thấp trong khi "
+                 f"Micro-Recall {b_fixed['micro_recall_mean']:.4f}, cho thấy nhiều nhãn dự đoán thừa. "
+                 "Đây là kết quả của checkpoint, taxonomy và template đang dùng; chưa khảo sát prompt/model B khác. "
+                 "Điểm yếu không tự chứng minh lỗi cài đặt hoặc mọi hệ zero-shot đều kém.")
+    audit_path = ROOT / "reports/execution/zero_shot_audit.json"
+    if audit_path.exists():
+        audit = json.loads(audit_path.read_text(encoding="utf-8"))
+        test_audit = next((row for row in audit.get("runs", []) if row.get("split") == "test"), None)
+        if test_audit:
+            lines.append(f"Audit B ghi trung bình {test_audit['mean_predicted_labels_fixed']:.4f} nhãn dự đoán/câu "
+                         f"ở ngưỡng 0,5, so với {test_audit['mean_truth_labels_from_saved_support']:.4f} nhãn thật/câu "
+                         "trên test. Lượt audit đã kiểm code, cấu hình/head MNLI ba lớp, remap nhãn, "
+                         "scores/checksum và metrics đã lưu; chưa phát hiện lỗi triển khai cụ thể trong phạm vi đó. "
+                         "Lượt này không chạy inference mới, không đối chiếu raw logits và không kiểm lại toàn byte trọng số. "
+                         "NLI-neutral khác candidate neutral của GoEmotions; score hai lớp entailment/contradiction "
+                         "không mặc nhiên là xác suất cảm xúc đã được hiệu chuẩn. Hồ sơ: ZERO_SHOT_DIAGNOSTICS.md "
+                         "và execution/zero_shot_audit.json; chưa chứng minh nguyên nhân của mọi FP.")
+    c_tuned = [lookup[("C_" + arch, "test", "tuned")] for arch in ("bert", "roberta", "distilbert")]
+    c_fixed_val = [lookup[("C_" + arch, "validation", "fixed")] for arch in ("bert", "roberta", "distilbert")]
+    macro_winner = max(c_fixed_val, key=lambda row: row["macro_f1_mean"])
+    micro_winner = max(c_tuned, key=lambda row: row["micro_f1_mean"])
+    selected_tuned = lookup[(macro_winner["system"], "test", "tuned")]
+    lines.append(f"Tiêu chí chọn C là mean Macro-F1 validation @0,5; {macro_winner['system']} thắng tiêu chí này. "
+                 f"Trên test với ngưỡng riêng, {micro_winner['system']} đạt Micro-F1 cao nhất "
+                 f"{micro_winner['micro_f1_mean']:.4f} ± {micro_winner['micro_f1_std']:.4f}, "
+                 f"còn {macro_winner['system']} đạt {selected_tuned['micro_f1_mean']:.4f} ± "
+                 f"{selected_tuned['micro_f1_std']:.4f}. Không gọi mô hình chọn cho demo là tốt nhất trên mọi metric; "
+                 "không thay đổi rule lựa chọn sau khi đọc test.")
+    lines.append("Chín run C đều là standard, chưa huấn luyện C với class weighting/pos_weight. "
+                 "Nâng cao đã đo gồm class weighting ở A và ngưỡng riêng ở A/B/C. "
+                 "Threshold tuning không cập nhật encoder; chưa có bằng chứng thực nghiệm về lợi ích weighting ở C. "
+                 "Nhãn hiếm cần đọc cả mức tăng, giảm và không đổi, không chọn riêng những hàng có lợi.")
     return lines
 
 

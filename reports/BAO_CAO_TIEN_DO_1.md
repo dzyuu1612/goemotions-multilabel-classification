@@ -2,7 +2,7 @@
 
 ## Phân loại cảm xúc đa nhãn với GoEmotions
 
-**Ngày cập nhật:** 08/10/2026 13:20 (Asia/Bangkok). Đây là bản chuẩn bị báo cáo theo hiện trạng, không xác nhận đã nộp giảng viên.
+**Ngày cập nhật:** 09/10/2026 06:58 (Asia/Bangkok). Đây là bản chuẩn bị báo cáo theo hiện trạng, không xác nhận đã nộp giảng viên.
 
 **Giảng viên / mã lớp / năm học, học kỳ:** ____________________
 
@@ -43,31 +43,31 @@ Checkpoint BART-large-MNLI được dùng qua pipeline, `multi_label=True`, đ�
 
 | Phạm vi B | N | Ngưỡng | Macro-F1 | Micro-F1 | Hamming |
 | --- | --- | --- | --- | --- | --- |
-| SMOKE/PILOT; không thay benchmark full | 8 | 0.5 | 0.0721 | 0.0781 | 0.5268 |
+| FULL validation | 5426 | 0.5 | 0.1060 | 0.1027 | 0.5307 |
 
-Nguồn: `data/processed/zero_shot/smoke/run_metadata.json` và `validation_metrics.json`. Template: `This text expresses {}.`. B không cập nhật trọng số trên GoEmotions; kết quả threshold hiệu chỉnh nếu có phải tách khỏi hàng gốc. Chưa có B full; điểm pilot này không được dùng kết luận B tốt/kém hơn A hoặc C.
+Nguồn: `data/processed/zero_shot/full/run_metadata.json` và `validation_metrics.json`. Template: `This text expresses {}.`. B không cập nhật trọng số trên GoEmotions; kết quả threshold hiệu chỉnh nếu có phải tách khỏi hàng gốc. Đã có số full; kiểm frozen protocol trước test.
 
 ## 5. Tiến độ ba kiến trúc và môi trường
 
-Tại thời điểm cập nhật có 1/9 seed full được kiểm bằng metadata và validation metrics. Seed đã có metadata nhưng chưa hoàn thành không được tính là run full; smoke/pilot được tách khỏi bảng.
+Tại thời điểm cập nhật có 9/9 seed full được kiểm bằng metadata và validation metrics. Seed đã có metadata nhưng chưa hoàn thành không được tính là run full; smoke/pilot được tách khỏi bảng.
 
 | Kiến trúc | Seed | Trạng thái | Macro-F1 val | Micro-F1 val | Hamming val |
 | --- | --- | --- | --- | --- | --- |
 | C1 BERT-base-cased | 42 | Full validation hoàn thành | 0.4641 | 0.5760 | 0.0328 |
-| C1 BERT-base-cased | 123 | Có metadata; chưa hoàn thành full | — | — | — |
-| C1 BERT-base-cased | 2026 | Chưa có artifacts full | — | — | — |
-| C2 RoBERTa-base | 42 | Chưa có artifacts full | — | — | — |
-| C2 RoBERTa-base | 123 | Chưa có artifacts full | — | — | — |
-| C2 RoBERTa-base | 2026 | Chưa có artifacts full | — | — | — |
-| C3 DistilBERT-base-uncased | 42 | Chưa có artifacts full | — | — | — |
-| C3 DistilBERT-base-uncased | 123 | Chưa có artifacts full | — | — | — |
-| C3 DistilBERT-base-uncased | 2026 | Chưa có artifacts full | — | — | — |
+| C1 BERT-base-cased | 123 | Full validation hoàn thành | 0.4773 | 0.5839 | 0.0318 |
+| C1 BERT-base-cased | 2026 | Full validation hoàn thành | 0.4723 | 0.5822 | 0.0321 |
+| C2 RoBERTa-base | 42 | Full validation hoàn thành | 0.4286 | 0.5780 | 0.0300 |
+| C2 RoBERTa-base | 123 | Full validation hoàn thành | 0.4111 | 0.5730 | 0.0300 |
+| C2 RoBERTa-base | 2026 | Full validation hoàn thành | 0.4306 | 0.5792 | 0.0300 |
+| C3 DistilBERT-base-uncased | 42 | Full validation hoàn thành | 0.4018 | 0.5668 | 0.0304 |
+| C3 DistilBERT-base-uncased | 123 | Full validation hoàn thành | 0.4132 | 0.5739 | 0.0300 |
+| C3 DistilBERT-base-uncased | 2026 | Full validation hoàn thành | 0.4042 | 0.5728 | 0.0300 |
 
 | Kiến trúc | Phụ trách | Môi trường thực tế | Config từ metadata |
 | --- | --- | --- | --- |
 | C1 BERT-base-cased | Quốc Khánh | NVIDIA GeForce RTX 5060 Laptop GPU; Python 3.13.9; torch 2.13.0+cu130; Transformers 4.57.6 | lr=5e-05; epochs=4; batch=16; accum=1; max_length=128; dynamic_batch_trim |
-| C2 RoBERTa-base | Đức Trí | Chưa có metadata full | — |
-| C3 DistilBERT-base-uncased | Nhật Huy | Chưa có metadata full | — |
+| C2 RoBERTa-base | Đức Trí | NVIDIA GeForce RTX 5060 Laptop GPU; Python 3.13.9; torch 2.13.0+cu130; Transformers 4.57.6 | lr=2e-05; epochs=3; batch=16; accum=1; max_length=128; dynamic_batch_trim |
+| C3 DistilBERT-base-uncased | Nhật Huy | NVIDIA GeForce RTX 5060 Laptop GPU; Python 3.13.9; torch 2.13.0+cu130; Transformers 4.57.6 | lr=2e-05; epochs=3; batch=16; accum=1; max_length=128; dynamic_batch_trim |
 
 BERT cased theo lựa chọn kho GoEmotions; RoBERTa và DistilBERT có tokenizer/head riêng. Mỗi kiến trúc cần ba seed cùng cấu hình. Mốc mean±std chỉ tổng hợp khi đủ run; không tự báo std=0 với một seed. Tài liệu kiến trúc giải thích nền tảng C1/C2/C3 [6], [7], [8].
 
@@ -75,18 +75,18 @@ BERT cased theo lựa chọn kho GoEmotions; RoBERTa và DistilBERT có tokenize
 
 | Thành viên | Vai trò | Bằng chứng hiện có | % công sức |
 | --- | --- | --- | --- |
-| Bảo Duy Nguyễn | A; điều phối B; data/metrics và bảng nâng cao | A full validation; B chưa đủ full | ____________________ |
-| Quốc Khánh | C1 BERT; phần đầu/tổng hợp báo cáo | C1 1/3 seed full; xem bảng run | ____________________ |
-| Đức Trí | C2 RoBERTa; hỗ trợ/bàn giao B | C2 0/3 seed full; xem bảng run | ____________________ |
-| Nhật Huy | C3 DistilBERT; tích hợp demo best C | C3 0/3 seed full; demo theo hồ sơ | ____________________ |
+| Bảo Duy Nguyễn | A; điều phối B; data/metrics và bảng nâng cao | A full validation; B full đã có | ____________________ |
+| Quốc Khánh | C1 BERT; phần đầu/tổng hợp báo cáo | C1 3/3 seed full; xem bảng run | ____________________ |
+| Đức Trí | C2 RoBERTa; hỗ trợ/bàn giao B | C2 3/3 seed full; xem bảng run | ____________________ |
+| Nhật Huy | C3 DistilBERT; tích hợp demo best C | C3 3/3 seed full; demo theo hồ sơ | ____________________ |
 
 Đức Trí là “Thợ Săn Thập Cẩm”. B làm chung dưới điều phối của Duy; Trí vẫn phụ trách trọn C2. Huy tích hợp C thắng, không mặc định DistilBERT. Các tỷ lệ công sức để nhóm xác nhận, không tự chia đều.
 
 ## 7. Vướng mắc và đầu việc tiếp theo
 
-- Hoàn tất B full và ba C đủ seed; giữ logs/checkpoints/scores/config.
-- Dùng validation để khóa kiến trúc/seed/ngưỡng trước test; tránh tuned-val bị diễn giải thành test.
-- Đối chiếu ít nhất ba nhóm lỗi cùng ID C1/C2/C3; dựng demo từ C được chọn.
+- Đã đủ B full và 9/9 run C; duy trì logs/checkpoints/scores/config khi bàn giao.
+- Đã khóa lựa chọn/ngưỡng trên validation và có test; không chọn lại bằng test.
+- Đã có ba case đối chiếu và hồ sơ demo; nhóm cần tự đọc, diễn giải và kiểm khi chuyển máy.
 - Thiết bị từng bị ngủ trong quá trình C; thời gian elapsed có gián đoạn, không coi là benchmark tốc độ được kiểm soát.
 - Cần đọc và giải thích code, xác nhận metadata hành chính và đóng góp trước khi nộp theo kênh cô chỉ định.
 
@@ -94,7 +94,7 @@ BERT cased theo lựa chọn kho GoEmotions; RoBERTa và DistilBERT có tokenize
 
 Kho chung: https://github.com/trangkhanh-ai/goemotions-multilabel-classification
 
-Summary tổng: `reports/project_results/summary.json`; SHA-256 tại thời điểm đọc: `29dfd39ae78ef014097a62c93598b9c15d2131b0f4bd7c912422bdfa59397a4b`. Script này chỉ đọc artifacts, không tự chạy GPU, không xác nhận đã nộp cô. Chạy lại sau khi cập nhật summary/runs để làm mới bản tiến độ.
+Summary tổng: `reports/project_results/summary.json`; SHA-256 tại thời điểm đọc: `2c73aa31fad9df0a8b0b46bedbb3c69c1316fa4e225f32529811e80ccd2e09b6`. Script này chỉ đọc artifacts, không tự chạy GPU, không xác nhận đã nộp cô. Chạy lại sau khi cập nhật summary/runs để làm mới bản tiến độ.
 
 ## Tài liệu tham khảo
 

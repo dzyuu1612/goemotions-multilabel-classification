@@ -1,13 +1,18 @@
 # Hồ sơ đối chiếu yêu cầu cô — toàn đồ án GoEmotions
 
-Cập nhật **08/10/2026**. Căn cứ: **ảnh đề tài 1** và **văn bản yêu cầu chung cô**
+Cập nhật **09/10/2026**, dùng bằng chứng full/kiểm thử ngày 08/10.
+Căn cứ: **ảnh đề tài 1** và **văn bản yêu cầu chung cô**
 do Duy cung cấp. Bài nền tảng chỉ định là **GoEmotions, ACL 2020**, không tự thay
 bằng bài khác chỉ để đạt khoảng năm 2022–2026. Nguồn kỹ thuật giải thích cách làm;
 yêu cầu nộp/chấm lấy từ tài liệu cô.
 
-**Cách dùng:** đánh dấu nghiệm thu sau khi mở bằng chứng và kiểm số thật.
-“Code có hỗ trợ” không phải “thực nghiệm full đã đạt”. Các mục B/C/D bên dưới
-**cần log full** và artifact cuối; tài liệu này không tự chứng nhận kết quả chưa có.
+**Cách dùng:** `[x]` bên dưới xác nhận phần kỹ thuật có artifact/bằng chứng;
+không xác nhận điểm của cô, việc đã nộp hoặc hiểu/đóng góp của từng thành viên.
+A/B/C đã full, **9/9 run C**, [summary](../reports/project_results/summary.json)
+`complete=true`, `missing=[]`, **72 bản ghi/36 dòng tổng hợp**.
+[Hồ sơ 95 JSON](../reports/reproducibility/README.md) giữ config/revision/hash/protocol.
+Lần kiểm 08/10 có **69/69 tests**, notebook A12/B4/C7 cell mã thực thi PASS;
+demo có bằng chứng suy luận và UI thật riêng. Không dùng smoke làm số cuối.
 
 ## 1. Phân công đúng nhóm 4 người
 
@@ -26,29 +31,38 @@ ghi công việc/% công sức thực tế, không tự đặt mọi người 25
 
 | Nghiệm thu | Yêu cầu cô | Cách triển khai và bằng chứng phải kiểm |
 |---|---|---|
-| [ ] | Đọc bài nền tảng, tóm tắt bằng lời nhóm | [Bài ACL](https://aclanthology.org/2020.acl-main.372/), phần paper trong [báo cáo](../reports/BAO_CAO_DO_AN_NOI_DUNG.md); nguồn/đóng góp/taxonomy/BERT |
-| [ ] | GoEmotions, 27 cảm xúc + neutral; official split | `data/manifest.json`, `data/labels.json`, `src/data.py`; 43.410 train/5.426 val/5.427 test, cùng snapshot/SHA |
-| [ ] | Khảo sát nhãn và tiền xử lý | `notebooks/eda.ipynb`, `eda_extra.ipynb`, `reports/THONG_KE_DU_LIEU.md`; phân bố, nhãn hiếm, độ dài, đồng xuất hiện và kiểm trùng |
-| [ ] | A cổ điển, 1 SV | Duy: `scripts/run_baseline.py`; TF-IDF + 28 OvR LR; full model/scores/config; [bảng A validation](../reports/BASELINE_RESULTS.md) đã có, test kiểm riêng |
-| [ ] | B pretrained trực tiếp, KHÔNG fine-tune | `scripts/run_zero_shot.py`; BART-MNLI pipeline, đủ 28 candidate labels, `multi_label=True`; **cần log full**, SHA/template, scores và metrics |
-| [ ] | C đủ cả 3 kiến trúc khác nhau | BERT **cased**, RoBERTa, DistilBERT; `src/neural.py`, `scripts/train_transformer.py`; **cần log full** cả ba |
-| [ ] | Mỗi kiến trúc ít nhất 3 random seed | Kế hoạch dùng 42/123/2026; `run_transformer_seeds.py`; **cần log full 9 run**, không thay bằng 3 run tổng hoặc 1 seed mỗi C |
-| [ ] | Báo mean ± std, không chỉ một số | `select_best_transformer.py`, `summarize_project.py`; từng seed + mean/sample std `ddof=1`; **cần đủ run full**, không tự tạo std cho A/B một run |
-| [ ] | Xử lý ngưỡng đa nhãn | Scores sigmoid/28 điểm, ngưỡng @0,5 và tuned/global trên validation; `src/baseline.py`, `src/experiment.py`; protocol trước test |
-| [ ] | Macro/Micro-F1, Precision/Recall, Hamming Loss | `src/metrics.py`; đủ 28 nhãn; P/R micro+macro, per-label/support; bảng validation và test tách rõ |
-| [ ] | Phân tích cặp cảm xúc dễ nhầm | FN nhãn A + FP nhãn B trong cùng câu, ID/văn bản/nhãn thật/score; `label_error_pairs`; không gọi co-occurrence là nhầm lẫn |
-| [ ] | Ít nhất 3 loại lỗi, đối chiếu C1/C2/C3 | `scripts/analyze_project_errors.py`, [ERROR_ANALYSIS.md](ERROR_ANALYSIS.md); **cần scores full** và ví dụ cùng ID, nhận xét thủ công về nguyên nhân |
-| [ ] | Nâng cao: weighting hoặc ngưỡng riêng hoặc contrastive | A balanced/threshold tuning đã có bằng chứng validation; C có `--weighted` và protocol thresholds; báo trước/sau trên cùng split/seed/config |
-| [ ] | Cải thiện F1 nhãn hiếm | Chọn nhóm hiếm theo **train**; per-label F1/support/delta trên val và test; cần số thật, kể cả nhãn không cải thiện |
-| [ ] | D Gradio/Streamlit dùng best trong 3 C | `app.py`, `selected_model.json`; **cần đủ log full C và app chạy thật**; không dùng A hoặc B thay C |
-| [ ] | Demo có link hoặc video/ảnh | Hướng dẫn chạy, checkpoint/tokenizer/ngưỡng đúng model, ảnh/video thực tế; input rỗng/dài/no-label được xử lý |
-| [ ] | Giải thích C tốt/kém, độ ổn định | Mean/std + per-label/lỗi/tài nguyên thực đo; không kết luận “vì may mắn” từ một seed |
-| [ ] | Đủ 2 báo cáo tiến độ + báo cáo cuối | Đối chiếu mục 4 bên dưới; kết quả đầy đủ, nguồn IEEE, đóng góp, mã/demo, hạn chế và phản biện |
+| [ ] | Đọc bài nền tảng, tóm tắt bằng lời nhóm | [Bài ACL](https://aclanthology.org/2020.acl-main.372/) và mục paper trong báo cáo đã có; từng thành viên vẫn cần đọc/tự giải thích |
+| [x] | GoEmotions, 27 cảm xúc + neutral; official split | Manifest/labels/source: 43.410 train, 5.426 val, 5.427 test cùng revision/SHA |
+| [x] | Khảo sát nhãn và tiền xử lý | EDA/EDA bổ sung, bảng/figures và `reports/verification.json`; phân bố, nhãn hiếm, độ dài, đồng xuất hiện, kiểm trùng |
+| [x] | A cổ điển, 1 SV phụ trách | Duy theo phân công: TF-IDF + 28 OvR LR, hai biến thể và sáu cấu hình val/test; [bảng A](../reports/BASELINE_RESULTS.md) |
+| [x] | B pretrained trực tiếp, KHÔNG fine-tune | Full BART-MNLI, 28 candidate labels, `multi_label=True`, SHA/template/batch manifest; val/test đủ 5.426/5.427 |
+| [x] | C đủ 3 kiến trúc khác nhau | BERT cased/RoBERTa/DistilBERT; full model/scores/metadata trong hồ sơ 95 JSON và log full |
+| [x] | Mỗi kiến trúc ≥3 random seed | 42/123/2026 cho từng C, 9 run full; không dùng smoke thay seed |
+| [x] | Mean±std | [all_runs.csv](../reports/project_results/all_runs.csv), [mean_std.csv](../reports/project_results/mean_std.csv); sample std `ddof=1`, A/B một run để trống std |
+| [x] | Xử lý ngưỡng đa nhãn | Fixed/global/tuned chọn trên val, protocol khóa trước test; giữ 28 scores/mapping |
+| [x] | Macro/Micro-F1, P/R, Hamming | 72 bản ghi/36 dòng tổng hợp, micro/macro và per-label/support; val/test tách rõ |
+| [x] | Cặp cảm xúc dễ nhầm | FN+FP cùng câu có ID/scores; bảng pairs test và A validation, không dùng co-occurrence thay lỗi |
+| [x] | ≥3 loại lỗi so C1/C2/C3 | [Summary](../reports/errors_test_standard_fixed/summary.md): partial_multi_label, rare_false_negative, missed_extra_pair; cùng ID. Nhóm cần tự đọc/giải thích nguyên nhân ngôn ngữ |
+| [x] | Nâng cao OR | A class weighting + threshold tuning; C threshold tuning val/test. C weighted chỉ là tùy chọn code, không ghi đã có 9 weighted run |
+| [x] | F1 nhãn hiếm trước/sau | 5 nhãn chọn từ train, [rare_before_after.csv](../reports/project_results/rare_before_after.csv) và [bảng A](../reports/BASELINE_RESULTS.md); giữ delta âm/zero và support |
+| [x] | D dùng best trong 3 C | BERT cased seed123, kiến trúc chọn bằng mean Macro-F1 val@0,5; checkpoint chọn trên val, không chọn bằng test |
+| [x] | Demo có ảnh thật và hoạt động | [Suy luận](../reports/demo_verification.json) ba câu/28 scores/input edge; [UI](../reports/demo_ui/evidence.json) HTTP200/28 hàng; [PNG](../reports/demo_ui/demo_ui.png) |
+| [x] | Bằng chứng độ ổn định C | Ba seed/mean std/per-label/lỗi có số thật; wall time có ngủ máy nên không dùng để xếp tốc độ kiến trúc |
+| [ ] | Hai báo cáo tiến độ + báo cáo cuối đã nộp | Các tệp Word/PDF có bên dưới; nhóm kiểm bản cuối, thông tin hành chính/đóng góp và xác nhận nộp |
 
 Yêu cầu nâng cao là lựa chọn **OR**, không yêu cầu nhóm làm cả weighting,
 threshold tuning và contrastive. Tài liệu cô không giới hạn nâng cao chỉ ở C;
 A là bằng chứng hợp lệ về phương pháp nếu đánh giá và báo đúng. Nâng cao không
 thay thế nghĩa vụ ba kiến trúc C × ba seed và demo D.
+
+**Đánh đổi phải trình bày:** A balanced global Macro-F1 test 0,4530 > balanced
+tuned 0,4493; standard tuned Micro-F1 test 0,5330 > balanced tuned 0,5277. Lựa chọn
+A giữ `balanced_tuned` từ val. Năm nhãn hiếm test tăng so standard fixed nhưng
+tuning sau weighting giảm 4/5 nhãn; grief standard vẫn F1=0. Không chỉ chọn hàng đẹp.
+
+**Nhóm còn tự xác nhận:** đọc/giải thích paper/code/lỗi; công việc và% đóng góp
+thực tế; giảng viên/lớp/MSSV; rà nguồn/nội dung, đúng bản báo cáo đã nộp và bảo vệ.
+Các mục kỹ thuật PASS không xác nhận những việc con người này.
 
 ## 3. Các quy tắc kỹ thuật bắt buộc giữ đúng
 
@@ -101,6 +115,11 @@ dùng chuẩn IEEE. Tên học phần/giảng viên/lớp/MSSV phải đúng th�
 chép thông tin của báo cáo mẫu. Nội dung sáu chương của báo cáo học phần không
 bắt buộc trở thành bài hội nghị hai cột chỉ vì dùng trích dẫn IEEE.
 
+Tệp để kiểm/nộp: tiến độ1 [Word](../reports/BAO_CAO_TIEN_DO_1.docx)/[PDF](../reports/BAO_CAO_TIEN_DO_1.pdf),
+tiến độ2 [Word](../reports/BAO_CAO_TIEN_DO_2.docx)/[PDF](../reports/BAO_CAO_TIEN_DO_2.pdf),
+báo cáo cuối [Word](../reports/BAO_CAO_DO_AN_GOEMOTIONS_IEEE.docx)/[PDF](../reports/BAO_CAO_DO_AN_GOEMOTIONS_IEEE.pdf).
+Đối chiếu số liệu bản xuất với artifacts trước nộp; sự tồn tại tệp không xác nhận đã nộp.
+
 ## 5. Hồ sơ artifact cần có để đánh dấu đạt
 
 | Phần | Hồ sơ full cần kiểm |
@@ -115,9 +134,12 @@ bắt buộc trở thành bài hội nghị hai cột chỉ vì dùng trích d�
 | Báo cáo/nguồn | `reports/BAO_CAO_DO_AN_NOI_DUNG.md`, `references_ieee.json`, DOCX/PDF xuất cuối, bảng đóng góp và báo cáo tiến độ |
 
 Chạy `python -m scripts.summarize_project --require-complete` để kiểm bảng thực
-nghiệm. Nếu còn `missing`, ghi đúng mục thiếu và **cần log full**; không điền điểm
-dự kiến. Lệnh này không thay phần nghiệm thu thủ công về giải thích paper, lỗi,
-nguồn, đóng góp và demo đang chạy.
+nghiệm. Hiện `complete=true`, `missing=[]`, đủ 9 run C/72 bản ghi/36 dòng tổng hợp.
+Nếu tái chạy làm artifacts thiếu/hỏng, ghi đúng vấn đề; không điền điểm dự kiến.
+Lệnh này không thay nghiệm thu thủ công về giải thích paper/lỗi/nguồn/đóng góp.
+Proof kiểm mã: [verification_project.json](../reports/verification_project.json),
+[notebook execution](../reports/execution/notebook_verification.json). Hồ sơ mới
+cần đối chiếu theo ngày/phiên bản; số 69 tests là lần kiểm 08/10.
 
 Case Study 4 đã đối chiếu với Jay Lee, *Industrial AI* (2020), mục 4.2.3.1,
 trang in 82–88 (PDF 98–104), DOI `10.1007/978-981-15-2144-7`.

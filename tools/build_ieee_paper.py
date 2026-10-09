@@ -285,6 +285,19 @@ def rare(data):
     if primary == "validation":
         parts += ["Bảng hiện tại dùng validation đã hiệu chỉnh ngưỡng; test trước/sau chưa đủ. "
                   "Không gọi các mức tăng này là cải thiện test hay chứng cứ triển khai thực tế."]
+    else:
+        unchanged = [row for row in chosen if row.get("method") == "C" and row.get("status") == "ok"
+                     and number(row.get("before_f1_mean")) == 0 and number(row.get("after_f1_mean")) == 0]
+        negative = [row for row in chosen if row.get("status") == "ok" and (number(row.get("delta_f1_mean")) or 0) < 0]
+        if unchanged:
+            parts += ["Các cặp F1 vẫn bằng 0 trên test: " + "; ".join(
+                f"{SHORT.get('C_' + row['architecture'], row['architecture'])}/{row['label']}" for row in unchanged)
+                + ". Hạ ngưỡng không bảo đảm tạo được dự đoán đúng cho mọi nhãn hiếm."]
+        if negative:
+            parts += ["Các cặp giảm F1 trên test: " + "; ".join(
+                f"{SHORT.get('C_' + row['architecture'], row['architecture'])}/{row['label']} "
+                f"{fmt(row['delta_f1_mean'], row.get('delta_f1_std'), sign=True)}" for row in negative)
+                + ". Support nhỏ khiến một vài TP/FP/FN có ảnh hưởng lớn; không kết luận mọi nhãn đều cải thiện."]
     return "\n\n".join(parts)
 
 
@@ -387,6 +400,11 @@ def discussion(data):
         parts += [f"Kiểm giao diện lúc {ui.get('checked_at_utc', '—')}: {ui.get('interface_status', '—')}, "
                   f"{ui.get('rendered_row_count', '—')}/28 hàng score; tương đương điểm model ở kiểm UI: "
                   f"{ui.get('model_score_equivalence', '—')}. Kiểm giao diện và kiểm suy luận là hai bằng chứng riêng."]
+    try:
+        from tools.update_report_results import observed_tradeoffs
+    except ModuleNotFoundError:
+        from update_report_results import observed_tradeoffs
+    parts.extend(observed_tradeoffs(data["summary"]))
     return "\n\n".join(parts)
 
 

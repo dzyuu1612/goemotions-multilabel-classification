@@ -2,23 +2,28 @@
 
 ## Code và báo cáo toàn đồ án
 
-Đã bổ sung mã A/B/C/D, kiểm thử và báo cáo theo mẫu sáu chương của cô, dùng trích
-dẫn IEEE. Thực nghiệm full đang chạy; kết quả hợp lệ chỉ lấy từ artifacts, không
-lấy smoke làm benchmark.
+Đã hoàn tất thực nghiệm full **A/B/C và test đã khóa protocol** ngày 08/10/2026.
+Ba kiến trúc C có đủ **9 run = 3 kiến trúc × 3 seed**; bảng có **72 bản ghi,
+36 dòng tổng hợp**, `complete=true`, `missing=[]`. Mã/báo cáo theo mẫu sáu chương
+của cô, trích dẫn IEEE; số cuối lấy từ artifacts, không lấy smoke làm benchmark.
 
 [PR #4 — phần mở rộng code và báo cáo, đang ở trạng thái nháp](https://github.com/trangkhanh-ai/goemotions-multilabel-classification/pull/4).
-Đánh giá test cuối và kiểm demo còn chờ hoàn tất thực nghiệm.
+Demo dùng **BERT cased seed 123**, chọn theo validation, đã kiểm suy luận và UI thật.
+Nhóm còn tự đọc/bảo vệ, điền thông tin hành chính và đóng góp thực tế, kiểm/nộp báo cáo.
 
 - [Báo cáo Word](reports/BAO_CAO_DO_AN_GOEMOTIONS_IEEE.docx) · [PDF](reports/BAO_CAO_DO_AN_GOEMOTIONS_IEEE.pdf) · [Nội dung dễ đọc](reports/BAO_CAO_DO_AN_NOI_DUNG.md).
 - [Bài báo IEEE hai cột — Word](reports/BAI_BAO_GOEMOTIONS_IEEE.docx) · [PDF](reports/BAI_BAO_GOEMOTIONS_IEEE.pdf) · [Nội dung](reports/BAI_BAO_GOEMOTIONS_IEEE_NOI_DUNG.md) · [Kiểm định dạng và nguồn](reports/BAI_BAO_GOEMOTIONS_IEEE_KIEM_CHUNG.json).
-- [Báo cáo tiến độ 1](reports/BAO_CAO_TIEN_DO_1.docx) · [Báo cáo tiến độ 2](reports/BAO_CAO_TIEN_DO_2.docx); số liệu theo trạng thái khi xuất, không xác nhận đã nộp.
+- Báo cáo tiến độ 1: [Word](reports/BAO_CAO_TIEN_DO_1.docx) · [PDF](reports/BAO_CAO_TIEN_DO_1.pdf); tiến độ 2: [Word](reports/BAO_CAO_TIEN_DO_2.docx) · [PDF](reports/BAO_CAO_TIEN_DO_2.pdf). Số liệu theo bản xuất; có file không xác nhận đã nộp.
 - [Thứ tự đọc toàn đồ án](docs/THU_TU_DOC_DO_AN.md) · [Cách chạy](docs/CHAY_THUC_NGHIEM.md) · [Đối chiếu yêu cầu cô](docs/DOI_CHIEU_YEU_CAU_CO.md).
 - [Notebook B](notebooks/zero_shot.ipynb) · [Notebook C](notebooks/transformers.ipynb) · [Demo C](app.py).
-- [Bảng số thực tế](reports/project_results/RESULTS.md); mỗi C chỉ có mean±std khi đủ ba seed.
-- [Hồ sơ tái hiện có cấu hình/revision/hash](reports/reproducibility/README.md) · [Cách đối chiếu](docs/REPRODUCIBILITY.md).
+- [Bảng số thực tế](reports/project_results/RESULTS.md) · [72 bản ghi](reports/project_results/all_runs.csv) · [36 dòng tổng hợp](reports/project_results/mean_std.csv); C dùng sample std `ddof=1`, A/B không tạo std từ một run.
+- [95 JSON cấu hình/revision/hash/protocol](reports/reproducibility/README.md) · [Cách đối chiếu](docs/REPRODUCIBILITY.md).
+- [69/69 tests ngày 08/10 và notebook A/B/C đã chạy](reports/verification_project.json) · [Bằng chứng notebook](reports/execution/notebook_verification.json).
+- [Kiểm suy luận demo](reports/demo_verification.json) · [Kiểm UI HTTP200/28 hàng](reports/demo_ui/evidence.json) · [Ảnh demo thật](reports/demo_ui/demo_ui.png).
 
 Báo cáo sáu chương giữ bố cục mẫu cô. Bài hai cột dùng định dạng bài báo IEEE;
-số liệu từng bản theo trạng thái tại thời điểm xuất và ghi rõ thí nghiệm đang thiếu.
+số liệu từng bản theo trạng thái tại thời điểm xuất. Bảng full hiện đã đầy đủ;
+thông tin hành chính và bảng đóng góp vẫn cần nhóm xác nhận.
 Đồng bộ các bản sau khi tổng hợp artifacts: `python tools/update_report_results.py`,
 `python tools/build_report_docx.py --pdf`, `python tools/build_ieee_paper.py --pdf`
 và `python tools/build_progress_reports.py --pdf` trong môi trường tạo tài liệu.
@@ -60,7 +65,9 @@ và [thứ tự đọc lưu trong repo](docs/THU_TU_DOC_BASELINE.md).
 [Báo cáo baseline của Duy](reports/BAO_CAO_BASELINE_BAO_DUY.md) ·
 [CSV sáu cấu hình validation](reports/baseline_validation/comparison.csv) ·
 [PR #3 baseline — đã merge ngày 05/10/2026](https://github.com/trangkhanh-ai/goemotions-multilabel-classification/pull/3).
-Chưa chạy test thật; bảng hiện tại là validation.
+Đã có sáu hàng test A sau khóa protocol; đọc riêng bảng validation và test trong
+[BASELINE_RESULTS.md](reports/BASELINE_RESULTS.md). Cấu hình A giữ theo lựa chọn
+validation là `balanced_tuned`, không đổi lựa chọn khi nhìn test.
 
 </details>
 
@@ -82,8 +89,8 @@ Phần EDA đã chạy trên **54.263 mẫu GoEmotions simplified**, giữ nguy�
 
 Đã đối chiếu số mẫu, support/tỷ lệ từng nhãn và 30 ví dụ với dữ liệu nguồn.
 Với bài toán đa nhãn, một bình luận được tính vào nhiều nhãn nên tổng support có thể
-lớn hơn số mẫu. Nhánh triển khai đã có A và số đo validation thật; B/C/D có mã,
-smoke đã kiểm và quy trình chạy full để bổ sung kết quả cuối.
+lớn hơn số mẫu. A/B/C đã có validation và test full; D đã dùng C được chọn và
+có bằng chứng suy luận/giao diện. Smoke được giữ riêng để kiểm luồng.
 
 ## Bài toán và bài báo nền tảng
 
@@ -114,13 +121,14 @@ Dataset revision trong mã EDA hiện tại: `add492243ff905527e67aeb8b80c082af0
 
 Repo hiện có mã và sản phẩm EDA. Nhánh baseline đã chạy TF-IDF + One-vs-Rest
 Logistic Regression ở hai cấu hình: chuẩn và cân bằng lớp. Xem [hướng dẫn từng bước](docs/BASELINE.md)
-và [bảng kết quả validation thật](reports/BASELINE_RESULTS.md). Cấu hình chuẩn ở ngưỡng
+và [bảng validation/test thật](reports/BASELINE_RESULTS.md). Cấu hình chuẩn ở ngưỡng
 0,5 có Macro-F1 **0,2025**, Micro-F1 **0,3760**; cấu hình cân bằng lớp có Macro-F1
-**0,4562**, Micro-F1 **0,5099**. Đây là số validation ở ngưỡng0,5; trạng thái B/C/test
-và các kết quả mới xem tại bảng `reports/project_results/RESULTS.md`.
+**0,4562**, Micro-F1 **0,5099**. Đây là số validation ở ngưỡng0,5. Trên test,
+A standard @0,5 có Macro-F1 **0,1963**; A balanced tuned có Macro-F1 **0,4493**,
+Micro-F1 **0,5277**. Toàn bộ B/C/test xem tại bảng `reports/project_results/RESULTS.md`.
 Có [notebook baseline với output đã chạy](notebooks/baseline.ipynb) để học từng bước.
-Xem [hồ sơ rà soát phần A ngày 01/10](docs/BASELINE_REVIEW.md) để biết các lỗi đã sửa,
-bằng chứng kiểm chứng và phần việc còn cần cả nhóm hoàn thành.
+Xem [hồ sơ rà soát A — lịch sử 01/10, cập nhật full 08/10](docs/BASELINE_REVIEW.md)
+để biết lỗi đã sửa, bằng chứng kiểm chứng và phần việc nhóm cần tự xác nhận.
 Phần A còn có so sánh ngưỡng chung/ngưỡng riêng, bảng cặp FN/FP theo ID và protocol
 khóa sáu cấu hình trước khi đánh giá test.
 
@@ -133,7 +141,7 @@ khóa sáu cấu hình trước khi đánh giá test.
 
 ## Ba hướng tiếp cận đã thống nhất
 
-| Hướng | Hệ thống dự kiến | Học thêm từ nhãn GoEmotions? |
+| Hướng | Hệ thống | Học thêm từ nhãn GoEmotions? |
 |---|---|---|
 | A — Baseline | TF-IDF + One-vs-Rest Logistic Regression | Có, trên train |
 | B — Zero-shot | BART-large-MNLI | Không cập nhật trọng số |
@@ -142,7 +150,7 @@ khóa sáu cấu hình trước khi đánh giá test.
 TF-IDF là cách biểu diễn văn bản cho A, không phải một mô hình phân loại riêng. Zero-shot nghĩa là không fine-tune mô hình trên GoEmotions; BART-MNLI đã được huấn luyện trước trên MNLI.
 
 
-Ba hướng tiếp cận cùng giải quyết một bài toán. Mỗi hướng tự tạo dự đoán từ văn bản; đầu ra của A không phải đầu vào bắt buộc của B hoặc các mô hình fine-tune. Nhóm dự kiến so sánh tổng cộng **năm hệ thống**: một baseline, một zero-shot và ba mô hình fine-tune.
+Ba hướng tiếp cận cùng giải quyết một bài toán. Mỗi hướng tự tạo dự đoán từ văn bản; đầu ra của A không phải đầu vào bắt buộc của B hoặc các mô hình fine-tune. Nhóm đã so sánh **năm hướng hệ thống chính**: baseline A (hai biến thể trọng số), zero-shot B và ba kiến trúc fine-tune C.
 
 ```text
 GoEmotions: split gốc + 28 nhãn + quy tắc đánh giá chung
@@ -213,7 +221,7 @@ Khi đánh giá, ánh xạ score về thứ tự nhãn chuẩn vì pipeline tr�
 
 ### C — Fine-tune BERT-base, RoBERTa-base và DistilBERT-base
 
-Ba checkpoint dự kiến được nêu ở trên. Với **mỗi** mô hình, thêm đầu phân loại có 28 đầu ra và huấn luyện riêng trên GoEmotions train; trong thiết lập fine-tune toàn bộ, cập nhật cả encoder và đầu phân loại. Sơ đồ dưới đây dùng BERT để minh họa; RoBERTa và DistilBERT có luồng tương tự nhưng dùng tokenizer/encoder tương ứng.
+Ba checkpoint sử dụng được nêu ở trên. Với **mỗi** mô hình, thêm đầu phân loại có 28 đầu ra và huấn luyện riêng trên GoEmotions train; trong thiết lập fine-tune toàn bộ, cập nhật cả encoder và đầu phân loại. Sơ đồ dưới đây dùng BERT để minh họa; RoBERTa và DistilBERT có luồng tương tự nhưng dùng tokenizer/encoder tương ứng.
 
 ```text
 Text → tokenizer BERT → encoder BERT → đầu phân loại → 28 logits
@@ -236,18 +244,21 @@ Không giả định trước zero-shot tốt hơn baseline hoặc fine-tuning t
 
 ## Phần nâng cao và nhãn hiếm
 
-Nhánh A đã chạy class weighting và khảo sát ngưỡng riêng từng nhãn trên validation.
-Kế hoạch nhóm đề xuất thử tiếp cho C tốt nhất. PDF đề tài không quy định nâng cao
+Nhánh A đã chạy class weighting và ngưỡng riêng; A/B/C đều có fixed/global/tuned
+được khóa trên validation rồi đo test. PDF đề tài không quy định nâng cao
 phải áp dụng riêng cho C; yêu cầu là có thí nghiệm và số cải thiện F1 nhãn hiếm:
 
 - A: đã thử trọng số lớp trong từng Logistic Regression nhị phân; xem số thật trong báo cáo A.
-- C: thử `pos_weight` trong BCEWithLogitsLoss; tính từ train, chọn cách xử lý trọng số quá lớn bằng validation nếu cần.
+- C: đã đo threshold tuning; mã có `pos_weight` tùy chọn nhưng bảng chính C hiện là `standard`, không gọi hỗ trợ mã là đã chạy weighted C full.
 - Chọn ngưỡng từng nhãn từ validation của chính mô hình đó. Không chuyển nguyên ngưỡng A sang B/C.
 - Xác định tập nhãn hiếm từ train và công bố tiêu chí trước khi so sánh.
 - So sánh thiết lập gốc, chỉ weighting, chỉ tuning và kết hợp; báo cáo F1/support của tất cả nhãn hiếm đã xác định, kể cả nhãn giảm điểm.
 
-Trên validation, A cân bằng lớp cải thiện F1 của năm nhãn hiếm xác định từ train; kết quả
-test chưa có. Điểm sau khi chọn ngưỡng trên cùng validation có thể lạc quan. Contrastive
+Trên test, năm nhãn hiếm đã có F1 trước/sau, gồm support và các đánh đổi:
+balanced tuned tăng so standard fixed nhưng bốn nhãn giảm so balanced fixed.
+A balanced global có Macro-F1 test **0,4530**, cao hơn balanced tuned **0,4493**;
+standard tuned có Micro-F1 **0,5330**, cao hơn balanced tuned **0,5277**.
+Giữ quyết định đã chọn bằng validation, không chọn lại theo test. Tuned-val có thể lạc quan. Contrastive
 representation là hướng khác được đề bài nêu; nhóm không cần thực hiện đồng thời cả ba hướng.
 
 ## Phân tích lỗi
@@ -260,14 +271,18 @@ Dùng dự đoán theo ID, thống kê lỗi và ví dụ nguyên văn để ch�
 
 | Hệ thống | Thiết lập | Hồ sơ kết quả |
 |---|---|---|
-| A | TF-IDF + One-vs-Rest Logistic Regression | Đã có hai biến thể và bảng validation trong `reports/BASELINE_RESULTS.md`; chưa đo test |
-| B | BART-large-MNLI, multi_label=True | Code và smoke đã kiểm; số full tại bảng tổng hợp |
-| C1 | BERT-base-cased, 28 đầu ra | Code và smoke đã kiểm; tiến độ ba seed và mean/std xem bảng tổng hợp |
-| C2 | RoBERTa-base, 28 đầu ra | Code và head/backward đã kiểm; tiến độ ba seed và mean/std xem bảng tổng hợp |
-| C3 | DistilBERT-base-uncased, 28 đầu ra | Code và smoke đã kiểm; tiến độ ba seed và mean/std xem bảng tổng hợp |
+| A | TF-IDF + One-vs-Rest Logistic Regression | Hai model × ba luật ngưỡng, đủ validation/test và F1 năm nhãn hiếm |
+| B | BART-large-MNLI, multi_label=True | Đủ 5.426 validation/5.427 test; ba luật ngưỡng, không fine-tune trọng số |
+| C1 | BERT-base-cased, 28 đầu ra | Full 3 seed; test Macro-F1@0,5 mean±std **0,4720±0,0045** |
+| C2 | RoBERTa-base, 28 đầu ra | Full 3 seed; test Macro-F1@0,5 mean±std **0,4219±0,0088** |
+| C3 | DistilBERT-base-uncased, 28 đầu ra | Full 3 seed; test Macro-F1@0,5 mean±std **0,4116±0,0035** |
+| D | App của C thắng theo validation | BERT seed 123, ngưỡng 0,5; suy luận/HTTP/UI 28 nhãn/ảnh thật đã kiểm |
 
 Đọc [bảng tổng hợp thực nghiệm](reports/project_results/RESULTS.md), log và danh sách
-`missing` để kiểm mức hoàn thành. Source code có sẵn không thay thế hồ sơ full.
+`missing` để kiểm mức hoàn thành; hiện `missing=[]`. Mean/std C dùng đủ ba seed;
+demo dùng một checkpoint chọn theo validation, không chọn theo bảng test trên.
+Notebook A12/B4/C7 cell mã đã thực thi đạt; kiểm 08/10 có **69/69** tests. Phân tích lỗi
+cùng ID có ba nhóm tự động, nhóm cần đọc ví dụ và tự giải thích nguyên nhân.
 
 ## Môi trường và cài đặt
 

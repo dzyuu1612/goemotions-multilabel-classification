@@ -1,9 +1,34 @@
-# Rà soát phần A của đồ án — 01/10/2026
+# Rà soát phần A — lịch sử 01/10, cập nhật full 09/10/2026
 
 Nguồn đối chiếu: ảnh đề tài 1, nội dung yêu cầu chung của giảng viên do bạn cung cấp,
 bản phân công ngày 30/09 và kế hoạch nhóm đã cập nhật. Hướng dẫn kỹ thuật dùng
 scikit-learn 1.7.2 đúng môi trường đã chạy. Đây là hồ sơ kiểm tra **phần A**, không
-phải xác nhận đã hoàn thành toàn bộ A/B/C/D của nhóm.
+phải xác nhận đóng góp thực tế hoặc việc nhóm đã nộp bài.
+
+## Cập nhật mới: kết quả full và kiểm chứng ngày 08/10/2026
+
+- A đã khóa `final_protocol.json`, chọn `balanced_tuned` bằng validation và đo
+  đủ sáu hàng trên **5.427 test**. [Bảng A](../reports/BASELINE_RESULTS.md) giữ
+  validation/test riêng, đủ P/R/F1/Hamming và F1 năm nhãn hiếm trước/sau.
+- Balanced tuned test: Macro-F1 **0,4493**, Micro-F1 **0,5277**. Balanced global
+  có Macro-F1 test **0,4530**, standard tuned có Micro-F1 **0,5330**; không đổi
+  quyết định đã chọn bằng validation khi nhìn thứ hạng test.
+- Năm nhãn hiếm test tăng so standard fixed, nhưng thêm tuning sau weighting
+  làm pride/relief/nervousness/embarrassment giảm so balanced fixed; grief của
+  standard vẫn F1=0 ở cả ba luật ngưỡng. Không che nhãn giảm/không tăng.
+- Toàn nhóm đủ B và **9/9 C**, [summary](../reports/project_results/summary.json)
+  có **72 bản ghi/36 dòng tổng hợp**, `complete=true`, `missing=[]`;
+  [hồ sơ 95 JSON](../reports/reproducibility/README.md) giữ metadata/protocol/hash.
+- Lần kiểm thử 08/10: **69/69 tests**;
+  [notebook thật](../reports/execution/notebook_verification.json) A12/B4/C7
+  cell mã PASS. Số 16 tests/11 cell ở phần lịch sử bên dưới là lần kiểm 01/10.
+- D dùng BERT cased seed 123 chọn bằng validation; [suy luận](../reports/demo_verification.json)
+  đối chiếu ba câu/28 scores và input rỗng/dài/cắt token;
+  [UI](../reports/demo_ui/evidence.json) HTTP200, 28 hàng và
+  [ảnh thật](../reports/demo_ui/demo_ui.png). Hai loại bằng chứng kiểm hai việc khác nhau.
+
+**Phần 1–5 bên dưới giữ nguyên hồ sơ tại 01/10/2026**, khi mới có validation.
+Các câu “chưa có test/B/C” trong phần lịch sử không mô tả trạng thái hiện tại.
 
 ## 1. Đúng yêu cầu cô ở đâu?
 
@@ -97,14 +122,17 @@ Recall tăng và FP/Hamming Loss cũng tăng. Không chỉ chọn một chỉ s�
 Các ví dụ là minh họa, không thay cho tần suất toàn split. Phân tích yêu cầu chung
 vẫn cần so sánh cùng các nhóm lỗi giữa C1/C2/C3 khi nhóm có dự đoán C.
 
-## 6. Việc bạn làm tiếp
+## 6. Việc Duy làm tiếp sau khi đã có số cuối
 
 1. Mở `notebooks/baseline.ipynb`, đọc từng cell và thử đổi câu ở cell dự đoán.
 2. Đọc `docs/BASELINE.md` mục 5–7, tự giải thích TF-IDF, OvR, metric, weighting và ngưỡng.
-3. Dùng `reports/BASELINE_RESULTS.md` để viết phần A của báo cáo; gọi đúng là validation.
+3. Đọc thêm [TF-IDF tính tay, code và câu hỏi bảo vệ](HUONG_DAN_DUY_GIAI_THICH_BASELINE.md);
+   dùng `reports/BASELINE_RESULTS.md` để viết phần A, gọi đúng từng bảng validation/test.
 4. Bàn giao code, mapping nhãn và scores theo ID cho nhóm; model/scores trong
    `data/processed/` bị Git bỏ qua và cần nơi chia sẻ riêng.
-5. Khi nhóm chốt cuối, chạy freeze rồi evaluate; ghép bảng test A với B và C.
+5. Đọc protocol và bảng test đã ghép A/B/C; không khóa lại hoặc chọn lại theo test.
+6. Cùng nhóm xác nhận phần việc/% công sức thực tế, điền thông tin hành chính,
+   đọc nguồn và giải thích lỗi. Có artifacts không xác nhận Duy đã tự hiểu/bảo vệ hoặc nhóm đã nộp.
 
 Nguồn kỹ thuật:
 [chọn ngưỡng](https://scikit-learn.org/1.7/modules/classification_threshold.html),

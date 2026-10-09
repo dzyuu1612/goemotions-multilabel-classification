@@ -13,11 +13,13 @@ from app import TransformerDemo
 from src.baseline import load_aligned_scores
 from src.data import load_goemotions, sha256
 from src.experiment import read_json, save_json
+from src.neural import configure_console
 
 ROOT = Path(__file__).resolve().parents[1]
 
 
 def main():
+    configure_console()
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--device", choices=("auto", "cpu", "cuda"), default="auto")
     args = parser.parse_args()

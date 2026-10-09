@@ -62,7 +62,7 @@
     "status": "PASS",
     "is_benchmark_result": false
   },
-  "full_experiments": "IN_PROGRESS; use actual run metadata and reports/project_results for completion",
+  "full_experiments": "COMPLETE: 9/9 full C runs, A/B validation and frozen-protocol test; 72 records, 36 aggregate groups, zero missing",
   "timing_limitations": {
     "run": "C bert seed 42",
     "windows_wake_times_local": [
@@ -81,8 +81,36 @@
         "windows_event_local_time": "2026-10-08 15:28:03",
         "wake_source": "Power Button",
         "source": "Windows System Power-Troubleshooter Event ID 1"
+      },
+      {
+        "run": "C roberta seed 2026",
+        "sleep_at_utc": "2026-10-08T10:38:21.7351281Z",
+        "wake_at_utc": "2026-10-08T12:52:17.0950008Z",
+        "windows_event_local_time": "2026-10-08 19:52:22",
+        "source": "Windows System Power-Troubleshooter Event ID 1",
+        "note": "Sleep/wake falls within this run's recorded start/end; elapsed training time includes interruption."
       }
     ]
   },
-  "note": "Unit tests use synthetic cases/small heads; only full experiments establish benchmark scores."
+  "note": "Unit tests use synthetic cases/small heads; only full experiments establish benchmark scores.",
+  "final_unit_tests": {
+    "command": ".venv-models\\Scripts\\python.exe -m unittest discover -s tests -v",
+    "tests_run": 69,
+    "passed": 69,
+    "failed": 0,
+    "errors": 0,
+    "seconds": 32.732,
+    "log": "reports/execution/unit_tests_final.log",
+    "log_sha256": "8803c309e9596e6594087be5599272cbea7cd2c8da64af5dd09cbb41e201cabb",
+    "checked_at_utc": "2026-10-08T16:28:37.831434+00:00"
+  },
+  "notebook_verification": {
+    "evidence": "reports/execution/notebook_verification.json",
+    "checked_at_utc": "2026-10-08T16:29:15.870089+00:00",
+    "kernel_name": "goemotions-models",
+    "completed": 3,
+    "passed": 3,
+    "failed": 0,
+    "all_passed": true
+  }
 }
