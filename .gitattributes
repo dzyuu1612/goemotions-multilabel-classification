@@ -29,5 +29,7 @@ configs/distilbert_*.json -text whitespace=blank-at-eol,blank-at-eof,space-befor
 # Historical captured outputs contain spaces/blank EOF lines; keep their hashes.
 reports/c3_distilbert/** -text whitespace=-blank-at-eol,-blank-at-eof,space-before-tab,cr-at-eol
 docs/HUY_DISTILBERT.md -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+docs/TICH_HOP_C3_NHAT_HUY.md -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+reports/PHUONG_PHAP_C3_NHAT_HUY.md -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
 /README.md -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
 app_distilbert_huy.py -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol

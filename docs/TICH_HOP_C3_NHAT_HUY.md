@@ -35,6 +35,12 @@ Trọng số C3 Huy không nằm trong Git. Muốn suy luận từ bundle này p
 checkpoint/tokenizer đúng checksum từ Huy hoặc tái lập trong đúng môi trường.
 Việc tích hợp mã không tự xác nhận demo Streamlit đã chạy lại trên máy hiện tại.
 
+**Kiểm bổ sung trên máy Huy ngày 09/10:** đã chạy `verify_distilbert` bằng bundle C3
+full seed 123 với tên app mới; app/CLI, input biên và kiểm dừng/mở lại server đều đạt.
+Hồ sơ riêng: [rà soát sau tích hợp](../reports/c3_distilbert/post_merge_20261009/REVIEW.md).
+Đây là kiểm C3 trên máy Huy; chưa phải nghiệm thu demo BERT tại máy này vì chưa có
+bundle BERT được chọn. Hồ sơ notebook/HTML và verification ngày 08/10 vẫn được giữ nguyên.
+
 ## Giữ nguyên nguồn gốc và protocol
 
 Giữ các config/metadata/log của Huy, `.venv-huy/` và `data/cache/` trong ignore,

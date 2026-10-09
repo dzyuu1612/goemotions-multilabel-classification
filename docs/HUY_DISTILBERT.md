@@ -1,8 +1,9 @@
 # Nhật Huy — C3 DistilBERT và khung demo
 
 Phần này triển khai công việc độc lập của Huy theo phân công nhóm 04/10/2026:
-C3 DistilBERT full ba seed, metrics, ngưỡng riêng, lỗi C3, notebook/báo cáo và demo C3. Không thay thế script huấn luyện
-chung mà Khánh sẽ tích hợp, không sửa phần baseline của Duy.
+C3 DistilBERT full ba seed, metrics, ngưỡng riêng, lỗi C3, notebook/báo cáo và demo C3.
+Sau tích hợp ngày 09/10, nghiên cứu này được giữ riêng với bộ thực nghiệm chung; xem
+[ghi chú tích hợp](TICH_HOP_C3_NHAT_HUY.md).
 
 ## Trạng thái và đường dẫn
 
@@ -20,16 +21,26 @@ chung mà Khánh sẽ tích hợp, không sửa phần baseline của Duy.
 | Demo và kiểm khởi động lại | `reports/c3_distilbert/full/DEMO_EVIDENCE.md` |
 | Rà soát bàn giao cuối | `reports/c3_distilbert/full/final_review.json` |
 | Viết phương pháp C3 | `reports/PHUONG_PHAP_C3_NHAT_HUY.md` |
+| Kiểm lại sau tích hợp 09/10 | [Báo cáo kiểm C3 và đối chiếu hồ sơ chung](../reports/c3_distilbert/post_merge_20261009/REVIEW.md) |
+| Tiến độ hiện tại của Huy | [Kết quả rà soát 09/10](../reports/c3_distilbert/post_merge_20261009/REVIEW.md) |
 
 Full dùng `configs/distilbert_full.json`, protocol được ghi trước khi train. Chỉ các run
 có `run.json` trạng thái complete, đủ full train/validation và đúng hash mới vào bảng
-mean/std. Không dùng test. Demo hiện nạp bundle C3; demo cuối cần kết quả C1/C2 để chọn C thắng.
+mean/std. Nghiên cứu riêng của Huy chưa đánh giá test. Demo riêng nạp bundle C3;
+bộ thực nghiệm chung đã chọn BERT seed 123 và có kết quả test, được báo cáo riêng.
 Cấu hình này áp dụng cho phần C3 của Huy, không tự thay đổi cấu hình của các bạn khác.
 
 Cập nhật 08/10/2026: cả ba seed đã hoàn thành; notebook 33 cell đã chạy hết và có HTML.
 Đã đọc/đối chiếu bảy ví dụ lỗi với dữ liệu và scores gốc, rà hai biểu đồ, kiểm app/CLI
 và dừng/mở lại server demo. Bản ghi tự động `automatic_checks_complete.json` là trạng thái
 trước rà soát thủ công; kết quả rà soát tiếp theo nằm trong `final_review.json`.
+
+Cập nhật 09/10/2026: đã kiểm lại suy luận bằng checkpoint C3 thật với
+`app_distilbert_huy.py` sau tích hợp; app/CLI, input biên và khởi động lại server đều đạt.
+Đã đối chiếu phần C3 trong bảng chung và ba case cùng ID của C1/C2/C3.
+Máy Huy chưa có bundle BERT seed 123 và Gradio trong `.venv-huy`, nên chưa xác nhận
+chạy demo chung trên máy này. Bằng chứng mới ở `post_merge_20261009/`; các báo cáo
+và notebook ngày 08/10 được giữ nguyên như bằng chứng lịch sử.
 
 ## 1. Môi trường đã kiểm tra trên máy Huy
 
@@ -64,6 +75,12 @@ khác: cùng trọng số đã lưu phải cho scores khớp trong sai số cho 
 
 ## 2. Pilot và luồng train
 
+Phần này mô tả quy trình nghiên cứu gốc. Nếu cần tái lập nguyên lượt train của Huy,
+dùng mã tại commit `3acdfc6` trong checkout riêng và đúng môi trường đã ghi; không tự
+chạy lại chỉ để hoàn thiện bàn giao. Sau tích hợp, `src/data.py` đổi cách đọc hash
+sang từng khối; source guard của runner gốc phát hiện mã khác protocol. Không sửa
+hash trong protocol cũ để vượt kiểm tra.
+
 ```powershell
 .\.venv-huy\Scripts\python.exe -m scripts.train_distilbert --config configs/distilbert_pilot.json
 ```
@@ -90,6 +107,11 @@ hiện **chưa có lệnh resume**. Không coi file này là đủ để tự đ
 
 Chọn interpreter `.venv-huy/Scripts/python.exe` khi mở notebook trong VS Code.
 Notebook mặc định đọc ba run full đã chạy và tính lại các bảng; Run All không tự huấn luyện lại.
+
+Notebook/HTML đang lưu là output ngày 08/10, có thể còn nhắc tên cũ `app.py` và trạng thái
+chưa chọn best C ở thời điểm đó. Lệnh demo hiện hành nằm ở mục 4. Chuỗi lệnh dưới đây
+là quy trình xuất bản nghiên cứu gốc ở commit `3acdfc6`, không phải việc cần chạy lại
+trên `main` sau tích hợp; các lệnh export sẽ ghi đè bản lịch sử.
 
 ```powershell
 .\.venv-huy\Scripts\python.exe -m scripts.run_c3_full
@@ -125,8 +147,9 @@ Câu rỗng bị từ chối; câu dài bị truncate theo `max_length` và có 
 App và CLI đều dùng `src.c3.predict_texts`, cùng tokenizer, thứ tự nhãn và ngưỡng từ run.
 Ngưỡng cơ sở là 0,5; có thể chọn ngưỡng từng nhãn từ validation của đúng checkpoint.
 App/CLI dùng `src/c3_thresholds.py` để kiểm ngưỡng gắn đúng hash model/scores, seed, mapping.
-CLI hỗ trợ `--threshold-mode per_label`. Không tự nhận checkpoint bất kỳ của C1/C2;
-cần bàn giao và kiểm parity lại khi đã chọn mô hình thắng.
+CLI hỗ trợ `--threshold-mode per_label`. Demo C3 không tự nhận checkpoint C1/C2.
+Demo chung BERT nằm ở `app.py` (Gradio); cần nhận đúng bundle đã được chọn và kiểm
+parity trên máy Huy theo [báo cáo bàn giao](../reports/c3_distilbert/post_merge_20261009/REVIEW.md).
 
 ## 5. Artifact để bàn giao cho nhóm
 
@@ -163,10 +186,11 @@ Nhãn hiếm định nghĩa từ train: grief, pride, relief, nervousness, embar
 trước/sau giữ đủ năm nhãn và đủ ba seed. Ví dụ lỗi dùng nguyên văn/ID thật; ba nhóm lỗi
 C3 có thể giao nhau. Nhận xét thủ công nằm trong `full/ERROR_ANALYSIS.md`.
 
-Các việc cần nhóm cung cấp đầu vào: đối chiếu lỗi cùng ID với C1/C2; chọn kiến trúc thắng
-bằng mean Macro-F1 validation; bàn giao checkpoint/ngưỡng của C thắng cho demo cuối;
-khóa protocol đánh giá test và tổng hợp báo cáo toàn nhóm. Huy không cần đợi kết quả
-C1/C2 để hoàn thành phần train/validation C3 độc lập.
+Bộ chung đã có kết quả C1/C2/C3, ba case đối chiếu cùng ID, lựa chọn BERT seed 123
+và test sau khóa protocol. Huy đã rà các hồ sơ được bàn giao, không nhập bộ C3 riêng
+vào bảng chung thành sáu seed. Việc còn thiếu để nghiệm thu D trên máy Huy là nhận
+bundle BERT đầy đủ (gồm scores/metadata mà loader kiểm hash), chuẩn bị môi trường
+Gradio riêng rồi chạy kiểm demo. Không cần train thêm C3 hoặc chọn lại bằng test.
 
 ### Lượt chạy bị gián đoạn và tính minh bạch
 
@@ -182,14 +206,16 @@ seed 42 được giữ nguyên; seed 123 chạy lại từ checkpoint gốc, r�
 ## 7. Kiểm tra mã và demo
 
 ```powershell
-.\.venv-huy\Scripts\python.exe -m unittest discover -s tests -v
+.\.venv-huy\Scripts\python.exe -m unittest discover -s tests -p test_c3.py -v
 $chosen = Get-Content reports/c3_distilbert/full/representative_c3.json -Raw | ConvertFrom-Json
-.\.venv-huy\Scripts\python.exe -m scripts.verify_distilbert --run $chosen.run --output reports/c3_distilbert/full/verification.json
+.\.venv-huy\Scripts\python.exe -m scripts.verify_distilbert --run $chosen.run --output reports/c3_distilbert/post_merge_20261009/verification.json
+.\.venv-huy\Scripts\python.exe -m scripts.review_c3_integration
 ```
 
 Các kiểm tra gồm BCE đa nhãn, checkpoint round-trip, ngưỡng nhiều nhãn/tập rỗng,
 chặn input sai, không đọc test, sample std, không tổng hợp pilot như full, đối chiếu
-NPZ/metrics và điểm số CLI/app. File `verification.json` ghi kết quả kiểm thực tế.
+NPZ/metrics và điểm số CLI/app. File `post_merge_20261009/verification.json` ghi kết quả kiểm sau tích hợp; không thay bản ngày 08/10.
 
 Minh chứng demo, đường dẫn truy cập và kiểm khởi động lại được ghi trong
-`reports/c3_distilbert/full/DEMO_EVIDENCE.md`.
+`reports/c3_distilbert/full/DEMO_EVIDENCE.md` cho lần kiểm 08/10; bản sau tích hợp ở
+[REVIEW.md](../reports/c3_distilbert/post_merge_20261009/REVIEW.md).

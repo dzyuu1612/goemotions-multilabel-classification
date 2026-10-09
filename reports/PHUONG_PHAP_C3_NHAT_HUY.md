@@ -1,5 +1,9 @@
 # Phần phương pháp C3 — Nhật Huy
 
+**Phạm vi:** nghiên cứu C3 riêng của Huy. Từ 09/10/2026, repo còn có bộ thực nghiệm
+chung đã đánh giá test và chọn BERT seed 123; không lấy test của bộ chung ghi thành
+kết quả run riêng này. Xem [đối chiếu sau tích hợp](c3_distilbert/post_merge_20261009/REVIEW.md).
+
 ## Bản thảo có thể đưa vào báo cáo nhóm
 
 Nhánh C3 sử dụng checkpoint `distilbert/distilbert-base-uncased` và tokenizer tương ứng
@@ -44,7 +48,8 @@ tính nhất quán của pipeline; không dùng để báo cáo thứ hạng C3 
 42/123/2026, mỗi seed ba epoch; báo từng seed và mean ± sample std (`ddof=1`).
 Số liệu, trạng thái nghiệm thu và hạn chế nằm trong [C3_RESULTS.md](c3_distilbert/full/C3_RESULTS.md).
 Chỉ run hoàn thành và kiểm đủ artifact mới được đưa vào báo cáo; lượt bị ngắt được lưu
-riêng, không trộn vào kết quả. Chưa đánh giá test hoặc chọn kiến trúc thắng của cả nhóm.
+riêng, không trộn vào kết quả. Nghiên cứu riêng này chưa đánh giá test; kết quả chọn
+kiến trúc thắng của nhóm thuộc bộ thực nghiệm chung.
 
 **Nâng cao thuộc C3:** giữ checkpoint và thay ngưỡng quyết định từng nhãn. Với mỗi seed,
 chọn ngưỡng trên validation của đúng checkpoint, lưới 0,05..0,95, bước 0,05; hòa chọn
@@ -54,11 +59,13 @@ không coi đây là mức cải thiện trên test. Không tự bổ sung weigh
 
 **Phân tích lỗi:** dùng ID/text/true/pred/scores thật, thống kê FN/FP, câu đa nhãn bị bỏ
 sót một phần và lỗi nhãn hiếm/neutral. Nhóm lỗi có thể giao nhau. Huy đọc lỗi C3 riêng;
-đối chiếu ba kiến trúc còn cần scores C1/C2 cùng ID từ các bạn.
+bộ chung đã có ba case đối chiếu cùng ID, được rà riêng trong hồ sơ kiểm ngày 09/10.
+Các case đó dùng DistilBERT của bộ chung, không thay bằng run riêng của Huy.
 
 **Demo:** checkpoint đại diện C3 được chọn theo Macro-F1 validation @0,5 trong ba seed;
 không mặc định C3 là kiến trúc thắng. App/CLI kiểm hash ngưỡng và dùng cùng hàm suy luận.
-Demo cuối của cả nhóm cần thay bằng checkpoint C thắng khi đã có đủ kết quả so sánh.
+Demo C3 dùng `app_distilbert_huy.py`. Demo chung `app.py` dùng BERT seed 123 đã chọn
+bằng validation; máy Huy còn cần nhận bundle BERT để kiểm chạy tại chỗ.
 
 DistilBERT được tác giả tiền huấn luyện bằng distillation; trong phần này Huy fine-tune
 checkpoint công bố sẵn, không tự thực hiện distillation hoặc tạo thêm dữ liệu huấn luyện.
