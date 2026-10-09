@@ -21,6 +21,17 @@ Nhóm còn tự đọc/bảo vệ, điền thông tin hành chính và đóng g�
 - [69/69 tests ngày 08/10 và notebook A/B/C đã chạy](reports/verification_project.json) · [Bằng chứng notebook](reports/execution/notebook_verification.json).
 - [Kiểm suy luận demo](reports/demo_verification.json) · [Kiểm UI HTTP200/28 hàng](reports/demo_ui/evidence.json) · [Ảnh demo thật](reports/demo_ui/demo_ui.png).
 
+### Phần C3 Nhật Huy đã bàn giao trên kho chung
+
+Đã tích hợp code, notebook và hồ sơ Nhật Huy từ `origin/main` commit `3acdfc6`.
+Đọc [ghi chú tích hợp](docs/TICH_HOP_C3_NHAT_HUY.md),
+[hướng dẫn C3 của Huy](docs/HUY_DISTILBERT.md),
+[notebook đã xuất](notebooks/distilbert_huy.ipynb) và
+[kết quả validation riêng](reports/c3_distilbert/full/C3_RESULTS.md).
+Demo riêng của Huy được giữ ở [app_distilbert_huy.py](app_distilbert_huy.py);
+`app.py` là demo C thắng trong bộ thực nghiệm chung. Hai hồ sơ khác trainer/protocol
+được đọc riêng; không cộng thành nhiều seed hơn hoặc chuyển validation thành test.
+
 Báo cáo sáu chương giữ bố cục mẫu cô. Bài hai cột dùng định dạng bài báo IEEE;
 số liệu từng bản theo trạng thái tại thời điểm xuất. Bảng full hiện đã đầy đủ;
 thông tin hành chính và bảng đóng góp vẫn cần nhóm xác nhận.

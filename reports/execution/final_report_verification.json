@@ -1,5 +1,5 @@
 {
-  "checked_at_utc": "2026-10-09T00:02:18.107530+00:00",
+  "checked_at_utc": "2026-10-09T00:04:36.544686+00:00",
   "scope": "Actual DOCX structure, actual PDF text/pages, source citation order, targeted rendered page previews.",
   "summary": {
     "complete": true,
@@ -183,18 +183,18 @@
       "artifacts": [
         {
           "path": "reports\\BAI_BAO_GOEMOTIONS_IEEE_NOI_DUNG.md",
-          "bytes": 54600,
-          "sha256": "113d16fd661e99cb2926fe1176bb502a49eea3c713631ec58273fc3b5ca9e6b1"
+          "bytes": 52285,
+          "sha256": "ff1fec345ac5e63f79d2f93e44a1f8a83b227da153b006e57a58766e431dc428"
         },
         {
           "path": "reports\\BAI_BAO_GOEMOTIONS_IEEE.docx",
-          "bytes": 57775,
-          "sha256": "b442c437d087264f83a509faa0b5e52d46cc6bfce15fd91e86f79d111e954d69"
+          "bytes": 57801,
+          "sha256": "4cc5e62175f5d2020b827c347b4275c8f7295dd36b362fa403ed4aee0e0f6c56"
         },
         {
           "path": "reports\\BAI_BAO_GOEMOTIONS_IEEE.pdf",
-          "bytes": 4381798,
-          "sha256": "35226fba56d5908c64a65037c9e5e4a447d2b35e3ba71b30e6659362a2d88a8a"
+          "bytes": 4381128,
+          "sha256": "ad975e2164db621cb48297ac307d4d5429065b714181bd7a2504fec060db26cc"
         }
       ],
       "previews": [
@@ -214,13 +214,19 @@
           "page": 5,
           "label": "cases",
           "path": "reports\\execution\\final_report_preview\\BAI_BAO_GOEMOTIONS_IEEE_cases_p5.png",
-          "sha256": "b8d32e95bda88e2ff3add38e5af69a682a9457715a48c374763ff4fb9d507410"
+          "sha256": "ae48ff412c674dd207ea948443d5180f767c4e4ad88a05654c0e3b201ebefa35"
         },
         {
-          "page": 8,
+          "page": 7,
           "label": "references",
-          "path": "reports\\execution\\final_report_preview\\BAI_BAO_GOEMOTIONS_IEEE_references_p8.png",
-          "sha256": "937e9c9f7d2a765dc578844055a8be967a91517e2329ba95195307764b6ca3e0"
+          "path": "reports\\execution\\final_report_preview\\BAI_BAO_GOEMOTIONS_IEEE_references_p7.png",
+          "sha256": "9482f9c1df872397d11f3350401a1b0a64cfec9658e2935307c5044a82c77b8e"
+        },
+        {
+          "page": 6,
+          "label": "case3_and_discussion_continuation",
+          "path": "reports\\execution\\final_report_preview\\BAI_BAO_GOEMOTIONS_IEEE_continuation_p6.png",
+          "sha256": "2d0f7e1e31022562e5f83eb8a8debcee7efa15739b452fffb640b515adba7116"
         }
       ]
     },
@@ -374,8 +380,35 @@
   ],
   "automatic_checks_passed": true,
   "visual_review": {
-    "status": "pending_manual_review",
-    "note": "Open generated previews before marking visually reviewed."
+    "status": "reviewed_targeted_pages",
+    "reviewed_at_utc": "2026-10-09T00:05:47.672872+00:00",
+    "tool": "view_image on rendered real PDF page PNGs",
+    "pages": {
+      "BAO_CAO_DO_AN_GOEMOTIONS_IEEE": [
+        1,
+        30,
+        34,
+        41,
+        48
+      ],
+      "BAI_BAO_GOEMOTIONS_IEEE": [
+        1,
+        4,
+        5,
+        6,
+        8
+      ],
+      "BAO_CAO_TIEN_DO_1": [
+        1,
+        3
+      ],
+      "BAO_CAO_TIEN_DO_2": [
+        1,
+        8
+      ]
+    },
+    "findings": "Title/authors/admin blanks, two-column body, table headers/mean+std, three real cases with scores, demo screenshot and references are readable on inspected pages. Repeated shared case notes were deduplicated before final IEEE export.",
+    "limits": "Targeted visual inspection, not a proofread of every sentence/page; automatic checks cover every PDF text page."
   },
   "limits": [
     "Administrative details and contribution percentages remain blank for the group to confirm.",

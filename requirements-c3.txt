@@ -1,0 +1,13 @@
+# Python 3.12. Install CUDA PyTorch separately (see docs/HUY_DISTILBERT.md).
+transformers==4.57.6
+numpy==2.3.5
+pandas==2.3.3
+pyarrow==21.0.0
+scikit-learn==1.7.2
+streamlit==1.55.0
+nbformat==5.10.4
+nbclient==0.11.0
+nbconvert==7.17.1
+ipykernel==7.3.0
+tabulate==0.10.0
+matplotlib==3.10.8

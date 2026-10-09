@@ -339,13 +339,20 @@ def errors():
                       "đó là nhóm lỗi chồng lấp trên cùng câu, không phải một câu mới."]
         used.add(sample_id)
         for row in chosen:
-            predicted = ", ".join(json.loads(row["predicted_labels"])) or "không nhãn"
-            missed = ", ".join(json.loads(row["missed_labels"])) or "không"
-            extra = ", ".join(json.loads(row["extra_labels"])) or "không"
+            predicted_labels = json.loads(row["predicted_labels"])
+            missed_labels, extra_labels = json.loads(row["missed_labels"]), json.loads(row["extra_labels"])
+            predicted = ", ".join(predicted_labels) or "không nhãn"
+            missed = ", ".join(missed_labels) or "không"
+            extra = ", ".join(extra_labels) or "không"
+            scores = json.loads(row["scores_by_label"])
+            related = dict.fromkeys(missed_labels + extra_labels or predicted_labels)
+            score_text = "; ".join(f"{label}={scores[label]:.4f}" for label in related) or "—"
             parts += [f"{SHORT.get('C_' + row['architecture'], row['architecture'])} seed {row['seed']}: "
                       f"dự đoán {predicted}; bỏ sót {missed}; nhãn thừa {extra}; "
-                      f"gặp nhóm lỗi đang xét: {row['error_present']}. "
-                      + (f"Nhận xét đã điền: {row['manual_linguistic_notes']}" if row.get("manual_linguistic_notes") else "Nhận xét ngôn ngữ cần nhóm đọc thủ công.")]
+                      f"gặp nhóm lỗi đang xét: {row['error_present']}. Scores liên quan: {score_text}."]
+        notes = list(dict.fromkeys(row["manual_linguistic_notes"].strip() for row in chosen if row.get("manual_linguistic_notes")))
+        parts += ["Nhận xét đã ghi sau đọc câu/nhãn/scores: " + " ".join(notes) if notes
+                  else "Nhận xét ngôn ngữ cần nhóm đọc thủ công."]
     parts += [f"Có {len(used)} ID khác nhau được đối chiếu. Ví dụ chọn theo ID có thứ tự từ union các model, cùng ID cho cả ba C; "
               "không chọn riêng những câu thuận lợi cho một mô hình. "
               "Đầy đủ điểm 28 nhãn, các ví dụ còn lại và cặp nhầm nằm trong examples.csv/pairs.csv."]

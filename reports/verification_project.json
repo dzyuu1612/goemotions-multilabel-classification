@@ -112,5 +112,18 @@
     "passed": 3,
     "failed": 0,
     "all_passed": true
+  },
+  "post_merge_unit_tests": {
+    "command": ".venv-models/Scripts/python.exe -X utf8 -m unittest discover -s tests -v",
+    "tests_run": 77,
+    "passed": 77,
+    "failed": 0,
+    "errors": 0,
+    "seconds": 12.936,
+    "log": "reports/execution/unit_tests_post_merge.log",
+    "log_sha256": "8f085a668279a0075f02c3e126afdbdb1fdd78c864d6eadc1a77029ac89e80bb",
+    "checked_at_utc": "2026-10-09T00:07:13.695598+00:00",
+    "includes_huy_c3_tests": true,
+    "scope": "Full suite after combining shared origin/main C3 code with current A/B/C/D; Huy Streamlit inference not run"
   }
 }

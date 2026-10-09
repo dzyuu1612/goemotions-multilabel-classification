@@ -1,0 +1,22 @@
+{
+  "mode": "pilot",
+  "model_id": "distilbert/distilbert-base-uncased",
+  "revision": "12040accade4e8a0f71eabdb258fecc2e7e948be",
+  "seed": 42,
+  "subset_seed": 2026,
+  "train_limit": 1024,
+  "validation_limit": 256,
+  "epochs": 1,
+  "max_length": 128,
+  "batch_size": 4,
+  "gradient_accumulation_steps": 4,
+  "eval_batch_size": 8,
+  "learning_rate": 0.00002,
+  "weight_decay": 0.01,
+  "warmup_ratio": 0.1,
+  "max_grad_norm": 1.0,
+  "device": "cuda",
+  "amp": true,
+  "gradient_checkpointing": true,
+  "threshold": 0.5
+}

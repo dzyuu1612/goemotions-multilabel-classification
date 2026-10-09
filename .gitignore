@@ -1,7 +1,9 @@
 .venv/
 .venv-models/
+.venv-huy/
 __pycache__/
 .ipynb_checkpoints/
 data/raw/
 data/tokenizers/
 data/processed/
+data/cache/

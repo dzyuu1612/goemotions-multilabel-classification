@@ -106,7 +106,7 @@ Python, NumPy, PyTorch CPU/CUDA đều được gieo seed. PyTorch nêu rõ kh�
 ### B. Bảng thực nghiệm theo trạng thái thực tế
 
 <!-- AUTO_RESULTS -->
-**Trạng thái 09/10/2026 06:58 (UTC+7): Đủ hồ sơ benchmark theo summary.** Có 72/72 hàng kết quả và 36/36 nhóm tổng hợp theo thiết kế; C full 9/9, B full đã có. Số hàng phụ thuộc artifact đã hoàn thành, không tính smoke. Dấu — là thiếu/chưa đủ ba seed hoặc không áp dụng, không phải F1=0. A-S là A standard; A-W là A balanced; C1/C2/C3 là BERT/RoBERTa/DistilBERT. Val là validation, N=5.426; Test N=5.427.
+**Trạng thái 09/10/2026 07:03 (UTC+7): Đủ hồ sơ benchmark theo summary.** Có 72/72 hàng kết quả và 36/36 nhóm tổng hợp theo thiết kế; C full 9/9, B full đã có. Số hàng phụ thuộc artifact đã hoàn thành, không tính smoke. Dấu — là thiếu/chưa đủ ba seed hoặc không áp dụng, không phải F1=0. A-S là A standard; A-W là A balanced; C1/C2/C3 là BERT/RoBERTa/DistilBERT. Val là validation, N=5.426; Test N=5.427.
 
 **BẢNG I. SO SÁNH HỆ THỐNG GỐC, NGƯỠNG 0,5.**
 
@@ -239,27 +239,33 @@ Các seed đại diện chọn theo validation của từng C. Đếm lỗi này
 
 **partial_multi_label, ID eczj48j.** Văn bản: “This!!! 🐃 and 💍 for your hard work!”. Nhãn thật: admiration, excitement, neutral.
 
-C1 seed 123: dự đoán caring; bỏ sót admiration, excitement, neutral; nhãn thừa caring; gặp nhóm lỗi đang xét: False. Nhận xét đã điền: Văn bản rất ngắn, có dấu chấm than, emoji và cụm 'hard work'. Đây là các dấu hiệu có thể khiến việc suy ra đủ bộ nhãn khó hơn, nhưng không chứng minh nguyên nhân trong mô hình. C1 dự đoán caring và bỏ cả ba nhãn thật; cờ partial=False ở C1 chỉ vì không có TP, không có nghĩa là dự đoán đúng. C2/C3 nhận ra admiration nhưng bỏ excitement và neutral. Giữ nguyên ground truth kể cả neutral đồng xuất hiện.
+C1 seed 123: dự đoán caring; bỏ sót admiration, excitement, neutral; nhãn thừa caring; gặp nhóm lỗi đang xét: False. Scores liên quan: admiration=0.3333; excitement=0.0121; neutral=0.0666; caring=0.5696.
 
-C2 seed 2026: dự đoán admiration; bỏ sót excitement, neutral; nhãn thừa không; gặp nhóm lỗi đang xét: True. Nhận xét đã điền: Văn bản rất ngắn, có dấu chấm than, emoji và cụm 'hard work'. Đây là các dấu hiệu có thể khiến việc suy ra đủ bộ nhãn khó hơn, nhưng không chứng minh nguyên nhân trong mô hình. C1 dự đoán caring và bỏ cả ba nhãn thật; cờ partial=False ở C1 chỉ vì không có TP, không có nghĩa là dự đoán đúng. C2/C3 nhận ra admiration nhưng bỏ excitement và neutral. Giữ nguyên ground truth kể cả neutral đồng xuất hiện.
+C2 seed 2026: dự đoán admiration; bỏ sót excitement, neutral; nhãn thừa không; gặp nhóm lỗi đang xét: True. Scores liên quan: excitement=0.0218; neutral=0.0426.
 
-C3 seed 123: dự đoán admiration; bỏ sót excitement, neutral; nhãn thừa không; gặp nhóm lỗi đang xét: True. Nhận xét đã điền: Văn bản rất ngắn, có dấu chấm than, emoji và cụm 'hard work'. Đây là các dấu hiệu có thể khiến việc suy ra đủ bộ nhãn khó hơn, nhưng không chứng minh nguyên nhân trong mô hình. C1 dự đoán caring và bỏ cả ba nhãn thật; cờ partial=False ở C1 chỉ vì không có TP, không có nghĩa là dự đoán đúng. C2/C3 nhận ra admiration nhưng bỏ excitement và neutral. Giữ nguyên ground truth kể cả neutral đồng xuất hiện.
+C3 seed 123: dự đoán admiration; bỏ sót excitement, neutral; nhãn thừa không; gặp nhóm lỗi đang xét: True. Scores liên quan: excitement=0.0158; neutral=0.0455.
+
+Nhận xét đã ghi sau đọc câu/nhãn/scores: Văn bản rất ngắn, có dấu chấm than, emoji và cụm 'hard work'. Đây là các dấu hiệu có thể khiến việc suy ra đủ bộ nhãn khó hơn, nhưng không chứng minh nguyên nhân trong mô hình. C1 dự đoán caring và bỏ cả ba nhãn thật; cờ partial=False ở C1 chỉ vì không có TP, không có nghĩa là dự đoán đúng. C2/C3 nhận ra admiration nhưng bỏ excitement và neutral. Giữ nguyên ground truth kể cả neutral đồng xuất hiện.
 
 **rare_false_negative, ID ed0jr9i.** Văn bản: “Try nonchalantly handing them your card as if they had dropped it. I think its normal to be shy. *handing on exit, otherwise it could get awkward”. Nhãn thật: embarrassment.
 
-C1 seed 123: dự đoán embarrassment; bỏ sót không; nhãn thừa không; gặp nhóm lỗi đang xét: False. Nhận xét đã điền: Các từ 'shy', 'awkward' và tình huống đưa danh thiếp là dấu hiệu ngôn ngữ về sự ngượng ngùng. C1 nhận ra embarrassment; C2/C3 có score nhãn này dưới 0.5 nên bỏ sót. Embarrassment có 303 mẫu train và thuộc nhóm năm nhãn hiếm đã xác định từ train. Không suy diễn cơ chế attention, nguyên nhân do độ dài hoặc tác dụng của weighting từ riêng một ví dụ.
+C1 seed 123: dự đoán embarrassment; bỏ sót không; nhãn thừa không; gặp nhóm lỗi đang xét: False. Scores liên quan: embarrassment=0.7527.
 
-C2 seed 2026: dự đoán không nhãn; bỏ sót embarrassment; nhãn thừa không; gặp nhóm lỗi đang xét: True. Nhận xét đã điền: Các từ 'shy', 'awkward' và tình huống đưa danh thiếp là dấu hiệu ngôn ngữ về sự ngượng ngùng. C1 nhận ra embarrassment; C2/C3 có score nhãn này dưới 0.5 nên bỏ sót. Embarrassment có 303 mẫu train và thuộc nhóm năm nhãn hiếm đã xác định từ train. Không suy diễn cơ chế attention, nguyên nhân do độ dài hoặc tác dụng của weighting từ riêng một ví dụ.
+C2 seed 2026: dự đoán không nhãn; bỏ sót embarrassment; nhãn thừa không; gặp nhóm lỗi đang xét: True. Scores liên quan: embarrassment=0.3418.
 
-C3 seed 123: dự đoán không nhãn; bỏ sót embarrassment; nhãn thừa không; gặp nhóm lỗi đang xét: True. Nhận xét đã điền: Các từ 'shy', 'awkward' và tình huống đưa danh thiếp là dấu hiệu ngôn ngữ về sự ngượng ngùng. C1 nhận ra embarrassment; C2/C3 có score nhãn này dưới 0.5 nên bỏ sót. Embarrassment có 303 mẫu train và thuộc nhóm năm nhãn hiếm đã xác định từ train. Không suy diễn cơ chế attention, nguyên nhân do độ dài hoặc tác dụng của weighting từ riêng một ví dụ.
+C3 seed 123: dự đoán không nhãn; bỏ sót embarrassment; nhãn thừa không; gặp nhóm lỗi đang xét: True. Scores liên quan: embarrassment=0.1956.
+
+Nhận xét đã ghi sau đọc câu/nhãn/scores: Các từ 'shy', 'awkward' và tình huống đưa danh thiếp là dấu hiệu ngôn ngữ về sự ngượng ngùng. C1 nhận ra embarrassment; C2/C3 có score nhãn này dưới 0.5 nên bỏ sót. Embarrassment có 303 mẫu train và thuộc nhóm năm nhãn hiếm đã xác định từ train. Không suy diễn cơ chế attention, nguyên nhân do độ dài hoặc tác dụng của weighting từ riêng một ví dụ.
 
 **missed_extra_pair, ID eczcvgx.** Văn bản: “I always plan that, my wife usually has other ideas though. ”. Nhãn thật: neutral.
 
-C1 seed 123: dự đoán neutral; bỏ sót không; nhãn thừa không; gặp nhóm lỗi đang xét: False. Nhận xét đã điền: Câu kể về dự định và ý kiến khác của vợ; không có từ thể hiện sự tán thành rõ ràng. Ground truth là neutral. C1/C2 trả đúng neutral; C3 chọn approval và bỏ neutral vì hai score nằm ở hai phía ngưỡng 0.5. Đây là cặp FN neutral / FP approval ở C3, không phải bằng chứng chắc chắn về mỉa mai hay cảm xúc thật của người viết.
+C1 seed 123: dự đoán neutral; bỏ sót không; nhãn thừa không; gặp nhóm lỗi đang xét: False. Scores liên quan: neutral=0.6780.
 
-C2 seed 2026: dự đoán neutral; bỏ sót không; nhãn thừa không; gặp nhóm lỗi đang xét: False. Nhận xét đã điền: Câu kể về dự định và ý kiến khác của vợ; không có từ thể hiện sự tán thành rõ ràng. Ground truth là neutral. C1/C2 trả đúng neutral; C3 chọn approval và bỏ neutral vì hai score nằm ở hai phía ngưỡng 0.5. Đây là cặp FN neutral / FP approval ở C3, không phải bằng chứng chắc chắn về mỉa mai hay cảm xúc thật của người viết.
+C2 seed 2026: dự đoán neutral; bỏ sót không; nhãn thừa không; gặp nhóm lỗi đang xét: False. Scores liên quan: neutral=0.6429.
 
-C3 seed 123: dự đoán approval; bỏ sót neutral; nhãn thừa approval; gặp nhóm lỗi đang xét: True. Nhận xét đã điền: Câu kể về dự định và ý kiến khác của vợ; không có từ thể hiện sự tán thành rõ ràng. Ground truth là neutral. C1/C2 trả đúng neutral; C3 chọn approval và bỏ neutral vì hai score nằm ở hai phía ngưỡng 0.5. Đây là cặp FN neutral / FP approval ở C3, không phải bằng chứng chắc chắn về mỉa mai hay cảm xúc thật của người viết.
+C3 seed 123: dự đoán approval; bỏ sót neutral; nhãn thừa approval; gặp nhóm lỗi đang xét: True. Scores liên quan: neutral=0.4173; approval=0.5729.
+
+Nhận xét đã ghi sau đọc câu/nhãn/scores: Câu kể về dự định và ý kiến khác của vợ; không có từ thể hiện sự tán thành rõ ràng. Ground truth là neutral. C1/C2 trả đúng neutral; C3 chọn approval và bỏ neutral vì hai score nằm ở hai phía ngưỡng 0.5. Đây là cặp FN neutral / FP approval ở C3, không phải bằng chứng chắc chắn về mỉa mai hay cảm xúc thật của người viết.
 
 Có 3 ID khác nhau được đối chiếu. Ví dụ chọn theo ID có thứ tự từ union các model, cùng ID cho cả ba C; không chọn riêng những câu thuận lợi cho một mô hình. Đầy đủ điểm 28 nhãn, các ví dụ còn lại và cặp nhầm nằm trong examples.csv/pairs.csv.
 <!-- END_AUTO_ERRORS -->
