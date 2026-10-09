@@ -1,8 +1,8 @@
 {
-  "annotated_at_utc": "2026-10-08T16:32:19.025394+00:00",
+  "annotated_at_utc": "2026-10-09T00:23:21.999736+00:00",
   "reviewer": "Codex assistant; team confirmation pending",
   "source": "reports/errors_test_standard_fixed/examples.csv",
-  "source_sha256_before": "e0eb2d10e01959ac13f23c25d5013bf08ae01c2b9756086ee7c5a3e284fcdf1a",
+  "source_sha256_before": "727d7be0354d80111f2d1b4369d3b9f158b503813c85a5a5c57e608a0dff66c3",
   "source_sha256_after": "727d7be0354d80111f2d1b4369d3b9f158b503813c85a5a5c57e608a0dff66c3",
   "updated_rows": [
     {
@@ -60,10 +60,12 @@
       "seed": "123"
     }
   ],
-  "columns_changed": [
+  "columns_written": [
     "manual_linguistic_notes"
   ],
+  "columns_changed": [],
+  "note_values_changed": 0,
   "fit_or_inference_executed": false,
   "case_studies": "reports/error_case_studies.md",
-  "case_studies_sha256": "c8c0b5099277925a86beed1b88480a3ede93d91418dec8c36b072899255bba86"
+  "case_studies_sha256": "8d7c9a99c877c70b9815e00eab2189995b2348ad8187d29d09ddcfdcf2b8789d"
 }

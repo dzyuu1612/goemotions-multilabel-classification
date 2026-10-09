@@ -1,7 +1,7 @@
 {
-  "checked_at_utc": "2026-10-09T07:37:11.237509+00:00",
-  "stage": "Git index before commit",
-  "revision_sha": null,
+  "checked_at_utc": "2026-10-09T00:08:50.343134+00:00",
+  "stage": "Git revision HEAD",
+  "revision_sha": "b588dd64e4b752b3ff9b7c71fa3c89c4df60100e",
   "metadata_files_checked": 95,
   "paired_csv_files_checked": 1,
   "files_checked": 96,

@@ -2,7 +2,7 @@
 
 ## Phân loại cảm xúc đa nhãn với GoEmotions
 
-**Ngày cập nhật:** 09/10/2026 06:58 (Asia/Bangkok). Đây là bản chuẩn bị báo cáo hiện trạng, không xác nhận đã nộp giảng viên.
+**Ngày cập nhật:** 09/10/2026 07:11 (Asia/Bangkok). Đây là bản chuẩn bị báo cáo hiện trạng, không xác nhận đã nộp giảng viên.
 
 **Giảng viên / mã lớp / năm học, học kỳ:** ____________________
 
@@ -166,7 +166,7 @@ Kiểm suy luận lúc 2026-10-08T16:31:14.108678+00:00: PASS, model bert, seed 
 
 Kiểm UI riêng lúc 2026-10-08T16:33:39.810Z: PASS, 28/28 hàng trong DOM. Ảnh thực tế: reports/demo_ui/demo_ui.png; hash nằm trong evidence.json. Hồ sơ ghi nhận thời điểm kiểm, không bảo đảm server đang chạy khi đọc báo cáo.
 
-Kiểm mã: 69/69 unit tests đạt; notebook 3/3 đạt. Nguồn verification_project.json; phép kiểm mã không thay benchmark full.
+Kiểm mã sau tích hợp kho chung: 77/77 unit tests đạt; notebook 3/3 đạt. Nguồn verification_project.json; phép kiểm mã không thay benchmark full. Snapshot trước tích hợp: 69/69 tests đã đạt ngày 08/10; giữ như lịch sử, không cộng các snapshot thành số kiểm thử mới. Log sau tích hợp: reports/execution/unit_tests_post_merge.log; suite này không chạy suy luận demo Streamlit của Huy.
 
 Gradio nối hàm suy luận với giao diện nhập văn bản [5]. Demo cần đúng checkpoint/tokenizer/threshold đã chọn, hỗ trợ nhiều nhãn, xử lý input rỗng và không ép neutral khi mọi score dưới ngưỡng. URL đang chạy/ảnh/video được điền sau khi xác minh, không tạo link giả.
 
@@ -230,7 +230,7 @@ Support là số câu có nhãn thật, không phải số lần model dự đo�
 | Bảo Duy Nguyễn | A; điều phối B; data/metrics và bảng nâng cao | A full validation; B full đã có | ____________________ |
 | Quốc Khánh | C1 BERT; phần đầu/tổng hợp báo cáo | C1 3/3 seed full; xem bảng run | ____________________ |
 | Đức Trí | C2 RoBERTa; hỗ trợ/bàn giao B | C2 3/3 seed full; xem bảng run | ____________________ |
-| Nhật Huy | C3 DistilBERT; tích hợp demo best C | C3 3/3 seed full; demo theo hồ sơ | ____________________ |
+| Nhật Huy | C3 DistilBERT; tích hợp demo best C | C3 chung 3/3 seed full; demo theo hồ sơ; đã nhận trainer/notebook/báo cáo C3 Huy | ____________________ |
 
 Đức Trí là “Thợ Săn Thập Cẩm”; nhóm có bốn người. Tỷ lệ công sức để trống cho nhóm thống nhất bằng artifacts, không tự đánh đồng phân công và việc đã làm.
 
@@ -239,6 +239,14 @@ Theo summary hiện đọc: `complete=true`. Những phần cần bổ sung:
 - Không còn mục thiếu trong summary A/B/C; hồ sơ kiểm demo và đọc lỗi đã nêu trên. Nhóm cần xác nhận thông tin hành chính, đóng góp và kiểm demo khi chuyển máy.
 
 Mức hoàn thành được ghi theo artifacts hiện có; không xác nhận điểm số hoặc đã nộp giảng viên. Các thông tin hành chính và tỷ lệ đóng góp vẫn để trống cho nhóm xác nhận.
+
+### 6.1. Phần C3 Nhật Huy đã bàn giao
+
+Đã tích hợp trainer/code C3, notebook/HTML, protocol, báo cáo ba seed, phân tích lỗi và demo Streamlit của Nhật Huy từ origin/main snapshot 3acdfc6. Ghi nhận đây là nguồn bàn giao của Huy, không quy thành công của Duy hoặc tự tính tỷ lệ đóng góp.
+
+C3 Huy đạt Macro-F1 validation @0,5 0.4061 ± 0.0045; C3 trong pipeline chung đạt 0.4064 ± 0.0060. Hai bộ dùng trainer/protocol/môi trường riêng; Huy có gradient checkpointing và GPU RTX3050, khác môi trường chung RTX5060. Không gộp thành sáu seed và không gọi validation của Huy là test. Bảng A/B/C chính và lựa chọn BERT seed123 cho demo D giữ protocol đã khóa.
+
+Demo chính là app.py (Gradio). Demo Streamlit riêng là app_distilbert_huy.py; chưa chạy lại suy luận từ bundle Huy trên máy hiện tại. Nhật Huy cần bàn giao đúng checkpoint/tokenizer/checksum hoặc tái lập môi trường riêng. Đối chiếu docs/TICH_HOP_C3_NHAT_HUY.md và reports/c3_distilbert/full/C3_RESULTS.md; không sửa log/HTML lịch sử để tạo ấn tượng đã chạy lại.
 
 ## 7. Hồ sơ và bước hoàn tất
 

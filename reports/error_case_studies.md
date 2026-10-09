@@ -56,6 +56,6 @@ Nhận xét: Câu kể về dự định và ý kiến khác của vợ; không 
 
 Cờ nhóm lỗi chỉ trả lời mẫu có thuộc đúng định nghĩa nhóm đó hay không; cờ False không chứng minh mọi nhãn đều đúng. Ví dụ case 1, C1 sai hoàn toàn nhưng không thuộc lỗi nhận được một phần nhãn. C1 thắng trung bình theo tiêu chí chọn trên validation vẫn có thể thua ở một câu riêng.
 
-Scores là đầu ra sigmoid của các classifier, không phải xác suất đã được kiểm chuẩn. Các quan sát trên không xác lập quan hệ nhân quả. Số lỗi toàn tập xem group_summary.csv; không cộng các nhóm chồng lấp.
+Scores là đầu ra sigmoid của các classifier, không phải xác suất đã được kiểm chuẩn. Các quan sát trên không xác lập quan hệ nhân quả. Số lỗi toàn tập xem reports/errors_test_standard_fixed/counts.csv; không cộng các nhóm chồng lấp.
 
 Nguồn đối chiếu: reports/errors_test_standard_fixed/examples.csv và manifest.json. Scores trong bảng làm tròn bốn chữ số; CSV giữ độ chính xác gốc.

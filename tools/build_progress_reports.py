@@ -118,11 +118,12 @@ def snapshot():
 def roles_table(data):
     counts = {arch: sum(row["completed"] for row in data["runs"] if row["architecture"] == arch) for arch in ARCHITECTURES}
     b_status = "B full đã có" if data["zero_shot"].get("mode") == "full" else "B chưa đủ full"
+    huy_delivery = "; đã nhận trainer/notebook/báo cáo C3 Huy" if (ROOT / "docs/TICH_HOP_C3_NHAT_HUY.md").exists() else ""
     return md_table(["Thành viên", "Vai trò", "Bằng chứng hiện có", "% công sức"], [
         ["Bảo Duy Nguyễn", "A; điều phối B; data/metrics và bảng nâng cao", f"A full validation; {b_status}", "____________________"],
         ["Quốc Khánh", "C1 BERT; phần đầu/tổng hợp báo cáo", f"C1 {counts['bert']}/3 seed full; xem bảng run", "____________________"],
         ["Đức Trí", "C2 RoBERTa; hỗ trợ/bàn giao B", f"C2 {counts['roberta']}/3 seed full; xem bảng run", "____________________"],
-        ["Nhật Huy", "C3 DistilBERT; tích hợp demo best C", f"C3 {counts['distilbert']}/3 seed full; demo theo hồ sơ", "____________________"],
+        ["Nhật Huy", "C3 DistilBERT; tích hợp demo best C", f"C3 chung {counts['distilbert']}/3 seed full; demo theo hồ sơ{huy_delivery}", "____________________"],
     ])
 
 
@@ -330,11 +331,35 @@ def progress_two(data, stamp):
         rare_text = re.sub(r"^# .*\n", "", rare_text, count=1)
         rare_text = re.sub(r"^## ", "### ", rare_text, flags=re.MULTILINE)
     verification = data.get("verification", {})
-    final_tests = verification.get("final_unit_tests", {})
+    old_tests = verification.get("final_unit_tests", {})
+    post_merge_tests = verification.get("post_merge_unit_tests", {})
+    final_tests = post_merge_tests or old_tests
     notebook_tests = verification.get("notebook_verification", {})
-    qa_text = (f"Kiểm mã: {final_tests.get('passed', '—')}/{final_tests.get('tests_run', '—')} unit tests đạt; "
+    qa_text = (f"Kiểm mã {'sau tích hợp kho chung' if post_merge_tests else 'snapshot hiện có'}: "
+               f"{final_tests.get('passed', '—')}/{final_tests.get('tests_run', '—')} unit tests đạt; "
                f"notebook {notebook_tests.get('passed', '—')}/{notebook_tests.get('completed', '—')} đạt. "
                "Nguồn verification_project.json; phép kiểm mã không thay benchmark full.")
+    if post_merge_tests:
+        qa_text += (f" Snapshot trước tích hợp: {old_tests.get('passed', '—')}/{old_tests.get('tests_run', '—')} tests "
+                    "đã đạt ngày 08/10; giữ như lịch sử, không cộng các snapshot thành số kiểm thử mới. "
+                    f"Log sau tích hợp: {post_merge_tests.get('log', '—')}; "
+                    "suite này không chạy suy luận demo Streamlit của Huy.")
+    integration_note = ""
+    if (ROOT / "docs/TICH_HOP_C3_NHAT_HUY.md").exists():
+        integration_note = ("### 6.1. Phần C3 Nhật Huy đã bàn giao\n\n"
+                            "Đã tích hợp trainer/code C3, notebook/HTML, protocol, báo cáo ba seed, phân tích lỗi "
+                            "và demo Streamlit của Nhật Huy từ origin/main snapshot 3acdfc6. Ghi nhận đây là nguồn "
+                            "bàn giao của Huy, không quy thành công của Duy hoặc tự tính tỷ lệ đóng góp.\n\n"
+                            "C3 Huy đạt Macro-F1 validation @0,5 0.4061 ± 0.0045; C3 trong pipeline chung đạt "
+                            "0.4064 ± 0.0060. Hai bộ dùng trainer/protocol/môi trường riêng; Huy có gradient "
+                            "checkpointing và GPU RTX3050, khác môi trường chung RTX5060. Không gộp thành sáu seed "
+                            "và không gọi validation của Huy là test. Bảng A/B/C chính và lựa chọn BERT seed123 "
+                            "cho demo D giữ protocol đã khóa.\n\n"
+                            "Demo chính là app.py (Gradio). Demo Streamlit riêng là app_distilbert_huy.py; "
+                            "chưa chạy lại suy luận từ bundle Huy trên máy hiện tại. Nhật Huy cần bàn giao đúng "
+                            "checkpoint/tokenizer/checksum hoặc tái lập môi trường riêng. Đối chiếu "
+                            "docs/TICH_HOP_C3_NHAT_HUY.md và reports/c3_distilbert/full/C3_RESULTS.md; "
+                            "không sửa log/HTML lịch sử để tạo ấn tượng đã chạy lại.")
     next_advanced = ("Đã có bảng test trước/sau với support, mean±std và cả mức giảm/không đổi. "
                      "C weighting chưa chạy; chín C standard dùng threshold tuning, không làm encoder học thêm. "
                      "Nhóm cần đọc và xác nhận các case, giữ nguyên protocol và artifacts khi bàn giao."
@@ -424,6 +449,8 @@ Theo summary hiện đọc: `complete={str(summary.get('complete', False)).lower
 {chr(10).join('- ' + item for item in summary.get('missing', [])) or '- Không còn mục thiếu trong summary A/B/C; hồ sơ kiểm demo và đọc lỗi đã nêu trên. Nhóm cần xác nhận thông tin hành chính, đóng góp và kiểm demo khi chuyển máy.'}
 
 Mức hoàn thành được ghi theo artifacts hiện có; không xác nhận điểm số hoặc đã nộp giảng viên. Các thông tin hành chính và tỷ lệ đóng góp vẫn để trống cho nhóm xác nhận.
+
+{integration_note}
 
 ## 7. Hồ sơ và bước hoàn tất
 

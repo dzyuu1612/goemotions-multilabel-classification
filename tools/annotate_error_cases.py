@@ -54,8 +54,10 @@ def main():
     if set(selected.values()) != set(NOTES):
         raise ValueError("Bộ case đã đổi; phải đọc lại nội dung trước khi ghi nhận xét")
     changes = []
+    note_values_changed = 0
     for row in rows:
         if selected.get(row["category"]) == row["id"]:
+            note_values_changed += row["manual_linguistic_notes"] != NOTES[row["id"]]
             row["manual_linguistic_notes"] = NOTES[row["id"]]
             changes.append({key: row[key] for key in ("category", "id", "architecture", "seed")})
     if len(changes) != 9:
@@ -103,7 +105,7 @@ def main():
               "tiêu chí chọn trên validation vẫn có thể thua ở một câu riêng.", "",
               "Scores là đầu ra sigmoid của các classifier, không phải xác suất đã "
               "được kiểm chuẩn. Các quan sát trên không xác lập quan hệ nhân quả. "
-              "Số lỗi toàn tập xem group_summary.csv; không cộng các nhóm chồng lấp.", "",
+              "Số lỗi toàn tập xem reports/errors_test_standard_fixed/counts.csv; không cộng các nhóm chồng lấp.", "",
               "Nguồn đối chiếu: reports/errors_test_standard_fixed/examples.csv và manifest.json. "
               "Scores trong bảng làm tròn bốn chữ số; CSV giữ độ chính xác gốc.", ""]
     output = ROOT / "reports/error_case_studies.md"
@@ -112,7 +114,9 @@ def main():
                 "reviewer": "Codex assistant; team confirmation pending",
                 "source": SOURCE.relative_to(ROOT).as_posix(), "source_sha256_before": before,
                 "source_sha256_after": sha(SOURCE), "updated_rows": changes,
-                "columns_changed": ["manual_linguistic_notes"], "fit_or_inference_executed": False,
+                "columns_written": ["manual_linguistic_notes"],
+                "columns_changed": ["manual_linguistic_notes"] if note_values_changed else [],
+                "note_values_changed": note_values_changed, "fit_or_inference_executed": False,
                 "case_studies": output.relative_to(ROOT).as_posix(), "case_studies_sha256": sha(output)}
     (ROOT / "reports/execution/error_annotation.json").write_text(
         json.dumps(evidence, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")

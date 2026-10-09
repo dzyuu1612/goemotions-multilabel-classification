@@ -89,6 +89,8 @@ def inspect(name, source_name, expected_refs):
             real_case_ids=all(sample_id in full for sample_id in ("eczj48j", "ed0jr9i", "eczcvgx")),
             rare_negative_kept="-0.0257" in full,
             selected_test_mean_std=all(value in full_compact for value in ("0.4720±0.0045", "0.5038±0.0097")),
+            error_group_counts_reference="reports/errors_test_standard_fixed/counts.csv" in full_compact
+                                         and "group_summary.csv" not in full,
         )
     else:
         checks.update(
@@ -99,16 +101,28 @@ def inspect(name, source_name, expected_refs):
             selected_test_mean_std=all(value in full_compact for value in ("0.4720±0.0045", "0.5038±0.0097")),
             micro_tradeoff_kept="0.6048" in full and "0.5900" in full,
         )
+    if (ROOT / "docs/TICH_HOP_C3_NHAT_HUY.md").exists() and name in ("BAO_CAO_DO_AN_GOEMOTIONS_IEEE", "BAO_CAO_TIEN_DO_2"):
+        verification = json.loads((REPORTS / "verification_project.json").read_text(encoding="utf-8"))
+        tests = verification.get("post_merge_unit_tests", {})
+        checks.update(
+            huy_delivery_acknowledged="3acdfc6" in full and "app_distilbert_huy.py" in full,
+            two_c3_studies_separate=all(value in full_compact for value in ("0.4061±0.0045", "0.4064±0.0060")),
+            no_six_seed_pooling="sáu seed" in source and "validation" in source and "test" in source,
+            post_merge_unit_tests_snapshot=f"{tests.get('passed')}/{tests.get('tests_run')}" in full_compact,
+            old_unit_tests_snapshot_kept="69/69" in full_compact,
+        )
     targets = {"title": 0}
     keywords = (("comparison", "BẢNG III."), ("cases", "eczj48j"), ("references", "TÀI LIỆU THAM KHẢO")) if name.startswith("BAI_BAO") else (
         ("comparison", "Bảng 5-2a."), ("cases", "eczj48j"), ("demo", "Hình 5.4."), ("references", "TÀI LIỆU THAM KHẢO"))
     if name.startswith("BAO_CAO_TIEN"):
         keywords = (("results", "A_standard"), ("roles", "Phân công" if name.endswith("1") else "Vai trò"))
+    if name in ("BAO_CAO_DO_AN_GOEMOTIONS_IEEE", "BAO_CAO_TIEN_DO_2"):
+        keywords += (("huy_integration", "3acdfc6"),)
     for label, keyword in keywords:
         candidates = [index for index, text in enumerate(page_texts) if compact(keyword) in compact(text)]
         if candidates:
             # Bản sáu chương có danh mục bảng chứa lại caption/ID ở đầu.
-            use_last = label in ("demo", "references", "roles") or name.startswith("BAO_CAO_DO_AN")
+            use_last = label in ("demo", "references", "roles", "huy_integration") or name.startswith("BAO_CAO_DO_AN")
             targets[label] = candidates[-1] if use_last else candidates[0]
     previews = [preview(pdf, index, label, name) for label, index in targets.items()]
     pdf.close()
@@ -133,6 +147,7 @@ def main():
         "scope": "Actual DOCX structure, actual PDF text/pages, source citation order, targeted rendered page previews.",
         "summary": {"complete": summary["complete"], "records": len(summary["records"]),
                     "averages": len(summary["averages"]), "sha256": digest(summary_path)},
+        "post_merge_verification_sha256": digest(REPORTS / "verification_project.json"),
         "reports": reports, "automatic_checks_passed": all(report["checks_passed"] for report in reports),
         "visual_review": {"status": "pending_manual_review", "note": "Open generated previews before marking visually reviewed."},
         "limits": ["Administrative details and contribution percentages remain blank for the group to confirm.",
@@ -140,6 +155,7 @@ def main():
                    "Actual experiments were completed on Oct. 8; document rendering date may be later.",
                    "Three seed sample std is descriptive; F1 does not establish industrial ROI.",
                    "Timing includes Windows sleep interruptions; do not rank throughput from elapsed times.",
+                   "Huy's three-seed C3 validation study is separate from the main C3 study; never pool six seeds or substitute validation for test.",
                    "No model, GPU, new inference, training or Word export performed by this verification script."],
     }
     target = REPORTS / "execution/final_report_verification.json"

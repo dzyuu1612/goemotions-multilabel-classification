@@ -19,6 +19,9 @@ Nhóm còn tự đọc/bảo vệ, điền thông tin hành chính và đóng g�
 - [Bảng số thực tế](reports/project_results/RESULTS.md) · [72 bản ghi](reports/project_results/all_runs.csv) · [36 dòng tổng hợp](reports/project_results/mean_std.csv); C dùng sample std `ddof=1`, A/B không tạo std từ một run.
 - [95 JSON cấu hình/revision/hash/protocol](reports/reproducibility/README.md) · [Cách đối chiếu](docs/REPRODUCIBILITY.md).
 - [69/69 tests ngày 08/10 và notebook A/B/C đã chạy](reports/verification_project.json) · [Bằng chứng notebook](reports/execution/notebook_verification.json).
+- Sau khi ghép phần C3 của Huy ngày 09/10: **77/77 kiểm thử đạt**;
+  [log đầy đủ](reports/execution/unit_tests_post_merge.log). Đây là lượt kiểm mới,
+  không cộng các lượt kiểm lịch sử của hai bên.
 - [Kiểm suy luận demo](reports/demo_verification.json) · [Kiểm UI HTTP200/28 hàng](reports/demo_ui/evidence.json) · [Ảnh demo thật](reports/demo_ui/demo_ui.png).
 
 ### Phần C3 Nhật Huy đã bàn giao trên kho chung

@@ -10,11 +10,34 @@ Tiếp tục đồ án GoEmotions theo yêu cầu giảng viên sau khi PR #3 đ
 - Hướng dẫn baseline tiếng Việt, notebook theo thứ tự đọc, hồ sơ tái hiện và kế hoạch phân công bốn thành viên.
 - Hai dạng báo cáo: sáu chương theo mẫu cô và bài báo IEEE hai cột; Word/PDF và hai báo cáo tiến độ.
 
-## Trạng thái bằng chứng lúc mở PR
+## Trạng thái cuối đã kiểm chứng
 
-Đây là PR nháp trong khi thực nghiệm toàn bộ vẫn đang chạy. A đã có kết quả validation thật. BERT đủ ba seed và RoBERTa seed 42 đã hoàn tất training; các lượt C còn lại, zero-shot toàn bộ và đánh giá test cuối đang tiếp tục. Bảng tổng hợp/Word/PDF hiện là snapshot, có đánh dấu phần chưa đủ bằng chứng. Không dùng smoke thay benchmark hoặc điền kết quả còn thiếu bằng số 0.
+Đã hoàn tất **9/9 run C full**, A/B validation và test sau khóa protocol; **72 bản ghi, 36 nhóm tổng hợp, missing=[]**. D dùng **BERT seed123**, chọn bằng validation. PR đang chờ nhóm review/merge, không dùng smoke thay benchmark.
 
-Đã có 59 test của lượt kiểm ban đầu, các kiểm tra bổ sung được ghi riêng trong `reports/execution/`. Toàn bộ suite sẽ được chạy lại sau khi thực nghiệm kết thúc. Kiểm demo model và giao diện cũng sẽ ghi bằng chứng sau khi chọn được C từ đủ chín lượt.
+**77/77 tests PASS** sau ghép code chung, 12.936s. Notebook A12/12, B4/4, C7/7 ô mã đã chạy; source hướng dẫn/code giữ nguyên. Demo đã đối chiếu checkpoint trên ba câu validation/28scores và kiểm UI thật HTTP200, nút bấm, 28/28 hàng, screenshot có checksum. Không cộng các lượt kiểm lịch sử thành số tests mới.
+
+## Kết quả test chính
+
+| Hệ thống | Macro-F1 | Micro-F1 | Hamming Loss |
+|---|---:|---:|---:|
+| A standard @0.5 | 0.1963 | 0.3800 | 0.0348 |
+| A balanced ngưỡng riêng từ val | 0.4493 | 0.5277 | 0.0467 |
+| B MNLI @0.5 | 0.1035 | 0.1008 | 0.5315 |
+| B MNLI ngưỡng riêng từ val | 0.1609 | 0.1752 | 0.2941 |
+| C BERT @0.5, ba seed | 0.4720±0.0045 | 0.5820±0.0040 | 0.0318±0.0003 |
+| C BERT ngưỡng riêng, ba seed | 0.5038±0.0097 | 0.5900±0.0029 | 0.0373±0.0003 |
+
+Giữ kết quả bất lợi: balanced ngưỡng chung có test Macro hơn ngưỡng riêng; standard tuned Micro hơn balanced tuned; RoBERTa tuned Micro hơn BERT tuned; embarrassment của BERT giảm F1 sau tuning. B audit chưa phát hiện bug cụ thể nhưng fixed dự đoán15.3818 nhãn/câu so với truth1.1662. Không retune bằng test hoặc kết luận nguyên nhân nhân quả/calibration.
+
+## Bản bàn giao và tích hợp kho chung
+
+- Báo cáo sáu chương theo mẫu cô **55 trang**, IEEE hai cột **8 trang**, tiến độ1/2 **5/10 trang**: DOCX/PDF thật, QA văn bản mọi trang/nguồn/case/std, xem các trang quan trọng, lưu SHA.
+- Nguồn chính GoEmotions ACL2020; 26 nguồn trong báo cáo/20 trong bài hai cột. Case Study4 Lee2020 đã đối chiếu; không chuyển số tiết kiệm năng lượng thành ROI NLP.
+- 95 JSON metadata và1CSV giữ đúng byte/hash qua Git; nguồn/history/revision/protocol được giữ, training commit không được suy từ export commit.
+- Kiểm thêm 40 tệp nguồn báo cáo/Word/PDF/ảnh, tổng hợp kết quả, log tests và notebook: SHA trong hồ sơ trùng tệp cục bộ và blob Git. Tham chiếu phân tích lỗi đã sửa thành `reports/errors_test_standard_fixed/counts.csv` và xuất lại PDF sáu chương.
+- Đã đồng bộ `origin/main` `3acdfc6`; giữ nghiên cứu C3 Nhật Huy riêng. 79 tệp config/notebook/bằng chứng Huy và demo đổi tên giữ nguyên byte.
+- `app.py` là best-C Gradio; `app_distilbert_huy.py` là demo Streamlit riêng, verifier/hướng dẫn đã đổi tên. Hai C3 khác trainer/môi trường/protocol không cộng thành sáu seed hoặc dùng validation làm test; Streamlit riêng chưa suy luận lại trên máy hiện tại.
+- Notion kế hoạch nhóm/mụcDuy đã cập nhật các đoạn có sẵn; bảng mở rộng lưu Markdown vì workspace hết block tạo mới.
 
 ## Tệp để đọc
 

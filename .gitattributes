@@ -8,9 +8,15 @@ reports/baseline_validation/paired_examples.csv -text
 reports/execution/*.log -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
 notebooks/*.ipynb -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
 reports/*NOI_DUNG.md -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+reports/BAO_CAO_TIEN_DO_*.md -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
 reports/error_case_studies.md -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
 reports/errors_*/examples.csv -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
 reports/references_ieee.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+# Sidecar checksums refer to these generated result/verification files too.
+reports/project_results/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+reports/*.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+reports/execution/*.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+reports/NOTION*.md -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
 # Preserve Huy's source/evidence rules from the shared repository.
 src/data.py text eol=crlf
 src/metrics.py text eol=crlf

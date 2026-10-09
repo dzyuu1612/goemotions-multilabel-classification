@@ -632,7 +632,7 @@ Nhận xét: Câu kể về dự định và ý kiến khác của vợ; không 
 
 Cờ nhóm lỗi chỉ trả lời mẫu có thuộc đúng định nghĩa nhóm đó hay không; cờ False không chứng minh mọi nhãn đều đúng. Ví dụ case 1, C1 sai hoàn toàn nhưng không thuộc lỗi nhận được một phần nhãn. C1 thắng trung bình theo tiêu chí chọn trên validation vẫn có thể thua ở một câu riêng.
 
-Scores là đầu ra sigmoid của các classifier, không phải xác suất đã được kiểm chuẩn. Các quan sát trên không xác lập quan hệ nhân quả. Số lỗi toàn tập xem group_summary.csv; không cộng các nhóm chồng lấp.
+Scores là đầu ra sigmoid của các classifier, không phải xác suất đã được kiểm chuẩn. Các quan sát trên không xác lập quan hệ nhân quả. Số lỗi toàn tập xem reports/errors_test_standard_fixed/counts.csv; không cộng các nhóm chồng lấp.
 
 Nguồn đối chiếu: reports/errors_test_standard_fixed/examples.csv và manifest.json. Scores trong bảng làm tròn bốn chữ số; CSV giữ độ chính xác gốc.
 
@@ -1063,7 +1063,7 @@ Thứ tự toàn đồ án là môi trường → dữ liệu/EDA → A → B �
 | Bảo Duy Nguyễn | A có code, full validation, bảng số, phân tích và hồ sơ đối chiếu | ____________________ |
 | Quốc Khánh | Ghi run/artifacts, commit và phần viết thực tế khi bàn giao | ____________________ |
 | Đức Trí | Ghi run/artifacts, commit và phần viết thực tế khi bàn giao | ____________________ |
-| Nhật Huy | Ghi run/artifacts, demo và phần viết thực tế khi bàn giao | ____________________ |
+| Nhật Huy | Đã bàn giao code/trainer C3, notebook/HTML, protocol và báo cáo ba seed DistilBERT, phân tích lỗi và demo Streamlit từ kho chung; phạm vi tích hợp được ghi tại B.4 | ____________________ |
 
 Bảng phân công mô tả trách nhiệm; bảng đóng góp phải phản ánh công việc đã làm. Nhóm cùng đọc, kiểm bằng artifacts và thống nhất tỷ lệ; không tự chia đều hoặc suy ra tỷ lệ chỉ từ số commit. Tài liệu/mã được hỗ trợ bằng công cụ vẫn cần thành viên kiểm tra, học và giải thích trước khi nộp.
 
@@ -1079,3 +1079,24 @@ Bảng phân công mô tả trách nhiệm; bảng đóng góp phải phản án
 - [ ] Hoàn thiện hai báo cáo tiến độ và báo cáo cuối theo thông báo cô.
 - [ ] Trang bìa, mục lục, danh mục hình/bảng và nguồn IEEE được cập nhật.
 - [ ] Nhóm xác nhận đóng góp; mỗi người giải thích được phần phụ trách.
+
+## B.4. Ghi nhận phần C3 Nhật Huy đã bàn giao và tích hợp
+
+Kho chung đã tiếp nhận công việc C3 của Nhật Huy từ snapshot origin/main `3acdfc6` vào ngày 09/10/2026. Đây là nguồn bàn giao của Huy; không ghi toàn bộ phần này thành công của Duy và không tự suy ra phần trăm đóng góp từ số tệp hoặc commit. Hồ sơ tích hợp nằm trong [TICH_HOP_C3_NHAT_HUY.md](../docs/TICH_HOP_C3_NHAT_HUY.md).
+
+Phần bàn giao gồm `src/c3.py`, `scripts/train_distilbert.py`, các cấu hình C3, notebook `notebooks/distilbert_huy.ipynb` cùng HTML đã xuất, `reports/c3_distilbert/full/C3_RESULTS.md`, protocol/config/môi trường, bảng từng seed/mean/std, ngưỡng riêng, F1 nhãn hiếm và ví dụ lỗi. Hướng dẫn đầy đủ: [HUY_DISTILBERT.md](../docs/HUY_DISTILBERT.md). Đây là những artifacts đã có từ nguồn bàn giao; tích hợp mã không có nghĩa là chạy lại các notebook/thí nghiệm lịch sử trên máy hiện tại.
+
+**Bảng B-2. Hai bộ thực nghiệm DistilBERT được đọc riêng.**
+
+| Hồ sơ | Phạm vi | Macro-F1 validation @0,5, mean ± sample std | Cách sử dụng |
+|---|---|---:|---|
+| C3 trong bộ so sánh chính | Ba seed 42, 123, 2026; cùng module A/B/C, protocol khóa trước test | 0.4064 ± 0.0060 | Đi vào các bảng so sánh chính, cùng kết quả test đã khóa |
+| C3 Nhật Huy, snapshot nguồn bàn giao | Ba seed 42, 123, 2026; trainer/protocol và môi trường riêng; không dùng test | 0.4061 ± 0.0045 | Ghi nhận kết quả validation và sản phẩm riêng của Huy; không thay điểm test/chọn C thắng |
+
+Nguồn hàng thứ hai là `reports/c3_distilbert/full/C3_RESULTS.md`: số chưa làm tròn Macro-F1 0.406084 ± 0.004544. Trainer của Huy dùng gradient checkpointing trên RTX 3050 Laptop 4 GB, Python 3.12.6 và PyTorch 2.11.0+cu128; bộ so sánh chính dùng môi trường được ghi trong metadata A/B/C, trong đó C chạy trên RTX 5060 Laptop với PyTorch 2.13.0+cu130. Cùng checkpoint/revision, taxonomy và ba epoch không làm hai bộ trở thành cùng một lượt huấn luyện. Chưa tách ảnh hưởng của trainer, môi trường và gradient checkpointing bằng thí nghiệm đối chứng; không quy chênh lệch điểm cho riêng một yếu tố.
+
+Không cộng hai bộ thành sáu seed, không gộp mean/std và không đổi điểm validation của Huy thành test. Những kết quả tuned-validation của Huy được đọc với giới hạn calibration trên cùng tập chọn ngưỡng. Nhánh C3 này không làm thay đổi quy tắc chọn kiến trúc của bộ chính: BERT thắng theo mean Macro-F1 validation @0,5; demo D dùng checkpoint BERT seed 123.
+
+`app.py` tiếp tục là demo Gradio của C thắng trong bộ chính, với hồ sơ kiểm suy luận và UI đã nêu tại chương 5. Demo Streamlit của Huy được giữ riêng dưới tên `app_distilbert_huy.py`; notebook/HTML/log lịch sử có thể còn ghi tên cũ `app.py`. Trọng số bundle C3 của Huy không nằm trong Git; cần nhận đúng checkpoint/tokenizer/checksum hoặc tái lập trong môi trường riêng để suy luận. Việc tích hợp không tự xác nhận demo Streamlit đã chạy lại tại máy hiện tại.
+
+Sau tích hợp, suite kiểm mã toàn kho đạt 77/77 tests, thời gian ghi trong log 12,936 giây; nguồn `reports/verification_project.json`, mục `post_merge_unit_tests`, và `reports/execution/unit_tests_post_merge.log`. Snapshot 69/69 tests trước tích hợp vẫn được giữ như lịch sử; không cộng với 24 tests lịch sử của Huy thành một lượt mới. Kiểm mã không thay các thí nghiệm full hoặc chứng minh chất lượng demo trên dữ liệu mới. Thông tin hành chính và tỷ lệ đóng góp tiếp tục để nhóm xác nhận.

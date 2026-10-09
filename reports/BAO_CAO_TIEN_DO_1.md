@@ -2,7 +2,7 @@
 
 ## Phân loại cảm xúc đa nhãn với GoEmotions
 
-**Ngày cập nhật:** 09/10/2026 06:58 (Asia/Bangkok). Đây là bản chuẩn bị báo cáo theo hiện trạng, không xác nhận đã nộp giảng viên.
+**Ngày cập nhật:** 09/10/2026 07:11 (Asia/Bangkok). Đây là bản chuẩn bị báo cáo theo hiện trạng, không xác nhận đã nộp giảng viên.
 
 **Giảng viên / mã lớp / năm học, học kỳ:** ____________________
 
@@ -78,7 +78,7 @@ BERT cased theo lựa chọn kho GoEmotions; RoBERTa và DistilBERT có tokenize
 | Bảo Duy Nguyễn | A; điều phối B; data/metrics và bảng nâng cao | A full validation; B full đã có | ____________________ |
 | Quốc Khánh | C1 BERT; phần đầu/tổng hợp báo cáo | C1 3/3 seed full; xem bảng run | ____________________ |
 | Đức Trí | C2 RoBERTa; hỗ trợ/bàn giao B | C2 3/3 seed full; xem bảng run | ____________________ |
-| Nhật Huy | C3 DistilBERT; tích hợp demo best C | C3 3/3 seed full; demo theo hồ sơ | ____________________ |
+| Nhật Huy | C3 DistilBERT; tích hợp demo best C | C3 chung 3/3 seed full; demo theo hồ sơ; đã nhận trainer/notebook/báo cáo C3 Huy | ____________________ |
 
 Đức Trí là “Thợ Săn Thập Cẩm”. B làm chung dưới điều phối của Duy; Trí vẫn phụ trách trọn C2. Huy tích hợp C thắng, không mặc định DistilBERT. Các tỷ lệ công sức để nhóm xác nhận, không tự chia đều.
 
