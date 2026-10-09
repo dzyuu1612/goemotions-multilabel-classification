@@ -1,10 +1,14 @@
 # Báo cáo tiến độ cá nhân — baseline A
 
 **Người phụ trách:** Bảo Duy Nguyễn — GitHub `dzyuu1612`.
-**Ngày cập nhật:** 03/10/2026. **Phạm vi kết quả đã đo:** phần A của đề tài GoEmotions.
-Vai trò cập nhật trong nhóm 4 người: A và điều phối B làm chung. B chưa có kết quả
-được ghi nhận trong báo cáo này; tiếp nhận phần Đức Trí đã nhận trước nếu có,
-trong khi Đức Trí sở hữu RoBERTa C2.
+**Ngày cập nhật:** 09/10/2026; số full và kiểm thử ngày 08/10.
+**Phạm vi:** sản phẩm phần A của đề tài GoEmotions, vai trò A và điều phối B làm
+chung trong nhóm 4 người. B đã có kết quả full; Đức Trí sở hữu RoBERTa C2.
+Danh sách sản phẩm dưới đây giúp bàn giao phần A; nhóm cần xác nhận công việc
+và% công sức thực tế từng người, Duy cần tự đọc/giải thích code khi bảo vệ.
+
+**Mốc lịch sử 03/10:** bản cá nhân trước chỉ có validation, 16 tests và 11 cell mã.
+Trạng thái đó được thay bằng kết quả test/proof mới bên dưới, không coi validation là test.
 
 ## Những việc đã thực hiện
 
@@ -17,9 +21,13 @@ trong khi Đức Trí sở hữu RoBERTa C2.
 - So sánh sáu cấu hình từ hai model × ngưỡng 0.5/chung/riêng; chọn ngưỡng chỉ trên val.
 - Phân tích năm nhãn hiếm từ train, cặp FN/FP và ví dụ có ID; ghi cả đánh đổi Precision,
   Recall/Hamming và nhãn không cải thiện. Kiểm model nạp lại khớp scores, sai số 0.
-- Viết notebook có output thật, hướng dẫn chạy/học, hồ sơ đối chiếu yêu cầu cô;
-  chuẩn bị script freeze/test và bảng nhỏ để đồng đội đọc trên GitHub.
-- Kiểm mã: **16 bài test đạt**, notebook **11/11 cell mã đã chạy, không có output lỗi**.
+- Đã khóa protocol sáu cấu hình trước test, giữ `balanced_tuned` chọn bằng
+  validation; đo đủ 5.427 test, lưu scores/metrics và F1 nhãn hiếm trước/sau.
+- Notebook có output thật, hướng dẫn chạy/học và hồ sơ đối chiếu cô; thêm
+  TF-IDF tính tay, sigmoid/từng dòng code và 20 câu hỏi bảo vệ.
+- Lần kiểm mã 08/10: **69/69 tests toàn repo PASS**; notebook A **12/12**,
+  B **4/4**, C **7/7** cell mã thực thi PASS. Đây là kiểm chung, không nhận tất cả
+  là công cá nhân Duy. [Log/bằng chứng](execution/notebook_verification.json).
 
 ## Kết quả validation đã đo
 
@@ -34,7 +42,39 @@ trong khi Đức Trí sở hữu RoBERTa C2.
 
 Weighting giúp Recall/Macro-F1 nhưng có thêm FP; Hamming không đồng thời tốt nhất.
 Điểm tuning được đo trên chính validation dùng chọn ngưỡng, có thể lạc quan;
-**chưa có kết quả test thật**. Không so trực tiếp với con số paper khi khác protocol.
+đã có test với protocol giữ nguyên. Không so trực tiếp với số paper khi khác protocol.
+
+## Kết quả test đã đo — 5.427 mẫu
+
+| Cấu hình | Macro-F1 | Micro-F1 | Hamming Loss |
+|---|---:|---:|---:|
+| Standard @0,5 | 0.1963 | 0.3800 | 0.0348 |
+| Standard chung 0,10 | 0.4096 | 0.5047 | 0.0553 |
+| Standard riêng | 0.4134 | 0.5330 | 0.0444 |
+| Balanced @0,5 | 0.4441 | 0.5024 | 0.0547 |
+| Balanced chung 0,55 | 0.4530 | 0.5157 | 0.0480 |
+| Balanced riêng — đã chọn bằng val | 0.4493 | 0.5277 | 0.0467 |
+
+Nguồn: [all_runs.csv](project_results/all_runs.csv), [mean_std.csv](project_results/mean_std.csv).
+Balanced global có Macro-F1 test cao hơn balanced tuned; standard tuned có
+Micro-F1 cao hơn balanced tuned. Giữ lựa chọn đã khóa theo validation, không
+chọn lại theo test. A chỉ một seed, không tự tạo mean±std.
+
+### Nâng cao và năm nhãn hiếm test
+
+| Nhãn | Test + | Standard fixed | Balanced tuned | Δ so standard fixed | Δ so balanced fixed |
+|---|---:|---:|---:|---:|---:|
+| grief | 6 | 0.0000 | 0.4615 | +0.4615 | +0.0330 |
+| pride | 16 | 0.0000 | 0.4167 | +0.4167 | −0.0449 |
+| relief | 11 | 0.0000 | 0.1176 | +0.1176 | −0.0157 |
+| nervousness | 23 | 0.0000 | 0.1714 | +0.1714 | −0.1264 |
+| embarrassment | 37 | 0.0000 | 0.2778 | +0.2778 | −0.0556 |
+
+Tập hiếm chọn từ train; delta là chênh lệch F1 tuyệt đối. Kết hợp weighting và
+tuning tăng so mốc standard fixed, nhưng tuning làm bốn nhãn giảm so chỉ weighting.
+Grief của standard vẫn 0 ở fixed/global/tuned. Support thấp 6–37 nên không khái
+quát quá mức. Bảng đầy đủ: [BASELINE_RESULTS.md](BASELINE_RESULTS.md),
+[rare_before_after.csv](project_results/rare_before_after.csv).
 
 ## Bằng chứng bàn giao
 
@@ -42,17 +82,28 @@ Weighting giúp Recall/Macro-F1 nhưng có thêm FP; Hamming không đồng th�
 [Bảng kết quả/lỗi](BASELINE_RESULTS.md) · [Hồ sơ kiểm tra](../docs/BASELINE_REVIEW.md) ·
 [CSV sáu cấu hình](baseline_validation/comparison.csv) ·
 [Thứ tự đọc](../docs/THU_TU_DOC_BASELINE.md) · [Kế hoạch nhóm](../docs/KE_HOACH_NHOM.md).
+[Hướng dẫn Duy giải thích với cô](../docs/HUONG_DAN_DUY_GIAI_THICH_BASELINE.md).
 
 Model và scores theo ID ở `data/processed/baseline/full/` và
 `data/processed/baseline/balanced/full/`, cần chia sẻ riêng hoặc tái chạy.
 EDA trước đó là đóng góp của đồng đội; không ghi toàn bộ EDA là công của tôi.
 Mã đã push lên fork `dzyuu1612`, mở [PR #3 vào repo chung](https://github.com/trangkhanh-ai/goemotions-multilabel-classification/pull/3),
-chưa merge tại ngày cập nhật. Kế hoạch và báo cáo này cũng được lưu trong
+PR #3 đã merge 05/10/2026. Phần mở rộng toàn đồ án nằm ở
+[PR #4](https://github.com/trangkhanh-ai/goemotions-multilabel-classification/pull/4).
+Kế hoạch và báo cáo cá nhân cũng có
 [mục riêng của Duy trên Notion](https://app.notion.com/p/3ee7c277690281e693c7f1cf985d569d).
 
 ## Việc còn lại
 
-Tự học/chạy lại để bảo vệ, điều phối B zero-shot và tiếp nhận bàn giao của Đức Trí nếu có, ghép bảng A/B/C khi nhận scores;
-sau khi nhóm chốt protocol chạy test cuối và bổ sung F1 nhãn hiếm trước/sau.
-Nhóm vẫn cần đủ ba C × ba seed, mean±std, demo best C và ≥3 nhóm lỗi đối chiếu C.
-Chưa tự công bố phần trăm đóng góp khi nhóm chưa thống kê công việc thực tế.
+Toàn nhóm đã đủ 9 run C, B full, **72 bản ghi/36 dòng tổng hợp**, 95 JSON metadata,
+ba nhóm lỗi so C1/C2/C3. Demo BERT cased seed123 chọn theo validation đã có
+[kiểm suy luận](demo_verification.json), [UI HTTP200/28 hàng](demo_ui/evidence.json)
+và [ảnh thật](demo_ui/demo_ui.png). A cung cấp mốc so sánh, không làm input C;
+phần B/C/D không tự được nhận là đóng góp cá nhân Duy.
+
+Duy cần tự đọc/học/giải thích baseline, chọn ví dụ có ID để bảo vệ và bàn giao
+đúng model/mapping/hash cho nhóm. Nhóm xác nhận phần việc/% đóng góp, điền
+giảng viên/lớp/MSSV, đọc nguồn/nhận xét ngôn ngữ và kiểm/nộp bài.
+Hai báo cáo tiến độ đã có tệp: lần 1 [Word](BAO_CAO_TIEN_DO_1.docx)/[PDF](BAO_CAO_TIEN_DO_1.pdf),
+lần 2 [Word](BAO_CAO_TIEN_DO_2.docx)/[PDF](BAO_CAO_TIEN_DO_2.pdf).
+Có tệp và test PASS không xác nhận nhóm đã nộp hay mọi người đã hiểu code.

@@ -230,7 +230,7 @@ if len(empty_indices):
 md(r'''## 16. Kiểm tra và bàn giao
 
 ```powershell
-.\.venv-huy\Scripts\python.exe -m streamlit run app.py
+.\.venv-huy\Scripts\python.exe -m streamlit run app_distilbert_huy.py
 ```
 App mặc định dùng seed C3 đại diện, hiển thị đúng trạng thái chưa chọn kiến trúc thắng.
 Chọn cơ sở 0,5 hoặc ngưỡng từng nhãn của đúng run. Các ví dụ lỗi, số liệu và minh chứng kiểm demo

@@ -44,10 +44,10 @@ def main():
     cli = json.loads(output)['prediction']
     np.testing.assert_allclose(list(cli['scores'].values()), list(reference['scores'].values()), atol=1e-6, rtol=0)
     assert cli['labels'] == reference['labels']
-    # AppTest chạy chính file app.py qua Streamlit, thao tác widget và đọc bảng thật.
+    # Demo C3 riêng của Huy; app.py ở gốc là demo Gradio của best C toàn nhóm.
     os.environ['C3_DEMO_RUN'] = str(run)
     os.environ['C3_DEMO_DEVICE'] = 'cpu'
-    app = AppTest.from_file(str(ROOT/'app.py'), default_timeout=120).run()
+    app = AppTest.from_file(str(ROOT/'app_distilbert_huy.py'), default_timeout=120).run()
     assert not app.exception
     app.text_area[0].set_value(sample)
     app.button[0].click().run()

@@ -14,7 +14,7 @@ chung mà Khánh sẽ tích hợp, không sửa phần baseline của Duy.
 | Kết quả full ba seed | `reports/c3_distilbert/full/C3_RESULTS.md` |
 | Pilot kỹ thuật trước full | `reports/c3_distilbert/PILOT_RESULTS.md` |
 | Checkpoint/tokenizer/scores cục bộ | `data/processed/c3_distilbert/full/seed_<seed>/` (Git bỏ qua) |
-| Khung demo | `app.py`; CLI `scripts/predict_distilbert.py` |
+| Khung demo | `app_distilbert_huy.py`; CLI `scripts/predict_distilbert.py` |
 | Kiểm tra tích hợp | `reports/c3_distilbert/full/verification.json` |
 | Phân tích bảy ví dụ lỗi thật | `reports/c3_distilbert/full/ERROR_ANALYSIS.md` |
 | Demo và kiểm khởi động lại | `reports/c3_distilbert/full/DEMO_EVIDENCE.md` |
@@ -110,7 +110,7 @@ vì Git bỏ qua `data/processed`; cần chạy full hoặc nhận nguyên thư 
 ## 4. Demo và CLI
 
 ```powershell
-.\.venv-huy\Scripts\python.exe -m streamlit run app.py
+.\.venv-huy\Scripts\python.exe -m streamlit run app_distilbert_huy.py
 .\.venv-huy\Scripts\python.exe -m scripts.predict_distilbert --text "I've never been this sad in my life!"
 ```
 
