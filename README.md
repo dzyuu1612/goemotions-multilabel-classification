@@ -7,7 +7,7 @@ Ba kiến trúc C có đủ **9 run = 3 kiến trúc × 3 seed**; bảng có **7
 36 dòng tổng hợp**, `complete=true`, `missing=[]`. Mã/báo cáo theo mẫu sáu chương
 của cô, trích dẫn IEEE; số cuối lấy từ artifacts, không lấy smoke làm benchmark.
 
-[PR #4 — phần mở rộng code và báo cáo, đang ở trạng thái nháp](https://github.com/trangkhanh-ai/goemotions-multilabel-classification/pull/4).
+[PR #5 — cập nhật nội dung khoa học và hai báo cáo, đang ở trạng thái nháp](https://github.com/trangkhanh-ai/goemotions-multilabel-classification/pull/5).
 Demo dùng **BERT cased seed 123**, chọn theo validation, đã kiểm suy luận và UI thật.
 Nhóm còn tự đọc/bảo vệ, điền thông tin hành chính và đóng góp thực tế, kiểm/nộp báo cáo.
 

@@ -46,5 +46,54 @@
         "- **Ứng dụng:** ba hướng đề xuất gồm hỗ trợ định tuyến khách hàng, theo dõi tín hiệu khủng hoảng thương hiệu và giảm công rà soát bình luận. Bộ phân loại trả 28 điểm/nhãn; tích hợp ticket, luật nghiệp vụ, nhận diện thương hiệu/tổng hợp thời gian và đo ROI là bước phát triển chưa thực hiện. Phải tính công sửa nhãn sai và chi phí model/tích hợp/vận hành; không ghi khoản tiết kiệm năng lượng Case Study 4 của Lee thành ROI GoEmotions."
       ]
     }
-  ]
+  ],
+  "publication_sync": {
+    "client_date": "2026-10-10",
+    "url": "https://github.com/trangkhanh-ai/goemotions-multilabel-classification/pull/5",
+    "state": "open",
+    "draft": true,
+    "scientific_content_commit": "9e9b3dfecb4658a12a5bb370c1adff1070695425",
+    "pages": [
+      {
+        "id": "3ed7c277-6902-8185-af2d-fbaac4c4586b",
+        "url": "https://app.notion.com/p/3ed7c27769028185af2dfbaac4c4586b?pvs=204",
+        "last_edited_at": "2026-10-10T08:36:06.816Z",
+        "updated_blocks": 2,
+        "async_task_id": "task_6415985c01444aebbbf12b36f572d0f5",
+        "async_status": "succeeded",
+        "fetch_checks": {
+          "current_pr5": true,
+          "current_pages": true,
+          "scientific_roi": true,
+          "scientific_threshold": true,
+          "scientific_search": true
+        }
+      },
+      {
+        "id": "3ee7c277-6902-81e6-93c7-f1cf985d569d",
+        "url": "https://app.notion.com/p/3ee7c277690281e693c7f1cf985d569d?pvs=204",
+        "last_edited_at": "2026-10-10T08:37:16.472Z",
+        "updated_blocks": 1,
+        "async_task_id": "task_217b1af0d05142f19394dd960372acef",
+        "async_status": "succeeded",
+        "fetch_checks": {
+          "current_pr5": true,
+          "current_pages": true,
+          "scientific_roi": true,
+          "scientific_threshold": true,
+          "scientific_search": true
+        }
+      }
+    ],
+    "historical_table": {
+      "page_id": "3ee7c277-6902-81e6-93c7-f1cf985d569d",
+      "status": "preserved_under_existing_historical_heading",
+      "heading": "Baseline A — bảng sản phẩm ngày 03/10, xem trạng thái mới ở đầu trang",
+      "reason": "Editing a table cell is rejected by Notion free-block quota. Current PR5, scientific additions and page counts are successfully updated in existing paragraphs.",
+      "failed_task_ids": [
+        "task_7a4fc64b7ccd48798e06f246af3740f6",
+        "task_4fb84ae20f934bfd8b2905f0241cfad8"
+      ]
+    }
+  }
 }

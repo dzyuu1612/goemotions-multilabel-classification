@@ -1,5 +1,5 @@
 {
-  "checked_at_utc": "2026-10-10T08:31:56.129972+00:00",
+  "checked_at_utc": "2026-10-10T08:39:57.798231+00:00",
   "stage": "Git index before final commit",
   "revision": null,
   "files_checked": 148,
@@ -358,16 +358,16 @@
     },
     {
       "path": "reports/execution/notion_scientific_revision_10_10_2026.json",
-      "expected_sha256": "65e45638236596c4869d7baa394dba3ac2a0bda5e5cf23ffd8f2d0c03f58b913",
-      "local_sha256": "65e45638236596c4869d7baa394dba3ac2a0bda5e5cf23ffd8f2d0c03f58b913",
-      "git_blob_sha256": "65e45638236596c4869d7baa394dba3ac2a0bda5e5cf23ffd8f2d0c03f58b913",
+      "expected_sha256": "c45ea1d535731a3e4c06b1ff5c778ddfa083fd8a4abc9e54057ddeb0e37c888f",
+      "local_sha256": "c45ea1d535731a3e4c06b1ff5c778ddfa083fd8a4abc9e54057ddeb0e37c888f",
+      "git_blob_sha256": "c45ea1d535731a3e4c06b1ff5c778ddfa083fd8a4abc9e54057ddeb0e37c888f",
       "passed": true
     },
     {
       "path": "reports/NOTION_CAP_NHAT_10_10_2026.md",
-      "expected_sha256": "f9cd93031089c60191feb0fd17b1b395e5e31f6b2783e5741ac995f7447fd1ef",
-      "local_sha256": "f9cd93031089c60191feb0fd17b1b395e5e31f6b2783e5741ac995f7447fd1ef",
-      "git_blob_sha256": "f9cd93031089c60191feb0fd17b1b395e5e31f6b2783e5741ac995f7447fd1ef",
+      "expected_sha256": "e4ba6c34dc43ed5c6e171055987672e27ca03c34b0500d2e3486819317b07c9c",
+      "local_sha256": "e4ba6c34dc43ed5c6e171055987672e27ca03c34b0500d2e3486819317b07c9c",
+      "git_blob_sha256": "e4ba6c34dc43ed5c6e171055987672e27ca03c34b0500d2e3486819317b07c9c",
       "passed": true
     },
     {
