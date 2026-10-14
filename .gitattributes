@@ -4,3 +4,6 @@
 *.ipynb text eol=lf
 data/*.json -text
 configs/*.json -text
+# Giữ nguyên byte/hash metadata khi bàn giao; các output này vẫn bị Git ignore.
+reports/reproducibility/artifacts/** -text
+reports/baseline_validation/paired_examples.csv -text
