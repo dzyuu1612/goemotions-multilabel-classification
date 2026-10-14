@@ -1,9 +1,51 @@
+# Python
 .venv/
-.venv-models/
-.venv-huy/
+.venv-*/
 __pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.pytest_cache/
 .ipynb_checkpoints/
+
+# Downloads and generated outputs
 data/raw/
 data/tokenizers/
 data/processed/
 data/cache/
+data/manifest.json
+data/tokenizer_manifest.json
+reports/
+artifacts/
+outputs/
+*.joblib
+*.safetensors
+*.pt
+*.pth
+
+# Academic documents and exports
+*.docx
+*.doc
+*.pdf
+*.tex
+*.html
+*.pptx
+*.xlsx
+*.zip
+private/
+
+# Hướng dẫn chỉ tập trung trong README; tài liệu khác giữ riêng.
+docs/
+*.md
+*.markdown
+!README.md
+
+# Local settings
+.env
+.env.*
+!.env.example
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

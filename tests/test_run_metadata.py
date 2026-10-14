@@ -8,10 +8,10 @@ import tempfile
 import unittest
 from unittest.mock import patch
 
-from scripts.export_run_metadata import (clear_previous_generated_files, copy_json, export_metadata)
-from src.data import EXPECTED_ROWS, REVISION, sha256
-from src.experiment import save_json
-from src.neural import run_folder
+from scripts.analysis.export_run_metadata import (clear_previous_generated_files, copy_json, export_metadata)
+from src.datasets.goemotions import EXPECTED_ROWS, REVISION, sha256
+from src.evaluation.protocols import save_json
+from src.models.transformer import run_folder
 
 
 class RunMetadataTest(unittest.TestCase):
@@ -117,9 +117,9 @@ class RunMetadataTest(unittest.TestCase):
                     return completed
                 raise ValueError("synthetic missing/incomplete run")
 
-            with (patch("scripts.export_run_metadata.load_transformer_run", side_effect=checked_run),
-                  patch("scripts.export_run_metadata.load_run_metadata", side_effect=FileNotFoundError("synthetic A missing")),
-                  patch("scripts.export_run_metadata.validate_b_full", side_effect=FileNotFoundError("synthetic B missing"))):
+            with (patch("scripts.analysis.export_run_metadata.load_transformer_run", side_effect=checked_run),
+                  patch("scripts.analysis.export_run_metadata.load_run_metadata", side_effect=FileNotFoundError("synthetic A missing")),
+                  patch("scripts.analysis.export_run_metadata.validate_b_full", side_effect=FileNotFoundError("synthetic B missing"))):
                 manifest = export_metadata(root)
             self.assertEqual(manifest["c_full_completed"], 1)
             self.assertEqual(manifest["c_full_expected"], 9)
@@ -127,7 +127,7 @@ class RunMetadataTest(unittest.TestCase):
             self.assertIn(done_folder.relative_to(root).as_posix() + "/run_metadata.json", exported)
             self.assertNotIn(pending_folder.relative_to(root).as_posix() + "/run_metadata.json", exported)
             self.assertTrue((root / "reports/reproducibility/manifest.json").is_file())
-            self.assertTrue((root / "reports/reproducibility/README.md").is_file())
+            self.assertFalse((root / "reports/reproducibility/README.md").exists())
 
     def test_cleanup_removes_only_known_generated_copies_and_keeps_edited_copy(self):
         with tempfile.TemporaryDirectory() as temporary:

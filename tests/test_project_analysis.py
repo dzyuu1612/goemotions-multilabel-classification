@@ -7,12 +7,12 @@ import unittest
 import numpy as np
 import pandas as pd
 
-from scripts.export_project_analysis import (aggregate_c, collect_training_costs, export_analysis,
+from scripts.analysis.export_project_analysis import (aggregate_c, collect_training_costs, export_analysis,
                                              export_figures, frozen_protocol, make_record,
-                                             rare_comparisons, write_analysis_markdown)
-from src.data import EXPECTED_ROWS, REVISION, sha256
-from src.experiment import save_json
-from src.neural import ARCHITECTURES, run_folder
+                                             rare_comparisons, analysis_scope)
+from src.datasets.goemotions import EXPECTED_ROWS, REVISION, sha256
+from src.evaluation.protocols import save_json
+from src.models.transformer import ARCHITECTURES, run_folder
 
 
 def synthetic_metric(labels, split, f1):
@@ -143,7 +143,7 @@ class ProjectAnalysisTest(unittest.TestCase):
             self.assertEqual(issues, [])
             self.assertTrue(all(Path(path).stat().st_size > 1000 for path in paths))
 
-    def test_human_analysis_uses_test_only_when_all_four_models_have_paired_rare_results(self):
+    def test_analysis_uses_test_only_when_all_four_models_have_paired_rare_results(self):
         labels = [f"label_{j}" for j in range(6)]
         seeds = [42, 123, 2026]
         support = [1, 2, 3, 4, 5, 100]
@@ -153,23 +153,16 @@ class ProjectAnalysisTest(unittest.TestCase):
                   "n_seeds_expected": 3} for architecture in ARCHITECTURES]
         with tempfile.TemporaryDirectory() as temporary:
             output = Path(temporary)
-            selected = write_analysis_markdown(output, records, rare, labels, support, costs, [])
+            selected = analysis_scope(rare, labels, support)
             self.assertEqual(selected["rare_primary_split"], "test")
-            text = (output / "ANALYSIS.md").read_text(encoding="utf-8")
-            self.assertIn("Bảng chính: TEST", text)
-            self.assertIn("-0.1000", text)
-            self.assertIn("-0.2000", text)
-            self.assertIn("C1: BERT", text)
-            self.assertIn("Train + | Validation + | Test +", text)
-            self.assertIn("Thiếu run/metadata", text)
             records = [row for row in records if not (row["method"] == "C" and row["architecture"] == "bert"
                                                       and row["seed"] == 2026 and row["split"] == "test"
                                                       and row["threshold_mode"] == "tuned")]
             rare = rare_comparisons(records, labels, support, seeds)
-            selected = write_analysis_markdown(output, records, rare, labels, support, costs, [])
+            selected = analysis_scope(rare, labels, support)
             self.assertEqual(selected["rare_primary_split"], "validation")
             self.assertFalse(selected["rare_test_complete"])
-            self.assertIn("Bảng tạm: VALIDATION", (output / "ANALYSIS.md").read_text(encoding="utf-8"))
+            self.assertFalse((output / "ANALYSIS.md").exists())
 
     def test_training_costs_use_actual_full_metadata_and_do_not_invent_partial_sum(self):
         labels, seeds = ["a", "b"], [42, 123, 2026]
