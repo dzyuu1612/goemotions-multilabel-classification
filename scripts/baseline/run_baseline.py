@@ -1,6 +1,12 @@
 """Huấn luyện TF-IDF + Logistic Regression, chỉ đánh giá validation.
 
 Chạy từ gốc repo: python -m scripts.baseline.run_baseline [--smoke] [--variant balanced]
+
+1. Kiểm snapshot train/validation và thứ tự nhãn.
+2. Fit TF-IDF trên train; học 28 Logistic Regression theo One-vs-Rest.
+3. Chấm validation tại 0,5; lưu model/scores/config/hash.
+4. Chạy analyze_baseline để chọn ngưỡng trên validation, freeze trước test.
+Baseline không fine-tune pretrained model; C=1 cố định, chưa tìm C/ngram tối ưu.
 """
 
 from __future__ import annotations

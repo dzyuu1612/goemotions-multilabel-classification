@@ -40,7 +40,11 @@ def configure_console():
 def training_config(architecture, *, smoke=False, weighted=False, epochs=None,
                     learning_rate=None, batch_size=16, gradient_accumulation=1,
                     max_length=128, device="auto", revision="main"):
-    """C1 dùng thông số tham khảo bài gốc; C2/C3 là cấu hình của nhóm."""
+    """Cấu hình đã chạy trong báo cáo, chưa phải nghiệm tối ưu siêu tham số.
+
+    Chọn epoch tốt nhất trong số epoch đã chạy; ba seed không tìm LR/epoch.
+    Giữ các mặc định này để tái lập benchmark, thử cải tiến ở folder khác.
+    """
     if architecture not in ARCHITECTURES:
         raise ValueError("Kiến trúc phải là bert, roberta hoặc distilbert")
     defaults = ARCHITECTURES[architecture]

@@ -1,4 +1,4 @@
-"""Tạo notebook EDA. Chạy từ gốc repo: python -m scripts.data.build_notebook."""
+"""Tạo notebook EDA: python -m tools.notebooks.build_eda."""
 from pathlib import Path
 import textwrap
 import nbformat as nbf

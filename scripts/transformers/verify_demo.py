@@ -9,7 +9,7 @@ from pathlib import Path
 
 import numpy as np
 
-from app import TransformerDemo
+from src.apps.demo import TransformerDemo
 from src.models.baseline import load_aligned_scores
 from src.datasets.goemotions import load_goemotions, sha256
 from src.evaluation.protocols import read_json, save_json
@@ -22,12 +22,14 @@ def main():
     configure_console()
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--device", choices=("auto", "cpu", "cuda"), default="auto")
+    parser.add_argument("--artifacts-root", type=Path, default=ROOT)
     args = parser.parse_args()
-    selection_path = ROOT / "data/processed/transformers/selected_model.json"
+    artifact_root = args.artifacts_root.resolve()
+    selection_path = artifact_root / "data/processed/transformers/selected_model.json"
     selection = read_json(selection_path)
-    predictor = TransformerDemo(selection_path, device=args.device)
-    folder = ROOT / selection["run_dir"]
-    frames, labels, _ = load_goemotions(ROOT, write_metadata=False, splits=("validation",))
+    predictor = TransformerDemo(selection_path, device=args.device, artifact_root=artifact_root)
+    folder = artifact_root / selection["run_dir"]
+    frames, labels, _ = load_goemotions(artifact_root, write_metadata=False, splits=("validation",))
     frame = frames["validation"]
     saved_scores = load_aligned_scores(folder / "validation_scores.npz", frame["id"], labels)
     thresholds = np.broadcast_to(np.asarray(predictor.thresholds), (28,))

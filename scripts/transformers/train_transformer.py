@@ -1,6 +1,17 @@
 """C1/C2/C3: fine-tune một kiến trúc, một seed, chỉ mở train/validation.
 
 Ví dụ: python -m scripts.transformers.train_transformer --architecture bert --seed 42
+
+Thứ tự đọc/chạy:
+1. Đọc cấu hình, seed và revision; đặt folder riêng cho smoke/full.
+2. Mở train/validation, kiểm 28 nhãn, tokenize và ghép batch.
+3. Nạp pretrained encoder + head 28 logits; AdamW, warmup và BCEWithLogits.
+4. Mỗi epoch: học trên train, tính Macro-F1 validation tại ngưỡng 0,5.
+5. Lưu epoch tốt nhất đã THỬ, scores, tokenizer và hash; chưa mở test.
+
+Ba seed đo độ ổn định của một cấu hình, không phải tìm siêu tham số.
+9 run lịch sử đều chọn epoch cuối: chưa đủ bằng chứng đã đạt đỉnh validation.
+Đổi LR/epoch phải chạy thí nghiệm mới; không ghi đè checkpoint của báo cáo.
 """
 from __future__ import annotations
 
@@ -103,6 +114,7 @@ def predict_scores(model, loader, device):
 
 
 def main():
+    # BƯỚC 1 — Cấu hình và thư mục; resume chỉ bỏ qua run đã hoàn tất đúng hash.
     configure_console()
     args = parse_args()
     config = training_config(args.architecture, smoke=args.smoke, weighted=args.weighted,
@@ -152,6 +164,7 @@ def main():
     if any(frame["text"].isna().any() or frame["text"].str.strip().eq("").any()
            for frame in (train, validation)):
         raise ValueError("Train/validation có câu rỗng")
+    # BƯỚC 2 — Cùng revision, mapping và độ dài token ở train/validation/inference.
     tokenizer = AutoTokenizer.from_pretrained(config["checkpoint"], revision=revision,
                                                trust_remote_code=False)
     train_data, y_train = encoded_dataset(train, tokenizer, labels, args.max_length)
@@ -171,6 +184,7 @@ def main():
     ).to(device)
     parameter_count = sum(p.numel() for p in model.parameters())
     weights = torch.tensor(positive_weights(y_train), device=device) if args.weighted else None
+    # BƯỚC 3 — BCE học 28 quyết định độc lập. Không softmax ép một nhãn mỗi câu.
     optimizer = torch.optim.AdamW(model.parameters(), lr=config["learning_rate"],
                                   weight_decay=config["weight_decay"])
     steps_per_epoch = math.ceil(len(train_loader) / args.gradient_accumulation)
@@ -204,6 +218,7 @@ def main():
     }
     write_json(metadata_path, metadata)
     best_f1 = -1.0
+    # BƯỚC 4 — Chọn epoch chỉ bằng validation; không truy cập nhãn test ở đây.
     for epoch in range(1, config["epochs"] + 1):
         epoch_start = time.perf_counter()
         model.train()
@@ -256,6 +271,7 @@ def main():
         write_json(metadata_path, metadata)
         print(f"{args.architecture} seed={args.seed} epoch={epoch}: "
               f"Macro-F1={metrics['macro_f1']:.4f}; Micro-F1={metrics['micro_f1']:.4f}", flush=True)
+    # BƯỚC 5 — Chỉ đánh dấu hoàn tất sau khi đã có checkpoint và scores tốt nhất.
     metadata["completed"] = True
     metadata["completed_at_utc"] = datetime.now(timezone.utc).isoformat()
     metadata["elapsed_seconds"] = time.perf_counter() - started

@@ -8,6 +8,64 @@
 
 [Chạy thử](#quick-start) · [Baseline của Duy](#baseline) · [Notebook](#notebooks) · [Thực nghiệm](#experiments) · [Demo](#demo) · [Đọc code](#code-map)
 
+## Kết luận kiểm tra fine-tune và số báo cáo
+
+**Đã fine-tune ba C, chưa có bằng chứng đã tìm được cấu hình tốt nhất.**
+Mỗi kiến trúc chạy một cấu hình với ba seed 42/123/2026. Đây là kiểm độ ổn định,
+chưa phải tìm learning rate, epoch hoặc batch size. Cả 9 run đều chọn epoch cuối
+(BERT 4, RoBERTa/DistilBERT 3); nên thử thêm trên validation trước khi kết luận đã hội tụ.
+Không suy ra chắc chắn thêm epoch sẽ tốt hơn.
+
+Số **test**, ba C là mean ± sample std của ba seed; ngưỡng riêng đã khóa từ validation:
+
+| Hệ thống | Macro-F1 | Micro-F1 |
+|---|---:|---:|
+| A balanced, tuned | 0.4493 | 0.5277 |
+| B BART-MNLI, tuned | 0.1609 | 0.1752 |
+| C1 BERT, tuned | 0.5038 ± 0.0097 | 0.5900 ± 0.0029 |
+| C2 RoBERTa, tuned | 0.4872 ± 0.0156 | 0.6048 ± 0.0057 |
+| C3 DistilBERT, tuned | 0.4866 ± 0.0093 | 0.5935 ± 0.0047 |
+
+BERT thắng theo Macro-F1; RoBERTa có Micro-F1 tuned cao hơn.
+Demo vẫn dùng **BERT seed 123**, đã chọn trước bằng **validation Macro-F1 @0.5**,
+không đổi người thắng theo test. B không fine-tune; A chưa tìm C/ngram tốt nhất.
+Chỉnh ngưỡng không đồng nghĩa với fine-tune trọng số. Nghiên cứu C3 riêng của Huy
+chỉ dùng validation, không gộp thành thêm seed hoặc số test của bảng chung.
+
+### Tính lại đúng số đã báo cáo từ artifacts hiện có
+
+Trong workspace này, code chính nằm ở `goemotions-source-only`; dataset/checkpoint/
+scores lịch sử nằm ở thư mục cạnh nó `goemotions-multilabel-classification`.
+Chạy từ thư mục code bằng Python đã có đủ thư viện:
+
+```powershell
+$py = "../goemotions-multilabel-classification/.venv-models/Scripts/python.exe"
+& $py -m scripts.verification.reproduce_report --artifacts-root ../goemotions-multilabel-classification
+```
+
+Lệnh kiểm hash dataset/model/protocol, ghép scores theo ID, áp đúng ngưỡng đã khóa,
+tính lại **72 dòng và 36 nhóm**, so toàn bộ 7 metric với CSV gốc ở sai số ≤ 1e-12.
+Thiếu/sai dữ liệu sẽ dừng; không tải mạng, không tự tìm ngưỡng mới.
+Kết quả kiểm ở `reports/reproduction/verification.json`; CSV tính lại nằm cùng thư mục.
+
+Muốn **suy luận test thật lại** từ hai model A và cả 9 checkpoint C, thêm:
+
+```powershell
+& $py -m scripts.verification.reproduce_report --artifacts-root ../goemotions-multilabel-classification --inference-baseline --inference-c --device cuda
+```
+
+Có thể thêm `--report <đường-dẫn-báo-cáo-cuối-kỳ.docx>` để đối chiếu trực tiếp
+111 ô metric trong 9 bảng kết quả Word. Output luôn tách khỏi artifacts gốc.
+Lượt kiểm 20/10/2026 đã chạy cả hai A và chín C: scores/metric trùng bản cũ,
+sai lệch lớn nhất bằng **0** trên cùng máy. B được tính lại từ scores NLI đã lưu;
+hai lệnh trên không chạy lại suy luận B. Nghiên cứu C3 riêng của Huy thiếu bundle
+checkpoint tại workspace này nên chưa suy luận lại được; không ảnh hưởng C3 chung.
+
+Đây là tái lập metric/suy luận, **không phải huấn luyện lại** từ pretrained.
+Huấn luyện lại cần cùng revision, seed, dependency và GPU; không bảo đảm giống bit
+trên mọi máy. Muốn cải tiến mô hình, dùng thí nghiệm mới và validation; giữ bộ số
+đã báo cáo cùng protocol cũ để đối chiếu.
+
 ![Văn bản đi qua A/B/C độc lập, rồi áp ngưỡng để trả nhiều cảm xúc](assets/overview.png)
 
 ## Đồ án làm gì?
@@ -193,7 +251,7 @@ Thông báo thiếu artifact trên clone mới nghĩa là bạn chưa chạy th�
 
 Ảnh EDA đã tạo từ snapshot train cố định; không phải lỗi dự đoán.
 Nhãn hiếm chọn từ train: grief 77, pride 111, relief 153, nervousness 164, embarrassment 303.
-Code tạo: [build_notebook.py](scripts/data/build_notebook.py).
+Code tạo: [build_eda.py](tools/notebooks/build_eda.py).
 
 </details>
 
@@ -270,6 +328,15 @@ python -m scripts.transformers.verify_demo --device auto
 python app.py --device auto
 ```
 
+Trong workspace có sẵn artifacts bên cạnh, dùng biến `$py` ở phần tái lập:
+
+```powershell
+& $py app.py --artifacts-root ../goemotions-multilabel-classification --device cuda
+```
+
+Kiểm hàm dự đoán và luồng nhập sau khi đổi cấu trúc:
+`& $py -m scripts.transformers.verify_demo --artifacts-root ../goemotions-multilabel-classification --device cuda`.
+
 Mở `http://127.0.0.1:7860/`. App cần checkpoint thật; clone source không có trọng số.
 Ngưỡng mặc định 0,5; ngưỡng riêng cần `--thresholds` đúng protocol run đã chọn.
 
@@ -301,6 +368,7 @@ Sau khi đủ run riêng, `python -m scripts.distilbert.analyze_c3_full` và
 │   ├── datasets/         # Dữ liệu, hash, mapping, multi-hot
 │   ├── models/           # A, B, C và nghiên cứu C3 riêng
 │   ├── evaluation/       # Metric, ngưỡng và protocol
+│   ├── apps/             # Implementation Gradio và Streamlit
 │   └── learning/         # Ví dụ thuật toán NumPy
 ├── scripts/
 │   ├── data/             # EDA và chạy notebook
@@ -309,6 +377,7 @@ Sau khi đủ run riêng, `python -m scripts.distilbert.analyze_c3_full` và
 │   ├── transformers/     # Ba C, seed, test, chọn/kiểm demo
 │   ├── distilbert/       # Nghiên cứu C3 riêng
 │   ├── analysis/         # CSV/JSON, lỗi và metadata
+│   ├── verification/     # Tính lại số và suy luận kiểm báo cáo
 │   └── pipeline/         # Ghép quy trình
 ├── notebooks/            # 00 chạy thử; 01–06 đồ án
 ├── examples/             # Ví dụ CPU không cần Internet
@@ -316,8 +385,8 @@ Sau khi đủ run riêng, `python -m scripts.distilbert.analyze_c3_full` và
 ├── configs/              # Cấu hình C3 riêng
 ├── data/                 # Git chỉ giữ mapping/revision
 ├── requirements/         # Dependency theo nhu cầu
-├── tools/                # Kiểm source và link README
-└── app.py                # Demo C được chọn
+├── tools/                # Kiểm source/link và tạo notebook trong notebooks/
+└── app.py                # Điểm chạy demo, gọi src/apps/demo.py
 ```
 
 | Muốn hiểu | File |
@@ -328,6 +397,8 @@ Sau khi đủ run riêng, `python -m scripts.distilbert.analyze_c3_full` và
 | Khóa lựa chọn trước test | [protocols.py](src/evaluation/protocols.py) |
 | Freeze/test A | [freeze_baseline.py](scripts/baseline/freeze_baseline.py), [evaluate_baseline_test.py](scripts/baseline/evaluate_baseline_test.py) |
 | Chọn C cho demo | [select_best_transformer.py](scripts/transformers/select_best_transformer.py), [app.py](app.py) |
+| Train C từng bước | [train_transformer.py](scripts/transformers/train_transformer.py) |
+| Kiểm số báo cáo và chạy lại suy luận | [reproduce_report.py](scripts/verification/reproduce_report.py) |
 
 **Output cục bộ:** `data/raw/` và `data/tokenizers/` chứa cache;
 `data/processed/baseline/`, `zero_shot/`, `transformers/` chứa model/scores/protocol;

@@ -1,4 +1,9 @@
-"""Shared multi-label metrics for the 28 GoEmotions labels."""
+"""Metric dùng chung cho mọi model, đủ 28 nhãn.
+
+1. Kiểm multi-hot/scores/mapping -> 2. Áp scores >= ngưỡng đã truyền vào.
+3. Đếm TP/FP/FN/TN -> 4. Tính P/R/F1 macro, micro và Hamming Loss.
+Hàm này không tìm ngưỡng và không bỏ nhãn hiếm có F1=0 khỏi Macro-F1.
+"""
 
 from __future__ import annotations
 

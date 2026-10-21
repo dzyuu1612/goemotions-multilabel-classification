@@ -29,9 +29,11 @@ SECRETS = (
 
 
 def tracked_paths():
-    result = subprocess.run(["git", "ls-files", "-z"], cwd=ROOT,
+    result = subprocess.run(["git", "ls-files", "--cached", "--others", "--exclude-standard", "-z"], cwd=ROOT,
                             check=True, stdout=subprocess.PIPE)
-    return [path for path in result.stdout.decode("utf-8").split("\0") if path]
+    # Kiểm cây đang làm việc, gồm code mới và đổi chỗ chưa stage; không cần git add.
+    return sorted({path for path in result.stdout.decode("utf-8").split("\0")
+                   if path and (ROOT / path).is_file()})
 
 
 def check_source(paths):
@@ -54,7 +56,7 @@ def check_source(paths):
                 for node in ast.walk(tree):
                     if isinstance(node, ast.ImportFrom) and node.module:
                         module = node.module
-                        if module.split(".")[0] in {"src", "scripts", "examples"}:
+                        if module.split(".")[0] in {"src", "scripts", "examples", "tools"}:
                             target = ROOT.joinpath(*module.split("."))
                             if not target.with_suffix(".py").is_file() and not (target/"__init__.py").is_file():
                                 errors.append(f"{name}: import local không tồn tại: {module}")

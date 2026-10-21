@@ -51,6 +51,7 @@ def main():
             if process.wait() != 0:
                 raise RuntimeError(f"Bước thất bại: {module}. Giữ artifacts để kiểm/tiếp tục.")
 
+        # BƯỚC 1 — Train ba C × ba seed và chạy B; resume giữ run hoàn tất.
         if not args.skip_training:
             flags = ["--device", args.device, "--resume"]
             if args.restart_incomplete:
@@ -82,6 +83,7 @@ def main():
             "frozen_at_utc": datetime.now(timezone.utc).isoformat(),
             "selection_data": "validation", "seeds": SEEDS,
             "protocols": [{"path": p.relative_to(ROOT).as_posix(), "sha256": sha256(p)} for p in protocols]})
+        # BƯỚC 3 — Sau khi mọi lựa chọn đã khóa, suy luận test với đúng ngưỡng cũ.
         run("scripts.baseline.evaluate_baseline_test")
         b_folder = folders[0]
         dtype = read_json(b_folder / "run_metadata.json").get("dtype", "float32")
@@ -89,6 +91,7 @@ def main():
             "--device", args.device, "--batch-size", 16, "--dtype", dtype)
         for folder in folders[1:]:
             run("scripts.transformers.evaluate_transformer_test", "--run-dir", folder, "--device", args.device)
+        # BƯỚC 4 — Gom run thật, tính mean/std, xuất phân tích; không bù số còn thiếu.
         run("scripts.analysis.summarize_project", "--require-complete")
         run("scripts.analysis.export_project_analysis")
         run("scripts.analysis.export_run_metadata")

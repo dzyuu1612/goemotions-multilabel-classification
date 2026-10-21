@@ -24,5 +24,5 @@ Documentation = "https://github.com/trangkhanh-ai/goemotions-multilabel-classifi
 
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["src", "src.*", "scripts", "scripts.*", "examples", "examples.*"]
+include = ["src", "src.*", "scripts", "scripts.*", "examples", "examples.*", "tools", "tools.*"]
 namespaces = false

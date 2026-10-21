@@ -1,4 +1,4 @@
-"""Tạo notebook hướng dẫn tiếng Việt: python -m scripts.baseline.build_baseline_notebook --execute.
+"""Tạo notebook hướng dẫn tiếng Việt: python -m tools.notebooks.build_baseline --execute.
 
 Notebook đọc model/validation đã chạy, không huấn luyện lại và không mở test.
 """

@@ -1,6 +1,12 @@
 """Phần B: BART-MNLI zero-shot, không fine-tune; lưu điểm sau từng batch.
 
 Chạy từ gốc repo: python -m scripts.zero_shot.run_zero_shot --smoke --device cpu
+
+1. Ghim revision của BART-MNLI và hypothesis template.
+2. Biến mỗi văn bản thành 28 bài toán NLI với multi_label=True.
+3. Lưu scores theo ID, tính metric bằng module đánh giá chung.
+4. Ngưỡng chọn từ validation; test giữ nguyên protocol đã khóa.
+Không có optimizer/backprop trong phần B; threshold tuning không phải fine-tuning.
 """
 
 from __future__ import annotations

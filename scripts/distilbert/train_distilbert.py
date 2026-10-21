@@ -1,4 +1,12 @@
-"""C3 pilot/full, train + validation only. python -m scripts.distilbert.train_distilbert --help"""
+"""C3 riêng: python -m scripts.distilbert.train_distilbert --help.
+
+1. Đọc config pilot/full; kiểm dữ liệu train/validation, không mở test.
+2. Tokenize + dynamic padding; nạp DistilBERT và head 28 nhãn.
+3. Train BCE + AMP + gradient accumulation; kiểm overflow trước scheduler.
+4. Chọn best epoch bằng Macro-F1 validation @0,5, ghi best/last/history.
+5. Nạp lại best để kiểm scores và demo; lưu hash và môi trường chạy.
+Đây là nghiên cứu C3 riêng, không gộp với 9 run trong bảng benchmark chung.
+"""
 from __future__ import annotations
 
 import argparse

@@ -1,4 +1,9 @@
-"""Suy luận test bằng checkpoint C và ba ngưỡng đã khóa từ validation."""
+"""Test: kiểm hash checkpoint/protocol -> suy luận -> áp ngưỡng cũ -> lưu metric.
+
+Hàm này tái dùng cache hợp lệ nếu test_results.json đã tồn tại.
+Muốn thực sự suy luận lại để đối chiếu, dùng scripts.verification.reproduce_report
+với --inference-c; output mới không thay artifacts trong báo cáo.
+"""
 import argparse
 from pathlib import Path
 
