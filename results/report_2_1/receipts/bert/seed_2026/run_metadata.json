@@ -118,7 +118,6 @@
     "torch": "2.13.0+cu130",
     "transformers": "4.57.6",
     "device": "cuda",
-    "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
     "cuda_runtime": "13.0",
     "amp_fp16": true,
     "deterministic_algorithms": "warn_only; same-machine reproducibility goal"

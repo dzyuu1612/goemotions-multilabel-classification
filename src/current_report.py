@@ -1,4 +1,4 @@
-"""Kiểm bộ số báo cáo 2.1: A/B/C1/C2 đã lưu và C3 chạy lại trên RTX 5060.
+"""Kiểm bộ số báo cáo 2.1 của A/B/C1/C2/C3.
 
 Không thay artifact huấn luyện hoặc tìm lại ngưỡng. Thiếu bundle C3 mới sẽ dừng,
 không âm thầm lấy DistilBERT lịch sử thay cho bộ kết quả hiện tại.
@@ -116,7 +116,7 @@ def verify_current_report(artifact_root, run_root):
 
 
 def replay_current_c3(folder, seed, frames, names, split='test'):
-    """Suy luận mới trên toàn bộ split bằng checkpoint C3 RTX 5060 của báo cáo."""
+    """Suy luận trên toàn bộ split bằng checkpoint C3 của báo cáo."""
     import torch
     from src.models.distilbert_study import EmotionDataset, load_bundle, make_loader, score_loader
 

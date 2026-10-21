@@ -97,7 +97,6 @@
       "scikit-learn": "1.7.2"
     },
     "device": "cuda",
-    "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
     "cuda_build": "13.0"
   },
   "code_commit": "58d2a4cf2f0717eb41c260f4ffefc5fab91b9bd7",

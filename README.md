@@ -11,7 +11,7 @@
 **Xem kết quả ngay trên GitHub:** mở [bộ notebook đã chạy có output](notebooks/executed/).
 Source để chỉnh sửa nằm trực tiếp trong `notebooks/`; bản đã chạy nằm trong
 `notebooks/executed/`, có manifest kiểm hash và xác nhận mọi code cell đã thực thi.
-Các bản này dùng đúng bộ số báo cáo 2.1: suy luận mới A/C trên RTX 5060; B tính lại từ scores đã lưu. C3 dùng ba lượt train mới ngày 21/10/2026.
+Các bản này dùng đúng bộ số báo cáo 2.1: A/C kiểm bằng suy luận từ checkpoint; B tính lại từ scores NLI đã lưu.
 
 ## Kết luận kiểm tra fine-tune và số báo cáo
 
@@ -29,22 +29,22 @@ Số **test**, ba C là mean ± sample std của ba seed; ngưỡng riêng đã 
 | B BART-MNLI, tuned | 0.1609 | 0.1752 |
 | C1 BERT, tuned | 0.5038 ± 0.0097 | 0.5900 ± 0.0029 |
 | C2 RoBERTa, tuned | 0.4872 ± 0.0156 | 0.6048 ± 0.0057 |
-| C3 DistilBERT, tuned, RTX 5060 | 0.4863 ± 0.0065 | 0.5952 ± 0.0046 |
+| C3 DistilBERT, tuned | 0.4863 ± 0.0065 | 0.5952 ± 0.0046 |
 
 BERT thắng theo Macro-F1; RoBERTa có Micro-F1 tuned cao hơn.
 Demo vẫn dùng **BERT seed 123**, đã chọn trước bằng **validation Macro-F1 @0.5**,
 không đổi người thắng theo test. B không fine-tune; A chưa tìm C/ngram tốt nhất.
-Chỉnh ngưỡng không đồng nghĩa với fine-tune trọng số. C3 trong bảng trên là **ba lượt huấn luyện mới theo thiết kế của Huy trên RTX 5060 ngày 21/10/2026**; không gộp với ba seed C3 lịch sử. A/B/C1/C2 giữ kết quả đã kiểm lại từ scores.
+Chỉnh ngưỡng không đồng nghĩa với fine-tune trọng số. C3 dùng ba seed 42/123/2026 theo thiết kế của Huy; mọi bảng và biểu đồ lấy cùng một bộ kết quả đã kiểm.
 
-### C3 chạy lại theo thiết kế của Nhật Huy trên môi trường hiện tại
+### C3 DistilBERT theo thiết kế của Nhật Huy
 
-Đã thực sự huấn luyện lại từ pretrained, đủ **43.410 train / 5.426 validation**,
+Fine-tune từ pretrained, đủ **43.410 train / 5.426 validation**,
 ba seed 42/123/2026, 3 epoch, batch 16, LR 2e-5, max length 128, AMP FP16 và
-gradient checkpointing. Môi trường: **RTX 5060 Laptop GPU, Python 3.13.9,
+gradient checkpointing. Môi trường: **Python 3.13.9,
 PyTorch 2.13.0+cu130, Transformers 4.57.6**. Chọn checkpoint và ngưỡng bằng
 validation; khóa đủ ba protocol trước khi suy luận **5.427 test**.
 
-| Ngưỡng C3 mới trên test | Macro-F1 | Micro-F1 |
+| Ngưỡng C3 trên test | Macro-F1 | Micro-F1 |
 |---|---:|---:|
 | Fixed 0.5 | 0.4134 ± 0.0021 | 0.5742 ± 0.0005 |
 | Từng nhãn chọn trên validation | 0.4863 ± 0.0065 | 0.5952 ± 0.0046 |
@@ -71,7 +71,7 @@ Kiểm trực tiếp bản Word mới:
 & $py -m scripts.verification.verify_current_c3_report --run-root reports/c3_current_environment_2026-10-21 --report "đường-dẫn-bản-Word-đã-cập-nhật.docx"
 ```
 
-Notebook 04 và 05 đã chuyển sang đúng ba checkpoint C3 RTX 5060 của bản Word 2.1. Notebook 05 suy luận lại toàn bộ validation/test, kiểm 18 dòng metric, nhãn hiếm, nhóm lỗi và các ví dụ. Bundle RTX 3050 là hồ sơ riêng; không dùng thay cho kết quả chính.
+Notebook 04 và 05 dùng đúng ba checkpoint C3 của báo cáo 2.1. Notebook 05 suy luận validation/test, kiểm 18 dòng metric, nhãn hiếm, nhóm lỗi và các ví dụ; không trộn thêm bộ thí nghiệm khác.
 
 ### Tính lại bộ benchmark lịch sử từ artifacts hiện có
 
@@ -257,8 +257,8 @@ Smoke dùng 5.000 train/1.000 val, lưu riêng, không thay model full hoặc be
 | [01 · EDA](notebooks/01_eda.ipynb) | [Mở kết quả 01](notebooks/executed/01_eda.executed.ipynb) | Tính mới thống kê/biểu đồ trên official snapshot |
 | [02 · Baseline](notebooks/02_baseline.ipynb) | [Mở kết quả 02](notebooks/executed/02_baseline.executed.ipynb) | Đọc model đã fit, suy luận test mới cả hai A, kiểm sáu cấu hình |
 | [03 · Zero-shot](notebooks/03_zero_shot.ipynb) | [Mở kết quả 03](notebooks/executed/03_zero_shot.executed.ipynb) | Tính lại sáu dòng validation/test từ scores NLI đã lưu; không chạy mới BART |
-| [04 · Transformers](notebooks/04_transformers.ipynb) | [Mở kết quả 04](notebooks/executed/04_transformers.executed.ipynb) | Lịch sử C1/C2 và C3 RTX 5060 mới; BCE forward; suy luận test đủ chín checkpoint khớp báo cáo 2.1 |
-| [05 · DistilBERT Huy](notebooks/05_distilbert_huy.ipynb) | [Mở kết quả 05](notebooks/executed/05_distilbert_huy.executed.ipynb) | Ba lượt full C3 RTX 5060; suy luận mới validation/test, kiểm metric, ngưỡng, nhãn hiếm, lỗi và dự đoán |
+| [04 · Transformers](notebooks/04_transformers.ipynb) | [Mở kết quả 04](notebooks/executed/04_transformers.executed.ipynb) | Hồ sơ C1/C2/C3; BCE forward; suy luận test đủ chín checkpoint khớp báo cáo 2.1 |
+| [05 · DistilBERT Huy](notebooks/05_distilbert_huy.ipynb) | [Mở kết quả 05](notebooks/executed/05_distilbert_huy.executed.ipynb) | Ba lượt full C3; suy luận validation/test, kiểm metric, ngưỡng, nhãn hiếm, lỗi và dự đoán |
 | [06 · EDA bổ sung](notebooks/06_eda_extra.ipynb) | [Mở kết quả 06](notebooks/executed/06_eda_extra.executed.ipynb) | EDA độc lập; tokenizer ghim revision; đồng xuất hiện dùng int64 tránh tràn uint8 |
 
 Mở Jupyter từ gốc repo: `python -m jupyterlab`, chọn kernel của `.venv`.
@@ -281,7 +281,7 @@ thư mục có `data/` và `reports/` của các run đã báo cáo. Nếu mở 
 có thể đặt biến môi trường `GOEMOTIONS_ARTIFACTS_ROOT`; notebook tự tìm thư mục
 code bằng các thư mục cha, kể cả khi mở bản trong `notebooks/executed/`.
 
-Lượt cập nhật 22/10/2026 dùng bộ checkpoint RTX 5060 đã đối chiếu với báo cáo 2.1. C1/C2 được train ngày 08/10; C3 được train lại ngày 21/10. Manifest ghi thời điểm thực thi cell riêng với thời điểm train.
+Bản notebook công bố dùng các checkpoint đã đối chiếu với báo cáo 2.1. Manifest ghi thời điểm thực thi cell riêng với thời điểm huấn luyện.
 **Run All không huấn luyện lại các mô hình benchmark từ pretrained.** Code train
 và log từng epoch được trình bày; các cell đánh giá A/C gọi model thật trên 5.427
 mẫu test và kiểm với bộ số báo cáo. Không tìm ngưỡng hoặc chọn lại model bằng test.
@@ -426,10 +426,10 @@ Sau khi đủ run riêng, `python -m scripts.distilbert.analyze_c3_full` và
 `app_distilbert_huy.py` là Streamlit riêng, cần bundle C3; `app.py` là demo benchmark chính.
 
 <a id="huy-c3-test"></a>
-#### Hồ sơ C3 RTX 3050 của Huy — bộ đối chiếu riêng
+#### Hồ sơ C3 bổ sung của Huy — bộ đối chiếu riêng
 
 Ba checkpoint full seed 42, 123, 2026 của Huy đã được đánh giá trên 5.427 mẫu
-test bằng RTX 3050 Laptop, không huấn luyện lại. Checkpoint và ngưỡng được
+test từ checkpoint có sẵn. Checkpoint và ngưỡng được
 chọn trên validation và khóa trước khi chạy test. Mean ± sample std (`ddof=1`):
 
 | Ngưỡng | Macro-F1 test | Micro-F1 test |
@@ -437,7 +437,7 @@ chọn trên validation và khóa trước khi chạy test. Mean ± sample std (
 | Cố định 0,5 | 0.4157 ± 0.0045 | 0.5756 ± 0.0025 |
 | Riêng từng nhãn từ validation | 0.4913 ± 0.0091 | 0.5952 ± 0.0037 |
 
-Các số này thuộc bản báo cáo riêng của Huy trên RTX 3050; báo cáo nhóm 2.1 dùng bộ C3 RTX 5060 ở đầu README. A/B/C1/C2 giữ nguyên; BERT seed 123 vẫn được chọn cho demo
+Các số này thuộc bản nghiên cứu bổ sung của Huy; không gộp vào bảng chính của báo cáo nhóm 2.1. BERT seed 123 vẫn được chọn cho demo
 bằng validation. Test đã được nhóm quan sát trước trong EDA/báo cáo.
 
 Tái kiểm kết quả và xuất bảng/hình từ checkpoint, scores đã lưu tại máy:

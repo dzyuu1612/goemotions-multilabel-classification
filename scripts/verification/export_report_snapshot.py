@@ -9,9 +9,11 @@ from src.current_report import current_c3_root, verify_current_report
 from src.datasets.goemotions import REVISION, sha256
 from src.notebook_support import artifacts_root
 from src.paths import ROOT
+from src.models.transformer import configure_console
 
 
 def main():
+    configure_console()
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--artifacts-root', type=Path)
     parser.add_argument('--run-root', type=Path)
@@ -32,7 +34,19 @@ def main():
     def copy(source, relative):
         destination = output / relative
         destination.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copyfile(source, destination)
+        if Path(source).suffix == '.json':
+            # Published receipts omit hardware model names. Hash references inside
+            # them still identify the unchanged original local training artifacts.
+            def public(value):
+                if isinstance(value, dict):
+                    return {key: public(item) for key, item in value.items() if key != 'gpu'}
+                if isinstance(value, list):
+                    return [public(item) for item in value]
+                return value
+            value = public(json.loads(Path(source).read_text(encoding='utf-8')))
+            destination.write_text(json.dumps(value, ensure_ascii=False, indent=2, allow_nan=False), encoding='utf-8')
+        else:
+            shutil.copyfile(source, destination)
         exported.append(relative)
 
     def write(relative, value):
@@ -73,7 +87,8 @@ def main():
     manifest = dict(schema_version=1, exported_at_utc=datetime.now(timezone.utc).isoformat(),
         report_filename=args.report.name, report_sha256=sha256(args.report),
         source_report_data_sha256=sha256(c3 / 'report_data/report_data.json'),
-        scope='Report 2.1: checked A/B results; C1/C2 RTX 5060 runs from 2026-10-08; C3 RTX 5060 runs from 2026-10-21. No RTX 3050 results in the main comparison.',
+        scope='Report 2.1: checked A/B results and three full seeds for each of C1/C2/C3; no other experiment bundles in the main comparison.',
+        receipt_policy='Published JSON receipts omit hardware model names; embedded source hashes refer to unchanged original local artifacts.',
         records=72, summary_groups=36, hash_policy='sha256:raw-bytes; results/report_2_1/** -text',
         model_weights_in_git=False,
         files_sha256={name: sha256(output / name) for name in sorted(exported)})

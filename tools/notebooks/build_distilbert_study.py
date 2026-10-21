@@ -1,14 +1,14 @@
-"""Tạo notebook C3 của báo cáo 2.1; Run All kiểm bundle RTX 5060 đã chạy."""
+"""Tạo notebook C3 của báo cáo 2.1; Run All kiểm checkpoint và kết quả."""
 from src.paths import ROOT
 import nbformat as nbf
 
 
 def main():
     cells = []
-    cells.append(nbf.v4.new_markdown_cell(r"""# C3 DistilBERT — thiết kế của Nhật Huy, chạy trên RTX 5060
-Ba lượt full seed 42, 123, 2026 đã được train từ pretrained ngày 21/10/2026 trên máy
-RTX 5060 của Duy. Đây là bộ C3 dùng trong báo cáo 2.1, thay bộ C3 lịch sử trong bảng chính.
-Không gộp thêm kết quả RTX 3050 thành sáu seed. Run All kiểm artifact và suy luận lại
+    cells.append(nbf.v4.new_markdown_cell(r"""# C3 DistilBERT — thiết kế của Nhật Huy
+Ba lượt full seed 42, 123, 2026 được fine-tune từ pretrained và dùng trong báo cáo 2.1.
+Mỗi seed có checkpoint, cấu hình và protocol riêng; không gộp thêm các bộ thí nghiệm khác.
+Run All kiểm artifact và suy luận
 validation/test từ checkpoint đã có; code và lệnh train được trình bày riêng."""))
     cells.append(nbf.v4.new_code_cell(r"""from pathlib import Path
 import sys
@@ -31,7 +31,7 @@ snapshot = verified['report_snapshot']
 completion = read_json(C3_RUN/'completion.json')
 torch.set_num_threads(4)
 print('Python:', sys.version.split()[0], '| torch:', torch.__version__)
-print('Thiết bị replay:', torch.cuda.get_device_name(0) if torch.cuda.is_available() else 'CPU')
+print('Thiết bị suy luận:', 'CUDA' if torch.cuda.is_available() else 'CPU')
 print('Revision dữ liệu:', REVISION)"""))
     cells.append(nbf.v4.new_markdown_cell(r"""## 1. Thiết lập đã khóa trước khi train
 Official split: 43.410 train / 5.426 validation / 5.427 test; 28 nhãn.
@@ -43,19 +43,19 @@ assert plan['config'] == read_json(ROOT/'configs/distilbert_full.json')
 assert plan['seeds'] == [42,123,2026] and not plan['test_used_for_selection']
 display(pd.Series(plan['config']))
 display(pd.DataFrame([dict(split=s, rows=len(df), unique_ids=df.id.nunique()) for s,df in frames.items()]))
-display(pd.Series(completion['environment']))"""))
+display(pd.Series({k:v for k,v in completion['environment'].items() if k != 'gpu'}))"""))
     cells.append(nbf.v4.new_markdown_cell(r"""## 2. Kiểm checkpoint, hash và protocol của đủ ba seed"""))
     cells.append(nbf.v4.new_code_cell(r"""receipts, runs = [], {}
 for seed in (42,123,2026):
     meta, protocol = checked_c3(C3_RUN, seed)
     runs[seed] = meta
     assert meta['n_train'] == 43410 and meta['n_validation'] == 5426 and not meta['test_used']
-    receipts.append(dict(seed=seed, best_epoch=meta['best_epoch'], gpu=meta['environment']['gpu'],
+    receipts.append(dict(seed=seed, best_epoch=meta['best_epoch'], device=meta['environment']['device'],
         n_train=meta['n_train'], n_validation=meta['n_validation'],
         model_sha256=meta['artifact_sha256']['best/model.safetensors'],
         checkpoint_selection='validation Macro-F1 @0.5'))
 display(pd.DataFrame(receipts))
-print('PASS: cả ba bundle mới có thật, đủ hash; không thay bằng checkpoint RTX 3050.')"""))
+print('PASS: đủ ba checkpoint đúng cấu hình, nguồn và hash của báo cáo.')"""))
     cells.append(nbf.v4.new_markdown_cell(r"""## 3. Loss và Macro-F1 validation qua ba epoch đã chạy"""))
     cells.append(nbf.v4.new_code_cell(r"""import matplotlib.pyplot as plt
 history = pd.read_csv(C3_RUN/'history.csv')
@@ -64,7 +64,7 @@ fig, axes = plt.subplots(1,2,figsize=(10,3.5))
 for seed, group in history.groupby('seed'):
     axes[0].plot(group.epoch, group.train_loss, marker='o', label=f'seed {seed}')
     axes[1].plot(group.epoch, group.validation_macro_f1, marker='o', label=f'seed {seed}')
-axes[0].set_title('Train loss — RTX 5060'); axes[1].set_title('Validation Macro-F1 @0.5')
+axes[0].set_title('Train loss'); axes[1].set_title('Validation Macro-F1 @0.5')
 for ax in axes: ax.set_xlabel('Epoch đã chạy'); ax.legend()
 plt.tight_layout(); plt.show(); plt.close()
 print('Ba seed chọn epoch 3; chưa có đối chứng cho kết luận đã hội tụ hoặc tối ưu siêu tham số.')"""))
@@ -157,7 +157,7 @@ if device == 'cuda': torch.cuda.empty_cache()
 print('Demo chính:', verified['selection']['architecture'], 'seed', verified['selection']['seed'])
 print('Hoàn tất: 3 checkpoint C3 mới, 6 lượt suy luận full, 18 dòng metric; không train thêm trong Run All.')"""))
     notebook = nbf.v4.new_notebook(cells=cells)
-    notebook.metadata = {'goemotions': {'scope': 'Report 2.1 C3: three completed full RTX 5060 training runs; fresh validation/test inference, metrics, rare labels, errors and prediction; no retraining inside Run All'}, 'kernelspec': {'display_name': 'Python 3', 'language': 'python', 'name': 'python3'}, 'language_info': {'name': 'python', 'version': '3.13.9'}}
+    notebook.metadata = {'goemotions': {'scope': 'Report 2.1 C3: three completed full training runs; validation/test inference, metrics, rare labels, errors and prediction; no training inside Run All'}, 'kernelspec': {'display_name': 'Python 3', 'language': 'python', 'name': 'python3'}, 'language_info': {'name': 'python', 'version': '3.13.9'}}
     nbf.write(notebook, ROOT/'notebooks/05_distilbert_huy.ipynb')
 
 

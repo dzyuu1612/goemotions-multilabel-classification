@@ -20,7 +20,7 @@ def main():
                          'axes.labelsize': 16, 'legend.frameon': False,
                          'axes.spines.top': False, 'axes.spines.right': False})
     colors = {'bert':'#315e84','roberta':'#637785','distilbert':'#ad692f'}
-    labels = {'bert':'BERT','roberta':'RoBERTa','distilbert':'DistilBERT RTX 5060'}
+    labels = {'bert':'BERT','roberta':'RoBERTa','distilbert':'DistilBERT'}
     fig, ax = plt.subplots(figsize=(8.8,6.16),layout='constrained')
     for arch in colors:
         rows = history[history.architecture==arch].groupby('epoch').validation_macro_f1.agg(['mean','std'])
@@ -41,7 +41,7 @@ def main():
                   for arch in colors]
             ax.bar(x+offset,[r[metric+'_mean'] for r in rows],width=.34,
                    yerr=[r[metric+'_std'] for r in rows],capsize=4,color=color,label=label)
-        ax.set(title=title,xticks=x,xticklabels=['BERT','RoBERTa','DistilBERT\nRTX 5060'],ylim=(0,.7))
+        ax.set(title=title,xticks=x,xticklabels=['BERT','RoBERTa','DistilBERT'],ylim=(0,.7))
         ax.grid(axis='y',alpha=.16)
         ax.set_axisbelow(True)
     axes[0].set_ylabel('F1')
