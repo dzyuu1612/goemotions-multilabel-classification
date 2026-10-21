@@ -1,0 +1,98 @@
+{
+  "schema_version": 1,
+  "notebooks": [
+    {
+      "source": "notebooks/00_quick_start.ipynb",
+      "source_sha256": "af11cee323cb97aeafd52ddba7652db13d7cb6356252b24fdd725a389a803c1c",
+      "executed": "notebooks/executed/00_quick_start.executed.ipynb",
+      "executed_sha256": "2120e5ea8101f3f99af88ce81a91cc7326e12a0433badefe7a77efe0d0e18223",
+      "started_at_utc": "2026-10-21T01:00:00.024901+00:00",
+      "finished_at_utc": "2026-10-21T01:00:05.607244+00:00",
+      "code_cells": 6,
+      "executed_code_cells": 6,
+      "error_cells": 0,
+      "scope": "learning example",
+      "benchmark_training_repeated": false
+    },
+    {
+      "source": "notebooks/01_eda.ipynb",
+      "source_sha256": "cfb16fd0af611f70985b050e77310edc94298de258be30899c9a155c0fe863b5",
+      "executed": "notebooks/executed/01_eda.executed.ipynb",
+      "executed_sha256": "83eaed57351b55631256d79739f69aa21bef9373f4d1195c32ab1cfe28742249",
+      "started_at_utc": "2026-10-21T01:00:05.612910+00:00",
+      "finished_at_utc": "2026-10-21T01:00:28.824579+00:00",
+      "code_cells": 15,
+      "executed_code_cells": 15,
+      "error_cells": 0,
+      "scope": "Fresh EDA on pinned official dataset; no model training",
+      "benchmark_training_repeated": false
+    },
+    {
+      "source": "notebooks/02_baseline.ipynb",
+      "source_sha256": "b51fc0b3534a188e68b5eb5c38c7b7b737f52d16506c55e7f9c34f4c397d1c85",
+      "executed": "notebooks/executed/02_baseline.executed.ipynb",
+      "executed_sha256": "58fbedb56d280ec58a8e03eaca02faac8d5418c6cfee6f970c7456978f136d12",
+      "started_at_utc": "2026-10-21T01:00:28.829773+00:00",
+      "finished_at_utc": "2026-10-21T01:01:01.282957+00:00",
+      "code_cells": 14,
+      "executed_code_cells": 14,
+      "error_cells": 0,
+      "scope": "Historical fitted A models; fresh full test inference for both variants and frozen thresholds",
+      "benchmark_training_repeated": false
+    },
+    {
+      "source": "notebooks/03_zero_shot.ipynb",
+      "source_sha256": "36b3ba04cf2917ede0f0a9fdeb0e550fb165438a685a1d6d30b459ae48588791",
+      "executed": "notebooks/executed/03_zero_shot.executed.ipynb",
+      "executed_sha256": "5fe48ac80a1bfe6867907c97cfd49c2576a57c1687fec732b9d116f7cf829242",
+      "started_at_utc": "2026-10-21T01:01:01.287100+00:00",
+      "finished_at_utc": "2026-10-21T01:01:32.188135+00:00",
+      "code_cells": 7,
+      "executed_code_cells": 7,
+      "error_cells": 0,
+      "scope": "B: recompute full validation/test metrics from saved NLI scores; no fresh NLI inference or training",
+      "benchmark_training_repeated": false
+    },
+    {
+      "source": "notebooks/04_transformers.ipynb",
+      "source_sha256": "11dd98e424e921865f805c3353fe3463360c41815ddf8a29b29212595dc1a05c",
+      "executed": "notebooks/executed/04_transformers.executed.ipynb",
+      "executed_sha256": "bbccae02738cf78058c9b326fe31eb587717d287332c08200c2c3d907dd6c16b",
+      "started_at_utc": "2026-10-21T01:01:32.193267+00:00",
+      "finished_at_utc": "2026-10-21T01:04:34.017728+00:00",
+      "code_cells": 12,
+      "executed_code_cells": 12,
+      "error_cells": 0,
+      "scope": "C: historical training logs, real BCE forward and fresh full test inference for 9 checkpoints",
+      "benchmark_training_repeated": false
+    },
+    {
+      "source": "notebooks/05_distilbert_huy.ipynb",
+      "source_sha256": "b8ef15cdd5a8c4675888e577aa268cd573ae6869c60bd7378d8a72ab962b4be8",
+      "executed": "notebooks/executed/05_distilbert_huy.executed.ipynb",
+      "executed_sha256": "bd58dffb13e627318eadd0e5dfb0637d2b5ddfacd5efd6197e7ab8f9ceb17f10",
+      "started_at_utc": "2026-10-21T01:04:34.022423+00:00",
+      "finished_at_utc": "2026-10-21T01:04:41.649226+00:00",
+      "code_cells": 10,
+      "executed_code_cells": 10,
+      "error_cells": 0,
+      "scope": "Huy C3 separate study: historical logs and metrics recomputed from TP/FP/FN/TN; missing private checkpoints explicitly reported",
+      "benchmark_training_repeated": false
+    },
+    {
+      "source": "notebooks/06_eda_extra.ipynb",
+      "source_sha256": "26b97f343cf134b1e81dcd1386891fbf270e4ce7a1703ac3f3fadaa85578dd15",
+      "executed": "notebooks/executed/06_eda_extra.executed.ipynb",
+      "executed_sha256": "47630cffcb1415abc1337800abb8b88b375840116ca9d866b47f375984fc90ad",
+      "started_at_utc": "2026-10-21T01:04:41.653050+00:00",
+      "finished_at_utc": "2026-10-21T01:04:50.780993+00:00",
+      "code_cells": 8,
+      "executed_code_cells": 8,
+      "error_cells": 0,
+      "scope": "Fresh independent advanced EDA, pinned tokenizer, int64 co-occurrence counts; no model training",
+      "benchmark_training_repeated": false
+    }
+  ],
+  "updated_at_utc": "2026-10-21T01:04:50.781043+00:00",
+  "hash_policy": "sha256:utf8-lf"
+}

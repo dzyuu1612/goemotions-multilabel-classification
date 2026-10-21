@@ -26,7 +26,7 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install torch --index-url https://download.pytorch.org/whl/cpu
           python -m pip install -e ".[dev,transformers,notebooks]"
-      - name: Check code, clean notebooks and README links
+      - name: Check code, clean sources, executed notebook hashes and README links
         run: python tools/check_repository.py
       - name: Unit tests without dataset or checkpoint downloads
         run: python -m unittest discover -s tests -v

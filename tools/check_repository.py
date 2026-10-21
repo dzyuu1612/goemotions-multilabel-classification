@@ -1,4 +1,4 @@
-"""Kiểm bản Git chỉ chứa source, notebook sạch, hình và README.
+"""Kiểm source sạch và bản notebook đã chạy trong notebooks/executed/.
 
 Chạy từ gốc repo: python tools/check_repository.py
 Chỉ đọc tệp/Git index; không tải dataset hoặc model.
@@ -12,6 +12,10 @@ import re
 import subprocess
 import sys
 from urllib.parse import unquote
+
+# Chạy trực tiếp python tools/check_repository.py cũng tìm được package src.
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from src.notebook_publication import publication_errors
 
 ROOT = Path(__file__).resolve().parents[1]
 FORBIDDEN_SUFFIXES = {".docx", ".doc", ".pdf", ".tex", ".html", ".pptx", ".xlsx", ".zip",
@@ -67,10 +71,11 @@ def check_source(paths):
             notebook = json.loads(path.read_text(encoding="utf-8"))
             if notebook.get("nbformat") != 4 or not isinstance(notebook.get("cells"), list):
                 errors.append(f"{name}: sai định dạng notebook")
+            published = name.startswith("notebooks/executed/")
             for index, cell in enumerate(notebook.get("cells", []), 1):
                 if cell.get("cell_type") == "code" and (
                     cell.get("outputs") or cell.get("execution_count") is not None
-                ):
+                ) and not published:
                     errors.append(f"{name}: cell {index} có output/execution count")
         if path.suffix == ".md":
             text = path.read_text(encoding="utf-8")
@@ -85,10 +90,24 @@ def check_source(paths):
                 counts["local_links"] += 1
                 if not (path.parent / target).exists():
                     errors.append(f"{name}: link local thiếu: {target}")
-        if path.suffix in {".py", ".md", ".toml", ".yml", ".txt", ".json"}:
+        if path.suffix in {".py", ".md", ".toml", ".yml", ".txt", ".json", ".ipynb"}:
             text = path.read_text(encoding="utf-8-sig")
             if any(pattern.search(text) for pattern in SECRETS):
                 errors.append(f"{name}: chuỗi giống secret cần kiểm")
+    published_paths = [name for name in paths if name.startswith("notebooks/executed/")]
+    if published_paths:
+        manifest = ROOT / "notebooks/executed/execution_manifest.json"
+        if not manifest.is_file():
+            errors.append("Thiếu execution_manifest.json cho notebook công bố")
+        else:
+            try:
+                value = json.loads(manifest.read_text(encoding="utf-8"))
+                errors.extend(publication_errors(ROOT, value))
+                allowed = {entry["executed"] for entry in value["notebooks"]} | {
+                    "notebooks/executed/execution_manifest.json"}
+                errors.extend(f"Output notebook ngoài manifest: {name}" for name in published_paths if name not in allowed)
+            except (OSError, ValueError, KeyError, TypeError) as error:
+                errors.append(f"Manifest/output notebook không hợp lệ: {error}")
     return counts, errors
 
 

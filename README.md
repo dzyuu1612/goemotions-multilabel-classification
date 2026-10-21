@@ -8,6 +8,11 @@
 
 [Chạy thử](#quick-start) · [Baseline của Duy](#baseline) · [Notebook](#notebooks) · [Thực nghiệm](#experiments) · [Demo](#demo) · [Đọc code](#code-map)
 
+**Xem kết quả ngay trên GitHub:** mở [bộ notebook đã chạy có output](notebooks/executed/).
+Source để chỉnh sửa nằm trực tiếp trong `notebooks/`; bản đã chạy nằm trong
+`notebooks/executed/`, có manifest kiểm hash và xác nhận mọi code cell đã thực thi.
+Các bản này ghi rõ phạm vi: suy luận mới A/C, scores lịch sử B, hồ sơ C3 riêng của Huy.
+
 ## Kết luận kiểm tra fine-tune và số báo cáo
 
 **Đã fine-tune ba C, chưa có bằng chứng đã tìm được cấu hình tốt nhất.**
@@ -210,15 +215,15 @@ Smoke dùng 5.000 train/1.000 val, lưu riêng, không thay model full hoặc be
 <a id="notebooks"></a>
 ## 4. Notebook: đọc và chạy theo thứ tự
 
-| Notebook | Nội dung | Điều kiện |
+| Source để chỉnh | Bản đã chạy, có output | Phạm vi của kết quả |
 |---|---|---|
-| [00 · Chạy thử](notebooks/00_quick_start.ipynb) | Fit/predict/metric, dữ liệu tự tạo | Baseline + notebooks; không tải dữ liệu |
-| [01 · EDA](notebooks/01_eda.ipynb) | Split, nhãn, multi-hot, mất cân bằng | Extra EDA; tải snapshot lần đầu |
-| [02 · Baseline](notebooks/02_baseline.ipynb) | Sáu cấu hình A, score, ngưỡng và lỗi | Train hai A full + analyze trước |
-| [03 · Zero-shot](notebooks/03_zero_shot.ipynb) | NLI và trạng thái/kết quả B | Extra Transformer; artifact B để đọc số |
-| [04 · Transformers](notebooks/04_transformers.ipynb) | BCE, seed/checkpoint/protocol, ba C | Extra Transformer; artifact C để đọc số |
-| [05 · DistilBERT Huy](notebooks/05_distilbert_huy.ipynb) | Nghiên cứu C3 riêng | Extra study và bundle/output riêng |
-| [06 · EDA bổ sung](notebooks/06_eda_extra.ipynb) | Độ dài, tokenizer và câu hỏi dữ liệu | Sau 01, extra EDA |
+| [00 · Chạy thử](notebooks/00_quick_start.ipynb) | [Mở kết quả 00](notebooks/executed/00_quick_start.executed.ipynb) | Fit/predict trên dữ liệu minh họa; không dùng làm benchmark |
+| [01 · EDA](notebooks/01_eda.ipynb) | [Mở kết quả 01](notebooks/executed/01_eda.executed.ipynb) | Tính mới thống kê/biểu đồ trên official snapshot |
+| [02 · Baseline](notebooks/02_baseline.ipynb) | [Mở kết quả 02](notebooks/executed/02_baseline.executed.ipynb) | Đọc model đã fit, suy luận test mới cả hai A, kiểm sáu cấu hình |
+| [03 · Zero-shot](notebooks/03_zero_shot.ipynb) | [Mở kết quả 03](notebooks/executed/03_zero_shot.executed.ipynb) | Tính lại sáu dòng validation/test từ scores NLI đã lưu; không chạy mới BART |
+| [04 · Transformers](notebooks/04_transformers.ipynb) | [Mở kết quả 04](notebooks/executed/04_transformers.executed.ipynb) | Log train cũ; BCE forward thật; suy luận test mới đủ chín checkpoint C |
+| [05 · DistilBERT Huy](notebooks/05_distilbert_huy.ipynb) | [Mở kết quả 05](notebooks/executed/05_distilbert_huy.executed.ipynb) | Kiểm hồ sơ riêng, tính lại metric từ TP/FP/FN/TN; thiếu bundle nên không suy luận C3 riêng |
+| [06 · EDA bổ sung](notebooks/06_eda_extra.ipynb) | [Mở kết quả 06](notebooks/executed/06_eda_extra.executed.ipynb) | EDA độc lập; tokenizer ghim revision; đồng xuất hiện dùng int64 tránh tràn uint8 |
 
 Mở Jupyter từ gốc repo: `python -m jupyterlab`, chọn kernel của `.venv`.
 Hoặc chạy notebook 02 bằng Python hiện tại, sau bước train/analyze A:
@@ -227,9 +232,29 @@ Hoặc chạy notebook 02 bằng Python hiện tại, sau bước train/analyze 
 python -m scripts.data.run_notebooks --notebook 02_baseline
 ```
 
-Runner giữ source sạch, ghi output vào `reports/notebooks/`.
-B/C đọc artifact và in lệnh, **không tự train full khi Run All**.
-Thông báo thiếu artifact trên clone mới nghĩa là bạn chưa chạy thí nghiệm đó.
+Runner mặc định giữ source sạch, ghi output vào `reports/notebooks/`.
+Để chạy toàn bộ và cập nhật bản có output dùng nộp/bảo vệ:
+
+```powershell
+& $py -m scripts.data.run_notebooks --notebook all --publish --artifacts-root ../goemotions-multilabel-classification
+```
+
+`$py` được khai báo ở phần tái lập đầu README. Trên máy khác dùng Python của môi
+trường đã cài đủ extra `eda,notebooks,transformers` và trỏ `--artifacts-root` đến
+thư mục có `data/` và `reports/` của các run đã báo cáo. Nếu mở Jupyter trực tiếp,
+có thể đặt biến môi trường `GOEMOTIONS_ARTIFACTS_ROOT`; notebook tự tìm thư mục
+code bằng các thư mục cha, kể cả khi mở bản trong `notebooks/executed/`.
+
+Lượt công bố 21/10/2026 giữ nguồn huấn luyện lịch sử riêng với suy luận mới.
+**Run All không huấn luyện lại các mô hình benchmark từ pretrained.** Code train
+và log từng epoch được trình bày; các cell đánh giá A/C gọi model thật trên 5.427
+mẫu test và kiểm với bộ số báo cáo. Không tìm ngưỡng hoặc chọn lại model bằng test.
+
+[Manifest thực thi](notebooks/executed/execution_manifest.json) gắn source với bản
+có output bằng SHA-256 chuẩn hóa LF, số code cell và thời gian chạy UTC. CI kiểm
+mọi source có bản chạy, cell thực thi tuần tự, không có error output và không lệch
+source. Clone mới xem được output ngay; muốn Run All lại cần dataset/artifacts,
+weights lớn không được nhúng vào Git.
 
 <a id="data"></a>
 ## 5. Dữ liệu và đánh giá chung
@@ -379,7 +404,7 @@ Sau khi đủ run riêng, `python -m scripts.distilbert.analyze_c3_full` và
 │   ├── analysis/         # CSV/JSON, lỗi và metadata
 │   ├── verification/     # Tính lại số và suy luận kiểm báo cáo
 │   └── pipeline/         # Ghép quy trình
-├── notebooks/            # 00 chạy thử; 01–06 đồ án
+├── notebooks/            # Source sạch 00–06; executed/ giữ bản đã chạy và manifest
 ├── examples/             # Ví dụ CPU không cần Internet
 ├── tests/                # Kiểm metric và protocol
 ├── configs/              # Cấu hình C3 riêng
