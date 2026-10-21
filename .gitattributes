@@ -7,3 +7,5 @@ configs/*.json -text
 # Giữ nguyên byte/hash metadata khi bàn giao; các output này vẫn bị Git ignore.
 reports/reproducibility/artifacts/** -text
 reports/baseline_validation/paired_examples.csv -text
+# Biên nhận giữ byte CRLF gốc để các hash checkpoint/protocol vẫn đối chiếu được.
+results/report_2_1/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol

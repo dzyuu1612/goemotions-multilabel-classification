@@ -1,0 +1,16 @@
+{
+  "representative_seed": 123,
+  "selection_split": "validation",
+  "test_used": false,
+  "validation_macro_f1_fixed": {
+    "42": 0.4015902092743305,
+    "123": 0.4117180759186307,
+    "2026": 0.40470116621502333
+  },
+  "protocol_sha256": {
+    "42": "25e91d13a31bda97f1ef971715200ed30fb9401e45f2e138e016e91500b4f2a5",
+    "123": "aed785956a8dc4bebc283d5fa8b36fdde90e97e03a5af0f6bb714b8a6d95a5f6",
+    "2026": "056ff3a9e4d01a958d05bd6c3221d9eb5cd8eef03f4a6449dbd2d03f26873ad0"
+  },
+  "created_at_utc": "2026-10-21T15:43:59.066429+00:00"
+}

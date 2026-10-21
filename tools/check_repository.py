@@ -6,6 +6,7 @@ Chỉ đọc tệp/Git index; không tải dataset hoặc model.
 from __future__ import annotations
 
 import ast
+import hashlib
 import json
 from pathlib import Path
 import re
@@ -108,6 +109,23 @@ def check_source(paths):
                 errors.extend(f"Output notebook ngoài manifest: {name}" for name in published_paths if name not in allowed)
             except (OSError, ValueError, KeyError, TypeError) as error:
                 errors.append(f"Manifest/output notebook không hợp lệ: {error}")
+    result_paths = {name for name in paths if name.startswith('results/report_2_1/')}
+    if result_paths:
+        try:
+            base = ROOT / 'results/report_2_1'
+            manifest = json.loads((base / 'manifest.json').read_text(encoding='utf-8'))
+            expected_paths = {'results/report_2_1/' + name for name in manifest['files_sha256']}
+            expected_paths.add('results/report_2_1/manifest.json')
+            if result_paths != expected_paths:
+                errors.append('Bộ kết quả báo cáo 2.1 thiếu hoặc thừa tệp so với manifest')
+            for name, digest in manifest['files_sha256'].items():
+                target = (base / name).resolve()
+                if not target.is_relative_to(base.resolve()) or not target.is_file():
+                    errors.append(f'Tệp kết quả không hợp lệ: {name}')
+                elif hashlib.sha256(target.read_bytes()).hexdigest() != digest:
+                    errors.append(f'Hash kết quả báo cáo 2.1 không khớp: {name}')
+        except (OSError, ValueError, KeyError, TypeError) as error:
+            errors.append(f'Manifest kết quả báo cáo không hợp lệ: {error}')
     return counts, errors
 
 

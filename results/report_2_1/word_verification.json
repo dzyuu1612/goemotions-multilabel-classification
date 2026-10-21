@@ -1,0 +1,13 @@
+{
+  "sha256": "e471fa84e06f91a1fc00c35a1010ba8f3cc07e67069253522a85d36bb462931f",
+  "tables": 9,
+  "metric_cells": 111,
+  "additional_rare_and_error_cells": 67,
+  "figures_sha256": {
+    "learning_curves.png": "1701f8ac9391eca709d3e96e6b0b539cbb9457da608d4a94188d684bc81afa27",
+    "test_f1.png": "f52939acda777c42807d9dd78ab79a5e8591f1339a645b8db89e85a3828b385c"
+  },
+  "checked_at_utc": "2026-10-21T20:53:56.458584+00:00",
+  "passed": true,
+  "source_report_data_sha256": "e90156d2f102ebabd7f652bdf62520a5f9773f95348de33fcc19074ac781fb84"
+}

@@ -1,0 +1,66 @@
+{
+  "created_at_utc": "2026-10-21T15:05:37.386877+00:00",
+  "plan": {
+    "seeds": [
+      42,
+      123,
+      2026
+    ],
+    "config": {
+      "mode": "full",
+      "model_id": "distilbert/distilbert-base-uncased",
+      "revision": "12040accade4e8a0f71eabdb258fecc2e7e948be",
+      "seed": 42,
+      "subset_seed": 2026,
+      "train_limit": null,
+      "validation_limit": null,
+      "epochs": 3,
+      "max_length": 128,
+      "batch_size": 16,
+      "gradient_accumulation_steps": 1,
+      "eval_batch_size": 16,
+      "learning_rate": 2e-05,
+      "weight_decay": 0.01,
+      "warmup_ratio": 0.1,
+      "max_grad_norm": 1.0,
+      "device": "cuda",
+      "amp": true,
+      "gradient_checkpointing": true,
+      "threshold": 0.5,
+      "cpu_threads": 4
+    },
+    "data_revision": "add492243ff905527e67aeb8b80c082af02207c3",
+    "source_sha256": {
+      "src/models/distilbert_study.py": "8b38e44642be9816a4c22eb7d6e4a594dd59a6bb0f7b73d7ff31ca9c323a76a0",
+      "src/datasets/goemotions.py": "a3a23a23aea92c942b116b17207be00226dabd1c973938b2679ca6b21738d386",
+      "src/evaluation/metrics.py": "375a732636988e2769d6b8de60f640c1d15a68ea1d0922a867e5aa078ed1bc25",
+      "scripts/distilbert/train_distilbert.py": "32a35ba78c1c20a4e52191d3cf950aad7dfcf04d27965e6036fa53e1bc824e0e"
+    },
+    "config_sha256": "0e3a15dbd64368fb47a1650477e3c7bac4642167ece958c5c72d4eddfa5fd9ec",
+    "checkpoint_selection": "max validation Macro-F1 at 0.5; earliest epoch on tie",
+    "representative_selection": "max validation Macro-F1 at 0.5; smaller seed on tie",
+    "threshold_grid": [
+      0.05,
+      0.1,
+      0.15,
+      0.2,
+      0.25,
+      0.3,
+      0.35,
+      0.4,
+      0.45,
+      0.5,
+      0.55,
+      0.6,
+      0.65,
+      0.7,
+      0.75,
+      0.8,
+      0.85,
+      0.9,
+      0.95
+    ],
+    "threshold_tie_rule": "closest to 0.5, then larger threshold",
+    "test_used_for_selection": false
+  }
+}

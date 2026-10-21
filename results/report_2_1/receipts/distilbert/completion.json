@@ -1,0 +1,46 @@
+{
+  "completed_at_utc": "2026-10-21T15:44:37.577550+00:00",
+  "training_repeated_from_pretrained": true,
+  "seeds": [
+    42,
+    123,
+    2026
+  ],
+  "n_train": 43410,
+  "n_validation": 5426,
+  "n_test": 5427,
+  "representative_seed": 123,
+  "rare_labels_train_defined": [
+    "grief",
+    "pride",
+    "relief",
+    "nervousness",
+    "embarrassment"
+  ],
+  "test_used_for_selection": false,
+  "environment": {
+    "python": "3.13.9",
+    "packages": {
+      "torch": "2.13.0+cu130",
+      "transformers": "4.57.6",
+      "tokenizers": "0.22.2",
+      "huggingface-hub": "0.36.2",
+      "numpy": "2.3.5",
+      "pandas": "2.3.3",
+      "pyarrow": "21.0.0",
+      "scikit-learn": "1.7.2"
+    },
+    "device": "cuda",
+    "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+    "cuda_build": "13.0"
+  },
+  "training_plan_sha256": "09f29242ef50add1d4f032b1dda12fd4b97015bfedd4defc0c466ff2f1f4021f",
+  "runner_sha256": "418960ed9ccfab41dbfa62e9a8cef2da13ba720f810a11272c035ea8618ab4bf",
+  "outputs_sha256": {
+    "c3_runs.csv": "0c9e619a01e2aa40c0e957ceb7d1a4db2e5412b5e512141087e3231c9e722af4",
+    "c3_mean_std.csv": "bd1fd1c056a04a2b65a1259800bbadaf319cb523709db900e77920f951ed1dff",
+    "per_label.csv": "e286cf7ab959dfba10a9db84da2c46242ab26f7fed5a62a428fb02efbec48193",
+    "history.csv": "ac23eb07c3d6c41185d005555650b9b5f6687dcff37d940c7f62e04b260422c4",
+    "selection.json": "6c8901c5a15593e997283d33dc017751cc9693c74a661da5a08ee0c9b4531613"
+  }
+}

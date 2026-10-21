@@ -1,258 +1,165 @@
-"""Notebook C3 full, chỉ đọc dữ liệu/outputs thật; không tự train lại khi Run All."""
-from pathlib import Path
+"""Tạo notebook C3 của báo cáo 2.1; Run All kiểm bundle RTX 5060 đã chạy."""
+from src.paths import ROOT
 import nbformat as nbf
 
-from src.paths import ROOT
-cells=[]
-def md(text): cells.append(nbf.v4.new_markdown_cell(text))
-def code(text): cells.append(nbf.v4.new_code_cell(text))
 
-md('''# Nhật Huy — C3 DistilBERT: full ba seed và demo
-
-Notebook hướng dẫn theo từng bước từ dữ liệu đến kết quả, ngưỡng và phân tích lỗi.
-**Mọi bảng thực nghiệm được đọc/tính lại từ các run thật trên official train/validation.**
-Không có dữ liệu tổng hợp hoặc số liệu tự điền. Không đánh giá test, không chọn người thắng C1/C2/C3.
-
-Pilot 1.024/256 mẫu trước đây chỉ là kiểm kỹ thuật. Notebook này dùng **43.410 train / 5.426 validation**,
-ba seed **42, 123, 2026** và cấu hình đã ghi trước khi huấn luyện trong `full/protocol.json`.
-Mặc định Run All kiểm lại các kết quả đã có; không tự chạy thêm ba lượt train dài.
-''')
-md('## 1. Mở đúng môi trường và thư mục repo')
-code('''from pathlib import Path
+def main():
+    cells = []
+    cells.append(nbf.v4.new_markdown_cell(r"""# C3 DistilBERT — thiết kế của Nhật Huy, chạy trên RTX 5060
+Ba lượt full seed 42, 123, 2026 đã được train từ pretrained ngày 21/10/2026 trên máy
+RTX 5060 của Duy. Đây là bộ C3 dùng trong báo cáo 2.1, thay bộ C3 lịch sử trong bảng chính.
+Không gộp thêm kết quả RTX 3050 thành sáu seed. Run All kiểm artifact và suy luận lại
+validation/test từ checkpoint đã có; code và lệnh train được trình bày riêng."""))
+    cells.append(nbf.v4.new_code_cell(r"""from pathlib import Path
 import sys
-ROOT=Path.cwd().resolve()
-if not (ROOT/'src').exists(): ROOT=ROOT.parent
-assert (ROOT/'src/models/distilbert_study.py').exists()
-sys.path.insert(0,str(ROOT))
-from src.models.distilbert_study import read_json, prepare_frames, EmotionDataset, make_loader, load_bundle
-from src.datasets.goemotions import multi_hot, sha256
-from src.evaluation.metrics import evaluate_multilabel
-from src.models.baseline import load_aligned_scores
-from src.evaluation.distilbert_thresholds import predict_c3, load_c3_thresholds
 import numpy as np
 import pandas as pd
 import torch
 from IPython.display import display
+ROOT = next(p for p in [Path.cwd(), *Path.cwd().parents] if (p/'src/current_report.py').is_file())
+if str(ROOT) not in sys.path: sys.path.insert(0, str(ROOT))
+from src.current_report import current_c3_root, verify_current_report, checked_c3, replay_current_c3
+from src.notebook_support import artifacts_root
+from src.datasets.goemotions import multi_hot, sha256, REVISION
+from src.evaluation.protocols import read_json
+from src.evaluation.metrics import evaluate_multilabel
+from src.models.transformer import METRIC_NAMES
+from scripts.analysis.summarize_project import summarize
+C3_RUN, ARTIFACTS = current_c3_root(), artifacts_root()
+verified, frames, names = verify_current_report(str(ARTIFACTS), str(C3_RUN))
+snapshot = verified['report_snapshot']
+completion = read_json(C3_RUN/'completion.json')
 torch.set_num_threads(4)
-REPORT=ROOT/'reports/c3_distilbert/full'
-protocol=read_json(REPORT/'protocol.json')
-print('Python:',sys.version.split()[0], '| torch:',torch.__version__)
-print('CUDA:',torch.cuda.is_available())
-display(pd.DataFrame(read_json(ROOT/'reports/c3_distilbert/environment.json')['packages'].items(),columns=['Thư viện','Phiên bản']))''')
-md('''## 2. Đọc cấu hình đã khóa trước khi chạy
-
-Giữ nguyên cấu hình giữa các seed: DistilBERT-base-uncased, max length 128, lr 2e-5,
-3 epoch, batch 16. Model và dataset có revision ghim. Khác pilot: batch vật lý 16,
-không cần tích lũy; kiểm bộ nhớ trước full được ghi ở `full_preflight.json`.
-Checkpoint chọn bằng Macro-F1 validation @0,5; khi hòa giữ epoch sớm hơn.
-''')
-code('''config=protocol['config']
-assert sha256(ROOT/'configs/distilbert_full.json')==protocol['config_sha256']
-display(pd.DataFrame(config.items(),columns=['Tham số','Giá trị']).astype(str))
-print('Seeds:',protocol['seeds'])
-print('Chọn checkpoint:',protocol['checkpoint_selection'])
-print('Không dùng test:',not protocol['test_used'])''')
-md('''## 3. Đọc dữ liệu thật và kiểm ID/mapping
-
-`prepare_frames` chỉ đọc train/validation và kiểm hash nguồn. Giữ nguyên văn bản và official split.
-Không oversampling, không thêm câu nhân tạo. Phần EDA toàn bộ dữ liệu nằm trong notebook EDA riêng.
-''')
-code('''frames,names,manifest=prepare_frames(config)
-display(pd.DataFrame([{'split':s,'số mẫu':len(df),'ID duy nhất':df.id.nunique()} for s,df in frames.items()]))
-assert len(frames['train'])==43410 and len(frames['validation'])==5426
-assert not (set(frames['train'].id)&set(frames['validation'].id))
-example=frames['train'].head(5).copy()
-example['label_names']=example.labels.apply(lambda labels:[names[i] for i in labels])
-display(example[['id','text','labels','label_names']])''')
-md('''## 4. Chuyển nhãn sang multi-hot float32
-
-Mỗi mẫu có 28 vị trí; một hoặc nhiều vị trí bằng 1. Target được đưa trực tiếp vào
-BCEWithLogitsLoss, không biến thành một class index.
-''')
-code('''targets={s:multi_hot(df.labels.tolist(),len(names)).astype(np.float32) for s,df in frames.items()}
-print({s:(y.shape,str(y.dtype)) for s,y in targets.items()})
-display(pd.DataFrame({'label_id':range(28),'label':names,'train_support':targets['train'].sum(0).astype(int),
-                      'validation_support':targets['validation'].sum(0).astype(int)}))
-print('Multi-hot mẫu đầu:',targets['train'][0].tolist())''')
-md('''## 5. Tokenize và xem batch thật
-
-Đọc tokenizer của checkpoint C3 đại diện (seed có Macro-F1 validation @0,5 cao nhất trong C3).
-Đây chưa phải kiến trúc thắng của nhóm. Padding theo batch và truncation ở 128 token.
-''')
-code('''selected=read_json(REPORT/'representative_c3.json')
-RUN=ROOT/selected['run']
-from transformers import AutoTokenizer
-tokenizer=AutoTokenizer.from_pretrained(RUN/'best',local_files_only=True)
-dataset=EmotionDataset(frames['train'].head(16),tokenizer,config['max_length'])
-batch=next(iter(make_loader(dataset,tokenizer,config['batch_size'])))
-display(pd.DataFrame([{'tensor':k,'shape':str(tuple(v.shape)),'dtype':str(v.dtype)} for k,v in batch.items()]))
-print(tokenizer.convert_ids_to_tokens(batch['input_ids'][0].tolist()))
-assert batch['labels'].dtype==torch.float32 and batch['labels'].shape[1]==28''')
-md('''## 6. Kiểm loss bằng checkpoint và nhãn thật
-
-Luồng: tokenizer → encoder → đầu phân loại 28 logits → BCEWithLogitsLoss khi học.
-Sigmoid chỉ chuyển logits thành scores khi suy luận. Cell sau chỉ forward để kiểm loss,
-không cập nhật trọng số, không tạo dữ liệu giả.
-''')
-code('''bundle=load_bundle(RUN,'cpu')
-with torch.inference_mode():
-    result=bundle['model'](**batch)
-    expected=torch.nn.functional.binary_cross_entropy_with_logits(result.logits,batch['labels'])
-torch.testing.assert_close(result.loss,expected)
-print('Shape logits:',tuple(result.logits.shape))
-print('Loss trên batch train thật để kiểm công thức:',float(result.loss))
-print('PASS: loss của model đúng BCEWithLogitsLoss')''')
-md('''## 7. Cách chạy ba seed
-
-Runner đọc cấu hình, kiểm dữ liệu → seed → tokenizer/model → AdamW → train/validation từng epoch
-→ giữ best epoch → scores/metrics → nạp lại checkpoint để kiểm tính nhất quán.
-AMP và gradient checkpointing được bật; CPU threads=4. AdamW không decay bias/LayerNorm,
-warmup 10%, linear decay, clip gradient 1,0. Xem toàn bộ vòng lặp tại `scripts/distilbert/train_distilbert.py`.
-
-Lệnh đã dùng: `python -m scripts.distilbert.run_c3_full`. Nó chạy tuần tự để các seed không tranh GPU;
-run hoàn thành và đúng hash được kiểm rồi bỏ qua, không ghi đè. Chạy lại một thí nghiệm riêng
-cần `--output` mới với `scripts.distilbert.train_distilbert`; không ghép lẫn với ba seed đã khóa.
-''')
-code('''import subprocess
-print('Lệnh từ interpreter hiện tại:')
-print(subprocess.list2cmdline([sys.executable,'-u','-m','scripts.distilbert.run_c3_full']))
-print('Cell này không khởi động train.')
-for seed in protocol['seeds']:
-    log=REPORT/f'train_seed_{seed}.log'
-    print(seed,':', '\\n'.join(log.read_text(encoding='utf-8').splitlines()[-3:]))''')
-md('## 8. Xem lịch sử học và tài nguyên của cả ba seed')
-code('''history=pd.read_csv(REPORT/'history_all_seeds.csv')
+print('Python:', sys.version.split()[0], '| torch:', torch.__version__)
+print('Thiết bị replay:', torch.cuda.get_device_name(0) if torch.cuda.is_available() else 'CPU')
+print('Revision dữ liệu:', REVISION)"""))
+    cells.append(nbf.v4.new_markdown_cell(r"""## 1. Thiết lập đã khóa trước khi train
+Official split: 43.410 train / 5.426 validation / 5.427 test; 28 nhãn.
+Checkpoint chọn theo Macro-F1 validation @0,5; ngưỡng riêng cũng chỉ chọn trên validation.
+Muốn train bộ mới, dùng `python -m scripts.distilbert.reproduce_c3 --output reports/c3_new_run`.
+Đường dẫn mới giúp giữ nguyên checkpoint và kết quả của báo cáo đã nộp."""))
+    cells.append(nbf.v4.new_code_cell(r"""plan = read_json(C3_RUN/'training_plan.json')['plan']
+assert plan['config'] == read_json(ROOT/'configs/distilbert_full.json')
+assert plan['seeds'] == [42,123,2026] and not plan['test_used_for_selection']
+display(pd.Series(plan['config']))
+display(pd.DataFrame([dict(split=s, rows=len(df), unique_ids=df.id.nunique()) for s,df in frames.items()]))
+display(pd.Series(completion['environment']))"""))
+    cells.append(nbf.v4.new_markdown_cell(r"""## 2. Kiểm checkpoint, hash và protocol của đủ ba seed"""))
+    cells.append(nbf.v4.new_code_cell(r"""receipts, runs = [], {}
+for seed in (42,123,2026):
+    meta, protocol = checked_c3(C3_RUN, seed)
+    runs[seed] = meta
+    assert meta['n_train'] == 43410 and meta['n_validation'] == 5426 and not meta['test_used']
+    receipts.append(dict(seed=seed, best_epoch=meta['best_epoch'], gpu=meta['environment']['gpu'],
+        n_train=meta['n_train'], n_validation=meta['n_validation'],
+        model_sha256=meta['artifact_sha256']['best/model.safetensors'],
+        checkpoint_selection='validation Macro-F1 @0.5'))
+display(pd.DataFrame(receipts))
+print('PASS: cả ba bundle mới có thật, đủ hash; không thay bằng checkpoint RTX 3050.')"""))
+    cells.append(nbf.v4.new_markdown_cell(r"""## 3. Loss và Macro-F1 validation qua ba epoch đã chạy"""))
+    cells.append(nbf.v4.new_code_cell(r"""import matplotlib.pyplot as plt
+history = pd.read_csv(C3_RUN/'history.csv')
 display(history)
-display(pd.read_csv(REPORT/'resources_all_seeds.csv'))
-from IPython.display import Image
-display(Image(filename=str(REPORT/'learning_curves.png')))
-for seed in protocol['seeds']:
-    meta=read_json(ROOT/f'data/processed/c3_distilbert/full/seed_{seed}/run.json')
-    expected_epoch=int(history[history.seed==seed].sort_values(['validation_macro_f1','epoch'],ascending=[False,True]).iloc[0].epoch)
-    assert meta['best_epoch']==expected_epoch
-    assert meta['n_train']==43410 and meta['n_validation']==5426 and not meta['test_used']
-print('PASS: best epoch đúng quy tắc, đủ dữ liệu, không dùng test.')''')
-md('''## 9. Ghép scores theo ID và tính lại metrics
+fig, axes = plt.subplots(1,2,figsize=(10,3.5))
+for seed, group in history.groupby('seed'):
+    axes[0].plot(group.epoch, group.train_loss, marker='o', label=f'seed {seed}')
+    axes[1].plot(group.epoch, group.validation_macro_f1, marker='o', label=f'seed {seed}')
+axes[0].set_title('Train loss — RTX 5060'); axes[1].set_title('Validation Macro-F1 @0.5')
+for ax in axes: ax.set_xlabel('Epoch đã chạy'); ax.legend()
+plt.tight_layout(); plt.show(); plt.close()
+print('Ba seed chọn epoch 3; chưa có đối chứng cho kết luận đã hội tụ hoặc tối ưu siêu tham số.')"""))
+    cells.append(nbf.v4.new_markdown_cell(r"""## 4. Vòng lặp train và số cập nhật thực tế
+Cell hiển thị implementation đã tạo bộ C3 này. FP16 có thể bỏ một bước khi gradient
+không hữu hạn; vì vậy số bước optimizer thực tế được đối chiếu riêng với số dự kiến."""))
+    cells.append(nbf.v4.new_code_cell(r"""import inspect
+from IPython.display import Code
+from scripts.distilbert import train_distilbert
+display(Code(inspect.getsource(train_distilbert.main), language='python'))
+steps = []
+for seed, meta in runs.items():
+    assert meta['optimizer_steps'] + len(meta['skipped_amp_steps']) == meta['planned_optimizer_steps']
+    steps.append(dict(seed=seed, optimizer_updates=meta['optimizer_steps'],
+        planned_updates=meta['planned_optimizer_steps'], skipped_amp_updates=len(meta['skipped_amp_steps']),
+        training_seconds=meta['fit_and_validation_seconds']))
+display(pd.DataFrame(steps))"""))
+    cells.append(nbf.v4.new_markdown_cell(r"""## 5. Suy luận mới toàn bộ validation và test
+Nạp lại từng checkpoint đã khóa, chạy model thật rồi đối chiếu scores/metric với
+artifact báo cáo. Không tìm lại ngưỡng; cell dừng nếu scores hoặc metric không khớp."""))
+    cells.append(nbf.v4.new_code_cell(r"""fresh_parts = []
+for seed in (42,123,2026):
+    for split in ('validation','test'):
+        fresh_parts.append(replay_current_c3(C3_RUN, seed, frames, names, split))
+        print('PASS real inference:', seed, split, len(frames[split]))
+fresh = pd.concat(fresh_parts, ignore_index=True)
+assert len(fresh) == 18
+display(fresh)"""))
+    cells.append(nbf.v4.new_markdown_cell(r"""## 6. Mean và sample std của đủ ba seed — đối chiếu báo cáo 2.1"""))
+    cells.append(nbf.v4.new_code_cell(r"""averages = summarize(fresh.to_dict('records'))
+for row in averages:
+    expected = next(r for r in snapshot['mean_std'] if r['system'] == 'C_distilbert'
+                    and r['split'] == row['split'] and r['threshold_mode'] == row['threshold_mode'])
+    for metric in METRIC_NAMES:
+        for suffix in ('_mean','_std'):
+            assert abs(row[metric+suffix] - expected[metric+suffix]) <= 1e-12
+display(pd.DataFrame(averages)[['split','threshold_mode','n_runs','macro_f1_mean','macro_f1_std',
+                              'micro_f1_mean','micro_f1_std','hamming_loss_mean']])
+print('PASS: sáu nhóm mean ± sample std (ddof=1) khớp bộ số báo cáo 2.1.')"""))
+    cells.append(nbf.v4.new_markdown_cell(r"""## 7. Ngưỡng và năm nhãn hiếm
+Nhãn hiếm chọn theo support trên train. Điểm validation sau chọn ngưỡng có thể lạc quan;
+bảng test dưới được tính lại từ scores mới, không dùng test thay ngưỡng."""))
+    cells.append(nbf.v4.new_code_cell(r"""from src.models.baseline import load_aligned_scores
+support = multi_hot(frames['train'].labels.tolist()).sum(axis=0)
+rare_ids = np.argsort(support)[:5].tolist()
+threshold_rows, rare_rows = [], []
+for seed in (42,123,2026):
+    _, protocol = checked_c3(C3_RUN, seed)
+    scores = load_aligned_scores(ROOT/f'reports/notebook_replay/C_distilbert_{seed}_test.npz', frames['test'].id, names)
+    truth = multi_hot(frames['test'].labels.tolist())
+    for choice in protocol['configurations']:
+        metric = evaluate_multilabel(truth, scores, names, choice['thresholds'])
+        rare_rows.extend(dict(seed=seed, mode=choice['threshold_mode'], **metric['per_label'][j]) for j in rare_ids)
+        if choice['threshold_mode'] == 'tuned':
+            threshold_rows.extend(dict(seed=seed,label=label,threshold=value) for label,value in zip(names,choice['thresholds']))
+display(pd.DataFrame(threshold_rows).pivot(index='label',columns='seed',values='threshold').reindex(names))
+display(pd.DataFrame(rare_rows).groupby(['label','mode']).f1.agg(['mean','std']))"""))
+    cells.append(nbf.v4.new_markdown_cell(r"""## 8. Phân tích lỗi và các ví dụ trong báo cáo — kiểm bằng scores vừa suy luận"""))
+    cells.append(nbf.v4.new_code_cell(r"""from scripts.analysis.analyze_project_errors import analyze_arrays
+representative = snapshot['representatives']['distilbert']
+seed = representative['seed']
+scores = load_aligned_scores(ROOT/f'reports/notebook_replay/C_distilbert_{seed}_test.npz', frames['test'].id, names)
+counts, pairs, _, _ = analyze_arrays(frames['test'], names, rare_ids, support,
+    {'distilbert':representative}, {'distilbert':scores}, {'distilbert':0.5})
+for row in counts:
+    expected = next(r for r in snapshot['error_counts'] if r['architecture']=='distilbert' and r['category']==row['category'])
+    assert row == expected
+display(pd.DataFrame(counts))
+examples = []
+for example in (e for e in snapshot['report_examples'] if e['architecture']=='distilbert'):
+    index = int(np.flatnonzero(frames['test'].id.to_numpy()==example['id'])[0])
+    predicted = [names[j] for j in np.flatnonzero(scores[index]>=0.5)]
+    assert predicted == example['predicted_labels'] and frames['test'].text.iloc[index] == example['text']
+    examples.append({k:v for k,v in example.items() if k!='scores'})
+display(pd.DataFrame(examples))
+print('PASS: ba nhóm lỗi và ba ví dụ C3 khớp nội dung báo cáo.')"""))
+    cells.append(nbf.v4.new_markdown_cell(r"""## 9. Thử dự đoán C3 và xác nhận mô hình demo cuối
+Hàm dưới thực sự nạp C3 seed đại diện và trả 28 điểm cho câu nhập.
+Demo Gradio chính của nhóm vẫn dùng BERT seed 123, chọn bằng validation; bảng này
+chỉ minh họa checkpoint C3 vừa được kiểm, không đổi mô hình demo theo điểm test."""))
+    cells.append(nbf.v4.new_code_cell(r"""from src.models.distilbert_study import load_bundle, predict_texts
+device = 'cuda' if torch.cuda.is_available() else 'cpu'
+bundle = load_bundle(C3_RUN/f'seed_{seed}', device)
+predictions = predict_texts(bundle, ['Thank you, I am so happy!', 'Why did this happen?'])
+display(pd.DataFrame([{k:v for k,v in item.items() if k!='scores'} for item in predictions]))
+display(pd.DataFrame([item['scores'] for item in predictions]).T)
+assert all(len(item['scores']) == 28 for item in predictions)
+del bundle
+if device == 'cuda': torch.cuda.empty_cache()
+print('Demo chính:', verified['selection']['architecture'], 'seed', verified['selection']['seed'])
+print('Hoàn tất: 3 checkpoint C3 mới, 6 lượt suy luận full, 18 dòng metric; không train thêm trong Run All.')"""))
+    notebook = nbf.v4.new_notebook(cells=cells)
+    notebook.metadata = {'goemotions': {'scope': 'Report 2.1 C3: three completed full RTX 5060 training runs; fresh validation/test inference, metrics, rare labels, errors and prediction; no retraining inside Run All'}, 'kernelspec': {'display_name': 'Python 3', 'language': 'python', 'name': 'python3'}, 'language_info': {'name': 'python', 'version': '3.13.9'}}
+    nbf.write(notebook, ROOT/'notebooks/05_distilbert_huy.ipynb')
 
-Không giả định file scores có cùng thứ tự dòng với dữ liệu. Ghép bằng ID, kiểm label_names,
-shape N×28 và scores [0,1]. Tính lại đủ metrics bằng hàm chung, so với JSON đã lưu.
-''')
-code('''all_scores={}
-for seed in protocol['seeds']:
-    run=ROOT/f'data/processed/c3_distilbert/full/seed_{seed}'
-    scores=load_aligned_scores(run/'validation_scores.npz',frames['validation'].id,names)
-    recalculated=evaluate_multilabel(targets['validation'],scores,names,.5)
-    assert recalculated==read_json(run/'validation_metrics.json')
-    all_scores[seed]=scores
-print('PASS: ID, mapping và metrics của cả ba seed khớp.')''')
-md('''## 10. Kết quả cơ sở: từng seed và mean ± sample std
 
-Tính Macro-F1 trên đủ 28 nhãn, zero_division=0. Mean/std dùng cả ba seed, `ddof=1`.
-Không lấy seed cao nhất để thay cho kết quả trung bình kiến trúc.
-''')
-code('''from scripts.distilbert.summarize_distilbert import summarize
-runs=[ROOT/f'data/processed/c3_distilbert/full/seed_{seed}' for seed in protocol['seeds']]
-rows,stats=summarize(runs)
-display(rows)
-display(stats)
-assert len(rows)==3
-print('Seed C3 đại diện:',selected['seed'],'; kiến trúc thắng toàn nhóm:',selected['architecture_winner'])''')
-md('## 11. Metrics từng nhãn và nhãn hiếm đã định nghĩa từ train')
-code('''per_label=pd.read_csv(REPORT/'per_label_all_seeds.csv')
-display(per_label[(per_label.seed==selected['seed'])&(per_label['mode']=='fixed_0.5')])
-print('Nhãn hiếm đã định nghĩa trước:',protocol['rare_labels_train_defined'])''')
-md('''## 12. Nâng cao đúng phạm vi: ngưỡng riêng cho từng nhãn
-
-Mỗi seed dùng validation scores của chính checkpoint đó. Lưới 0,05 đến 0,95, bước 0,05;
-hòa F1 thì gần 0,5 nhất, tiếp tục hòa chọn ngưỡng lớn hơn. Không lấy ngưỡng baseline A.
-Giữ nguyên bảng cơ sở @0,5; không train thêm weighting hoặc mô hình khác.
-
-**Tuned-validation được chọn và đo trên cùng validation nên có thể lạc quan.**
-Không diễn giải là cải thiện test hoặc đánh giá độc lập.
-''')
-code('''threshold_table=[]
-for seed,run in zip(protocol['seeds'],runs):
-    meta=read_json(run/'run.json')
-    values=load_c3_thresholds(run,meta,'per_label')
-    for name,value in zip(names,values): threshold_table.append({'seed':seed,'label':name,'threshold':value})
-display(pd.DataFrame(threshold_table).pivot(index='label',columns='seed',values='threshold').reindex(names))
-display(pd.read_csv(REPORT/'threshold_comparison_runs.csv'))
-display(pd.read_csv(REPORT/'threshold_comparison_mean_std.csv'))''')
-md('''## 13. Nhãn hiếm trước/sau tuning
-
-Giữ cả nhãn không tăng hoặc giảm; phân biệt support validation với train support.
-Không dùng số liệu pilot để kết luận hiệu quả nhãn hiếm.
-''')
-code('''display(pd.read_csv(REPORT/'rare_labels_mean_std.csv'))
-display(Image(filename=str(REPORT/'rare_labels_f1.png')))
-display(pd.read_csv(REPORT/'rare_labels_before_after.csv')[['seed','mode','label','train_support','support','precision','recall','f1']])''')
-md('''## 14. Phân tích lỗi C3 trên mẫu thật
-
-Ba nhóm kiểm tra: FN và FP trong cùng câu; bỏ sót một phần nhãn thật của câu đa nhãn;
-lỗi nhãn hiếm/neutral. Nhóm có thể giao nhau, không cộng số nhóm để ra tổng câu sai.
-FN/FP cùng câu chưa đủ chứng minh hai cảm xúc gần nghĩa; cần đọc nội dung thủ công.
-Ví dụ được lấy theo ID tăng dần trong mỗi nhóm, không chỉ chọn lỗi phù hợp nhận định có sẵn.
-Đối chiếu ba C cần thêm scores C1/C2 của các bạn; ở đây chỉ phân tích C3.
-Đọc bảy mẫu có nhận xét thủ công tại
-[EXPERIMENTS.md](../reports/c3_distilbert/full/EXPERIMENTS.md): ranh giới cảm xúc gần nghĩa,
-bỏ sót một phần nhãn, diễn đạt hàm ý/neutral. Các nhận xét không chứng minh nguyên nhân lỗi.
-''')
-code('''display(pd.read_csv(REPORT/'error_group_counts.csv'))
-examples=read_json(REPORT/'error_examples.json')
-display(pd.DataFrame([{k:v for k,v in e.items() if k!='scores'} for e in examples]).groupby('group',sort=False).head(3))
-display(pd.read_csv(REPORT/f"error_pairs_seed_{selected['seed']}.csv").head(12))
-for e in examples:
-    row=frames['validation'].set_index('id').loc[e['id']]
-    assert row.text==e['text'] and [names[i] for i in row.labels]==e['true_labels']
-print('PASS: ví dụ/ID/nhãn thật đều khớp dataset.')''')
-md('''## 15. Dự đoán và demo bằng ví dụ có thật
-
-Dùng mẫu đầu validation, không chỉnh câu để làm đẹp đầu ra. Cơ sở và tuned giữ nguyên scores,
-chỉ thay ngưỡng. Chỉ nạp ngưỡng khi hash model/scores và seed khớp.
-''')
-code('''text=frames['validation'].text.iloc[0]
-print('ID:',frames['validation'].id.iloc[0], '\\nText:',text)
-fixed=predict_c3(bundle,[text],RUN,'fixed')[0]
-tuned=predict_c3(bundle,[text],RUN,'per_label')[0]
-print('Nhãn thật:',[names[i] for i in frames['validation'].labels.iloc[0]])
-print('Cơ sở:',fixed['labels'],'| Tuned:',tuned['labels'])
-assert fixed['scores']==tuned['scores']
-display(pd.DataFrame(fixed['scores'].items(),columns=['Nhãn','Score']).sort_values('Score',ascending=False))
-print('Kiểm input rỗng:')
-try: predict_c3(bundle,['  '],RUN)
-except ValueError as exc: print(exc)
-empty_indices=np.flatnonzero((all_scores[selected['seed']]>=.5).sum(1)==0)
-print('Số mẫu validation không nhãn nào đạt 0,5:',len(empty_indices))
-if len(empty_indices):
-    i=int(empty_indices[0])
-    actual=predict_c3(bundle,[frames['validation'].text.iloc[i]],RUN)[0]
-    print('Ví dụ thật:',frames['validation'].id.iloc[i],actual['text'],actual['labels'])''')
-md(r'''## 16. Kiểm tra và bàn giao
-
-```powershell
-.\.venv-huy\Scripts\python.exe -m streamlit run app_distilbert_huy.py
-```
-App mặc định dùng seed C3 đại diện, hiển thị đúng trạng thái chưa chọn kiến trúc thắng.
-Chọn cơ sở 0,5 hoặc ngưỡng từng nhãn của đúng run. Các ví dụ lỗi, số liệu và minh chứng kiểm demo
-nằm trong `reports/c3_distilbert/full/`, xem
-`reports/c3_distilbert/full/DEMO_EVIDENCE.md` (tạo cục bộ sau khi thực nghiệm).
-Xem `README.md#distilbert-study` để chạy lại và bàn giao checkpoint.
-
-Huy đã có thể bàn giao C3 train/validation, phần nâng cao ngưỡng, phân tích lỗi riêng,
-phương pháp/kết quả và demo C3. Vẫn cần cả nhóm: kết quả C1/C2, đối chiếu cùng ID, chọn
-C thắng rồi tích hợp demo cuối, và khóa protocol test trước đánh giá cuối.
-
-Nguồn: [DistilBERT paper](https://arxiv.org/abs/1910.01108),
-[model card](https://huggingface.co/distilbert/distilbert-base-uncased).
-''')
-code('''verification=read_json(REPORT/'verification.json')
-assert verification['status']=='passed'
-display(pd.DataFrame(verification['checks'].items(),columns=['Kiểm tra','Kết quả']))
-print('App/CLI tuned:',verification['tuned_app_cli_parity'])
-print('App tập nhãn rỗng:',verification['empty_prediction_ui'])
-print('Notebook hoàn tất: không có cell train lại, không dùng test.')''')
-notebook=nbf.v4.new_notebook(cells=cells,metadata={'kernelspec':{
-    'display_name':'Python (C3 .venv-huy)','language':'python','name':'python3'},'language_info':{'name':'python'}})
-nbf.validate(notebook)
-nbf.write(notebook,ROOT/'notebooks/05_distilbert_huy.ipynb')
-print(f'Created full C3 notebook: {len(cells)} cells')
+if __name__ == "__main__":
+    main()

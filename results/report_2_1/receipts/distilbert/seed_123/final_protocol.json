@@ -1,0 +1,82 @@
+{
+  "seed": 123,
+  "data_revision": "add492243ff905527e67aeb8b80c082af02207c3",
+  "label_names": [
+    "admiration",
+    "amusement",
+    "anger",
+    "annoyance",
+    "approval",
+    "caring",
+    "confusion",
+    "curiosity",
+    "desire",
+    "disappointment",
+    "disapproval",
+    "disgust",
+    "embarrassment",
+    "excitement",
+    "fear",
+    "gratitude",
+    "grief",
+    "joy",
+    "love",
+    "nervousness",
+    "optimism",
+    "pride",
+    "realization",
+    "relief",
+    "remorse",
+    "sadness",
+    "surprise",
+    "neutral"
+  ],
+  "run_metadata_sha256": "8036f48e12a2c29042d0d90c7a19c216b4edfdf68becb01056fb11f5af92fac7",
+  "model_sha256": "7c189295f9e40228914692e9371e776466dcddf2dfe2950b29c43a65fe496876",
+  "validation_scores_sha256": "14ae047d0b3a97ce790612e3de6b6708220e72bf8bbe426a40d64b64bb0bf0f9",
+  "configurations": [
+    {
+      "threshold_mode": "fixed",
+      "thresholds": 0.5
+    },
+    {
+      "threshold_mode": "global",
+      "thresholds": 0.15
+    },
+    {
+      "threshold_mode": "tuned",
+      "thresholds": [
+        0.3,
+        0.4,
+        0.25,
+        0.2,
+        0.2,
+        0.2,
+        0.25,
+        0.15,
+        0.25,
+        0.15,
+        0.25,
+        0.2,
+        0.35,
+        0.15,
+        0.15,
+        0.4,
+        0.5,
+        0.4,
+        0.25,
+        0.15,
+        0.25,
+        0.05,
+        0.2,
+        0.5,
+        0.25,
+        0.35,
+        0.2,
+        0.2
+      ]
+    }
+  ],
+  "test_used_for_selection": false,
+  "frozen_at_utc": "2026-10-21T15:43:57.240875+00:00"
+}

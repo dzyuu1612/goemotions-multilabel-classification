@@ -11,7 +11,7 @@
 **Xem kết quả ngay trên GitHub:** mở [bộ notebook đã chạy có output](notebooks/executed/).
 Source để chỉnh sửa nằm trực tiếp trong `notebooks/`; bản đã chạy nằm trong
 `notebooks/executed/`, có manifest kiểm hash và xác nhận mọi code cell đã thực thi.
-Các bản này ghi rõ phạm vi: suy luận mới A/C, scores lịch sử B, hồ sơ C3 riêng của Huy.
+Các bản này dùng đúng bộ số báo cáo 2.1: suy luận mới A/C trên RTX 5060; B tính lại từ scores đã lưu. C3 dùng ba lượt train mới ngày 21/10/2026.
 
 ## Kết luận kiểm tra fine-tune và số báo cáo
 
@@ -29,16 +29,51 @@ Số **test**, ba C là mean ± sample std của ba seed; ngưỡng riêng đã 
 | B BART-MNLI, tuned | 0.1609 | 0.1752 |
 | C1 BERT, tuned | 0.5038 ± 0.0097 | 0.5900 ± 0.0029 |
 | C2 RoBERTa, tuned | 0.4872 ± 0.0156 | 0.6048 ± 0.0057 |
-| C3 DistilBERT, tuned | 0.4866 ± 0.0093 | 0.5935 ± 0.0047 |
+| C3 DistilBERT, tuned, RTX 5060 | 0.4863 ± 0.0065 | 0.5952 ± 0.0046 |
 
 BERT thắng theo Macro-F1; RoBERTa có Micro-F1 tuned cao hơn.
 Demo vẫn dùng **BERT seed 123**, đã chọn trước bằng **validation Macro-F1 @0.5**,
 không đổi người thắng theo test. B không fine-tune; A chưa tìm C/ngram tốt nhất.
-Chỉnh ngưỡng không đồng nghĩa với fine-tune trọng số. Bảng trên và các notebook
-đã công bố giữ bộ C3 lịch sử của nhóm. Bộ C3 của Huy đã được đánh giá test riêng
-ngày 21/10/2026; xem [kết quả C3 của Huy](#huy-c3-test), không gộp thành sáu seed.
+Chỉnh ngưỡng không đồng nghĩa với fine-tune trọng số. C3 trong bảng trên là **ba lượt huấn luyện mới theo thiết kế của Huy trên RTX 5060 ngày 21/10/2026**; không gộp với ba seed C3 lịch sử. A/B/C1/C2 giữ kết quả đã kiểm lại từ scores.
 
-### Tính lại đúng số đã báo cáo từ artifacts hiện có
+### C3 chạy lại theo thiết kế của Nhật Huy trên môi trường hiện tại
+
+Đã thực sự huấn luyện lại từ pretrained, đủ **43.410 train / 5.426 validation**,
+ba seed 42/123/2026, 3 epoch, batch 16, LR 2e-5, max length 128, AMP FP16 và
+gradient checkpointing. Môi trường: **RTX 5060 Laptop GPU, Python 3.13.9,
+PyTorch 2.13.0+cu130, Transformers 4.57.6**. Chọn checkpoint và ngưỡng bằng
+validation; khóa đủ ba protocol trước khi suy luận **5.427 test**.
+
+| Ngưỡng C3 mới trên test | Macro-F1 | Micro-F1 |
+|---|---:|---:|
+| Fixed 0.5 | 0.4134 ± 0.0021 | 0.5742 ± 0.0005 |
+| Từng nhãn chọn trên validation | 0.4863 ± 0.0065 | 0.5952 ± 0.0046 |
+
+Từ thư mục code, dùng môi trường hiện có:
+
+```powershell
+$py = "../goemotions-multilabel-classification/.venv-models/Scripts/python.exe"
+& $py -m scripts.distilbert.reproduce_c3 --output reports/c3_current_environment_2026-10-21
+& $py -m scripts.distilbert.export_c3_report_data --run-root reports/c3_current_environment_2026-10-21 --historical-root ../goemotions-multilabel-classification
+& $py -m scripts.distilbert.plot_c3_report --data reports/c3_current_environment_2026-10-21/report_data
+```
+
+Muốn huấn luyện một bộ mới, dùng đường dẫn output mới. Output đã hoàn tất chỉ được
+tái sử dụng sau khi kiểm config, nguồn, dataset, checkpoint và hash. Runner từ chối
+ghi đè lượt dở; không tự tiếp tục optimizer từ giữa epoch. Mỗi seed có `run.json`,
+`history.json`, `best/`, scores, ngưỡng, `final_protocol.json` và `test_results.json`.
+`report_data/` có **72 bản ghi / 36 nhóm**, nhãn hiếm, các cặp lỗi và ba ví dụ cùng ID.
+`historical_verification/` giữ bằng chứng kiểm A/B/C1/C2; không gọi đây là train mới.
+
+Kiểm trực tiếp bản Word mới:
+
+```powershell
+& $py -m scripts.verification.verify_current_c3_report --run-root reports/c3_current_environment_2026-10-21 --report "đường-dẫn-bản-Word-đã-cập-nhật.docx"
+```
+
+Notebook 04 và 05 đã chuyển sang đúng ba checkpoint C3 RTX 5060 của bản Word 2.1. Notebook 05 suy luận lại toàn bộ validation/test, kiểm 18 dòng metric, nhãn hiếm, nhóm lỗi và các ví dụ. Bundle RTX 3050 là hồ sơ riêng; không dùng thay cho kết quả chính.
+
+### Tính lại bộ benchmark lịch sử từ artifacts hiện có
 
 Trong workspace này, code chính nằm ở `goemotions-source-only`; dataset/checkpoint/
 scores lịch sử nằm ở thư mục cạnh nó `goemotions-multilabel-classification`.
@@ -60,7 +95,7 @@ Muốn **suy luận test thật lại** từ hai model A và cả 9 checkpoint C
 & $py -m scripts.verification.reproduce_report --artifacts-root ../goemotions-multilabel-classification --inference-baseline --inference-c --device cuda
 ```
 
-Có thể thêm `--report <đường-dẫn-báo-cáo-cuối-kỳ.docx>` để đối chiếu trực tiếp
+Với bản Word dùng đúng bộ C3 lịch sử, có thể thêm `--report <đường-dẫn-báo-cáo-cuối-kỳ.docx>` để đối chiếu trực tiếp
 111 ô metric trong 9 bảng kết quả Word. Output luôn tách khỏi artifacts gốc.
 Lượt kiểm 20/10/2026 đã chạy cả hai A và chín C: scores/metric trùng bản cũ,
 sai lệch lớn nhất bằng **0** trên cùng máy. B được tính lại từ scores NLI đã lưu;
@@ -222,8 +257,8 @@ Smoke dùng 5.000 train/1.000 val, lưu riêng, không thay model full hoặc be
 | [01 · EDA](notebooks/01_eda.ipynb) | [Mở kết quả 01](notebooks/executed/01_eda.executed.ipynb) | Tính mới thống kê/biểu đồ trên official snapshot |
 | [02 · Baseline](notebooks/02_baseline.ipynb) | [Mở kết quả 02](notebooks/executed/02_baseline.executed.ipynb) | Đọc model đã fit, suy luận test mới cả hai A, kiểm sáu cấu hình |
 | [03 · Zero-shot](notebooks/03_zero_shot.ipynb) | [Mở kết quả 03](notebooks/executed/03_zero_shot.executed.ipynb) | Tính lại sáu dòng validation/test từ scores NLI đã lưu; không chạy mới BART |
-| [04 · Transformers](notebooks/04_transformers.ipynb) | [Mở kết quả 04](notebooks/executed/04_transformers.executed.ipynb) | Log train cũ; BCE forward thật; suy luận test mới đủ chín checkpoint C |
-| [05 · DistilBERT Huy](notebooks/05_distilbert_huy.ipynb) | [Mở kết quả 05](notebooks/executed/05_distilbert_huy.executed.ipynb) | Kiểm hồ sơ riêng, tính lại metric từ TP/FP/FN/TN; thiếu bundle nên không suy luận C3 riêng |
+| [04 · Transformers](notebooks/04_transformers.ipynb) | [Mở kết quả 04](notebooks/executed/04_transformers.executed.ipynb) | Lịch sử C1/C2 và C3 RTX 5060 mới; BCE forward; suy luận test đủ chín checkpoint khớp báo cáo 2.1 |
+| [05 · DistilBERT Huy](notebooks/05_distilbert_huy.ipynb) | [Mở kết quả 05](notebooks/executed/05_distilbert_huy.executed.ipynb) | Ba lượt full C3 RTX 5060; suy luận mới validation/test, kiểm metric, ngưỡng, nhãn hiếm, lỗi và dự đoán |
 | [06 · EDA bổ sung](notebooks/06_eda_extra.ipynb) | [Mở kết quả 06](notebooks/executed/06_eda_extra.executed.ipynb) | EDA độc lập; tokenizer ghim revision; đồng xuất hiện dùng int64 tránh tràn uint8 |
 
 Mở Jupyter từ gốc repo: `python -m jupyterlab`, chọn kernel của `.venv`.
@@ -246,7 +281,7 @@ thư mục có `data/` và `reports/` của các run đã báo cáo. Nếu mở 
 có thể đặt biến môi trường `GOEMOTIONS_ARTIFACTS_ROOT`; notebook tự tìm thư mục
 code bằng các thư mục cha, kể cả khi mở bản trong `notebooks/executed/`.
 
-Lượt công bố 21/10/2026 giữ nguồn huấn luyện lịch sử riêng với suy luận mới.
+Lượt cập nhật 22/10/2026 dùng bộ checkpoint RTX 5060 đã đối chiếu với báo cáo 2.1. C1/C2 được train ngày 08/10; C3 được train lại ngày 21/10. Manifest ghi thời điểm thực thi cell riêng với thời điểm train.
 **Run All không huấn luyện lại các mô hình benchmark từ pretrained.** Code train
 và log từng epoch được trình bày; các cell đánh giá A/C gọi model thật trên 5.427
 mẫu test và kiểm với bộ số báo cáo. Không tìm ngưỡng hoặc chọn lại model bằng test.
@@ -256,6 +291,8 @@ có output bằng SHA-256 chuẩn hóa LF, số code cell và thời gian chạy
 mọi source có bản chạy, cell thực thi tuần tự, không có error output và không lệch
 source. Clone mới xem được output ngay; muốn Run All lại cần dataset/artifacts,
 weights lớn không được nhúng vào Git.
+
+Notebook 04/05 cần thêm bundle C3 mới tại `reports/c3_current_environment_2026-10-21/`. Nếu bundle ở chỗ khác, đặt `GOEMOTIONS_C3_RUN_ROOT` tới thư mục có `completion.json` và ba thư mục seed. Thiếu bộ này sẽ dừng, không lấy C3 lịch sử thế vào. [Bảng số liệu và hình của báo cáo 2.1](results/report_2_1/) được công bố kèm manifest; trọng số lớn được giữ trong bộ bàn giao cục bộ.
 
 <a id="data"></a>
 ## 5. Dữ liệu và đánh giá chung
@@ -363,6 +400,11 @@ Trong workspace có sẵn artifacts bên cạnh, dùng biến `$py` ở phần t
 Kiểm hàm dự đoán và luồng nhập sau khi đổi cấu trúc:
 `& $py -m scripts.transformers.verify_demo --artifacts-root ../goemotions-multilabel-classification --device cuda`.
 
+Lượt kiểm ngày 22/10/2026 đã nạp BERT seed 123, đối chiếu ba câu validation và
+kiểm đầu vào rỗng, vượt giới hạn ký tự, cắt token. Cả sáu phép kiểm suy luận/đầu
+vào đều đạt. [Biên nhận demo](results/report_2_1/demo_verification.json) ghi thiết bị,
+sai lệch scores và phạm vi kiểm; ảnh giao diện phía trên là minh chứng trước đó.
+
 Mở `http://127.0.0.1:7860/`. App cần checkpoint thật; clone source không có trọng số.
 Ngưỡng mặc định 0,5; ngưỡng riêng cần `--thresholds` đúng protocol run đã chọn.
 
@@ -384,7 +426,7 @@ Sau khi đủ run riêng, `python -m scripts.distilbert.analyze_c3_full` và
 `app_distilbert_huy.py` là Streamlit riêng, cần bundle C3; `app.py` là demo benchmark chính.
 
 <a id="huy-c3-test"></a>
-#### Kết quả test C3 của Huy ngày 21/10/2026
+#### Hồ sơ C3 RTX 3050 của Huy — bộ đối chiếu riêng
 
 Ba checkpoint full seed 42, 123, 2026 của Huy đã được đánh giá trên 5.427 mẫu
 test bằng RTX 3050 Laptop, không huấn luyện lại. Checkpoint và ngưỡng được
@@ -395,8 +437,7 @@ chọn trên validation và khóa trước khi chạy test. Mean ± sample std (
 | Cố định 0,5 | 0.4157 ± 0.0045 | 0.5756 ± 0.0025 |
 | Riêng từng nhãn từ validation | 0.4913 ± 0.0091 | 0.5952 ± 0.0037 |
 
-Các số này dùng trong bản báo cáo cập nhật C3 của Huy, thay bộ C3 lịch sử
-trong bản đó. A/B/C1/C2 giữ nguyên; BERT seed 123 vẫn được chọn cho demo
+Các số này thuộc bản báo cáo riêng của Huy trên RTX 3050; báo cáo nhóm 2.1 dùng bộ C3 RTX 5060 ở đầu README. A/B/C1/C2 giữ nguyên; BERT seed 123 vẫn được chọn cho demo
 bằng validation. Test đã được nhóm quan sát trước trong EDA/báo cáo.
 
 Tái kiểm kết quả và xuất bảng/hình từ checkpoint, scores đã lưu tại máy:
@@ -438,6 +479,7 @@ commit `3c44309` (cần lịch sử Git này); không gộp thành sáu seed C3.
 │   └── pipeline/         # Ghép quy trình
 ├── notebooks/            # Source sạch 00–06; executed/ giữ bản đã chạy và manifest
 ├── examples/             # Ví dụ CPU không cần Internet
+├── results/report_2_1/   # Bảng/hình và biên nhận bộ số báo cáo 2.1
 ├── tests/                # Kiểm metric và protocol
 ├── configs/              # Cấu hình C3 riêng
 ├── data/                 # Git chỉ giữ mapping/revision
@@ -510,6 +552,6 @@ Quốc Khánh — BERT C1; Đức Trí — RoBERTa C2/zero-shot theo phân công
 Nhật Huy — DistilBERT C3, nghiên cứu riêng và demo.
 Tỷ lệ đóng góp do nhóm xác nhận, không suy từ tác giả commit.
 
-**Tác giả Git bản cập nhật:** `nguyndy` · `baoduynguyen1612@gmail.com`.
+**Tác giả Git bản cập nhật:** Nguyễn Bảo Duy · `dzyuu1612` · `baoduynguyen1612@gmail.com`.
 Nhóm chưa công bố giấy phép riêng cho source; dữ liệu/checkpoint/thư viện theo nguồn tương ứng.
 Score chưa mặc nhiên là xác suất nghiệp vụ; áp dụng ngoài Reddit tiếng Anh cần kiểm chứng riêng.

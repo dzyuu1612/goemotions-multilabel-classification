@@ -8,7 +8,7 @@ version = "0.1.0"
 description = "Readable multi-label GoEmotions baselines and Transformer experiments"
 readme = "README.md"
 requires-python = ">=3.12,<3.14"
-authors = [{name = "nguyndy", email = "baoduynguyen1612@gmail.com"}]
+authors = [{name = "Nguyễn Bảo Duy", email = "baoduynguyen1612@gmail.com"}]
 dependencies = ["numpy==2.3.5", "pandas==2.3.3", "pyarrow==21.0.0", "scipy==1.16.3", "scikit-learn==1.7.2", "joblib==1.5.2"]
 
 [project.optional-dependencies]
