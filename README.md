@@ -34,8 +34,9 @@ Số **test**, ba C là mean ± sample std của ba seed; ngưỡng riêng đã 
 BERT thắng theo Macro-F1; RoBERTa có Micro-F1 tuned cao hơn.
 Demo vẫn dùng **BERT seed 123**, đã chọn trước bằng **validation Macro-F1 @0.5**,
 không đổi người thắng theo test. B không fine-tune; A chưa tìm C/ngram tốt nhất.
-Chỉnh ngưỡng không đồng nghĩa với fine-tune trọng số. Nghiên cứu C3 riêng của Huy
-chỉ dùng validation, không gộp thành thêm seed hoặc số test của bảng chung.
+Chỉnh ngưỡng không đồng nghĩa với fine-tune trọng số. Bảng trên và các notebook
+đã công bố giữ bộ C3 lịch sử của nhóm. Bộ C3 của Huy đã được đánh giá test riêng
+ngày 21/10/2026; xem [kết quả C3 của Huy](#huy-c3-test), không gộp thành sáu seed.
 
 ### Tính lại đúng số đã báo cáo từ artifacts hiện có
 
@@ -381,6 +382,37 @@ python -m scripts.distilbert.predict_distilbert --help
 Sau khi đủ run riêng, `python -m scripts.distilbert.analyze_c3_full` và
 `python -m scripts.distilbert.plot_c3_results` xuất CSV/JSON/hình.
 `app_distilbert_huy.py` là Streamlit riêng, cần bundle C3; `app.py` là demo benchmark chính.
+
+<a id="huy-c3-test"></a>
+#### Kết quả test C3 của Huy ngày 21/10/2026
+
+Ba checkpoint full seed 42, 123, 2026 của Huy đã được đánh giá trên 5.427 mẫu
+test bằng RTX 3050 Laptop, không huấn luyện lại. Checkpoint và ngưỡng được
+chọn trên validation và khóa trước khi chạy test. Mean ± sample std (`ddof=1`):
+
+| Ngưỡng | Macro-F1 test | Micro-F1 test |
+|---|---:|---:|
+| Cố định 0,5 | 0.4157 ± 0.0045 | 0.5756 ± 0.0025 |
+| Riêng từng nhãn từ validation | 0.4913 ± 0.0091 | 0.5952 ± 0.0037 |
+
+Các số này dùng trong bản báo cáo cập nhật C3 của Huy, thay bộ C3 lịch sử
+trong bản đó. A/B/C1/C2 giữ nguyên; BERT seed 123 vẫn được chọn cho demo
+bằng validation. Test đã được nhóm quan sát trước trong EDA/báo cáo.
+
+Tái kiểm kết quả và xuất bảng/hình từ checkpoint, scores đã lưu tại máy:
+
+```bash
+python -m scripts.distilbert.evaluate_c3_test --device cuda
+python -m scripts.distilbert.export_c3_final_report
+```
+
+Lệnh đầu kiểm hash, khóa checkpoint/ngưỡng từ validation cho cả ba seed trước
+khi đọc test, rồi lưu kết quả riêng tại
+`data/processed/c3_distilbert/test_evaluation_20261021/`. Chạy lại kiểm kết quả
+đã lưu; không huấn luyện lại và không sửa `run.json` lịch sử.
+Lệnh thứ hai tạo `reports/c3_huy_final_20261021/`, thay toàn bộ C3 bằng kết quả
+của Huy trong bảng/hình đối chiếu. A/B/C1/C2 được lấy từ các CSV đã lưu tại
+commit `3c44309` (cần lịch sử Git này); không gộp thành sáu seed C3.
 
 <a id="code-map"></a>
 ## 9. Source gọn, mỗi phần một nhiệm vụ
