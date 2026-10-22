@@ -1,0 +1,56 @@
+[
+  {
+    "model": "A_standard",
+    "id": "E01",
+    "label": "approval",
+    "intercept": -2.9829968615234863,
+    "contribution_sum": 1.10819933123769,
+    "logit": -1.8747975302857962,
+    "score": 0.13298758360307494,
+    "terms": [
+      {
+        "feature": "good",
+        "contribution": 0.6670412014389658
+      },
+      {
+        "feature": "value",
+        "contribution": 0.5604832749502987
+      },
+      {
+        "feature": "excellent",
+        "contribution": -0.1739625688774391
+      },
+      {
+        "feature": "case",
+        "contribution": 0.05463742372586458
+      }
+    ]
+  },
+  {
+    "model": "A_balanced",
+    "id": "E01",
+    "label": "approval",
+    "intercept": -1.3243902889762302,
+    "contribution_sum": 1.7787335913163178,
+    "logit": 0.4543433023400876,
+    "score": 0.6116713953791141,
+    "terms": [
+      {
+        "feature": "value",
+        "contribution": 0.9770715833033432
+      },
+      {
+        "feature": "good",
+        "contribution": 0.971393143201701
+      },
+      {
+        "feature": "excellent",
+        "contribution": -0.30717819432985755
+      },
+      {
+        "feature": "case",
+        "contribution": 0.13744705914113112
+      }
+    ]
+  }
+]

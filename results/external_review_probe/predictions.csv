@@ -1,0 +1,721 @@
+﻿id,kind,model,seed,mode,reference_labels,predicted_labels,fn,fp,exact_match,ambiguous
+E01,external_review,A_standard,,fixed,approval,admiration,approval,admiration,False,False
+E02,external_review,A_standard,,fixed,disappointment,,disappointment,,False,True
+E03,external_review,A_standard,,fixed,admiration,,admiration,,False,False
+E04,external_review,A_standard,,fixed,love,love,,,True,False
+E05,external_review,A_standard,,fixed,disapproval,,disapproval,,False,False
+E06,external_review,A_standard,,fixed,anger; disapproval,,anger; disapproval,,False,True
+E07,external_review,A_standard,,fixed,disappointment; disapproval,,disappointment; disapproval,,False,False
+E08,external_review,A_standard,,fixed,love,,love,,False,False
+E09,external_review,A_standard,,fixed,amusement; approval,,amusement; approval,,False,True
+E10,external_review,A_standard,,fixed,admiration,,admiration,,False,False
+E11,external_review,A_standard,,fixed,approval,,approval,,False,True
+E12,external_review,A_standard,,fixed,disapproval,,disapproval,,False,False
+E13,external_review,A_standard,,fixed,love,love; surprise,,surprise,False,False
+E14,external_review,A_standard,,fixed,disapproval,disapproval,,,True,False
+E15,external_review,A_standard,,fixed,anger; desire,,anger; desire,,False,False
+E16,external_review,A_standard,,fixed,disgust,,disgust,,False,False
+E17,external_review,A_standard,,fixed,surprise; annoyance,,annoyance; surprise,,False,True
+E18,external_review,A_standard,,fixed,joy,neutral,joy,neutral,False,False
+E19,external_review,A_standard,,fixed,annoyance; disapproval,,annoyance; disapproval,,False,True
+E20,external_review,A_standard,,fixed,disgust; fear,,disgust; fear,,False,False
+P1a,controlled_probe,A_standard,,fixed,joy,,joy,,False,False
+P1b,controlled_probe,A_standard,,fixed,disappointment,,disappointment,,False,False
+P2a,controlled_probe,A_standard,,fixed,gratitude; joy,gratitude,joy,,False,False
+P2b,controlled_probe,A_standard,,fixed,joy,joy,,,True,False
+P3a,controlled_probe,A_standard,,fixed,joy,joy,,,True,False
+P3b,controlled_probe,A_standard,,fixed,joy,joy,,,True,False
+P4a,controlled_probe,A_standard,,fixed,neutral,,neutral,,False,True
+P4b,controlled_probe,A_standard,,fixed,nervousness,,nervousness,,False,True
+P5a,controlled_probe,A_standard,,fixed,approval,,approval,,False,True
+P5b,controlled_probe,A_standard,,fixed,annoyance; disappointment,,annoyance; disappointment,,False,True
+E01,external_review,A_standard,,tuned,approval,admiration,approval,admiration,False,False
+E02,external_review,A_standard,,tuned,disappointment,neutral,disappointment,neutral,False,True
+E03,external_review,A_standard,,tuned,admiration,admiration; neutral,,neutral,False,False
+E04,external_review,A_standard,,tuned,love,love,,,True,False
+E05,external_review,A_standard,,tuned,disapproval,disapproval,,,True,False
+E06,external_review,A_standard,,tuned,anger; disapproval,anger,disapproval,,False,True
+E07,external_review,A_standard,,tuned,disappointment; disapproval,annoyance; disappointment,disapproval,annoyance,False,False
+E08,external_review,A_standard,,tuned,love,love; neutral,,neutral,False,False
+E09,external_review,A_standard,,tuned,amusement; approval,admiration; amusement,approval,admiration,False,True
+E10,external_review,A_standard,,tuned,admiration,approval; neutral,admiration,approval; neutral,False,False
+E11,external_review,A_standard,,tuned,approval,neutral,approval,neutral,False,True
+E12,external_review,A_standard,,tuned,disapproval,annoyance; neutral,disapproval,annoyance; neutral,False,False
+E13,external_review,A_standard,,tuned,love,admiration; excitement; love; surprise,,admiration; excitement; surprise,False,False
+E14,external_review,A_standard,,tuned,disapproval,disapproval,,,True,False
+E15,external_review,A_standard,,tuned,anger; desire,anger; annoyance,desire,annoyance,False,False
+E16,external_review,A_standard,,tuned,disgust,admiration; disappointment,disgust,admiration; disappointment,False,False
+E17,external_review,A_standard,,tuned,surprise; annoyance,surprise; neutral,annoyance,neutral,False,True
+E18,external_review,A_standard,,tuned,joy,neutral,joy,neutral,False,False
+E19,external_review,A_standard,,tuned,annoyance; disapproval,annoyance; disappointment; sadness,disapproval,disappointment; sadness,False,True
+E20,external_review,A_standard,,tuned,disgust; fear,disappointment,disgust; fear,disappointment,False,False
+P1a,controlled_probe,A_standard,,tuned,joy,joy,,,True,False
+P1b,controlled_probe,A_standard,,tuned,disappointment,joy,disappointment,joy,False,False
+P2a,controlled_probe,A_standard,,tuned,gratitude; joy,gratitude; joy,,,True,False
+P2b,controlled_probe,A_standard,,tuned,joy,excitement; joy,,excitement,False,False
+P3a,controlled_probe,A_standard,,tuned,joy,joy,,,True,False
+P3b,controlled_probe,A_standard,,tuned,joy,joy,,,True,False
+P4a,controlled_probe,A_standard,,tuned,neutral,neutral,,,True,True
+P4b,controlled_probe,A_standard,,tuned,nervousness,fear,nervousness,fear,False,True
+P5a,controlled_probe,A_standard,,tuned,approval,admiration,approval,admiration,False,True
+P5b,controlled_probe,A_standard,,tuned,annoyance; disappointment,admiration,annoyance; disappointment,admiration,False,True
+E01,external_review,A_balanced,,fixed,approval,admiration; approval,,admiration,False,False
+E02,external_review,A_balanced,,fixed,disappointment,neutral,disappointment,neutral,False,True
+E03,external_review,A_balanced,,fixed,admiration,admiration; neutral,,neutral,False,False
+E04,external_review,A_balanced,,fixed,love,love,,,True,False
+E05,external_review,A_balanced,,fixed,disapproval,disapproval,,,True,False
+E06,external_review,A_balanced,,fixed,anger; disapproval,anger; disgust,disapproval,disgust,False,True
+E07,external_review,A_balanced,,fixed,disappointment; disapproval,annoyance; disappointment,disapproval,annoyance,False,False
+E08,external_review,A_balanced,,fixed,love,love,,,True,False
+E09,external_review,A_balanced,,fixed,amusement; approval,admiration; amusement,approval,admiration,False,True
+E10,external_review,A_balanced,,fixed,admiration,admiration; approval; neutral,,approval; neutral,False,False
+E11,external_review,A_balanced,,fixed,approval,,approval,,False,True
+E12,external_review,A_balanced,,fixed,disapproval,annoyance; disgust; neutral,disapproval,annoyance; disgust; neutral,False,False
+E13,external_review,A_balanced,,fixed,love,admiration; excitement; love; surprise,,admiration; excitement; surprise,False,False
+E14,external_review,A_balanced,,fixed,disapproval,disapproval,,,True,False
+E15,external_review,A_balanced,,fixed,anger; desire,anger; annoyance; desire,,annoyance,False,False
+E16,external_review,A_balanced,,fixed,disgust,admiration; approval; disappointment; disgust,,admiration; approval; disappointment,False,False
+E17,external_review,A_balanced,,fixed,surprise; annoyance,surprise; neutral,annoyance,neutral,False,True
+E18,external_review,A_balanced,,fixed,joy,neutral,joy,neutral,False,False
+E19,external_review,A_balanced,,fixed,annoyance; disapproval,annoyance; disappointment; realization; sadness,disapproval,disappointment; realization; sadness,False,True
+E20,external_review,A_balanced,,fixed,disgust; fear,disappointment; sadness,disgust; fear,disappointment; sadness,False,False
+P1a,controlled_probe,A_balanced,,fixed,joy,excitement; joy,,excitement,False,False
+P1b,controlled_probe,A_balanced,,fixed,disappointment,joy,disappointment,joy,False,False
+P2a,controlled_probe,A_balanced,,fixed,gratitude; joy,gratitude; joy,,,True,False
+P2b,controlled_probe,A_balanced,,fixed,joy,excitement; joy,,excitement,False,False
+P3a,controlled_probe,A_balanced,,fixed,joy,excitement; joy,,excitement,False,False
+P3b,controlled_probe,A_balanced,,fixed,joy,excitement; joy,,excitement,False,False
+P4a,controlled_probe,A_balanced,,fixed,neutral,neutral,,,True,True
+P4b,controlled_probe,A_balanced,,fixed,nervousness,caring; fear; nervousness,,caring; fear,False,True
+P5a,controlled_probe,A_balanced,,fixed,approval,admiration,approval,admiration,False,True
+P5b,controlled_probe,A_balanced,,fixed,annoyance; disappointment,admiration,annoyance; disappointment,admiration,False,True
+E01,external_review,A_balanced,,tuned,approval,admiration; approval,,admiration,False,False
+E02,external_review,A_balanced,,tuned,disappointment,neutral,disappointment,neutral,False,True
+E03,external_review,A_balanced,,tuned,admiration,admiration; neutral,,neutral,False,False
+E04,external_review,A_balanced,,tuned,love,love,,,True,False
+E05,external_review,A_balanced,,tuned,disapproval,disapproval,,,True,False
+E06,external_review,A_balanced,,tuned,anger; disapproval,anger,disapproval,,False,True
+E07,external_review,A_balanced,,tuned,disappointment; disapproval,annoyance; disappointment,disapproval,annoyance,False,False
+E08,external_review,A_balanced,,tuned,love,love,,,True,False
+E09,external_review,A_balanced,,tuned,amusement; approval,admiration; amusement,approval,admiration,False,True
+E10,external_review,A_balanced,,tuned,admiration,approval; neutral,admiration,approval; neutral,False,False
+E11,external_review,A_balanced,,tuned,approval,neutral,approval,neutral,False,True
+E12,external_review,A_balanced,,tuned,disapproval,annoyance; neutral,disapproval,annoyance; neutral,False,False
+E13,external_review,A_balanced,,tuned,love,admiration; excitement; love; surprise,,admiration; excitement; surprise,False,False
+E14,external_review,A_balanced,,tuned,disapproval,disapproval,,,True,False
+E15,external_review,A_balanced,,tuned,anger; desire,anger; annoyance,desire,annoyance,False,False
+E16,external_review,A_balanced,,tuned,disgust,admiration; approval,disgust,admiration; approval,False,False
+E17,external_review,A_balanced,,tuned,surprise; annoyance,surprise; neutral,annoyance,neutral,False,True
+E18,external_review,A_balanced,,tuned,joy,neutral,joy,neutral,False,False
+E19,external_review,A_balanced,,tuned,annoyance; disapproval,annoyance; disappointment,disapproval,disappointment,False,True
+E20,external_review,A_balanced,,tuned,disgust; fear,disappointment,disgust; fear,disappointment,False,False
+P1a,controlled_probe,A_balanced,,tuned,joy,joy,,,True,False
+P1b,controlled_probe,A_balanced,,tuned,disappointment,joy,disappointment,joy,False,False
+P2a,controlled_probe,A_balanced,,tuned,gratitude; joy,gratitude; joy,,,True,False
+P2b,controlled_probe,A_balanced,,tuned,joy,excitement; joy,,excitement,False,False
+P3a,controlled_probe,A_balanced,,tuned,joy,joy,,,True,False
+P3b,controlled_probe,A_balanced,,tuned,joy,joy,,,True,False
+P4a,controlled_probe,A_balanced,,tuned,neutral,neutral,,,True,True
+P4b,controlled_probe,A_balanced,,tuned,nervousness,fear; nervousness,,fear,False,True
+P5a,controlled_probe,A_balanced,,tuned,approval,admiration,approval,admiration,False,True
+P5b,controlled_probe,A_balanced,,tuned,annoyance; disappointment,admiration,annoyance; disappointment,admiration,False,True
+E01,external_review,B,,fixed,approval,admiration; amusement; approval; caring; curiosity; desire; excitement; gratitude; joy; love; optimism; pride; realization; relief,,admiration; amusement; caring; curiosity; desire; excitement; gratitude; joy; love; optimism; pride; realization; relief,False,False
+E02,external_review,B,,fixed,disappointment,anger; annoyance; confusion; desire; disappointment; disapproval; disgust; embarrassment; fear; grief; nervousness; realization; remorse; sadness; surprise,,anger; annoyance; confusion; desire; disapproval; disgust; embarrassment; fear; grief; nervousness; realization; remorse; sadness; surprise,False,True
+E03,external_review,B,,fixed,admiration,admiration; amusement; approval; caring; curiosity; desire; excitement; gratitude; joy; love; optimism; pride; realization; relief; surprise,,amusement; approval; caring; curiosity; desire; excitement; gratitude; joy; love; optimism; pride; realization; relief; surprise,False,False
+E04,external_review,B,,fixed,love,admiration; amusement; approval; caring; curiosity; desire; excitement; gratitude; joy; love; optimism; pride; realization; relief; surprise,,admiration; amusement; approval; caring; curiosity; desire; excitement; gratitude; joy; optimism; pride; realization; relief; surprise,False,False
+E05,external_review,B,,fixed,disapproval,anger; annoyance; confusion; disappointment; disapproval; disgust; embarrassment; fear; grief; nervousness; remorse; sadness; surprise; neutral,,anger; annoyance; confusion; disappointment; disgust; embarrassment; fear; grief; nervousness; remorse; sadness; surprise; neutral,False,False
+E06,external_review,B,,fixed,anger; disapproval,anger; annoyance; confusion; curiosity; disappointment; disapproval; disgust; embarrassment; fear; grief; nervousness; realization; remorse; sadness; surprise; neutral,,annoyance; confusion; curiosity; disappointment; disgust; embarrassment; fear; grief; nervousness; realization; remorse; sadness; surprise; neutral,False,True
+E07,external_review,B,,fixed,disappointment; disapproval,amusement; anger; annoyance; confusion; curiosity; desire; disappointment; disapproval; disgust; embarrassment; fear; grief; nervousness; remorse; sadness; surprise,,amusement; anger; annoyance; confusion; curiosity; desire; disgust; embarrassment; fear; grief; nervousness; remorse; sadness; surprise,False,False
+E08,external_review,B,,fixed,love,admiration; amusement; approval; caring; confusion; curiosity; desire; excitement; gratitude; joy; love; optimism; pride; realization; relief; surprise,,admiration; amusement; approval; caring; confusion; curiosity; desire; excitement; gratitude; joy; optimism; pride; realization; relief; surprise,False,False
+E09,external_review,B,,fixed,amusement; approval,admiration; amusement; approval; caring; confusion; curiosity; desire; excitement; gratitude; joy; love; optimism; pride; realization; relief; surprise,,admiration; caring; confusion; curiosity; desire; excitement; gratitude; joy; love; optimism; pride; realization; relief; surprise,False,True
+E10,external_review,B,,fixed,admiration,admiration; approval; caring; curiosity; desire; excitement; gratitude; joy; love; optimism; pride; realization,,approval; caring; curiosity; desire; excitement; gratitude; joy; love; optimism; pride; realization,False,False
+E11,external_review,B,,fixed,approval,anger; annoyance; confusion; desire; disappointment; disapproval; disgust; embarrassment; fear; grief; nervousness; realization; remorse; sadness; surprise; neutral,approval,anger; annoyance; confusion; desire; disappointment; disapproval; disgust; embarrassment; fear; grief; nervousness; realization; remorse; sadness; surprise; neutral,False,True
+E12,external_review,B,,fixed,disapproval,anger; annoyance; confusion; disappointment; disapproval; disgust; embarrassment; remorse; sadness; surprise,,anger; annoyance; confusion; disappointment; disgust; embarrassment; remorse; sadness; surprise,False,False
+E13,external_review,B,,fixed,love,admiration; amusement; approval; caring; curiosity; desire; excitement; gratitude; joy; love; optimism; pride; realization; relief; surprise,,admiration; amusement; approval; caring; curiosity; desire; excitement; gratitude; joy; optimism; pride; realization; relief; surprise,False,False
+E14,external_review,B,,fixed,disapproval,anger; annoyance; confusion; disappointment; disapproval; disgust; embarrassment; fear; grief; nervousness; realization; remorse; sadness; surprise,,anger; annoyance; confusion; disappointment; disgust; embarrassment; fear; grief; nervousness; realization; remorse; sadness; surprise,False,False
+E15,external_review,B,,fixed,anger; desire,anger; annoyance; confusion; desire; disappointment; disapproval; disgust,,annoyance; confusion; disappointment; disapproval; disgust,False,False
+E16,external_review,B,,fixed,disgust,anger; annoyance; confusion; disappointment; disapproval; disgust; embarrassment; fear; grief; nervousness; realization; sadness; surprise,,anger; annoyance; confusion; disappointment; disapproval; embarrassment; fear; grief; nervousness; realization; sadness; surprise,False,False
+E17,external_review,B,,fixed,surprise; annoyance,anger; annoyance; confusion; curiosity; disappointment; disapproval; embarrassment; fear; surprise,,anger; confusion; curiosity; disappointment; disapproval; embarrassment; fear,False,True
+E18,external_review,B,,fixed,joy,admiration; amusement; approval; caring; confusion; curiosity; desire; excitement; gratitude; joy; love; optimism; pride; realization; relief; surprise,,admiration; amusement; approval; caring; confusion; curiosity; desire; excitement; gratitude; love; optimism; pride; realization; relief; surprise,False,False
+E19,external_review,B,,fixed,annoyance; disapproval,anger; annoyance; confusion; curiosity; disappointment; disapproval; disgust; embarrassment; fear; grief; nervousness; realization; remorse; sadness; surprise,,anger; confusion; curiosity; disappointment; disgust; embarrassment; fear; grief; nervousness; realization; remorse; sadness; surprise,False,True
+E20,external_review,B,,fixed,disgust; fear,amusement; anger; annoyance; confusion; curiosity; desire; disappointment; disapproval; disgust; embarrassment; fear; grief; nervousness; remorse; sadness; surprise; neutral,,amusement; anger; annoyance; confusion; curiosity; desire; disappointment; disapproval; embarrassment; grief; nervousness; remorse; sadness; surprise; neutral,False,False
+P1a,controlled_probe,B,,fixed,joy,admiration; amusement; approval; caring; desire; excitement; gratitude; joy; love; optimism; pride; realization; relief,,admiration; amusement; approval; caring; desire; excitement; gratitude; love; optimism; pride; realization; relief,False,False
+P1b,controlled_probe,B,,fixed,disappointment,anger; annoyance; confusion; disappointment; disapproval; disgust; embarrassment; fear; grief; nervousness; realization; remorse; sadness; surprise,,anger; annoyance; confusion; disapproval; disgust; embarrassment; fear; grief; nervousness; realization; remorse; sadness; surprise,False,False
+P2a,controlled_probe,B,,fixed,gratitude; joy,admiration; approval; caring; desire; excitement; gratitude; joy; love; optimism; pride; realization; relief,,admiration; approval; caring; desire; excitement; love; optimism; pride; realization; relief,False,False
+P2b,controlled_probe,B,,fixed,joy,admiration; amusement; approval; caring; desire; excitement; gratitude; joy; love; optimism; pride; realization; relief; neutral,,admiration; amusement; approval; caring; desire; excitement; gratitude; love; optimism; pride; realization; relief; neutral,False,False
+P3a,controlled_probe,B,,fixed,joy,admiration; amusement; approval; caring; desire; excitement; gratitude; joy; love; optimism; pride; realization; relief; surprise,,admiration; amusement; approval; caring; desire; excitement; gratitude; love; optimism; pride; realization; relief; surprise,False,False
+P3b,controlled_probe,B,,fixed,joy,admiration; amusement; approval; caring; desire; excitement; gratitude; joy; love; optimism; pride; realization; relief; surprise,,admiration; amusement; approval; caring; desire; excitement; gratitude; love; optimism; pride; realization; relief; surprise,False,False
+P4a,controlled_probe,B,,fixed,neutral,admiration; amusement; anger; annoyance; approval; caring; confusion; curiosity; desire; disappointment; disapproval; disgust; excitement; fear; grief; nervousness; optimism; pride; realization; remorse; sadness; surprise; neutral,,admiration; amusement; anger; annoyance; approval; caring; confusion; curiosity; desire; disappointment; disapproval; disgust; excitement; fear; grief; nervousness; optimism; pride; realization; remorse; sadness; surprise,False,True
+P4b,controlled_probe,B,,fixed,nervousness,anger; annoyance; caring; confusion; disappointment; disapproval; disgust; embarrassment; fear; grief; nervousness; realization; remorse; sadness; surprise,,anger; annoyance; caring; confusion; disappointment; disapproval; disgust; embarrassment; fear; grief; realization; remorse; sadness; surprise,False,True
+P5a,controlled_probe,B,,fixed,approval,admiration; amusement; approval; caring; curiosity; desire; excitement; gratitude; joy; love; optimism; pride; realization; relief; surprise; neutral,,admiration; amusement; caring; curiosity; desire; excitement; gratitude; joy; love; optimism; pride; realization; relief; surprise; neutral,False,True
+P5b,controlled_probe,B,,fixed,annoyance; disappointment,admiration; amusement; anger; annoyance; approval; confusion; curiosity; disappointment; disapproval; disgust; embarrassment; excitement; fear; grief; joy; nervousness; realization; relief; sadness; surprise; neutral,,admiration; amusement; anger; approval; confusion; curiosity; disapproval; disgust; embarrassment; excitement; fear; grief; joy; nervousness; realization; relief; sadness; surprise; neutral,False,True
+E01,external_review,B,,tuned,approval,admiration; approval; caring; desire; excitement; gratitude; joy; optimism; pride; realization; relief,,admiration; caring; desire; excitement; gratitude; joy; optimism; pride; realization; relief,False,False
+E02,external_review,B,,tuned,disappointment,anger; annoyance; confusion; disappointment; disapproval; disgust; embarrassment; grief; sadness; surprise; neutral,,anger; annoyance; confusion; disapproval; disgust; embarrassment; grief; sadness; surprise; neutral,False,True
+E03,external_review,B,,tuned,admiration,admiration; amusement; approval; caring; curiosity; desire; excitement; gratitude; joy; optimism; pride; realization; surprise; neutral,,amusement; approval; caring; curiosity; desire; excitement; gratitude; joy; optimism; pride; realization; surprise; neutral,False,False
+E04,external_review,B,,tuned,love,admiration; approval; excitement; joy; realization; neutral,love,admiration; approval; excitement; joy; realization; neutral,False,False
+E05,external_review,B,,tuned,disapproval,annoyance; confusion; disappointment; disapproval; sadness; surprise; neutral,,annoyance; confusion; disappointment; sadness; surprise; neutral,False,False
+E06,external_review,B,,tuned,anger; disapproval,anger; annoyance; confusion; disappointment; disapproval; disgust; embarrassment; realization; sadness; neutral,,annoyance; confusion; disappointment; disgust; embarrassment; realization; sadness; neutral,False,True
+E07,external_review,B,,tuned,disappointment; disapproval,annoyance; confusion; disappointment; disapproval; disgust; embarrassment; sadness; surprise,,annoyance; confusion; disgust; embarrassment; sadness; surprise,False,False
+E08,external_review,B,,tuned,love,admiration; amusement; approval; caring; curiosity; desire; excitement; gratitude; joy; love; pride; realization; neutral,,admiration; amusement; approval; caring; curiosity; desire; excitement; gratitude; joy; pride; realization; neutral,False,False
+E09,external_review,B,,tuned,amusement; approval,admiration; amusement; approval; excitement; gratitude; joy; pride; realization,,admiration; excitement; gratitude; joy; pride; realization,False,True
+E10,external_review,B,,tuned,admiration,admiration; approval; pride; realization,,approval; pride; realization,False,False
+E11,external_review,B,,tuned,approval,anger; annoyance; confusion; disappointment; disapproval; disgust; embarrassment; fear; realization; sadness; surprise; neutral,approval,anger; annoyance; confusion; disappointment; disapproval; disgust; embarrassment; fear; realization; sadness; surprise; neutral,False,True
+E12,external_review,B,,tuned,disapproval,annoyance; disappointment; disapproval; disgust; embarrassment,,annoyance; disappointment; disgust; embarrassment,False,False
+E13,external_review,B,,tuned,love,admiration; amusement; approval; caring; curiosity; desire; excitement; gratitude; joy; love; optimism; pride; realization; surprise; neutral,,admiration; amusement; approval; caring; curiosity; desire; excitement; gratitude; joy; optimism; pride; realization; surprise; neutral,False,False
+E14,external_review,B,,tuned,disapproval,anger; annoyance; confusion; disappointment; disapproval; disgust; embarrassment; fear; grief; nervousness; realization; remorse; sadness; surprise; neutral,,anger; annoyance; confusion; disappointment; disgust; embarrassment; fear; grief; nervousness; realization; remorse; sadness; surprise; neutral,False,False
+E15,external_review,B,,tuned,anger; desire,anger; annoyance; desire; disappointment; disapproval; disgust,,annoyance; disappointment; disapproval; disgust,False,False
+E16,external_review,B,,tuned,disgust,anger; annoyance; disappointment; disapproval; disgust; embarrassment; fear; realization; sadness,,anger; annoyance; disappointment; disapproval; embarrassment; fear; realization; sadness,False,False
+E17,external_review,B,,tuned,surprise; annoyance,confusion; curiosity; disappointment; surprise; neutral,annoyance,confusion; curiosity; disappointment; neutral,False,True
+E18,external_review,B,,tuned,joy,admiration; approval; caring; curiosity; desire; excitement; gratitude; joy; love; optimism; pride; relief; surprise; neutral,,admiration; approval; caring; curiosity; desire; excitement; gratitude; love; optimism; pride; relief; surprise; neutral,False,False
+E19,external_review,B,,tuned,annoyance; disapproval,anger; annoyance; confusion; disappointment; disapproval; disgust; embarrassment; grief; nervousness; remorse; sadness; surprise; neutral,,anger; confusion; disappointment; disgust; embarrassment; grief; nervousness; remorse; sadness; surprise; neutral,False,True
+E20,external_review,B,,tuned,disgust; fear,annoyance; confusion; curiosity; disappointment; disapproval; disgust; embarrassment; fear; nervousness; surprise; neutral,,annoyance; confusion; curiosity; disappointment; disapproval; embarrassment; nervousness; surprise; neutral,False,False
+P1a,controlled_probe,B,,tuned,joy,admiration; amusement; approval; caring; desire; excitement; gratitude; joy; love; optimism; pride; realization; relief; neutral,,admiration; amusement; approval; caring; desire; excitement; gratitude; love; optimism; pride; realization; relief; neutral,False,False
+P1b,controlled_probe,B,,tuned,disappointment,anger; annoyance; confusion; disappointment; disapproval; disgust; embarrassment; fear; grief; nervousness; realization; remorse; sadness; surprise,,anger; annoyance; confusion; disapproval; disgust; embarrassment; fear; grief; nervousness; realization; remorse; sadness; surprise,False,False
+P2a,controlled_probe,B,,tuned,gratitude; joy,admiration; approval; caring; desire; excitement; gratitude; joy; love; optimism; pride; realization; relief; neutral,,admiration; approval; caring; desire; excitement; love; optimism; pride; realization; relief; neutral,False,False
+P2b,controlled_probe,B,,tuned,joy,admiration; amusement; approval; caring; desire; excitement; gratitude; joy; love; optimism; pride; realization; relief; neutral,,admiration; amusement; approval; caring; desire; excitement; gratitude; love; optimism; pride; realization; relief; neutral,False,False
+P3a,controlled_probe,B,,tuned,joy,admiration; approval; caring; desire; excitement; gratitude; joy; love; optimism; pride; realization; relief,,admiration; approval; caring; desire; excitement; gratitude; love; optimism; pride; realization; relief,False,False
+P3b,controlled_probe,B,,tuned,joy,admiration; amusement; approval; caring; desire; excitement; gratitude; joy; love; optimism; pride; realization; relief; surprise,,admiration; amusement; approval; caring; desire; excitement; gratitude; love; optimism; pride; realization; relief; surprise,False,False
+P4a,controlled_probe,B,,tuned,neutral,confusion; desire; realization; neutral,,confusion; desire; realization,False,True
+P4b,controlled_probe,B,,tuned,nervousness,annoyance; caring; confusion; disappointment; disapproval; fear; grief; nervousness; realization; sadness; neutral,,annoyance; caring; confusion; disappointment; disapproval; fear; grief; realization; sadness; neutral,False,True
+P5a,controlled_probe,B,,tuned,approval,admiration; amusement; approval; caring; excitement; gratitude; joy; optimism; pride; realization; relief; surprise; neutral,,admiration; amusement; caring; excitement; gratitude; joy; optimism; pride; realization; relief; surprise; neutral,False,True
+P5b,controlled_probe,B,,tuned,annoyance; disappointment,amusement; annoyance; confusion; disappointment; surprise; neutral,,amusement; confusion; surprise; neutral,False,True
+E01,external_review,bert,42.0,fixed,approval,admiration,approval,admiration,False,False
+E02,external_review,bert,42.0,fixed,disappointment,,disappointment,,False,True
+E03,external_review,bert,42.0,fixed,admiration,admiration,,,True,False
+E04,external_review,bert,42.0,fixed,love,love,,,True,False
+E05,external_review,bert,42.0,fixed,disapproval,,disapproval,,False,False
+E06,external_review,bert,42.0,fixed,anger; disapproval,anger,disapproval,,False,True
+E07,external_review,bert,42.0,fixed,disappointment; disapproval,disappointment,disapproval,,False,False
+E08,external_review,bert,42.0,fixed,love,love,,,True,False
+E09,external_review,bert,42.0,fixed,amusement; approval,amusement,approval,,False,True
+E10,external_review,bert,42.0,fixed,admiration,admiration,,,True,False
+E11,external_review,bert,42.0,fixed,approval,annoyance,approval,annoyance,False,True
+E12,external_review,bert,42.0,fixed,disapproval,disapproval,,,True,False
+E13,external_review,bert,42.0,fixed,love,love,,,True,False
+E14,external_review,bert,42.0,fixed,disapproval,disapproval,,,True,False
+E15,external_review,bert,42.0,fixed,anger; desire,anger,desire,,False,False
+E16,external_review,bert,42.0,fixed,disgust,disgust,,,True,False
+E17,external_review,bert,42.0,fixed,surprise; annoyance,surprise,annoyance,,False,True
+E18,external_review,bert,42.0,fixed,joy,disappointment; sadness,joy,disappointment; sadness,False,False
+E19,external_review,bert,42.0,fixed,annoyance; disapproval,annoyance; disappointment,disapproval,disappointment,False,True
+E20,external_review,bert,42.0,fixed,disgust; fear,confusion,disgust; fear,confusion,False,False
+P1a,controlled_probe,bert,42.0,fixed,joy,joy,,,True,False
+P1b,controlled_probe,bert,42.0,fixed,disappointment,,disappointment,,False,False
+P2a,controlled_probe,bert,42.0,fixed,gratitude; joy,gratitude; joy,,,True,False
+P2b,controlled_probe,bert,42.0,fixed,joy,joy,,,True,False
+P3a,controlled_probe,bert,42.0,fixed,joy,joy,,,True,False
+P3b,controlled_probe,bert,42.0,fixed,joy,joy,,,True,False
+P4a,controlled_probe,bert,42.0,fixed,neutral,neutral,,,True,True
+P4b,controlled_probe,bert,42.0,fixed,nervousness,nervousness,,,True,True
+P5a,controlled_probe,bert,42.0,fixed,approval,admiration,approval,admiration,False,True
+P5b,controlled_probe,bert,42.0,fixed,annoyance; disappointment,admiration,annoyance; disappointment,admiration,False,True
+E01,external_review,bert,42.0,tuned,approval,admiration,approval,admiration,False,False
+E02,external_review,bert,42.0,tuned,disappointment,disappointment; neutral,,neutral,False,True
+E03,external_review,bert,42.0,tuned,admiration,admiration,,,True,False
+E04,external_review,bert,42.0,tuned,love,love,,,True,False
+E05,external_review,bert,42.0,tuned,disapproval,confusion,disapproval,confusion,False,False
+E06,external_review,bert,42.0,tuned,anger; disapproval,anger,disapproval,,False,True
+E07,external_review,bert,42.0,tuned,disappointment; disapproval,disappointment,disapproval,,False,False
+E08,external_review,bert,42.0,tuned,love,love,,,True,False
+E09,external_review,bert,42.0,tuned,amusement; approval,amusement,approval,,False,True
+E10,external_review,bert,42.0,tuned,admiration,admiration,,,True,False
+E11,external_review,bert,42.0,tuned,approval,annoyance; disappointment; neutral,approval,annoyance; disappointment; neutral,False,True
+E12,external_review,bert,42.0,tuned,disapproval,disapproval,,,True,False
+E13,external_review,bert,42.0,tuned,love,love,,,True,False
+E14,external_review,bert,42.0,tuned,disapproval,disapproval,,,True,False
+E15,external_review,bert,42.0,tuned,anger; desire,anger,desire,,False,False
+E16,external_review,bert,42.0,tuned,disgust,disgust,,,True,False
+E17,external_review,bert,42.0,tuned,surprise; annoyance,surprise,annoyance,,False,True
+E18,external_review,bert,42.0,tuned,joy,disappointment; sadness,joy,disappointment; sadness,False,False
+E19,external_review,bert,42.0,tuned,annoyance; disapproval,annoyance; disappointment,disapproval,disappointment,False,True
+E20,external_review,bert,42.0,tuned,disgust; fear,confusion; fear; neutral,disgust,confusion; neutral,False,False
+P1a,controlled_probe,bert,42.0,tuned,joy,joy,,,True,False
+P1b,controlled_probe,bert,42.0,tuned,disappointment,disappointment,,,True,False
+P2a,controlled_probe,bert,42.0,tuned,gratitude; joy,gratitude; joy,,,True,False
+P2b,controlled_probe,bert,42.0,tuned,joy,joy,,,True,False
+P3a,controlled_probe,bert,42.0,tuned,joy,joy,,,True,False
+P3b,controlled_probe,bert,42.0,tuned,joy,joy,,,True,False
+P4a,controlled_probe,bert,42.0,tuned,neutral,neutral,,,True,True
+P4b,controlled_probe,bert,42.0,tuned,nervousness,fear; nervousness,,fear,False,True
+P5a,controlled_probe,bert,42.0,tuned,approval,admiration,approval,admiration,False,True
+P5b,controlled_probe,bert,42.0,tuned,annoyance; disappointment,admiration; disappointment,annoyance,admiration,False,True
+E01,external_review,bert,123.0,fixed,approval,admiration,approval,admiration,False,False
+E02,external_review,bert,123.0,fixed,disappointment,disappointment,,,True,True
+E03,external_review,bert,123.0,fixed,admiration,admiration,,,True,False
+E04,external_review,bert,123.0,fixed,love,love,,,True,False
+E05,external_review,bert,123.0,fixed,disapproval,disapproval,,,True,False
+E06,external_review,bert,123.0,fixed,anger; disapproval,anger,disapproval,,False,True
+E07,external_review,bert,123.0,fixed,disappointment; disapproval,disappointment,disapproval,,False,False
+E08,external_review,bert,123.0,fixed,love,love,,,True,False
+E09,external_review,bert,123.0,fixed,amusement; approval,amusement,approval,,False,True
+E10,external_review,bert,123.0,fixed,admiration,admiration,,,True,False
+E11,external_review,bert,123.0,fixed,approval,caring,approval,caring,False,True
+E12,external_review,bert,123.0,fixed,disapproval,,disapproval,,False,False
+E13,external_review,bert,123.0,fixed,love,love,,,True,False
+E14,external_review,bert,123.0,fixed,disapproval,disapproval,,,True,False
+E15,external_review,bert,123.0,fixed,anger; desire,anger,desire,,False,False
+E16,external_review,bert,123.0,fixed,disgust,disgust,,,True,False
+E17,external_review,bert,123.0,fixed,surprise; annoyance,surprise,annoyance,,False,True
+E18,external_review,bert,123.0,fixed,joy,sadness,joy,sadness,False,False
+E19,external_review,bert,123.0,fixed,annoyance; disapproval,annoyance,disapproval,,False,True
+E20,external_review,bert,123.0,fixed,disgust; fear,fear,disgust,,False,False
+P1a,controlled_probe,bert,123.0,fixed,joy,joy,,,True,False
+P1b,controlled_probe,bert,123.0,fixed,disappointment,,disappointment,,False,False
+P2a,controlled_probe,bert,123.0,fixed,gratitude; joy,gratitude; joy,,,True,False
+P2b,controlled_probe,bert,123.0,fixed,joy,joy,,,True,False
+P3a,controlled_probe,bert,123.0,fixed,joy,joy,,,True,False
+P3b,controlled_probe,bert,123.0,fixed,joy,joy,,,True,False
+P4a,controlled_probe,bert,123.0,fixed,neutral,neutral,,,True,True
+P4b,controlled_probe,bert,123.0,fixed,nervousness,nervousness,,,True,True
+P5a,controlled_probe,bert,123.0,fixed,approval,admiration,approval,admiration,False,True
+P5b,controlled_probe,bert,123.0,fixed,annoyance; disappointment,,annoyance; disappointment,,False,True
+E01,external_review,bert,123.0,tuned,approval,admiration,approval,admiration,False,False
+E02,external_review,bert,123.0,tuned,disappointment,disappointment,,,True,True
+E03,external_review,bert,123.0,tuned,admiration,admiration,,,True,False
+E04,external_review,bert,123.0,tuned,love,love,,,True,False
+E05,external_review,bert,123.0,tuned,disapproval,disapproval,,,True,False
+E06,external_review,bert,123.0,tuned,anger; disapproval,anger; annoyance,disapproval,annoyance,False,True
+E07,external_review,bert,123.0,tuned,disappointment; disapproval,disappointment,disapproval,,False,False
+E08,external_review,bert,123.0,tuned,love,love,,,True,False
+E09,external_review,bert,123.0,tuned,amusement; approval,admiration; amusement,approval,admiration,False,True
+E10,external_review,bert,123.0,tuned,admiration,admiration,,,True,False
+E11,external_review,bert,123.0,tuned,approval,caring; neutral,approval,caring; neutral,False,True
+E12,external_review,bert,123.0,tuned,disapproval,annoyance; disapproval,,annoyance,False,False
+E13,external_review,bert,123.0,tuned,love,love,,,True,False
+E14,external_review,bert,123.0,tuned,disapproval,disapproval,,,True,False
+E15,external_review,bert,123.0,tuned,anger; desire,anger; annoyance,desire,annoyance,False,False
+E16,external_review,bert,123.0,tuned,disgust,disgust,,,True,False
+E17,external_review,bert,123.0,tuned,surprise; annoyance,surprise,annoyance,,False,True
+E18,external_review,bert,123.0,tuned,joy,disappointment; sadness,joy,disappointment; sadness,False,False
+E19,external_review,bert,123.0,tuned,annoyance; disapproval,annoyance; disappointment,disapproval,disappointment,False,True
+E20,external_review,bert,123.0,tuned,disgust; fear,fear,disgust,,False,False
+P1a,controlled_probe,bert,123.0,tuned,joy,joy,,,True,False
+P1b,controlled_probe,bert,123.0,tuned,disappointment,disappointment; sadness,,sadness,False,False
+P2a,controlled_probe,bert,123.0,tuned,gratitude; joy,gratitude; joy,,,True,False
+P2b,controlled_probe,bert,123.0,tuned,joy,joy,,,True,False
+P3a,controlled_probe,bert,123.0,tuned,joy,joy,,,True,False
+P3b,controlled_probe,bert,123.0,tuned,joy,joy,,,True,False
+P4a,controlled_probe,bert,123.0,tuned,neutral,neutral,,,True,True
+P4b,controlled_probe,bert,123.0,tuned,nervousness,fear; nervousness,,fear,False,True
+P5a,controlled_probe,bert,123.0,tuned,approval,admiration,approval,admiration,False,True
+P5b,controlled_probe,bert,123.0,tuned,annoyance; disappointment,,annoyance; disappointment,,False,True
+E01,external_review,bert,2026.0,fixed,approval,admiration,approval,admiration,False,False
+E02,external_review,bert,2026.0,fixed,disappointment,disappointment,,,True,True
+E03,external_review,bert,2026.0,fixed,admiration,admiration,,,True,False
+E04,external_review,bert,2026.0,fixed,love,love,,,True,False
+E05,external_review,bert,2026.0,fixed,disapproval,disapproval,,,True,False
+E06,external_review,bert,2026.0,fixed,anger; disapproval,anger,disapproval,,False,True
+E07,external_review,bert,2026.0,fixed,disappointment; disapproval,disappointment,disapproval,,False,False
+E08,external_review,bert,2026.0,fixed,love,love,,,True,False
+E09,external_review,bert,2026.0,fixed,amusement; approval,amusement,approval,,False,True
+E10,external_review,bert,2026.0,fixed,admiration,admiration,,,True,False
+E11,external_review,bert,2026.0,fixed,approval,,approval,,False,True
+E12,external_review,bert,2026.0,fixed,disapproval,annoyance,disapproval,annoyance,False,False
+E13,external_review,bert,2026.0,fixed,love,love,,,True,False
+E14,external_review,bert,2026.0,fixed,disapproval,disapproval,,,True,False
+E15,external_review,bert,2026.0,fixed,anger; desire,anger,desire,,False,False
+E16,external_review,bert,2026.0,fixed,disgust,disgust,,,True,False
+E17,external_review,bert,2026.0,fixed,surprise; annoyance,surprise,annoyance,,False,True
+E18,external_review,bert,2026.0,fixed,joy,,joy,,False,False
+E19,external_review,bert,2026.0,fixed,annoyance; disapproval,disappointment,annoyance; disapproval,disappointment,False,True
+E20,external_review,bert,2026.0,fixed,disgust; fear,confusion,disgust; fear,confusion,False,False
+P1a,controlled_probe,bert,2026.0,fixed,joy,joy,,,True,False
+P1b,controlled_probe,bert,2026.0,fixed,disappointment,disappointment,,,True,False
+P2a,controlled_probe,bert,2026.0,fixed,gratitude; joy,gratitude; joy,,,True,False
+P2b,controlled_probe,bert,2026.0,fixed,joy,joy,,,True,False
+P3a,controlled_probe,bert,2026.0,fixed,joy,joy,,,True,False
+P3b,controlled_probe,bert,2026.0,fixed,joy,joy,,,True,False
+P4a,controlled_probe,bert,2026.0,fixed,neutral,neutral,,,True,True
+P4b,controlled_probe,bert,2026.0,fixed,nervousness,nervousness,,,True,True
+P5a,controlled_probe,bert,2026.0,fixed,approval,admiration,approval,admiration,False,True
+P5b,controlled_probe,bert,2026.0,fixed,annoyance; disappointment,admiration,annoyance; disappointment,admiration,False,True
+E01,external_review,bert,2026.0,tuned,approval,admiration,approval,admiration,False,False
+E02,external_review,bert,2026.0,tuned,disappointment,disappointment,,,True,True
+E03,external_review,bert,2026.0,tuned,admiration,admiration,,,True,False
+E04,external_review,bert,2026.0,tuned,love,love,,,True,False
+E05,external_review,bert,2026.0,tuned,disapproval,disapproval,,,True,False
+E06,external_review,bert,2026.0,tuned,anger; disapproval,anger; annoyance,disapproval,annoyance,False,True
+E07,external_review,bert,2026.0,tuned,disappointment; disapproval,disappointment,disapproval,,False,False
+E08,external_review,bert,2026.0,tuned,love,love,,,True,False
+E09,external_review,bert,2026.0,tuned,amusement; approval,amusement,approval,,False,True
+E10,external_review,bert,2026.0,tuned,admiration,admiration,,,True,False
+E11,external_review,bert,2026.0,tuned,approval,annoyance; neutral,approval,annoyance; neutral,False,True
+E12,external_review,bert,2026.0,tuned,disapproval,annoyance; disapproval,,annoyance,False,False
+E13,external_review,bert,2026.0,tuned,love,love,,,True,False
+E14,external_review,bert,2026.0,tuned,disapproval,disapproval,,,True,False
+E15,external_review,bert,2026.0,tuned,anger; desire,anger,desire,,False,False
+E16,external_review,bert,2026.0,tuned,disgust,disgust,,,True,False
+E17,external_review,bert,2026.0,tuned,surprise; annoyance,surprise,annoyance,,False,True
+E18,external_review,bert,2026.0,tuned,joy,joy,,,True,False
+E19,external_review,bert,2026.0,tuned,annoyance; disapproval,annoyance; disappointment,disapproval,disappointment,False,True
+E20,external_review,bert,2026.0,tuned,disgust; fear,confusion; disapproval,disgust; fear,confusion; disapproval,False,False
+P1a,controlled_probe,bert,2026.0,tuned,joy,joy,,,True,False
+P1b,controlled_probe,bert,2026.0,tuned,disappointment,disappointment,,,True,False
+P2a,controlled_probe,bert,2026.0,tuned,gratitude; joy,gratitude; joy,,,True,False
+P2b,controlled_probe,bert,2026.0,tuned,joy,joy,,,True,False
+P3a,controlled_probe,bert,2026.0,tuned,joy,joy,,,True,False
+P3b,controlled_probe,bert,2026.0,tuned,joy,joy,,,True,False
+P4a,controlled_probe,bert,2026.0,tuned,neutral,neutral,,,True,True
+P4b,controlled_probe,bert,2026.0,tuned,nervousness,nervousness,,,True,True
+P5a,controlled_probe,bert,2026.0,tuned,approval,admiration,approval,admiration,False,True
+P5b,controlled_probe,bert,2026.0,tuned,annoyance; disappointment,admiration,annoyance; disappointment,admiration,False,True
+E01,external_review,roberta,42.0,fixed,approval,admiration,approval,admiration,False,False
+E02,external_review,roberta,42.0,fixed,disappointment,,disappointment,,False,True
+E03,external_review,roberta,42.0,fixed,admiration,admiration,,,True,False
+E04,external_review,roberta,42.0,fixed,love,love,,,True,False
+E05,external_review,roberta,42.0,fixed,disapproval,disapproval,,,True,False
+E06,external_review,roberta,42.0,fixed,anger; disapproval,anger,disapproval,,False,True
+E07,external_review,roberta,42.0,fixed,disappointment; disapproval,,disappointment; disapproval,,False,False
+E08,external_review,roberta,42.0,fixed,love,love,,,True,False
+E09,external_review,roberta,42.0,fixed,amusement; approval,amusement,approval,,False,True
+E10,external_review,roberta,42.0,fixed,admiration,admiration,,,True,False
+E11,external_review,roberta,42.0,fixed,approval,,approval,,False,True
+E12,external_review,roberta,42.0,fixed,disapproval,,disapproval,,False,False
+E13,external_review,roberta,42.0,fixed,love,love,,,True,False
+E14,external_review,roberta,42.0,fixed,disapproval,disapproval,,,True,False
+E15,external_review,roberta,42.0,fixed,anger; desire,anger,desire,,False,False
+E16,external_review,roberta,42.0,fixed,disgust,disgust,,,True,False
+E17,external_review,roberta,42.0,fixed,surprise; annoyance,surprise,annoyance,,False,True
+E18,external_review,roberta,42.0,fixed,joy,joy,,,True,False
+E19,external_review,roberta,42.0,fixed,annoyance; disapproval,,annoyance; disapproval,,False,True
+E20,external_review,roberta,42.0,fixed,disgust; fear,,disgust; fear,,False,False
+P1a,controlled_probe,roberta,42.0,fixed,joy,joy,,,True,False
+P1b,controlled_probe,roberta,42.0,fixed,disappointment,disappointment,,,True,False
+P2a,controlled_probe,roberta,42.0,fixed,gratitude; joy,gratitude,joy,,False,False
+P2b,controlled_probe,roberta,42.0,fixed,joy,joy,,,True,False
+P3a,controlled_probe,roberta,42.0,fixed,joy,joy,,,True,False
+P3b,controlled_probe,roberta,42.0,fixed,joy,joy,,,True,False
+P4a,controlled_probe,roberta,42.0,fixed,neutral,neutral,,,True,True
+P4b,controlled_probe,roberta,42.0,fixed,nervousness,fear,nervousness,fear,False,True
+P5a,controlled_probe,roberta,42.0,fixed,approval,admiration,approval,admiration,False,True
+P5b,controlled_probe,roberta,42.0,fixed,annoyance; disappointment,admiration,annoyance; disappointment,admiration,False,True
+E01,external_review,roberta,42.0,tuned,approval,admiration,approval,admiration,False,False
+E02,external_review,roberta,42.0,tuned,disappointment,disappointment,,,True,True
+E03,external_review,roberta,42.0,tuned,admiration,admiration,,,True,False
+E04,external_review,roberta,42.0,tuned,love,love,,,True,False
+E05,external_review,roberta,42.0,tuned,disapproval,disapproval,,,True,False
+E06,external_review,roberta,42.0,tuned,anger; disapproval,anger; annoyance,disapproval,annoyance,False,True
+E07,external_review,roberta,42.0,tuned,disappointment; disapproval,annoyance; disappointment; disapproval,,annoyance,False,False
+E08,external_review,roberta,42.0,tuned,love,love,,,True,False
+E09,external_review,roberta,42.0,tuned,amusement; approval,amusement,approval,,False,True
+E10,external_review,roberta,42.0,tuned,admiration,admiration,,,True,False
+E11,external_review,roberta,42.0,tuned,approval,annoyance; neutral,approval,annoyance; neutral,False,True
+E12,external_review,roberta,42.0,tuned,disapproval,annoyance; disappointment; disapproval,,annoyance; disappointment,False,False
+E13,external_review,roberta,42.0,tuned,love,love,,,True,False
+E14,external_review,roberta,42.0,tuned,disapproval,disapproval,,,True,False
+E15,external_review,roberta,42.0,tuned,anger; desire,anger,desire,,False,False
+E16,external_review,roberta,42.0,tuned,disgust,disgust,,,True,False
+E17,external_review,roberta,42.0,tuned,surprise; annoyance,surprise,annoyance,,False,True
+E18,external_review,roberta,42.0,tuned,joy,joy,,,True,False
+E19,external_review,roberta,42.0,tuned,annoyance; disapproval,disappointment,annoyance; disapproval,disappointment,False,True
+E20,external_review,roberta,42.0,tuned,disgust; fear,fear,disgust,,False,False
+P1a,controlled_probe,roberta,42.0,tuned,joy,joy,,,True,False
+P1b,controlled_probe,roberta,42.0,tuned,disappointment,disappointment; disapproval,,disapproval,False,False
+P2a,controlled_probe,roberta,42.0,tuned,gratitude; joy,gratitude,joy,,False,False
+P2b,controlled_probe,roberta,42.0,tuned,joy,joy,,,True,False
+P3a,controlled_probe,roberta,42.0,tuned,joy,joy,,,True,False
+P3b,controlled_probe,roberta,42.0,tuned,joy,joy,,,True,False
+P4a,controlled_probe,roberta,42.0,tuned,neutral,neutral,,,True,True
+P4b,controlled_probe,roberta,42.0,tuned,nervousness,fear; nervousness,,fear,False,True
+P5a,controlled_probe,roberta,42.0,tuned,approval,admiration,approval,admiration,False,True
+P5b,controlled_probe,roberta,42.0,tuned,annoyance; disappointment,admiration,annoyance; disappointment,admiration,False,True
+E01,external_review,roberta,123.0,fixed,approval,admiration,approval,admiration,False,False
+E02,external_review,roberta,123.0,fixed,disappointment,,disappointment,,False,True
+E03,external_review,roberta,123.0,fixed,admiration,admiration,,,True,False
+E04,external_review,roberta,123.0,fixed,love,love,,,True,False
+E05,external_review,roberta,123.0,fixed,disapproval,disapproval,,,True,False
+E06,external_review,roberta,123.0,fixed,anger; disapproval,anger,disapproval,,False,True
+E07,external_review,roberta,123.0,fixed,disappointment; disapproval,disappointment,disapproval,,False,False
+E08,external_review,roberta,123.0,fixed,love,love,,,True,False
+E09,external_review,roberta,123.0,fixed,amusement; approval,admiration; amusement,approval,admiration,False,True
+E10,external_review,roberta,123.0,fixed,admiration,admiration,,,True,False
+E11,external_review,roberta,123.0,fixed,approval,,approval,,False,True
+E12,external_review,roberta,123.0,fixed,disapproval,,disapproval,,False,False
+E13,external_review,roberta,123.0,fixed,love,love,,,True,False
+E14,external_review,roberta,123.0,fixed,disapproval,disapproval,,,True,False
+E15,external_review,roberta,123.0,fixed,anger; desire,anger,desire,,False,False
+E16,external_review,roberta,123.0,fixed,disgust,disgust,,,True,False
+E17,external_review,roberta,123.0,fixed,surprise; annoyance,surprise,annoyance,,False,True
+E18,external_review,roberta,123.0,fixed,joy,joy,,,True,False
+E19,external_review,roberta,123.0,fixed,annoyance; disapproval,,annoyance; disapproval,,False,True
+E20,external_review,roberta,123.0,fixed,disgust; fear,,disgust; fear,,False,False
+P1a,controlled_probe,roberta,123.0,fixed,joy,joy,,,True,False
+P1b,controlled_probe,roberta,123.0,fixed,disappointment,disappointment,,,True,False
+P2a,controlled_probe,roberta,123.0,fixed,gratitude; joy,gratitude; joy,,,True,False
+P2b,controlled_probe,roberta,123.0,fixed,joy,joy,,,True,False
+P3a,controlled_probe,roberta,123.0,fixed,joy,joy,,,True,False
+P3b,controlled_probe,roberta,123.0,fixed,joy,joy,,,True,False
+P4a,controlled_probe,roberta,123.0,fixed,neutral,neutral,,,True,True
+P4b,controlled_probe,roberta,123.0,fixed,nervousness,fear,nervousness,fear,False,True
+P5a,controlled_probe,roberta,123.0,fixed,approval,admiration,approval,admiration,False,True
+P5b,controlled_probe,roberta,123.0,fixed,annoyance; disappointment,admiration,annoyance; disappointment,admiration,False,True
+E01,external_review,roberta,123.0,tuned,approval,admiration,approval,admiration,False,False
+E02,external_review,roberta,123.0,tuned,disappointment,disappointment; sadness,,sadness,False,True
+E03,external_review,roberta,123.0,tuned,admiration,admiration,,,True,False
+E04,external_review,roberta,123.0,tuned,love,love,,,True,False
+E05,external_review,roberta,123.0,tuned,disapproval,disapproval,,,True,False
+E06,external_review,roberta,123.0,tuned,anger; disapproval,anger; annoyance,disapproval,annoyance,False,True
+E07,external_review,roberta,123.0,tuned,disappointment; disapproval,disappointment; disapproval,,,True,False
+E08,external_review,roberta,123.0,tuned,love,love,,,True,False
+E09,external_review,roberta,123.0,tuned,amusement; approval,admiration; amusement,approval,admiration,False,True
+E10,external_review,roberta,123.0,tuned,admiration,admiration; approval,,approval,False,False
+E11,external_review,roberta,123.0,tuned,approval,annoyance; neutral,approval,annoyance; neutral,False,True
+E12,external_review,roberta,123.0,tuned,disapproval,annoyance; disappointment; disapproval,,annoyance; disappointment,False,False
+E13,external_review,roberta,123.0,tuned,love,love,,,True,False
+E14,external_review,roberta,123.0,tuned,disapproval,disapproval,,,True,False
+E15,external_review,roberta,123.0,tuned,anger; desire,anger; annoyance,desire,annoyance,False,False
+E16,external_review,roberta,123.0,tuned,disgust,disgust,,,True,False
+E17,external_review,roberta,123.0,tuned,surprise; annoyance,surprise,annoyance,,False,True
+E18,external_review,roberta,123.0,tuned,joy,joy,,,True,False
+E19,external_review,roberta,123.0,tuned,annoyance; disapproval,annoyance; disappointment; disgust,disapproval,disappointment; disgust,False,True
+E20,external_review,roberta,123.0,tuned,disgust; fear,fear,disgust,,False,False
+P1a,controlled_probe,roberta,123.0,tuned,joy,joy,,,True,False
+P1b,controlled_probe,roberta,123.0,tuned,disappointment,disappointment; disapproval; sadness,,disapproval; sadness,False,False
+P2a,controlled_probe,roberta,123.0,tuned,gratitude; joy,gratitude; joy,,,True,False
+P2b,controlled_probe,roberta,123.0,tuned,joy,joy,,,True,False
+P3a,controlled_probe,roberta,123.0,tuned,joy,joy,,,True,False
+P3b,controlled_probe,roberta,123.0,tuned,joy,joy,,,True,False
+P4a,controlled_probe,roberta,123.0,tuned,neutral,neutral,,,True,True
+P4b,controlled_probe,roberta,123.0,tuned,nervousness,fear; nervousness,,fear,False,True
+P5a,controlled_probe,roberta,123.0,tuned,approval,admiration,approval,admiration,False,True
+P5b,controlled_probe,roberta,123.0,tuned,annoyance; disappointment,admiration,annoyance; disappointment,admiration,False,True
+E01,external_review,roberta,2026.0,fixed,approval,admiration,approval,admiration,False,False
+E02,external_review,roberta,2026.0,fixed,disappointment,disappointment,,,True,True
+E03,external_review,roberta,2026.0,fixed,admiration,admiration,,,True,False
+E04,external_review,roberta,2026.0,fixed,love,love,,,True,False
+E05,external_review,roberta,2026.0,fixed,disapproval,disapproval,,,True,False
+E06,external_review,roberta,2026.0,fixed,anger; disapproval,anger,disapproval,,False,True
+E07,external_review,roberta,2026.0,fixed,disappointment; disapproval,disappointment,disapproval,,False,False
+E08,external_review,roberta,2026.0,fixed,love,love,,,True,False
+E09,external_review,roberta,2026.0,fixed,amusement; approval,amusement,approval,,False,True
+E10,external_review,roberta,2026.0,fixed,admiration,admiration,,,True,False
+E11,external_review,roberta,2026.0,fixed,approval,,approval,,False,True
+E12,external_review,roberta,2026.0,fixed,disapproval,,disapproval,,False,False
+E13,external_review,roberta,2026.0,fixed,love,love,,,True,False
+E14,external_review,roberta,2026.0,fixed,disapproval,disapproval,,,True,False
+E15,external_review,roberta,2026.0,fixed,anger; desire,anger,desire,,False,False
+E16,external_review,roberta,2026.0,fixed,disgust,disgust,,,True,False
+E17,external_review,roberta,2026.0,fixed,surprise; annoyance,surprise,annoyance,,False,True
+E18,external_review,roberta,2026.0,fixed,joy,joy,,,True,False
+E19,external_review,roberta,2026.0,fixed,annoyance; disapproval,,annoyance; disapproval,,False,True
+E20,external_review,roberta,2026.0,fixed,disgust; fear,,disgust; fear,,False,False
+P1a,controlled_probe,roberta,2026.0,fixed,joy,joy,,,True,False
+P1b,controlled_probe,roberta,2026.0,fixed,disappointment,,disappointment,,False,False
+P2a,controlled_probe,roberta,2026.0,fixed,gratitude; joy,gratitude,joy,,False,False
+P2b,controlled_probe,roberta,2026.0,fixed,joy,joy,,,True,False
+P3a,controlled_probe,roberta,2026.0,fixed,joy,joy,,,True,False
+P3b,controlled_probe,roberta,2026.0,fixed,joy,joy,,,True,False
+P4a,controlled_probe,roberta,2026.0,fixed,neutral,neutral,,,True,True
+P4b,controlled_probe,roberta,2026.0,fixed,nervousness,fear,nervousness,fear,False,True
+P5a,controlled_probe,roberta,2026.0,fixed,approval,admiration,approval,admiration,False,True
+P5b,controlled_probe,roberta,2026.0,fixed,annoyance; disappointment,admiration,annoyance; disappointment,admiration,False,True
+E01,external_review,roberta,2026.0,tuned,approval,admiration,approval,admiration,False,False
+E02,external_review,roberta,2026.0,tuned,disappointment,disappointment,,,True,True
+E03,external_review,roberta,2026.0,tuned,admiration,admiration,,,True,False
+E04,external_review,roberta,2026.0,tuned,love,love,,,True,False
+E05,external_review,roberta,2026.0,tuned,disapproval,disapproval,,,True,False
+E06,external_review,roberta,2026.0,tuned,anger; disapproval,anger; annoyance,disapproval,annoyance,False,True
+E07,external_review,roberta,2026.0,tuned,disappointment; disapproval,disappointment,disapproval,,False,False
+E08,external_review,roberta,2026.0,tuned,love,love,,,True,False
+E09,external_review,roberta,2026.0,tuned,amusement; approval,amusement,approval,,False,True
+E10,external_review,roberta,2026.0,tuned,admiration,admiration,,,True,False
+E11,external_review,roberta,2026.0,tuned,approval,annoyance; neutral,approval,annoyance; neutral,False,True
+E12,external_review,roberta,2026.0,tuned,disapproval,annoyance; disapproval,,annoyance,False,False
+E13,external_review,roberta,2026.0,tuned,love,love,,,True,False
+E14,external_review,roberta,2026.0,tuned,disapproval,disapproval,,,True,False
+E15,external_review,roberta,2026.0,tuned,anger; desire,anger,desire,,False,False
+E16,external_review,roberta,2026.0,tuned,disgust,disgust,,,True,False
+E17,external_review,roberta,2026.0,tuned,surprise; annoyance,surprise,annoyance,,False,True
+E18,external_review,roberta,2026.0,tuned,joy,joy; relief,,relief,False,False
+E19,external_review,roberta,2026.0,tuned,annoyance; disapproval,disappointment,annoyance; disapproval,disappointment,False,True
+E20,external_review,roberta,2026.0,tuned,disgust; fear,fear,disgust,,False,False
+P1a,controlled_probe,roberta,2026.0,tuned,joy,joy,,,True,False
+P1b,controlled_probe,roberta,2026.0,tuned,disappointment,disappointment; disapproval,,disapproval,False,False
+P2a,controlled_probe,roberta,2026.0,tuned,gratitude; joy,gratitude,joy,,False,False
+P2b,controlled_probe,roberta,2026.0,tuned,joy,joy,,,True,False
+P3a,controlled_probe,roberta,2026.0,tuned,joy,joy,,,True,False
+P3b,controlled_probe,roberta,2026.0,tuned,joy,joy,,,True,False
+P4a,controlled_probe,roberta,2026.0,tuned,neutral,neutral,,,True,True
+P4b,controlled_probe,roberta,2026.0,tuned,nervousness,fear; nervousness,,fear,False,True
+P5a,controlled_probe,roberta,2026.0,tuned,approval,admiration,approval,admiration,False,True
+P5b,controlled_probe,roberta,2026.0,tuned,annoyance; disappointment,admiration,annoyance; disappointment,admiration,False,True
+E01,external_review,distilbert,42.0,fixed,approval,admiration,approval,admiration,False,False
+E02,external_review,distilbert,42.0,fixed,disappointment,,disappointment,,False,True
+E03,external_review,distilbert,42.0,fixed,admiration,admiration,,,True,False
+E04,external_review,distilbert,42.0,fixed,love,love,,,True,False
+E05,external_review,distilbert,42.0,fixed,disapproval,,disapproval,,False,False
+E06,external_review,distilbert,42.0,fixed,anger; disapproval,anger,disapproval,,False,True
+E07,external_review,distilbert,42.0,fixed,disappointment; disapproval,,disappointment; disapproval,,False,False
+E08,external_review,distilbert,42.0,fixed,love,love,,,True,False
+E09,external_review,distilbert,42.0,fixed,amusement; approval,amusement,approval,,False,True
+E10,external_review,distilbert,42.0,fixed,admiration,admiration,,,True,False
+E11,external_review,distilbert,42.0,fixed,approval,,approval,,False,True
+E12,external_review,distilbert,42.0,fixed,disapproval,,disapproval,,False,False
+E13,external_review,distilbert,42.0,fixed,love,love,,,True,False
+E14,external_review,distilbert,42.0,fixed,disapproval,disapproval,,,True,False
+E15,external_review,distilbert,42.0,fixed,anger; desire,anger,desire,,False,False
+E16,external_review,distilbert,42.0,fixed,disgust,disgust,,,True,False
+E17,external_review,distilbert,42.0,fixed,surprise; annoyance,surprise,annoyance,,False,True
+E18,external_review,distilbert,42.0,fixed,joy,disappointment,joy,disappointment,False,False
+E19,external_review,distilbert,42.0,fixed,annoyance; disapproval,,annoyance; disapproval,,False,True
+E20,external_review,distilbert,42.0,fixed,disgust; fear,,disgust; fear,,False,False
+P1a,controlled_probe,distilbert,42.0,fixed,joy,joy,,,True,False
+P1b,controlled_probe,distilbert,42.0,fixed,disappointment,,disappointment,,False,False
+P2a,controlled_probe,distilbert,42.0,fixed,gratitude; joy,gratitude,joy,,False,False
+P2b,controlled_probe,distilbert,42.0,fixed,joy,joy,,,True,False
+P3a,controlled_probe,distilbert,42.0,fixed,joy,joy,,,True,False
+P3b,controlled_probe,distilbert,42.0,fixed,joy,joy,,,True,False
+P4a,controlled_probe,distilbert,42.0,fixed,neutral,neutral,,,True,True
+P4b,controlled_probe,distilbert,42.0,fixed,nervousness,fear,nervousness,fear,False,True
+P5a,controlled_probe,distilbert,42.0,fixed,approval,admiration,approval,admiration,False,True
+P5b,controlled_probe,distilbert,42.0,fixed,annoyance; disappointment,admiration,annoyance; disappointment,admiration,False,True
+E01,external_review,distilbert,42.0,tuned,approval,admiration,approval,admiration,False,False
+E02,external_review,distilbert,42.0,tuned,disappointment,disappointment,,,True,True
+E03,external_review,distilbert,42.0,tuned,admiration,admiration,,,True,False
+E04,external_review,distilbert,42.0,tuned,love,love,,,True,False
+E05,external_review,distilbert,42.0,tuned,disapproval,disapproval,,,True,False
+E06,external_review,distilbert,42.0,tuned,anger; disapproval,anger; annoyance,disapproval,annoyance,False,True
+E07,external_review,distilbert,42.0,tuned,disappointment; disapproval,annoyance; disappointment,disapproval,annoyance,False,False
+E08,external_review,distilbert,42.0,tuned,love,love,,,True,False
+E09,external_review,distilbert,42.0,tuned,amusement; approval,amusement,approval,,False,True
+E10,external_review,distilbert,42.0,tuned,admiration,admiration; approval,,approval,False,False
+E11,external_review,distilbert,42.0,tuned,approval,annoyance; neutral,approval,annoyance; neutral,False,True
+E12,external_review,distilbert,42.0,tuned,disapproval,annoyance,disapproval,annoyance,False,False
+E13,external_review,distilbert,42.0,tuned,love,love,,,True,False
+E14,external_review,distilbert,42.0,tuned,disapproval,disapproval,,,True,False
+E15,external_review,distilbert,42.0,tuned,anger; desire,anger; annoyance,desire,annoyance,False,False
+E16,external_review,distilbert,42.0,tuned,disgust,annoyance; disgust,,annoyance,False,False
+E17,external_review,distilbert,42.0,tuned,surprise; annoyance,surprise,annoyance,,False,True
+E18,external_review,distilbert,42.0,tuned,joy,disappointment,joy,disappointment,False,False
+E19,external_review,distilbert,42.0,tuned,annoyance; disapproval,annoyance; disappointment,disapproval,disappointment,False,True
+E20,external_review,distilbert,42.0,tuned,disgust; fear,confusion,disgust; fear,confusion,False,False
+P1a,controlled_probe,distilbert,42.0,tuned,joy,joy,,,True,False
+P1b,controlled_probe,distilbert,42.0,tuned,disappointment,disappointment; disapproval,,disapproval,False,False
+P2a,controlled_probe,distilbert,42.0,tuned,gratitude; joy,gratitude,joy,,False,False
+P2b,controlled_probe,distilbert,42.0,tuned,joy,joy,,,True,False
+P3a,controlled_probe,distilbert,42.0,tuned,joy,joy,,,True,False
+P3b,controlled_probe,distilbert,42.0,tuned,joy,joy,,,True,False
+P4a,controlled_probe,distilbert,42.0,tuned,neutral,neutral,,,True,True
+P4b,controlled_probe,distilbert,42.0,tuned,nervousness,fear; nervousness,,fear,False,True
+P5a,controlled_probe,distilbert,42.0,tuned,approval,admiration,approval,admiration,False,True
+P5b,controlled_probe,distilbert,42.0,tuned,annoyance; disappointment,admiration,annoyance; disappointment,admiration,False,True
+E01,external_review,distilbert,123.0,fixed,approval,admiration,approval,admiration,False,False
+E02,external_review,distilbert,123.0,fixed,disappointment,,disappointment,,False,True
+E03,external_review,distilbert,123.0,fixed,admiration,admiration,,,True,False
+E04,external_review,distilbert,123.0,fixed,love,love,,,True,False
+E05,external_review,distilbert,123.0,fixed,disapproval,,disapproval,,False,False
+E06,external_review,distilbert,123.0,fixed,anger; disapproval,anger,disapproval,,False,True
+E07,external_review,distilbert,123.0,fixed,disappointment; disapproval,disappointment,disapproval,,False,False
+E08,external_review,distilbert,123.0,fixed,love,love,,,True,False
+E09,external_review,distilbert,123.0,fixed,amusement; approval,amusement,approval,,False,True
+E10,external_review,distilbert,123.0,fixed,admiration,admiration,,,True,False
+E11,external_review,distilbert,123.0,fixed,approval,,approval,,False,True
+E12,external_review,distilbert,123.0,fixed,disapproval,,disapproval,,False,False
+E13,external_review,distilbert,123.0,fixed,love,love,,,True,False
+E14,external_review,distilbert,123.0,fixed,disapproval,disapproval,,,True,False
+E15,external_review,distilbert,123.0,fixed,anger; desire,anger,desire,,False,False
+E16,external_review,distilbert,123.0,fixed,disgust,disgust,,,True,False
+E17,external_review,distilbert,123.0,fixed,surprise; annoyance,surprise,annoyance,,False,True
+E18,external_review,distilbert,123.0,fixed,joy,sadness,joy,sadness,False,False
+E19,external_review,distilbert,123.0,fixed,annoyance; disapproval,,annoyance; disapproval,,False,True
+E20,external_review,distilbert,123.0,fixed,disgust; fear,,disgust; fear,,False,False
+P1a,controlled_probe,distilbert,123.0,fixed,joy,joy,,,True,False
+P1b,controlled_probe,distilbert,123.0,fixed,disappointment,,disappointment,,False,False
+P2a,controlled_probe,distilbert,123.0,fixed,gratitude; joy,gratitude,joy,,False,False
+P2b,controlled_probe,distilbert,123.0,fixed,joy,joy,,,True,False
+P3a,controlled_probe,distilbert,123.0,fixed,joy,joy,,,True,False
+P3b,controlled_probe,distilbert,123.0,fixed,joy,joy,,,True,False
+P4a,controlled_probe,distilbert,123.0,fixed,neutral,neutral,,,True,True
+P4b,controlled_probe,distilbert,123.0,fixed,nervousness,fear,nervousness,fear,False,True
+P5a,controlled_probe,distilbert,123.0,fixed,approval,admiration,approval,admiration,False,True
+P5b,controlled_probe,distilbert,123.0,fixed,annoyance; disappointment,admiration,annoyance; disappointment,admiration,False,True
+E01,external_review,distilbert,123.0,tuned,approval,admiration,approval,admiration,False,False
+E02,external_review,distilbert,123.0,tuned,disappointment,disappointment,,,True,True
+E03,external_review,distilbert,123.0,tuned,admiration,admiration,,,True,False
+E04,external_review,distilbert,123.0,tuned,love,love,,,True,False
+E05,external_review,distilbert,123.0,tuned,disapproval,disapproval; neutral,,neutral,False,False
+E06,external_review,distilbert,123.0,tuned,anger; disapproval,anger,disapproval,,False,True
+E07,external_review,distilbert,123.0,tuned,disappointment; disapproval,disappointment,disapproval,,False,False
+E08,external_review,distilbert,123.0,tuned,love,love,,,True,False
+E09,external_review,distilbert,123.0,tuned,amusement; approval,amusement,approval,,False,True
+E10,external_review,distilbert,123.0,tuned,admiration,admiration,,,True,False
+E11,external_review,distilbert,123.0,tuned,approval,anger; annoyance; neutral,approval,anger; annoyance; neutral,False,True
+E12,external_review,distilbert,123.0,tuned,disapproval,annoyance; disgust; neutral,disapproval,annoyance; disgust; neutral,False,False
+E13,external_review,distilbert,123.0,tuned,love,admiration; love,,admiration,False,False
+E14,external_review,distilbert,123.0,tuned,disapproval,disapproval,,,True,False
+E15,external_review,distilbert,123.0,tuned,anger; desire,anger; annoyance,desire,annoyance,False,False
+E16,external_review,distilbert,123.0,tuned,disgust,disgust,,,True,False
+E17,external_review,distilbert,123.0,tuned,surprise; annoyance,surprise,annoyance,,False,True
+E18,external_review,distilbert,123.0,tuned,joy,disappointment; sadness,joy,disappointment; sadness,False,False
+E19,external_review,distilbert,123.0,tuned,annoyance; disapproval,annoyance; disappointment,disapproval,disappointment,False,True
+E20,external_review,distilbert,123.0,tuned,disgust; fear,,disgust; fear,,False,False
+P1a,controlled_probe,distilbert,123.0,tuned,joy,joy,,,True,False
+P1b,controlled_probe,distilbert,123.0,tuned,disappointment,disappointment,,,True,False
+P2a,controlled_probe,distilbert,123.0,tuned,gratitude; joy,gratitude,joy,,False,False
+P2b,controlled_probe,distilbert,123.0,tuned,joy,joy,,,True,False
+P3a,controlled_probe,distilbert,123.0,tuned,joy,joy,,,True,False
+P3b,controlled_probe,distilbert,123.0,tuned,joy,joy,,,True,False
+P4a,controlled_probe,distilbert,123.0,tuned,neutral,neutral,,,True,True
+P4b,controlled_probe,distilbert,123.0,tuned,nervousness,fear; nervousness,,fear,False,True
+P5a,controlled_probe,distilbert,123.0,tuned,approval,admiration,approval,admiration,False,True
+P5b,controlled_probe,distilbert,123.0,tuned,annoyance; disappointment,admiration,annoyance; disappointment,admiration,False,True
+E01,external_review,distilbert,2026.0,fixed,approval,admiration,approval,admiration,False,False
+E02,external_review,distilbert,2026.0,fixed,disappointment,,disappointment,,False,True
+E03,external_review,distilbert,2026.0,fixed,admiration,admiration,,,True,False
+E04,external_review,distilbert,2026.0,fixed,love,love,,,True,False
+E05,external_review,distilbert,2026.0,fixed,disapproval,disapproval,,,True,False
+E06,external_review,distilbert,2026.0,fixed,anger; disapproval,anger,disapproval,,False,True
+E07,external_review,distilbert,2026.0,fixed,disappointment; disapproval,,disappointment; disapproval,,False,False
+E08,external_review,distilbert,2026.0,fixed,love,love,,,True,False
+E09,external_review,distilbert,2026.0,fixed,amusement; approval,amusement,approval,,False,True
+E10,external_review,distilbert,2026.0,fixed,admiration,admiration,,,True,False
+E11,external_review,distilbert,2026.0,fixed,approval,,approval,,False,True
+E12,external_review,distilbert,2026.0,fixed,disapproval,,disapproval,,False,False
+E13,external_review,distilbert,2026.0,fixed,love,love,,,True,False
+E14,external_review,distilbert,2026.0,fixed,disapproval,disapproval,,,True,False
+E15,external_review,distilbert,2026.0,fixed,anger; desire,anger,desire,,False,False
+E16,external_review,distilbert,2026.0,fixed,disgust,disgust,,,True,False
+E17,external_review,distilbert,2026.0,fixed,surprise; annoyance,surprise,annoyance,,False,True
+E18,external_review,distilbert,2026.0,fixed,joy,,joy,,False,False
+E19,external_review,distilbert,2026.0,fixed,annoyance; disapproval,annoyance,disapproval,,False,True
+E20,external_review,distilbert,2026.0,fixed,disgust; fear,,disgust; fear,,False,False
+P1a,controlled_probe,distilbert,2026.0,fixed,joy,joy,,,True,False
+P1b,controlled_probe,distilbert,2026.0,fixed,disappointment,,disappointment,,False,False
+P2a,controlled_probe,distilbert,2026.0,fixed,gratitude; joy,gratitude,joy,,False,False
+P2b,controlled_probe,distilbert,2026.0,fixed,joy,joy,,,True,False
+P3a,controlled_probe,distilbert,2026.0,fixed,joy,joy,,,True,False
+P3b,controlled_probe,distilbert,2026.0,fixed,joy,joy,,,True,False
+P4a,controlled_probe,distilbert,2026.0,fixed,neutral,neutral,,,True,True
+P4b,controlled_probe,distilbert,2026.0,fixed,nervousness,fear,nervousness,fear,False,True
+P5a,controlled_probe,distilbert,2026.0,fixed,approval,admiration,approval,admiration,False,True
+P5b,controlled_probe,distilbert,2026.0,fixed,annoyance; disappointment,admiration,annoyance; disappointment,admiration,False,True
+E01,external_review,distilbert,2026.0,tuned,approval,admiration,approval,admiration,False,False
+E02,external_review,distilbert,2026.0,tuned,disappointment,disappointment,,,True,True
+E03,external_review,distilbert,2026.0,tuned,admiration,admiration,,,True,False
+E04,external_review,distilbert,2026.0,tuned,love,love,,,True,False
+E05,external_review,distilbert,2026.0,tuned,disapproval,disapproval; neutral,,neutral,False,False
+E06,external_review,distilbert,2026.0,tuned,anger; disapproval,anger; annoyance,disapproval,annoyance,False,True
+E07,external_review,distilbert,2026.0,tuned,disappointment; disapproval,disappointment,disapproval,,False,False
+E08,external_review,distilbert,2026.0,tuned,love,love,,,True,False
+E09,external_review,distilbert,2026.0,tuned,amusement; approval,amusement,approval,,False,True
+E10,external_review,distilbert,2026.0,tuned,admiration,admiration,,,True,False
+E11,external_review,distilbert,2026.0,tuned,approval,anger; annoyance,approval,anger; annoyance,False,True
+E12,external_review,distilbert,2026.0,tuned,disapproval,annoyance; neutral,disapproval,annoyance; neutral,False,False
+E13,external_review,distilbert,2026.0,tuned,love,love,,,True,False
+E14,external_review,distilbert,2026.0,tuned,disapproval,disapproval,,,True,False
+E15,external_review,distilbert,2026.0,tuned,anger; desire,anger; annoyance,desire,annoyance,False,False
+E16,external_review,distilbert,2026.0,tuned,disgust,annoyance; disgust,,annoyance,False,False
+E17,external_review,distilbert,2026.0,tuned,surprise; annoyance,surprise,annoyance,,False,True
+E18,external_review,distilbert,2026.0,tuned,joy,disappointment; sadness,joy,disappointment; sadness,False,False
+E19,external_review,distilbert,2026.0,tuned,annoyance; disapproval,annoyance,disapproval,,False,True
+E20,external_review,distilbert,2026.0,tuned,disgust; fear,,disgust; fear,,False,False
+P1a,controlled_probe,distilbert,2026.0,tuned,joy,joy,,,True,False
+P1b,controlled_probe,distilbert,2026.0,tuned,disappointment,disappointment,,,True,False
+P2a,controlled_probe,distilbert,2026.0,tuned,gratitude; joy,gratitude,joy,,False,False
+P2b,controlled_probe,distilbert,2026.0,tuned,joy,joy,,,True,False
+P3a,controlled_probe,distilbert,2026.0,tuned,joy,joy,,,True,False
+P3b,controlled_probe,distilbert,2026.0,tuned,joy,joy,,,True,False
+P4a,controlled_probe,distilbert,2026.0,tuned,neutral,neutral,,,True,True
+P4b,controlled_probe,distilbert,2026.0,tuned,nervousness,fear; nervousness,,fear,False,True
+P5a,controlled_probe,distilbert,2026.0,tuned,approval,admiration,approval,admiration,False,True
+P5b,controlled_probe,distilbert,2026.0,tuned,annoyance; disappointment,admiration,annoyance; disappointment,admiration,False,True

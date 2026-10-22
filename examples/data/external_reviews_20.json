@@ -1,0 +1,466 @@
+{
+  "schema_version": 1,
+  "prepared_at_utc": "2026-10-22T06:44:48.999674+00:00",
+  "label_origin": "AI-proposed GoEmotions references; no independent human adjudication",
+  "human_review_status": "NOT_REVIEWED",
+  "source_dataset": {
+    "name": "Sentiment Labelled Sentences",
+    "doi": "10.24432/C57604",
+    "license": "CC BY 4.0",
+    "archive_url": "https://archive.ics.uci.edu/static/public/331/sentiment%2Blabelled%2Bsentences.zip",
+    "archive_sha256": "afc26626d710899948693e1a61405dce197f57ffa719fa1130d346b4cc095343"
+  },
+  "selection": "Purposive source-line selection before model inference; Amazon 6, IMDb 6, Yelp 8. Not a random population sample.",
+  "annotation_policy": "Expressed emotion; no direct conversion of positive/negative sentiment to an emotion. Ambiguous items retained and flagged. No model predictions used to propose labels.",
+  "rows": [
+    {
+      "id": "E01",
+      "kind": "external_review",
+      "text": "Good case, Excellent value.",
+      "labels": [
+        "approval"
+      ],
+      "source_file": "amazon_cells_labelled.txt",
+      "source_line": 2,
+      "source_sentiment": 1,
+      "source_url": "https://archive.ics.uci.edu/dataset/331/sentiment+labelled+sentences",
+      "source_file_sha256": "47003fc0a0d4840b00e96e715b6189bad09e7443a3da41c4cbe12ffc79f86ae3",
+      "ambiguous": false,
+      "label_reason": "Đánh giá thuận lợi về vỏ và giá."
+    },
+    {
+      "id": "E02",
+      "kind": "external_review",
+      "text": "Needless to say, I wasted my money.",
+      "labels": [
+        "disappointment"
+      ],
+      "source_file": "amazon_cells_labelled.txt",
+      "source_line": 9,
+      "source_sentiment": 0,
+      "source_url": "https://archive.ics.uci.edu/dataset/331/sentiment+labelled+sentences",
+      "source_file_sha256": "47003fc0a0d4840b00e96e715b6189bad09e7443a3da41c4cbe12ffc79f86ae3",
+      "ambiguous": true,
+      "label_reason": "Tiếc vì tiền đã bỏ ra không đem lại giá trị."
+    },
+    {
+      "id": "E03",
+      "kind": "external_review",
+      "text": "He was very impressed when going from the original battery to the extended battery.",
+      "labels": [
+        "admiration"
+      ],
+      "source_file": "amazon_cells_labelled.txt",
+      "source_line": 12,
+      "source_sentiment": 1,
+      "source_url": "https://archive.ics.uci.edu/dataset/331/sentiment+labelled+sentences",
+      "source_file_sha256": "47003fc0a0d4840b00e96e715b6189bad09e7443a3da41c4cbe12ffc79f86ae3",
+      "ambiguous": false,
+      "label_reason": "Nêu trực tiếp cảm giác impressed."
+    },
+    {
+      "id": "E04",
+      "kind": "external_review",
+      "text": "I bought this to use with my Kindle Fire and absolutely loved it!",
+      "labels": [
+        "love"
+      ],
+      "source_file": "amazon_cells_labelled.txt",
+      "source_line": 22,
+      "source_sentiment": 1,
+      "source_url": "https://archive.ics.uci.edu/dataset/331/sentiment+labelled+sentences",
+      "source_file_sha256": "47003fc0a0d4840b00e96e715b6189bad09e7443a3da41c4cbe12ffc79f86ae3",
+      "ambiguous": false,
+      "label_reason": "Nêu trực tiếp absolutely loved it."
+    },
+    {
+      "id": "E05",
+      "kind": "external_review",
+      "text": "I didn't think that the instructions provided were helpful to me.",
+      "labels": [
+        "disapproval"
+      ],
+      "source_file": "amazon_cells_labelled.txt",
+      "source_line": 28,
+      "source_sentiment": 0,
+      "source_url": "https://archive.ics.uci.edu/dataset/331/sentiment+labelled+sentences",
+      "source_file_sha256": "47003fc0a0d4840b00e96e715b6189bad09e7443a3da41c4cbe12ffc79f86ae3",
+      "ambiguous": false,
+      "label_reason": "Phủ định tính hữu ích của hướng dẫn."
+    },
+    {
+      "id": "E06",
+      "kind": "external_review",
+      "text": "I have two more years left in this contract and I hate this phone.",
+      "labels": [
+        "anger",
+        "disapproval"
+      ],
+      "source_file": "amazon_cells_labelled.txt",
+      "source_line": 34,
+      "source_sentiment": 0,
+      "source_url": "https://archive.ics.uci.edu/dataset/331/sentiment+labelled+sentences",
+      "source_file_sha256": "47003fc0a0d4840b00e96e715b6189bad09e7443a3da41c4cbe12ffc79f86ae3",
+      "ambiguous": true,
+      "label_reason": "Hate diễn đạt bất mãn mạnh; phân biệt anger và annoyance cần rà soát."
+    },
+    {
+      "id": "E07",
+      "kind": "external_review",
+      "text": "Attempting artiness with black & white and clever camera angles, the movie disappointed - became even more ridiculous - as the acting was poor and the plot and lines almost non-existent.  ",
+      "labels": [
+        "disappointment",
+        "disapproval"
+      ],
+      "source_file": "imdb_labelled.txt",
+      "source_line": 3,
+      "source_sentiment": 0,
+      "source_url": "https://archive.ics.uci.edu/dataset/331/sentiment+labelled+sentences",
+      "source_file_sha256": "aef2e49e3da25714d61175e3a6e68eeef74a20a2f914318dc3be9947ea86512d",
+      "ambiguous": false,
+      "label_reason": "Nêu disappointed và đánh giá tiêu cực về diễn xuất, cốt truyện."
+    },
+    {
+      "id": "E08",
+      "kind": "external_review",
+      "text": "Loved the casting of Jimmy Buffet as the science teacher.  ",
+      "labels": [
+        "love"
+      ],
+      "source_file": "imdb_labelled.txt",
+      "source_line": 10,
+      "source_sentiment": 1,
+      "source_url": "https://archive.ics.uci.edu/dataset/331/sentiment+labelled+sentences",
+      "source_file_sha256": "aef2e49e3da25714d61175e3a6e68eeef74a20a2f914318dc3be9947ea86512d",
+      "ambiguous": false,
+      "label_reason": "Nêu trực tiếp Loved the casting."
+    },
+    {
+      "id": "E09",
+      "kind": "external_review",
+      "text": "The Songs Were The Best And The Muppets Were So Hilarious.  ",
+      "labels": [
+        "amusement",
+        "approval"
+      ],
+      "source_file": "imdb_labelled.txt",
+      "source_line": 13,
+      "source_sentiment": 1,
+      "source_url": "https://archive.ics.uci.edu/dataset/331/sentiment+labelled+sentences",
+      "source_file_sha256": "aef2e49e3da25714d61175e3a6e68eeef74a20a2f914318dc3be9947ea86512d",
+      "ambiguous": true,
+      "label_reason": "Hilarious gợi sự hài hước; best là ý kiến thuận lợi."
+    },
+    {
+      "id": "E10",
+      "kind": "external_review",
+      "text": "It's practically perfect in all of them  a true masterpiece in a sea of faux \"masterpieces.  ",
+      "labels": [
+        "admiration"
+      ],
+      "source_file": "imdb_labelled.txt",
+      "source_line": 19,
+      "source_sentiment": 1,
+      "source_url": "https://archive.ics.uci.edu/dataset/331/sentiment+labelled+sentences",
+      "source_file_sha256": "aef2e49e3da25714d61175e3a6e68eeef74a20a2f914318dc3be9947ea86512d",
+      "ambiguous": false,
+      "label_reason": "True masterpiece thể hiện sự ngưỡng mộ; nguồn có ký tự lỗi, giữ nguyên."
+    },
+    {
+      "id": "E11",
+      "kind": "external_review",
+      "text": "Waste your money on this game.  ",
+      "labels": [
+        "approval"
+      ],
+      "source_file": "imdb_labelled.txt",
+      "source_line": 32,
+      "source_sentiment": 1,
+      "source_url": "https://archive.ics.uci.edu/dataset/331/sentiment+labelled+sentences",
+      "source_file_sha256": "aef2e49e3da25714d61175e3a6e68eeef74a20a2f914318dc3be9947ea86512d",
+      "ambiguous": true,
+      "label_reason": "Nhãn sentiment gốc là tích cực; câu Waste your money có cách dùng nghịch nghĩa, cần rà soát ngữ cảnh."
+    },
+    {
+      "id": "E12",
+      "kind": "external_review",
+      "text": "Today the graphics are crap.  ",
+      "labels": [
+        "disapproval"
+      ],
+      "source_file": "imdb_labelled.txt",
+      "source_line": 35,
+      "source_sentiment": 0,
+      "source_url": "https://archive.ics.uci.edu/dataset/331/sentiment+labelled+sentences",
+      "source_file_sha256": "aef2e49e3da25714d61175e3a6e68eeef74a20a2f914318dc3be9947ea86512d",
+      "ambiguous": false,
+      "label_reason": "Đánh giá đồ họa theo hướng bất lợi."
+    },
+    {
+      "id": "E13",
+      "kind": "external_review",
+      "text": "Wow... Loved this place.",
+      "labels": [
+        "love"
+      ],
+      "source_file": "yelp_labelled.txt",
+      "source_line": 1,
+      "source_sentiment": 1,
+      "source_url": "https://archive.ics.uci.edu/dataset/331/sentiment+labelled+sentences",
+      "source_file_sha256": "c76468b7b5c6e56a0804d728345c5f84aa2142ddb214420f61cc9cfd4c00d2ea",
+      "ambiguous": false,
+      "label_reason": "Nêu trực tiếp Loved this place."
+    },
+    {
+      "id": "E14",
+      "kind": "external_review",
+      "text": "Crust is not good.",
+      "labels": [
+        "disapproval"
+      ],
+      "source_file": "yelp_labelled.txt",
+      "source_line": 2,
+      "source_sentiment": 0,
+      "source_url": "https://archive.ics.uci.edu/dataset/331/sentiment+labelled+sentences",
+      "source_file_sha256": "c76468b7b5c6e56a0804d728345c5f84aa2142ddb214420f61cc9cfd4c00d2ea",
+      "ambiguous": false,
+      "label_reason": "Phủ định chất lượng lớp đế."
+    },
+    {
+      "id": "E15",
+      "kind": "external_review",
+      "text": "Now I am getting angry and I want my damn pho.",
+      "labels": [
+        "anger",
+        "desire"
+      ],
+      "source_file": "yelp_labelled.txt",
+      "source_line": 6,
+      "source_sentiment": 0,
+      "source_url": "https://archive.ics.uci.edu/dataset/331/sentiment+labelled+sentences",
+      "source_file_sha256": "c76468b7b5c6e56a0804d728345c5f84aa2142ddb214420f61cc9cfd4c00d2ea",
+      "ambiguous": false,
+      "label_reason": "Nêu getting angry và want my pho."
+    },
+    {
+      "id": "E16",
+      "kind": "external_review",
+      "text": "I was disgusted because I was pretty sure that was human hair.",
+      "labels": [
+        "disgust"
+      ],
+      "source_file": "yelp_labelled.txt",
+      "source_line": 15,
+      "source_sentiment": 0,
+      "source_url": "https://archive.ics.uci.edu/dataset/331/sentiment+labelled+sentences",
+      "source_file_sha256": "c76468b7b5c6e56a0804d728345c5f84aa2142ddb214420f61cc9cfd4c00d2ea",
+      "ambiguous": false,
+      "label_reason": "Nêu trực tiếp disgusted."
+    },
+    {
+      "id": "E17",
+      "kind": "external_review",
+      "text": "I was shocked because no signs indicate cash only.",
+      "labels": [
+        "surprise",
+        "annoyance"
+      ],
+      "source_file": "yelp_labelled.txt",
+      "source_line": 16,
+      "source_sentiment": 0,
+      "source_url": "https://archive.ics.uci.edu/dataset/331/sentiment+labelled+sentences",
+      "source_file_sha256": "c76468b7b5c6e56a0804d728345c5f84aa2142ddb214420f61cc9cfd4c00d2ea",
+      "ambiguous": true,
+      "label_reason": "Shocked và thông tin thiếu biển báo gợi bất ngờ, khó chịu; nhãn thứ hai cần rà soát."
+    },
+    {
+      "id": "E18",
+      "kind": "external_review",
+      "text": "I found this place by accident and I could not be happier.",
+      "labels": [
+        "joy"
+      ],
+      "source_file": "yelp_labelled.txt",
+      "source_line": 33,
+      "source_sentiment": 1,
+      "source_url": "https://archive.ics.uci.edu/dataset/331/sentiment+labelled+sentences",
+      "source_file_sha256": "c76468b7b5c6e56a0804d728345c5f84aa2142ddb214420f61cc9cfd4c00d2ea",
+      "ambiguous": false,
+      "label_reason": "Could not be happier biểu đạt vui mừng."
+    },
+    {
+      "id": "E19",
+      "kind": "external_review",
+      "text": "Poor service, the waiter made me feel like I was stupid every time he came to the table.",
+      "labels": [
+        "annoyance",
+        "disapproval"
+      ],
+      "source_file": "yelp_labelled.txt",
+      "source_line": 38,
+      "source_sentiment": 0,
+      "source_url": "https://archive.ics.uci.edu/dataset/331/sentiment+labelled+sentences",
+      "source_file_sha256": "c76468b7b5c6e56a0804d728345c5f84aa2142ddb214420f61cc9cfd4c00d2ea",
+      "ambiguous": true,
+      "label_reason": "Bất mãn vì dịch vụ và cách đối xử; có thể tranh luận với embarrassment."
+    },
+    {
+      "id": "E20",
+      "kind": "external_review",
+      "text": "Hard to judge whether these sides were good because we were grossed out by the melted styrofoam and didn't want to eat it for fear of getting sick.",
+      "labels": [
+        "disgust",
+        "fear"
+      ],
+      "source_file": "yelp_labelled.txt",
+      "source_line": 43,
+      "source_sentiment": 0,
+      "source_url": "https://archive.ics.uci.edu/dataset/331/sentiment+labelled+sentences",
+      "source_file_sha256": "c76468b7b5c6e56a0804d728345c5f84aa2142ddb214420f61cc9cfd4c00d2ea",
+      "ambiguous": false,
+      "label_reason": "Grossed out và fear of getting sick nêu hai cảm xúc."
+    },
+    {
+      "id": "P1a",
+      "kind": "controlled_probe",
+      "pair": "P1",
+      "phenomenon": "negation",
+      "text": "I am happy about the result.",
+      "labels": [
+        "joy"
+      ],
+      "source_url": null,
+      "source_sentiment": null,
+      "ambiguous": false,
+      "label_reason": "Câu đối chứng do trợ lý AI soạn trước khi suy luận; không phải trích dẫn Internet."
+    },
+    {
+      "id": "P1b",
+      "kind": "controlled_probe",
+      "pair": "P1",
+      "phenomenon": "negation",
+      "text": "I am not happy about the result.",
+      "labels": [
+        "disappointment"
+      ],
+      "source_url": null,
+      "source_sentiment": null,
+      "ambiguous": false,
+      "label_reason": "Câu đối chứng do trợ lý AI soạn trước khi suy luận; không phải trích dẫn Internet."
+    },
+    {
+      "id": "P2a",
+      "kind": "controlled_probe",
+      "pair": "P2",
+      "phenomenon": "gratitude",
+      "text": "Thank you for helping me; I am happy now.",
+      "labels": [
+        "gratitude",
+        "joy"
+      ],
+      "source_url": null,
+      "source_sentiment": null,
+      "ambiguous": false,
+      "label_reason": "Câu đối chứng do trợ lý AI soạn trước khi suy luận; không phải trích dẫn Internet."
+    },
+    {
+      "id": "P2b",
+      "kind": "controlled_probe",
+      "pair": "P2",
+      "phenomenon": "gratitude",
+      "text": "I am happy now.",
+      "labels": [
+        "joy"
+      ],
+      "source_url": null,
+      "source_sentiment": null,
+      "ambiguous": false,
+      "label_reason": "Câu đối chứng do trợ lý AI soạn trước khi suy luận; không phải trích dẫn Internet."
+    },
+    {
+      "id": "P3a",
+      "kind": "controlled_probe",
+      "pair": "P3",
+      "phenomenon": "emoji",
+      "text": "I am so happy!",
+      "labels": [
+        "joy"
+      ],
+      "source_url": null,
+      "source_sentiment": null,
+      "ambiguous": false,
+      "label_reason": "Câu đối chứng do trợ lý AI soạn trước khi suy luận; không phải trích dẫn Internet."
+    },
+    {
+      "id": "P3b",
+      "kind": "controlled_probe",
+      "pair": "P3",
+      "phenomenon": "emoji",
+      "text": "I am so happy! 😊",
+      "labels": [
+        "joy"
+      ],
+      "source_url": null,
+      "source_sentiment": null,
+      "ambiguous": false,
+      "label_reason": "Câu đối chứng do trợ lý AI soạn trước khi suy luận; không phải trích dẫn Internet."
+    },
+    {
+      "id": "P4a",
+      "kind": "controlled_probe",
+      "pair": "P4",
+      "phenomenon": "neutral",
+      "text": "The meeting starts at nine tomorrow.",
+      "labels": [
+        "neutral"
+      ],
+      "source_url": null,
+      "source_sentiment": null,
+      "ambiguous": true,
+      "label_reason": "Câu đối chứng do trợ lý AI soạn trước khi suy luận; không phải trích dẫn Internet."
+    },
+    {
+      "id": "P4b",
+      "kind": "controlled_probe",
+      "pair": "P4",
+      "phenomenon": "neutral",
+      "text": "I am worried about tomorrow's meeting.",
+      "labels": [
+        "nervousness"
+      ],
+      "source_url": null,
+      "source_sentiment": null,
+      "ambiguous": true,
+      "label_reason": "Câu đối chứng do trợ lý AI soạn trước khi suy luận; không phải trích dẫn Internet."
+    },
+    {
+      "id": "P5a",
+      "kind": "controlled_probe",
+      "pair": "P5",
+      "phenomenon": "sarcasm",
+      "text": "Wonderful, the phone works perfectly.",
+      "labels": [
+        "approval"
+      ],
+      "source_url": null,
+      "source_sentiment": null,
+      "ambiguous": true,
+      "label_reason": "Câu đối chứng do trợ lý AI soạn trước khi suy luận; không phải trích dẫn Internet."
+    },
+    {
+      "id": "P5b",
+      "kind": "controlled_probe",
+      "pair": "P5",
+      "phenomenon": "sarcasm",
+      "text": "Wonderful, the phone broke again.",
+      "labels": [
+        "annoyance",
+        "disappointment"
+      ],
+      "source_url": null,
+      "source_sentiment": null,
+      "ambiguous": true,
+      "label_reason": "Câu đối chứng do trợ lý AI soạn trước khi suy luận; không phải trích dẫn Internet."
+    }
+  ]
+}
