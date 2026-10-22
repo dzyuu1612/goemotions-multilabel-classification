@@ -95,73 +95,38 @@ def main():
         args.selection = args.artifacts_root / "data/processed/transformers/selected_model.json"
     import gradio as gr
     from src.apps.model_selector import ModelSelector
-    from src.apps.demo_details import MODES
 
     selector = ModelSelector(args.artifacts_root, args.selection, args.device, args.thresholds)
 
-    def predict(text, model_key, threshold_mode):
+    def predict(text, model_key):
         try:
-            return selector.predict(text, model_key, threshold_mode)
+            return selector.predict(text, model_key)
         except (ValueError, OSError, RuntimeError) as error:
             raise gr.Error(f"Không thể dự đoán bằng mô hình đã chọn: {error}") from error
 
-    modes = list(MODES)
-    initial_mode = "fixed"
-    if args.thresholds:
-        modes.append(("Ngưỡng từ tệp được cung cấp", "custom"))
-        initial_mode = "custom"
-
-    def update_details(key, mode):
-        try:
-            info, params, metrics = selector.presentation(key, mode)
-            return info, params, metrics, "", []
-        except (ValueError, OSError, KeyError) as error:
-            raise gr.Error(f"Chưa đọc được thông tin mô hình: {error}") from error
-
-    initial_info, initial_params, initial_metrics = selector.presentation(selector.default, initial_mode)
-    with gr.Blocks(title="GoEmotions — nhận diện cảm xúc", theme=gr.themes.Soft()) as demo:
+    with gr.Blocks(title="GoEmotions — nhận diện cảm xúc") as demo:
         gr.Markdown("# Nhận diện cảm xúc trong bình luận\n"
                     "Nhập văn bản **tiếng Anh**. Một câu có thể có nhiều cảm xúc trong 28 nhãn GoEmotions.")
-        with gr.Row():
-            model_choice = gr.Dropdown(choices=selector.choices, value=selector.default,
-                                       label="Chọn mô hình", interactive=True, scale=3)
-            threshold_choice = gr.Dropdown(choices=modes, value=initial_mode,
-                                           label="Luật chọn nhãn", interactive=True, scale=2)
-        model_info = gr.Markdown(initial_info)
-        with gr.Row():
-            with gr.Column(scale=3):
-                text = gr.Textbox(label="Bình luận tiếng Anh", lines=4,
-                                  placeholder="Thank you so much! I am really happy with your help.")
-                button = gr.Button("Nhận diện cảm xúc", variant="primary")
-                gr.Examples(examples=[["Thank you so much! I am really happy with your help."],
-                                      ["I am disappointed and worried about what will happen next."],
-                                      ["The meeting starts at nine tomorrow."]], inputs=text, label="Ví dụ để thử")
-            with gr.Column(scale=2):
-                gr.Markdown("### Kết quả test đã đánh giá\n"
-                            "Cột checkpoint thuộc lượt đang chọn; cột cuối là mean ± std của ba seed C. "
-                            "A/B chỉ có một lượt. Các chỉ số tính trên 5.427 câu test, không tính từ câu vừa nhập.")
-                metrics_table = gr.Dataframe(value=initial_metrics,
-                    headers=["Chỉ số", "Lượt chọn", "Báo cáo nhóm"],
-                    datatype=["str", "str", "str"], interactive=False, wrap=True,
-                    column_widths=["30%", "25%", "45%"])
-        with gr.Accordion("Thông số đã chạy của mô hình đang chọn", open=False):
-            parameter_table = gr.Dataframe(value=initial_params, headers=["Thông số", "Giá trị đã chạy"],
-                                           datatype=["str", "str"], interactive=False, wrap=True, max_height=650)
-        gr.Markdown("Điểm dự đoán chưa được hiệu chuẩn thành xác suất đáng tin cậy. "
-                    "Ngưỡng chung và ngưỡng riêng được lấy từ validation, giữ nguyên trọng số đã học.")
+        model_choice = gr.Dropdown(choices=selector.choices, value=selector.default,
+                                   label="Chọn mô hình", interactive=True)
+        model_info = gr.Markdown(selector.describe(selector.default))
+        gr.Markdown("Điểm là đầu ra của từng mô hình, chưa được hiệu chuẩn thành xác suất "
+                    "đáng tin cậy. Lần chọn mô hình đầu tiên có thể cần thời gian nạp.")
+        text = gr.Textbox(label="Bình luận tiếng Anh", lines=4,
+                          placeholder="Thank you so much! I am really happy with your help.")
+        button = gr.Button("Nhận diện cảm xúc", variant="primary")
         result = gr.Markdown()
         table = gr.Dataframe(headers=["Cảm xúc", "Điểm", "Ngưỡng", "Được chọn"],
                              datatype=["str", "number", "number", "str"], interactive=False,
                              label="Điểm của 28 nhãn")
-        detail_outputs = [model_info, parameter_table, metrics_table, result, table]
-        model_choice.change(update_details, inputs=[model_choice, threshold_choice],
-                            outputs=detail_outputs, concurrency_limit=1, concurrency_id="details",
-                            trigger_mode="always_last", api_name="model_details")
-        threshold_choice.change(update_details, inputs=[model_choice, threshold_choice],
-                                outputs=detail_outputs, concurrency_limit=1, concurrency_id="details",
-                                trigger_mode="always_last", api_name=False)
-        button.click(predict, inputs=[text, model_choice, threshold_choice], outputs=[result, table],
+        model_choice.change(lambda key: (selector.describe(key), "", []),
+                            inputs=model_choice, outputs=[model_info, result, table],
+                            queue=False, api_name=False)
+        button.click(predict, inputs=[text, model_choice], outputs=[result, table],
                      concurrency_limit=1, api_name="predict")
+        gr.Examples(examples=[["Thank you so much! I am really happy with your help."],
+                              ["I am disappointed and worried about what will happen next."],
+                              ["The meeting starts at nine tomorrow."]], inputs=text)
     demo.launch(server_name="127.0.0.1", server_port=args.port, share=False)
 
 

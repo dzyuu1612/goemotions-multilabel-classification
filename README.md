@@ -384,9 +384,8 @@ Cặp FN/FP khác đồng xuất hiện nhãn thật; điểm toy/smoke không t
 
 Ảnh giao diện cập nhật ngày **22/10/2026**, BERT seed 123 được chọn bằng validation.
 Đây là minh chứng một lần chạy, không khẳng định app đang mở trên máy bạn.
-[Ảnh khi mở bảng thông số đã chạy](assets/demo_parameters.png) hiển thị cấu hình
-checkpoint. Kiểm trực tiếp bằng trình duyệt và Gradio API đã xác nhận sáu model
-× ba luật ngưỡng; chuyển ngưỡng giữ nguyên scores và trọng số mô hình.
+Giao diện giữ bố cục đơn giản: chọn mô hình, nhập bình luận, bấm nhận diện rồi
+xem nhãn và bảng điểm. Sáu lựa chọn dùng ngưỡng 0,5 khi khởi động mặc định.
 Sau khi pipeline tạo checkpoint C và `selected_model.json` ở máy:
 
 ```bash
@@ -414,10 +413,9 @@ Ngưỡng mặc định 0,5; ngưỡng riêng cần `--thresholds` đúng protoc
 Giao diện có mục **Chọn mô hình** để thử BERT, RoBERTa, DistilBERT, hai baseline
 standard/balanced và zero-shot BART-MNLI trên câu nhập. Mặc định vẫn là C được
 chọn bằng validation trong `selected_model.json`. Các lựa chọn so sánh dùng
-ngưỡng 0,5 theo mặc định. Ô **Luật chọn nhãn** cho phép chuyển fixed/global/tuned
-bằng đúng ngưỡng đã chọn trên validation của từng run. Tham số seed, epoch, LR,
-batch, giới hạn token và kết quả test cập nhật theo lựa chọn; bảng tách kết quả
-checkpoint đang dùng với mean ± sample std ba seed C. A/B có một lượt.
+ngưỡng 0,5 theo mặc định. Kết quả hiển thị tên mô hình, seed của checkpoint C,
+các nhãn được chọn và bảng điểm đủ 28 nhãn. Thông số huấn luyện, các thí nghiệm
+chọn ngưỡng và kết quả benchmark được trình bày trong các mục thực nghiệm.
 Nếu truyền `--thresholds`, tệp ngưỡng riêng chỉ áp dụng cho model mặc định.
 RoBERTa dùng seed tốt nhất theo validation; DistilBERT dùng seed đại diện từ bộ
 C3 hiện tại của báo cáo 2.1 (hoặc đường dẫn `GOEMOTIONS_C3_RUN_ROOT`).
@@ -451,7 +449,7 @@ Cả chín lượt đạt validation F1 cao nhất ở epoch cuối; chưa chứ
 hoặc hoàn toàn không overfit/underfit.
 
 [Biên nhận demo nhiều mô hình](results/presentation_audit/multi_model_demo_verification.json)
-kiểm HTTP, 18 tổ hợp model/ngưỡng qua Gradio API và thao tác chọn model/ngưỡng,
+kiểm HTTP, sáu mô hình ở ngưỡng 0,5 qua Gradio API và thao tác chọn mô hình,
 nhập câu, bấm dự đoán trên trình duyệt độc lập. Ảnh giao diện mới nằm tại assets/.
 Biên nhận demo trong snapshot báo cáo cũ chỉ kiểm hàm suy
 luận và vẫn giữ nguyên phạm vi lịch sử của lần kiểm đó.
