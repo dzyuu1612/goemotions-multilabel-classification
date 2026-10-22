@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import gc
 import json
+from functools import lru_cache
 from pathlib import Path
 from threading import Lock
 
@@ -44,7 +45,7 @@ class BaselineDemo:
         self.model = joblib.load(folder / "model.joblib")
 
     def predict(self, text):
-        return format_scores(self.labels, self.model.predict_proba([text])[0])
+        return format_scores(self.labels, self.model.predict_proba([text])[0], getattr(self, "thresholds", 0.5))
 
 
 class ZeroShotDemo:
@@ -95,7 +96,7 @@ class ZeroShotDemo:
         result = self.classifier(text, candidate_labels=self.labels, multi_label=True,
                                  hypothesis_template=self.template, batch_size=8)
         scores = map_pipeline_scores(result, self.labels)[0]
-        message, rows = format_scores(self.labels, scores)
+        message, rows = format_scores(self.labels, scores, getattr(self, "thresholds", 0.5))
         # Pipeline NLI cắt phần premise khi cặp premise/hypothesis quá dài.
         tokenizer = self.classifier.tokenizer
         lengths = [len(tokenizer(text, self.template.format(label), truncation=False,
@@ -124,6 +125,37 @@ class ModelSelector:
             raise ValueError("Mô hình C mặc định không thuộc ba kiến trúc")
         self._key, self._predictor = None, None
         self._lock = Lock()
+
+    @lru_cache(maxsize=6)
+    def details(self, key):
+        from src.apps.demo_details import run_details
+
+        return run_details(self.root, self.selection, key)
+
+    def presentation(self, key, mode="fixed"):
+        from src.apps.demo_details import presentation
+
+        self.describe(key)
+        if mode == "custom":
+            limits = self.limits(key, mode)
+            title, params, _ = presentation(self.details(key), "fixed")
+            return (title.split(" · Ngưỡng:")[0] + " · Dùng ngưỡng từ tệp được cung cấp.",
+                    [r for r in params if r[0] != "Chế độ ngưỡng"] + [["Chế độ ngưỡng", "Tệp đã kiểm"]],
+                    [["Chưa có benchmark riêng cho tệp này", "—", "—"]])
+        return presentation(self.details(key), mode)
+
+    def limits(self, key, mode):
+        if mode == "fixed":
+            return 0.5
+        if mode == "custom":
+            if key != self.default or not self.thresholds:
+                raise ValueError("Tệp ngưỡng riêng chỉ dành cho checkpoint mặc định")
+            from src.models.transformer import load_demo_selection
+
+            return load_demo_selection(self.root, self.selection, thresholds_path=self.thresholds)[2]
+        if mode not in ("global", "tuned"):
+            raise ValueError("Chế độ ngưỡng không hợp lệ")
+        return self.details(key)["limits"][mode]
 
     def describe(self, key):
         names = dict((key, name) for name, key in self.choices)
@@ -177,8 +209,11 @@ class ModelSelector:
             return ZeroShotDemo(self.root, self.device)
         raise ValueError("Lựa chọn mô hình không hợp lệ")
 
-    def predict(self, text, key):
+    def predict(self, text, key, threshold_mode=None):
         self.describe(key)
+        threshold_mode = threshold_mode or ("custom" if self.thresholds and key == self.default else "fixed")
+        if threshold_mode not in ("fixed", "global", "tuned", "custom"):
+            raise ValueError("Chế độ ngưỡng không hợp lệ")
         text = (text or "").strip()
         if not text:
             return "Vui lòng nhập một câu hoặc bình luận tiếng Anh.", []
@@ -195,8 +230,12 @@ class ModelSelector:
                     torch.cuda.empty_cache()
                 self._predictor = self._load(key)
                 self._key = key
+            self._predictor.thresholds = self.limits(key, threshold_mode)
             message, rows = self._predictor.predict(text)
             metadata = getattr(self._predictor, "metadata", {})
             seed = metadata.get("seed", metadata.get("config", {}).get("seed"))
             seed_note = f" · seed {seed}" if seed is not None else ""
-            return f"**Mô hình:** {dict((k, n) for n, k in self.choices)[key]}{seed_note}\n\n{message}", rows
+            modes = {"fixed": "Cố định 0,5", "global": "Ngưỡng chung từ validation",
+                     "tuned": "Ngưỡng riêng từng nhãn từ validation", "custom": "Tệp ngưỡng đã kiểm"}
+            return (f"**Mô hình:** {dict((k, n) for n, k in self.choices)[key]}{seed_note}"
+                    f"\n\n**Luật ngưỡng:** {modes[threshold_mode]}\n\n{message}"), rows

@@ -1,72 +1,1512 @@
 {
-  "checked_at_utc": "2026-10-22T03:17:41.062379+00:00",
-  "interface_check_method": "HTTP config and Gradio API; no visual browser access",
+  "checked_at_utc": "2026-10-22T03:57:28.046967+00:00",
   "http_status": 200,
-  "dropdown_models": [
-    [
-      "C1 · BERT — mô hình mặc định",
-      "bert"
-    ],
-    [
-      "C2 · RoBERTa",
-      "roberta"
-    ],
-    [
-      "C3 · DistilBERT",
-      "distilbert"
-    ],
-    [
-      "A · TF-IDF + Logistic Regression — thường",
-      "baseline_standard"
-    ],
-    [
-      "A · TF-IDF + Logistic Regression — cân bằng lớp",
-      "baseline_balanced"
-    ],
-    [
-      "B · Zero-shot BART-MNLI",
-      "zero_shot"
-    ]
-  ],
-  "default_model": "bert",
+  "method": "HTTP, Gradio API; browser checks recorded separately",
+  "models": 6,
+  "threshold_modes": 3,
+  "verified_combinations": 18,
+  "same_scores_across_threshold_modes": true,
+  "input_checks_passed": true,
   "cases": [
     {
       "model": "bert",
-      "message": "**Mô hình:** C1 · BERT — mô hình mặc định · seed 123\n\n**Cảm xúc dự đoán:** gratitude, joy",
-      "rows": 28,
-      "seconds": 13.89
+      "mode": "fixed",
+      "info": "**Checkpoint đang dùng: seed 123** · Ngưỡng: **0.50**.",
+      "parameters": [
+        [
+          "Số nhãn đầu ra",
+          "28"
+        ],
+        [
+          "Chế độ ngưỡng",
+          "Cố định 0,5"
+        ],
+        [
+          "Checkpoint pretrained",
+          "google-bert/bert-base-cased"
+        ],
+        [
+          "Seed",
+          "123"
+        ],
+        [
+          "Epoch đã chọn",
+          "4"
+        ],
+        [
+          "Số epoch tối đa",
+          "4"
+        ],
+        [
+          "Learning rate",
+          "5e-05"
+        ],
+        [
+          "Batch size",
+          "16"
+        ],
+        [
+          "Giới hạn token",
+          "128"
+        ],
+        [
+          "Optimizer",
+          "AdamW"
+        ],
+        [
+          "Weight decay",
+          "0.01"
+        ],
+        [
+          "Warmup ratio",
+          "0.1"
+        ],
+        [
+          "Số tham số",
+          "108,331,804"
+        ],
+        [
+          "Loss khi fine-tune",
+          "BCEWithLogitsLoss không trọng số"
+        ]
+      ],
+      "test_metrics": [
+        [
+          "Macro-F1",
+          "0.4772",
+          "0.4720 ± 0.0045"
+        ],
+        [
+          "Micro-F1",
+          "0.5853",
+          "0.5820 ± 0.0040"
+        ],
+        [
+          "Micro Precision",
+          "0.6492",
+          "0.6421 ± 0.0062"
+        ],
+        [
+          "Micro Recall",
+          "0.5328",
+          "0.5322 ± 0.0055"
+        ],
+        [
+          "Hamming Loss ↓",
+          "0.0314",
+          "0.0318 ± 0.0003"
+        ]
+      ],
+      "prediction": "**Mô hình:** C1 · BERT — mô hình mặc định · seed 123\n\n**Luật ngưỡng:** Cố định 0,5\n\n**Cảm xúc dự đoán:** gratitude, joy",
+      "score_rows": 28
+    },
+    {
+      "model": "bert",
+      "mode": "global",
+      "info": "**Checkpoint đang dùng: seed 123** · Ngưỡng: **0.30**.",
+      "parameters": [
+        [
+          "Số nhãn đầu ra",
+          "28"
+        ],
+        [
+          "Chế độ ngưỡng",
+          "Ngưỡng chung từ validation"
+        ],
+        [
+          "Checkpoint pretrained",
+          "google-bert/bert-base-cased"
+        ],
+        [
+          "Seed",
+          "123"
+        ],
+        [
+          "Epoch đã chọn",
+          "4"
+        ],
+        [
+          "Số epoch tối đa",
+          "4"
+        ],
+        [
+          "Learning rate",
+          "5e-05"
+        ],
+        [
+          "Batch size",
+          "16"
+        ],
+        [
+          "Giới hạn token",
+          "128"
+        ],
+        [
+          "Optimizer",
+          "AdamW"
+        ],
+        [
+          "Weight decay",
+          "0.01"
+        ],
+        [
+          "Warmup ratio",
+          "0.1"
+        ],
+        [
+          "Số tham số",
+          "108,331,804"
+        ],
+        [
+          "Loss khi fine-tune",
+          "BCEWithLogitsLoss không trọng số"
+        ]
+      ],
+      "test_metrics": [
+        [
+          "Macro-F1",
+          "0.5022",
+          "0.4929 ± 0.0084"
+        ],
+        [
+          "Micro-F1",
+          "0.5917",
+          "0.5848 ± 0.0072"
+        ],
+        [
+          "Micro Precision",
+          "0.5658",
+          "0.5440 ± 0.0310"
+        ],
+        [
+          "Micro Recall",
+          "0.6200",
+          "0.6345 ± 0.0286"
+        ],
+        [
+          "Hamming Loss ↓",
+          "0.0356",
+          "0.0376 ± 0.0027"
+        ]
+      ],
+      "prediction": "**Mô hình:** C1 · BERT — mô hình mặc định · seed 123\n\n**Luật ngưỡng:** Ngưỡng chung từ validation\n\n**Cảm xúc dự đoán:** gratitude, joy",
+      "score_rows": 28
+    },
+    {
+      "model": "bert",
+      "mode": "tuned",
+      "info": "**Checkpoint đang dùng: seed 123** · Ngưỡng: **28 ngưỡng riêng, từ 0.05 đến 0.65**.",
+      "parameters": [
+        [
+          "Số nhãn đầu ra",
+          "28"
+        ],
+        [
+          "Chế độ ngưỡng",
+          "Ngưỡng riêng từng nhãn từ validation"
+        ],
+        [
+          "Checkpoint pretrained",
+          "google-bert/bert-base-cased"
+        ],
+        [
+          "Seed",
+          "123"
+        ],
+        [
+          "Epoch đã chọn",
+          "4"
+        ],
+        [
+          "Số epoch tối đa",
+          "4"
+        ],
+        [
+          "Learning rate",
+          "5e-05"
+        ],
+        [
+          "Batch size",
+          "16"
+        ],
+        [
+          "Giới hạn token",
+          "128"
+        ],
+        [
+          "Optimizer",
+          "AdamW"
+        ],
+        [
+          "Weight decay",
+          "0.01"
+        ],
+        [
+          "Warmup ratio",
+          "0.1"
+        ],
+        [
+          "Số tham số",
+          "108,331,804"
+        ],
+        [
+          "Loss khi fine-tune",
+          "BCEWithLogitsLoss không trọng số"
+        ]
+      ],
+      "test_metrics": [
+        [
+          "Macro-F1",
+          "0.5141",
+          "0.5038 ± 0.0097"
+        ],
+        [
+          "Micro-F1",
+          "0.5932",
+          "0.5900 ± 0.0029"
+        ],
+        [
+          "Micro Precision",
+          "0.5464",
+          "0.5446 ± 0.0038"
+        ],
+        [
+          "Micro Recall",
+          "0.6488",
+          "0.6437 ± 0.0054"
+        ],
+        [
+          "Hamming Loss ↓",
+          "0.0371",
+          "0.0373 ± 0.0003"
+        ]
+      ],
+      "prediction": "**Mô hình:** C1 · BERT — mô hình mặc định · seed 123\n\n**Luật ngưỡng:** Ngưỡng riêng từng nhãn từ validation\n\n**Cảm xúc dự đoán:** gratitude, joy",
+      "score_rows": 28
     },
     {
       "model": "roberta",
-      "message": "**Mô hình:** C2 · RoBERTa · seed 2026\n\n**Cảm xúc dự đoán:** gratitude",
-      "rows": 28,
-      "seconds": 2.47
+      "mode": "fixed",
+      "info": "**Checkpoint đang dùng: seed 2026** · Ngưỡng: **0.50**.",
+      "parameters": [
+        [
+          "Số nhãn đầu ra",
+          "28"
+        ],
+        [
+          "Chế độ ngưỡng",
+          "Cố định 0,5"
+        ],
+        [
+          "Checkpoint pretrained",
+          "FacebookAI/roberta-base"
+        ],
+        [
+          "Seed",
+          "2026"
+        ],
+        [
+          "Epoch đã chọn",
+          "3"
+        ],
+        [
+          "Số epoch tối đa",
+          "3"
+        ],
+        [
+          "Learning rate",
+          "2e-05"
+        ],
+        [
+          "Batch size",
+          "16"
+        ],
+        [
+          "Giới hạn token",
+          "128"
+        ],
+        [
+          "Optimizer",
+          "AdamW"
+        ],
+        [
+          "Weight decay",
+          "0.01"
+        ],
+        [
+          "Warmup ratio",
+          "0.1"
+        ],
+        [
+          "Số tham số",
+          "124,667,164"
+        ],
+        [
+          "Loss khi fine-tune",
+          "BCEWithLogitsLoss không trọng số"
+        ]
+      ],
+      "test_metrics": [
+        [
+          "Macro-F1",
+          "0.4311",
+          "0.4219 ± 0.0088"
+        ],
+        [
+          "Micro-F1",
+          "0.5811",
+          "0.5803 ± 0.0009"
+        ],
+        [
+          "Micro Precision",
+          "0.7081",
+          "0.7115 ± 0.0062"
+        ],
+        [
+          "Micro Recall",
+          "0.4928",
+          "0.4901 ± 0.0041"
+        ],
+        [
+          "Hamming Loss ↓",
+          "0.0296",
+          "0.0295 ± 0.0001"
+        ]
+      ],
+      "prediction": "**Mô hình:** C2 · RoBERTa · seed 2026\n\n**Luật ngưỡng:** Cố định 0,5\n\n**Cảm xúc dự đoán:** gratitude",
+      "score_rows": 28
+    },
+    {
+      "model": "roberta",
+      "mode": "global",
+      "info": "**Checkpoint đang dùng: seed 2026** · Ngưỡng: **0.20**.",
+      "parameters": [
+        [
+          "Số nhãn đầu ra",
+          "28"
+        ],
+        [
+          "Chế độ ngưỡng",
+          "Ngưỡng chung từ validation"
+        ],
+        [
+          "Checkpoint pretrained",
+          "FacebookAI/roberta-base"
+        ],
+        [
+          "Seed",
+          "2026"
+        ],
+        [
+          "Epoch đã chọn",
+          "3"
+        ],
+        [
+          "Số epoch tối đa",
+          "3"
+        ],
+        [
+          "Learning rate",
+          "2e-05"
+        ],
+        [
+          "Batch size",
+          "16"
+        ],
+        [
+          "Giới hạn token",
+          "128"
+        ],
+        [
+          "Optimizer",
+          "AdamW"
+        ],
+        [
+          "Weight decay",
+          "0.01"
+        ],
+        [
+          "Warmup ratio",
+          "0.1"
+        ],
+        [
+          "Số tham số",
+          "124,667,164"
+        ],
+        [
+          "Loss khi fine-tune",
+          "BCEWithLogitsLoss không trọng số"
+        ]
+      ],
+      "test_metrics": [
+        [
+          "Macro-F1",
+          "0.4779",
+          "0.4697 ± 0.0092"
+        ],
+        [
+          "Micro-F1",
+          "0.5975",
+          "0.5940 ± 0.0158"
+        ],
+        [
+          "Micro Precision",
+          "0.5199",
+          "0.5164 ± 0.0431"
+        ],
+        [
+          "Micro Recall",
+          "0.7025",
+          "0.7041 ± 0.0373"
+        ],
+        [
+          "Hamming Loss ↓",
+          "0.0394",
+          "0.0402 ± 0.0048"
+        ]
+      ],
+      "prediction": "**Mô hình:** C2 · RoBERTa · seed 2026\n\n**Luật ngưỡng:** Ngưỡng chung từ validation\n\n**Cảm xúc dự đoán:** gratitude, joy",
+      "score_rows": 28
+    },
+    {
+      "model": "roberta",
+      "mode": "tuned",
+      "info": "**Checkpoint đang dùng: seed 2026** · Ngưỡng: **28 ngưỡng riêng, từ 0.05 đến 0.60**.",
+      "parameters": [
+        [
+          "Số nhãn đầu ra",
+          "28"
+        ],
+        [
+          "Chế độ ngưỡng",
+          "Ngưỡng riêng từng nhãn từ validation"
+        ],
+        [
+          "Checkpoint pretrained",
+          "FacebookAI/roberta-base"
+        ],
+        [
+          "Seed",
+          "2026"
+        ],
+        [
+          "Epoch đã chọn",
+          "3"
+        ],
+        [
+          "Số epoch tối đa",
+          "3"
+        ],
+        [
+          "Learning rate",
+          "2e-05"
+        ],
+        [
+          "Batch size",
+          "16"
+        ],
+        [
+          "Giới hạn token",
+          "128"
+        ],
+        [
+          "Optimizer",
+          "AdamW"
+        ],
+        [
+          "Weight decay",
+          "0.01"
+        ],
+        [
+          "Warmup ratio",
+          "0.1"
+        ],
+        [
+          "Số tham số",
+          "124,667,164"
+        ],
+        [
+          "Loss khi fine-tune",
+          "BCEWithLogitsLoss không trọng số"
+        ]
+      ],
+      "test_metrics": [
+        [
+          "Macro-F1",
+          "0.5043",
+          "0.4872 ± 0.0156"
+        ],
+        [
+          "Micro-F1",
+          "0.6101",
+          "0.6048 ± 0.0057"
+        ],
+        [
+          "Micro Precision",
+          "0.5675",
+          "0.5517 ± 0.0157"
+        ],
+        [
+          "Micro Recall",
+          "0.6595",
+          "0.6697 ± 0.0095"
+        ],
+        [
+          "Hamming Loss ↓",
+          "0.0351",
+          "0.0365 ± 0.0014"
+        ]
+      ],
+      "prediction": "**Mô hình:** C2 · RoBERTa · seed 2026\n\n**Luật ngưỡng:** Ngưỡng riêng từng nhãn từ validation\n\n**Cảm xúc dự đoán:** gratitude, joy",
+      "score_rows": 28
     },
     {
       "model": "distilbert",
-      "message": "**Mô hình:** C3 · DistilBERT · seed 123\n\n**Cảm xúc dự đoán:** gratitude",
-      "rows": 28,
-      "seconds": 2.31
+      "mode": "fixed",
+      "info": "**Checkpoint đang dùng: seed 123** · Ngưỡng: **0.50**.",
+      "parameters": [
+        [
+          "Số nhãn đầu ra",
+          "28"
+        ],
+        [
+          "Chế độ ngưỡng",
+          "Cố định 0,5"
+        ],
+        [
+          "Checkpoint pretrained",
+          "distilbert/distilbert-base-uncased"
+        ],
+        [
+          "Seed",
+          "123"
+        ],
+        [
+          "Epoch đã chọn",
+          "3"
+        ],
+        [
+          "Số epoch tối đa",
+          "3"
+        ],
+        [
+          "Learning rate",
+          "2e-05"
+        ],
+        [
+          "Batch size",
+          "16"
+        ],
+        [
+          "Giới hạn token",
+          "128"
+        ],
+        [
+          "Optimizer",
+          "AdamW"
+        ],
+        [
+          "Weight decay",
+          "0.01"
+        ],
+        [
+          "Warmup ratio",
+          "0.1"
+        ],
+        [
+          "Số tham số",
+          "66,975,004"
+        ],
+        [
+          "Loss khi fine-tune",
+          "BCEWithLogitsLoss không trọng số"
+        ]
+      ],
+      "test_metrics": [
+        [
+          "Macro-F1",
+          "0.4154",
+          "0.4134 ± 0.0021"
+        ],
+        [
+          "Micro-F1",
+          "0.5747",
+          "0.5742 ± 0.0005"
+        ],
+        [
+          "Micro Precision",
+          "0.7160",
+          "0.7138 ± 0.0019"
+        ],
+        [
+          "Micro Recall",
+          "0.4800",
+          "0.4803 ± 0.0006"
+        ],
+        [
+          "Hamming Loss ↓",
+          "0.0296",
+          "0.0297 ± 0.0001"
+        ]
+      ],
+      "prediction": "**Mô hình:** C3 · DistilBERT · seed 123\n\n**Luật ngưỡng:** Cố định 0,5\n\n**Cảm xúc dự đoán:** gratitude",
+      "score_rows": 28
+    },
+    {
+      "model": "distilbert",
+      "mode": "global",
+      "info": "**Checkpoint đang dùng: seed 123** · Ngưỡng: **0.15**.",
+      "parameters": [
+        [
+          "Số nhãn đầu ra",
+          "28"
+        ],
+        [
+          "Chế độ ngưỡng",
+          "Ngưỡng chung từ validation"
+        ],
+        [
+          "Checkpoint pretrained",
+          "distilbert/distilbert-base-uncased"
+        ],
+        [
+          "Seed",
+          "123"
+        ],
+        [
+          "Epoch đã chọn",
+          "3"
+        ],
+        [
+          "Số epoch tối đa",
+          "3"
+        ],
+        [
+          "Learning rate",
+          "2e-05"
+        ],
+        [
+          "Batch size",
+          "16"
+        ],
+        [
+          "Giới hạn token",
+          "128"
+        ],
+        [
+          "Optimizer",
+          "AdamW"
+        ],
+        [
+          "Weight decay",
+          "0.01"
+        ],
+        [
+          "Warmup ratio",
+          "0.1"
+        ],
+        [
+          "Số tham số",
+          "66,975,004"
+        ],
+        [
+          "Loss khi fine-tune",
+          "BCEWithLogitsLoss không trọng số"
+        ]
+      ],
+      "test_metrics": [
+        [
+          "Macro-F1",
+          "0.4611",
+          "0.4648 ± 0.0047"
+        ],
+        [
+          "Micro-F1",
+          "0.5794",
+          "0.5837 ± 0.0096"
+        ],
+        [
+          "Micro Precision",
+          "0.4788",
+          "0.4916 ± 0.0247"
+        ],
+        [
+          "Micro Recall",
+          "0.7336",
+          "0.7201 ± 0.0224"
+        ],
+        [
+          "Hamming Loss ↓",
+          "0.0444",
+          "0.0428 ± 0.0030"
+        ]
+      ],
+      "prediction": "**Mô hình:** C3 · DistilBERT · seed 123\n\n**Luật ngưỡng:** Ngưỡng chung từ validation\n\n**Cảm xúc dự đoán:** gratitude, joy",
+      "score_rows": 28
+    },
+    {
+      "model": "distilbert",
+      "mode": "tuned",
+      "info": "**Checkpoint đang dùng: seed 123** · Ngưỡng: **28 ngưỡng riêng, từ 0.05 đến 0.50**.",
+      "parameters": [
+        [
+          "Số nhãn đầu ra",
+          "28"
+        ],
+        [
+          "Chế độ ngưỡng",
+          "Ngưỡng riêng từng nhãn từ validation"
+        ],
+        [
+          "Checkpoint pretrained",
+          "distilbert/distilbert-base-uncased"
+        ],
+        [
+          "Seed",
+          "123"
+        ],
+        [
+          "Epoch đã chọn",
+          "3"
+        ],
+        [
+          "Số epoch tối đa",
+          "3"
+        ],
+        [
+          "Learning rate",
+          "2e-05"
+        ],
+        [
+          "Batch size",
+          "16"
+        ],
+        [
+          "Giới hạn token",
+          "128"
+        ],
+        [
+          "Optimizer",
+          "AdamW"
+        ],
+        [
+          "Weight decay",
+          "0.01"
+        ],
+        [
+          "Warmup ratio",
+          "0.1"
+        ],
+        [
+          "Số tham số",
+          "66,975,004"
+        ],
+        [
+          "Loss khi fine-tune",
+          "BCEWithLogitsLoss không trọng số"
+        ]
+      ],
+      "test_metrics": [
+        [
+          "Macro-F1",
+          "0.4818",
+          "0.4863 ± 0.0065"
+        ],
+        [
+          "Micro-F1",
+          "0.5995",
+          "0.5952 ± 0.0046"
+        ],
+        [
+          "Micro Precision",
+          "0.5393",
+          "0.5399 ± 0.0084"
+        ],
+        [
+          "Micro Recall",
+          "0.6747",
+          "0.6635 ± 0.0112"
+        ],
+        [
+          "Hamming Loss ↓",
+          "0.0376",
+          "0.0376 ± 0.0008"
+        ]
+      ],
+      "prediction": "**Mô hình:** C3 · DistilBERT · seed 123\n\n**Luật ngưỡng:** Ngưỡng riêng từng nhãn từ validation\n\n**Cảm xúc dự đoán:** gratitude, joy",
+      "score_rows": 28
     },
     {
       "model": "baseline_standard",
-      "message": "**Mô hình:** A · TF-IDF + Logistic Regression — thường\n\n**Cảm xúc dự đoán:** gratitude",
-      "rows": 28,
-      "seconds": 1.83
+      "mode": "fixed",
+      "info": "**Checkpoint đang dùng: seed 42** · Ngưỡng: **0.50**.",
+      "parameters": [
+        [
+          "Số nhãn đầu ra",
+          "28"
+        ],
+        [
+          "Chế độ ngưỡng",
+          "Cố định 0,5"
+        ],
+        [
+          "Biểu diễn",
+          "TF-IDF unigram + bigram"
+        ],
+        [
+          "Số đặc trưng đã học",
+          "58338"
+        ],
+        [
+          "min_df",
+          "2"
+        ],
+        [
+          "max_features",
+          "100000"
+        ],
+        [
+          "C của Logistic Regression",
+          "1.0"
+        ],
+        [
+          "Solver",
+          "liblinear"
+        ],
+        [
+          "max_iter",
+          "1000"
+        ],
+        [
+          "Class weight",
+          "None"
+        ]
+      ],
+      "test_metrics": [
+        [
+          "Macro-F1",
+          "0.1963",
+          "0.1963"
+        ],
+        [
+          "Micro-F1",
+          "0.3800",
+          "0.3800"
+        ],
+        [
+          "Micro Precision",
+          "0.7383",
+          "0.7383"
+        ],
+        [
+          "Micro Recall",
+          "0.2558",
+          "0.2558"
+        ],
+        [
+          "Hamming Loss ↓",
+          "0.0348",
+          "0.0348"
+        ]
+      ],
+      "prediction": "**Mô hình:** A · TF-IDF + Logistic Regression — thường\n\n**Luật ngưỡng:** Cố định 0,5\n\n**Cảm xúc dự đoán:** gratitude",
+      "score_rows": 28
+    },
+    {
+      "model": "baseline_standard",
+      "mode": "global",
+      "info": "**Checkpoint đang dùng: seed 42** · Ngưỡng: **0.10**.",
+      "parameters": [
+        [
+          "Số nhãn đầu ra",
+          "28"
+        ],
+        [
+          "Chế độ ngưỡng",
+          "Ngưỡng chung từ validation"
+        ],
+        [
+          "Biểu diễn",
+          "TF-IDF unigram + bigram"
+        ],
+        [
+          "Số đặc trưng đã học",
+          "58338"
+        ],
+        [
+          "min_df",
+          "2"
+        ],
+        [
+          "max_features",
+          "100000"
+        ],
+        [
+          "C của Logistic Regression",
+          "1.0"
+        ],
+        [
+          "Solver",
+          "liblinear"
+        ],
+        [
+          "max_iter",
+          "1000"
+        ],
+        [
+          "Class weight",
+          "None"
+        ]
+      ],
+      "test_metrics": [
+        [
+          "Macro-F1",
+          "0.4096",
+          "0.4096"
+        ],
+        [
+          "Micro-F1",
+          "0.5047",
+          "0.5047"
+        ],
+        [
+          "Micro Precision",
+          "0.4025",
+          "0.4025"
+        ],
+        [
+          "Micro Recall",
+          "0.6766",
+          "0.6766"
+        ],
+        [
+          "Hamming Loss ↓",
+          "0.0553",
+          "0.0553"
+        ]
+      ],
+      "prediction": "**Mô hình:** A · TF-IDF + Logistic Regression — thường\n\n**Luật ngưỡng:** Ngưỡng chung từ validation\n\n**Cảm xúc dự đoán:** gratitude, joy",
+      "score_rows": 28
+    },
+    {
+      "model": "baseline_standard",
+      "mode": "tuned",
+      "info": "**Checkpoint đang dùng: seed 42** · Ngưỡng: **28 ngưỡng riêng, từ 0.05 đến 0.50**.",
+      "parameters": [
+        [
+          "Số nhãn đầu ra",
+          "28"
+        ],
+        [
+          "Chế độ ngưỡng",
+          "Ngưỡng riêng từng nhãn từ validation"
+        ],
+        [
+          "Biểu diễn",
+          "TF-IDF unigram + bigram"
+        ],
+        [
+          "Số đặc trưng đã học",
+          "58338"
+        ],
+        [
+          "min_df",
+          "2"
+        ],
+        [
+          "max_features",
+          "100000"
+        ],
+        [
+          "C của Logistic Regression",
+          "1.0"
+        ],
+        [
+          "Solver",
+          "liblinear"
+        ],
+        [
+          "max_iter",
+          "1000"
+        ],
+        [
+          "Class weight",
+          "None"
+        ]
+      ],
+      "test_metrics": [
+        [
+          "Macro-F1",
+          "0.4134",
+          "0.4134"
+        ],
+        [
+          "Micro-F1",
+          "0.5330",
+          "0.5330"
+        ],
+        [
+          "Micro Precision",
+          "0.4744",
+          "0.4744"
+        ],
+        [
+          "Micro Recall",
+          "0.6082",
+          "0.6082"
+        ],
+        [
+          "Hamming Loss ↓",
+          "0.0444",
+          "0.0444"
+        ]
+      ],
+      "prediction": "**Mô hình:** A · TF-IDF + Logistic Regression — thường\n\n**Luật ngưỡng:** Ngưỡng riêng từng nhãn từ validation\n\n**Cảm xúc dự đoán:** gratitude, joy",
+      "score_rows": 28
     },
     {
       "model": "baseline_balanced",
-      "message": "**Mô hình:** A · TF-IDF + Logistic Regression — cân bằng lớp\n\n**Cảm xúc dự đoán:** gratitude, joy",
-      "rows": 28,
-      "seconds": 1.61
+      "mode": "fixed",
+      "info": "**Checkpoint đang dùng: seed 42** · Ngưỡng: **0.50**.",
+      "parameters": [
+        [
+          "Số nhãn đầu ra",
+          "28"
+        ],
+        [
+          "Chế độ ngưỡng",
+          "Cố định 0,5"
+        ],
+        [
+          "Biểu diễn",
+          "TF-IDF unigram + bigram"
+        ],
+        [
+          "Số đặc trưng đã học",
+          "58338"
+        ],
+        [
+          "min_df",
+          "2"
+        ],
+        [
+          "max_features",
+          "100000"
+        ],
+        [
+          "C của Logistic Regression",
+          "1.0"
+        ],
+        [
+          "Solver",
+          "liblinear"
+        ],
+        [
+          "max_iter",
+          "1000"
+        ],
+        [
+          "Class weight",
+          "balanced"
+        ]
+      ],
+      "test_metrics": [
+        [
+          "Macro-F1",
+          "0.4441",
+          "0.4441"
+        ],
+        [
+          "Micro-F1",
+          "0.5024",
+          "0.5024"
+        ],
+        [
+          "Micro Precision",
+          "0.4043",
+          "0.4043"
+        ],
+        [
+          "Micro Recall",
+          "0.6631",
+          "0.6631"
+        ],
+        [
+          "Hamming Loss ↓",
+          "0.0547",
+          "0.0547"
+        ]
+      ],
+      "prediction": "**Mô hình:** A · TF-IDF + Logistic Regression — cân bằng lớp\n\n**Luật ngưỡng:** Cố định 0,5\n\n**Cảm xúc dự đoán:** gratitude, joy",
+      "score_rows": 28
+    },
+    {
+      "model": "baseline_balanced",
+      "mode": "global",
+      "info": "**Checkpoint đang dùng: seed 42** · Ngưỡng: **0.55**.",
+      "parameters": [
+        [
+          "Số nhãn đầu ra",
+          "28"
+        ],
+        [
+          "Chế độ ngưỡng",
+          "Ngưỡng chung từ validation"
+        ],
+        [
+          "Biểu diễn",
+          "TF-IDF unigram + bigram"
+        ],
+        [
+          "Số đặc trưng đã học",
+          "58338"
+        ],
+        [
+          "min_df",
+          "2"
+        ],
+        [
+          "max_features",
+          "100000"
+        ],
+        [
+          "C của Logistic Regression",
+          "1.0"
+        ],
+        [
+          "Solver",
+          "liblinear"
+        ],
+        [
+          "max_iter",
+          "1000"
+        ],
+        [
+          "Class weight",
+          "balanced"
+        ]
+      ],
+      "test_metrics": [
+        [
+          "Macro-F1",
+          "0.4530",
+          "0.4530"
+        ],
+        [
+          "Micro-F1",
+          "0.5157",
+          "0.5157"
+        ],
+        [
+          "Micro Precision",
+          "0.4447",
+          "0.4447"
+        ],
+        [
+          "Micro Recall",
+          "0.6135",
+          "0.6135"
+        ],
+        [
+          "Hamming Loss ↓",
+          "0.0480",
+          "0.0480"
+        ]
+      ],
+      "prediction": "**Mô hình:** A · TF-IDF + Logistic Regression — cân bằng lớp\n\n**Luật ngưỡng:** Ngưỡng chung từ validation\n\n**Cảm xúc dự đoán:** gratitude, joy",
+      "score_rows": 28
+    },
+    {
+      "model": "baseline_balanced",
+      "mode": "tuned",
+      "info": "**Checkpoint đang dùng: seed 42** · Ngưỡng: **28 ngưỡng riêng, từ 0.45 đến 0.85**.",
+      "parameters": [
+        [
+          "Số nhãn đầu ra",
+          "28"
+        ],
+        [
+          "Chế độ ngưỡng",
+          "Ngưỡng riêng từng nhãn từ validation"
+        ],
+        [
+          "Biểu diễn",
+          "TF-IDF unigram + bigram"
+        ],
+        [
+          "Số đặc trưng đã học",
+          "58338"
+        ],
+        [
+          "min_df",
+          "2"
+        ],
+        [
+          "max_features",
+          "100000"
+        ],
+        [
+          "C của Logistic Regression",
+          "1.0"
+        ],
+        [
+          "Solver",
+          "liblinear"
+        ],
+        [
+          "max_iter",
+          "1000"
+        ],
+        [
+          "Class weight",
+          "balanced"
+        ]
+      ],
+      "test_metrics": [
+        [
+          "Macro-F1",
+          "0.4493",
+          "0.4493"
+        ],
+        [
+          "Micro-F1",
+          "0.5277",
+          "0.5277"
+        ],
+        [
+          "Micro Precision",
+          "0.4561",
+          "0.4561"
+        ],
+        [
+          "Micro Recall",
+          "0.6260",
+          "0.6260"
+        ],
+        [
+          "Hamming Loss ↓",
+          "0.0467",
+          "0.0467"
+        ]
+      ],
+      "prediction": "**Mô hình:** A · TF-IDF + Logistic Regression — cân bằng lớp\n\n**Luật ngưỡng:** Ngưỡng riêng từng nhãn từ validation\n\n**Cảm xúc dự đoán:** gratitude, joy",
+      "score_rows": 28
     },
     {
       "model": "zero_shot",
-      "message": "**Mô hình:** B · Zero-shot BART-MNLI\n\n**Cảm xúc dự đoán:** admiration, approval, caring, curiosity, desire, excitement, gratitude, joy, love, optimism, pride, realization, relief, surprise",
-      "rows": 28,
-      "seconds": 8.84
+      "mode": "fixed",
+      "info": "**BART-MNLI pretrained — không fine-tune trên GoEmotions** · Ngưỡng: **0.50**.",
+      "parameters": [
+        [
+          "Số nhãn đầu ra",
+          "28"
+        ],
+        [
+          "Chế độ ngưỡng",
+          "Cố định 0,5"
+        ],
+        [
+          "Checkpoint",
+          "facebook/bart-large-mnli"
+        ],
+        [
+          "Hypothesis template",
+          "This text expresses {}."
+        ],
+        [
+          "Multi-label",
+          "True"
+        ],
+        [
+          "Fine-tune GoEmotions",
+          "Không"
+        ],
+        [
+          "Giới hạn cặp NLI",
+          "1.024 token"
+        ]
+      ],
+      "test_metrics": [
+        [
+          "Macro-F1",
+          "0.1035",
+          "0.1035"
+        ],
+        [
+          "Micro-F1",
+          "0.1008",
+          "0.1008"
+        ],
+        [
+          "Micro Precision",
+          "0.0542",
+          "0.0542"
+        ],
+        [
+          "Micro Recall",
+          "0.7148",
+          "0.7148"
+        ],
+        [
+          "Hamming Loss ↓",
+          "0.5315",
+          "0.5315"
+        ]
+      ],
+      "prediction": "**Mô hình:** B · Zero-shot BART-MNLI\n\n**Luật ngưỡng:** Cố định 0,5\n\n**Cảm xúc dự đoán:** admiration, approval, caring, curiosity, desire, excitement, gratitude, joy, love, optimism, pride, realization, relief, surprise",
+      "score_rows": 28
+    },
+    {
+      "model": "zero_shot",
+      "mode": "global",
+      "info": "**BART-MNLI pretrained — không fine-tune trên GoEmotions** · Ngưỡng: **0.95**.",
+      "parameters": [
+        [
+          "Số nhãn đầu ra",
+          "28"
+        ],
+        [
+          "Chế độ ngưỡng",
+          "Ngưỡng chung từ validation"
+        ],
+        [
+          "Checkpoint",
+          "facebook/bart-large-mnli"
+        ],
+        [
+          "Hypothesis template",
+          "This text expresses {}."
+        ],
+        [
+          "Multi-label",
+          "True"
+        ],
+        [
+          "Fine-tune GoEmotions",
+          "Không"
+        ],
+        [
+          "Giới hạn cặp NLI",
+          "1.024 token"
+        ]
+      ],
+      "test_metrics": [
+        [
+          "Macro-F1",
+          "0.1473",
+          "0.1473"
+        ],
+        [
+          "Micro-F1",
+          "0.1449",
+          "0.1449"
+        ],
+        [
+          "Micro Precision",
+          "0.0829",
+          "0.0829"
+        ],
+        [
+          "Micro Recall",
+          "0.5759",
+          "0.5759"
+        ],
+        [
+          "Hamming Loss ↓",
+          "0.2831",
+          "0.2831"
+        ]
+      ],
+      "prediction": "**Mô hình:** B · Zero-shot BART-MNLI\n\n**Luật ngưỡng:** Ngưỡng chung từ validation\n\n**Cảm xúc dự đoán:** admiration, approval, caring, desire, excitement, gratitude, joy, love, optimism, pride, realization, relief, surprise",
+      "score_rows": 28
+    },
+    {
+      "model": "zero_shot",
+      "mode": "tuned",
+      "info": "**BART-MNLI pretrained — không fine-tune trên GoEmotions** · Ngưỡng: **28 ngưỡng riêng, từ 0.05 đến 0.95**.",
+      "parameters": [
+        [
+          "Số nhãn đầu ra",
+          "28"
+        ],
+        [
+          "Chế độ ngưỡng",
+          "Ngưỡng riêng từng nhãn từ validation"
+        ],
+        [
+          "Checkpoint",
+          "facebook/bart-large-mnli"
+        ],
+        [
+          "Hypothesis template",
+          "This text expresses {}."
+        ],
+        [
+          "Multi-label",
+          "True"
+        ],
+        [
+          "Fine-tune GoEmotions",
+          "Không"
+        ],
+        [
+          "Giới hạn cặp NLI",
+          "1.024 token"
+        ]
+      ],
+      "test_metrics": [
+        [
+          "Macro-F1",
+          "0.1609",
+          "0.1609"
+        ],
+        [
+          "Micro-F1",
+          "0.1752",
+          "0.1752"
+        ],
+        [
+          "Micro Precision",
+          "0.0992",
+          "0.0992"
+        ],
+        [
+          "Micro Recall",
+          "0.7499",
+          "0.7499"
+        ],
+        [
+          "Hamming Loss ↓",
+          "0.2941",
+          "0.2941"
+        ]
+      ],
+      "prediction": "**Mô hình:** B · Zero-shot BART-MNLI\n\n**Luật ngưỡng:** Ngưỡng riêng từng nhãn từ validation\n\n**Cảm xúc dự đoán:** admiration, approval, caring, desire, excitement, gratitude, joy, love, optimism, pride, realization, relief, surprise, neutral",
+      "score_rows": 28
     }
   ],
-  "input_checks_passed": true,
-  "current_c3_case_passed": true
+  "interface_status": "PASS",
+  "browser_interaction_status": "PASS",
+  "browser_check": {
+    "checked_at": "2026-10-22T04:02:27.600Z",
+    "models": [
+      "bert",
+      "distilbert"
+    ],
+    "threshold_modes": [
+      "fixed",
+      "tuned"
+    ],
+    "browser": "isolated headless Edge",
+    "input_and_predict_button": true,
+    "model_and_threshold_dropdown_interactions": true,
+    "parameters_visible": true,
+    "screenshots": [
+      "latest_bert_ui.png",
+      "latest_bert_compact_ui.png",
+      "latest_distilbert_tuned_ui.png"
+    ]
+  },
+  "training_repeated": false,
+  "model_weights_changed": false
 }

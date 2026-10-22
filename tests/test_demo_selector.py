@@ -8,7 +8,7 @@ from unittest.mock import patch
 
 import numpy as np
 
-from src.apps.model_selector import ModelSelector, format_scores
+from src.apps.model_selector import BaselineDemo, ModelSelector, format_scores
 
 
 class DemoSelectorTest(unittest.TestCase):
@@ -63,6 +63,36 @@ class DemoSelectorTest(unittest.TestCase):
                         selector.predict("hello", "zero_shot")
                     self.assertIsNone(selector._key)
                     self.assertIsNone(selector._predictor)
+
+    def test_changing_thresholds_uses_same_weights_and_correct_label_limits(self):
+        with tempfile.TemporaryDirectory() as folder:
+            selector = self.make_selector(folder)
+            predictor = BaselineDemo.__new__(BaselineDemo)
+            predictor.labels = [f"label_{i}" for i in range(28)]
+            predictor.model = SimpleNamespace(predict_proba=lambda texts: np.full((1, 28), 0.6))
+            per_label = np.full(28, 0.8)
+            per_label[0] = 0.4
+            with patch.object(selector, "_load", return_value=predictor) as load:
+                with patch.object(selector, "details", return_value={"limits": {"global": 0.8, "tuned": per_label}}):
+                    with patch.dict("sys.modules", {"torch": SimpleNamespace(
+                            set_num_threads=lambda n: None,
+                            cuda=SimpleNamespace(is_available=lambda: False))}):
+                        _, fixed = selector.predict("hello", "baseline_standard", "fixed")
+                        _, global_rows = selector.predict("hello", "baseline_standard", "global")
+                        _, tuned = selector.predict("hello", "baseline_standard", "tuned")
+                        self.assertEqual(sum(bool(r[3]) for r in fixed), 28)
+                        self.assertEqual(sum(bool(r[3]) for r in global_rows), 0)
+                        self.assertEqual([r[0] for r in tuned if r[3]], ["label_0"])
+                        load.assert_called_once()
+                        with self.assertRaises(ValueError):
+                            selector.predict("hello", "baseline_standard", "unsupported")
+
+    def test_custom_thresholds_cannot_be_applied_to_another_model(self):
+        with tempfile.TemporaryDirectory() as folder:
+            selector = self.make_selector(folder)
+            selector.thresholds = Path(folder) / "thresholds.json"
+            with self.assertRaises(ValueError):
+                selector.limits("roberta", "custom")
 
 
 if __name__ == "__main__":

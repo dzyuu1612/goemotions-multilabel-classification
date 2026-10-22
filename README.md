@@ -382,8 +382,11 @@ Cặp FN/FP khác đồng xuất hiện nhãn thật; điểm toy/smoke không t
 
 ![Demo Gradio đã chạy: dự đoán gratitude, joy và bảng score/ngưỡng 28 nhãn](assets/demo.png)
 
-Ảnh đã kiểm ngày **08/10/2026**, BERT seed 123 được chọn bằng validation.
+Ảnh giao diện cập nhật ngày **22/10/2026**, BERT seed 123 được chọn bằng validation.
 Đây là minh chứng một lần chạy, không khẳng định app đang mở trên máy bạn.
+[Ảnh khi mở bảng thông số đã chạy](assets/demo_parameters.png) hiển thị cấu hình
+checkpoint. Kiểm trực tiếp bằng trình duyệt và Gradio API đã xác nhận sáu model
+× ba luật ngưỡng; chuyển ngưỡng giữ nguyên scores và trọng số mô hình.
 Sau khi pipeline tạo checkpoint C và `selected_model.json` ở máy:
 
 ```bash
@@ -411,7 +414,11 @@ Ngưỡng mặc định 0,5; ngưỡng riêng cần `--thresholds` đúng protoc
 Giao diện có mục **Chọn mô hình** để thử BERT, RoBERTa, DistilBERT, hai baseline
 standard/balanced và zero-shot BART-MNLI trên câu nhập. Mặc định vẫn là C được
 chọn bằng validation trong `selected_model.json`. Các lựa chọn so sánh dùng
-ngưỡng 0,5; nếu truyền `--thresholds`, ngưỡng riêng chỉ áp dụng cho model mặc định.
+ngưỡng 0,5 theo mặc định. Ô **Luật chọn nhãn** cho phép chuyển fixed/global/tuned
+bằng đúng ngưỡng đã chọn trên validation của từng run. Tham số seed, epoch, LR,
+batch, giới hạn token và kết quả test cập nhật theo lựa chọn; bảng tách kết quả
+checkpoint đang dùng với mean ± sample std ba seed C. A/B có một lượt.
+Nếu truyền `--thresholds`, tệp ngưỡng riêng chỉ áp dụng cho model mặc định.
 RoBERTa dùng seed tốt nhất theo validation; DistilBERT dùng seed đại diện từ bộ
 C3 hiện tại của báo cáo 2.1 (hoặc đường dẫn `GOEMOTIONS_C3_RUN_ROOT`).
 Kết quả cũ được xóa khi đổi lựa chọn. Model được nạp khi bấm dự đoán và app chỉ
@@ -444,8 +451,9 @@ Cả chín lượt đạt validation F1 cao nhất ở epoch cuối; chưa chứ
 hoặc hoàn toàn không overfit/underfit.
 
 [Biên nhận demo nhiều mô hình](results/presentation_audit/multi_model_demo_verification.json)
-kiểm cấu hình HTTP và suy luận qua Gradio API với sáu lựa chọn; không phải ảnh
-chụp giao diện mới. Biên nhận demo trong snapshot báo cáo cũ chỉ kiểm hàm suy
+kiểm HTTP, 18 tổ hợp model/ngưỡng qua Gradio API và thao tác chọn model/ngưỡng,
+nhập câu, bấm dự đoán trên trình duyệt độc lập. Ảnh giao diện mới nằm tại assets/.
+Biên nhận demo trong snapshot báo cáo cũ chỉ kiểm hàm suy
 luận và vẫn giữ nguyên phạm vi lịch sử của lần kiểm đó.
 
 Các nghiên cứu để đối chiếu, không phải các kỹ thuật đều đã được chạy trong repo:
