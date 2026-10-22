@@ -120,7 +120,7 @@ Mô hình trả 28 điểm; ngưỡng quyết định tập nhãn được chọ
 | **A · Baseline** | TF-IDF + One-vs-Rest Logistic Regression | Mốc cổ điển; class weighting và threshold tuning |
 | **B · Zero-shot** | BART-large-MNLI qua NLI | Dùng pretrained trực tiếp, không fine-tune bằng GoEmotions |
 | **C · Fine-tune** | BERT / RoBERTa / DistilBERT | 28 logits + BCE, ba seed mỗi kiến trúc |
-| **D · Demo** | Gradio | Nạp checkpoint C được chọn bằng validation |
+| **D · Demo** | Gradio | Mặc định C chọn bằng validation; cho phép thử A, B và ba C |
 
 A/B/C chạy độc lập, cùng dữ liệu/mapping/metric. A là mốc so sánh,
 không phải đầu vào bắt buộc của Transformer.
@@ -408,6 +408,55 @@ sai lệch scores và phạm vi kiểm; ảnh giao diện phía trên là minh c
 Mở `http://127.0.0.1:7860/`. App cần checkpoint thật; clone source không có trọng số.
 Ngưỡng mặc định 0,5; ngưỡng riêng cần `--thresholds` đúng protocol run đã chọn.
 
+Giao diện có mục **Chọn mô hình** để thử BERT, RoBERTa, DistilBERT, hai baseline
+standard/balanced và zero-shot BART-MNLI trên câu nhập. Mặc định vẫn là C được
+chọn bằng validation trong `selected_model.json`. Các lựa chọn so sánh dùng
+ngưỡng 0,5; nếu truyền `--thresholds`, ngưỡng riêng chỉ áp dụng cho model mặc định.
+RoBERTa dùng seed tốt nhất theo validation; DistilBERT dùng seed đại diện từ bộ
+C3 hiện tại của báo cáo 2.1 (hoặc đường dẫn `GOEMOTIONS_C3_RUN_ROOT`).
+Kết quả cũ được xóa khi đổi lựa chọn. Model được nạp khi bấm dự đoán và app chỉ
+giữ một model trong bộ nhớ. BART-MNLI tải đúng revision đã ghi trong metadata
+vào cache trên ổ chứa repo khi chưa có; lần đầu có thể cần tải trọng số lớn.
+Các lựa chọn cần artifacts tương ứng trong `--artifacts-root`; thiếu model sẽ
+báo lỗi, không dùng model khác để thay thế. Đổi model không huấn luyện lại hay
+thay đổi số liệu benchmark đã công bố.
+
+### Kiểm dữ liệu và chuẩn bị bảo vệ
+
+```powershell
+& $py -m scripts.verification.audit_data_boundaries --artifacts-root ../goemotions-multilabel-classification
+```
+
+[Biên nhận kiểm dữ liệu](results/presentation_audit/data_boundary_audit.json)
+ghi kết quả dựng lại TF-IDF chỉ từ train: 58.338 đặc trưng, vocabulary và IDF
+khớp cả hai baseline (sai lệch IDF lớn nhất bằng 0). ID ba tập không giao nhau,
+nhưng train–test có 32 chuỗi trùng ảnh hưởng 37 dòng test; validation–test có
+10 chuỗi trùng ảnh hưởng 13 dòng test. Không diễn giải kết quả này thành
+chứng nhận không rò rỉ: chưa loại trừ gần trùng, cùng hội thoại hoặc pretraining,
+và test đã được quan sát trong EDA/báo cáo trước.
+
+Mỗi split được mã hóa riêng nhưng dùng chung mapping 28 nhãn; validation/test
+chỉ transform bằng vectorizer đã fit trên train. Tokenizer pretrained được giữ
+nhất quán theo từng kiến trúc. Mã hóa không bảo đảm giữ toàn bộ nội dung:
+TF-IDF bỏ đặc trưng ngoài vocabulary, các C cắt ở 128 token. Log hiện tại có
+train loss và validation Macro-F1, chưa có train F1/validation loss từng epoch.
+Cả chín lượt đạt validation F1 cao nhất ở epoch cuối; chưa chứng minh hội tụ
+hoặc hoàn toàn không overfit/underfit.
+
+[Biên nhận demo nhiều mô hình](results/presentation_audit/multi_model_demo_verification.json)
+kiểm cấu hình HTTP và suy luận qua Gradio API với sáu lựa chọn; không phải ảnh
+chụp giao diện mới. Biên nhận demo trong snapshot báo cáo cũ chỉ kiểm hàm suy
+luận và vẫn giữ nguyên phạm vi lịch sử của lần kiểm đó.
+
+Các nghiên cứu để đối chiếu, không phải các kỹ thuật đều đã được chạy trong repo:
+
+- [GoEmotions (ACL 2020)](https://aclanthology.org/2020.acl-main.372/): dữ liệu, taxonomy và hướng fine-tuning BERT được kế thừa.
+- [SemEval-2018 Task 1](https://aclanthology.org/S18-1001/): bối cảnh cảm xúc trên tweet trước GoEmotions, khác bộ dữ liệu/hệ nhãn.
+- [BERT và clipped asymmetric loss (IEEE Access 2025)](https://ieeexplore.ieee.org/document/10947681/): liên quan mất cân bằng và nhãn hiếm; chín lượt C của nhóm chưa dùng loss này.
+- [Weighted loss trên BRIGHTER (SemEval 2025)](https://aclanthology.org/2025.semeval-1.37/): liên hệ kỹ thuật, không so điểm như cùng benchmark GoEmotions.
+- [TACO (ACL 2025)](https://aclanthology.org/2025.acl-long.247/): học tương phản, nhưng thí nghiệm GoEmotions lọc mẫu một nhãn và bỏ neutral nên không so trực tiếp với bài toán 28 nhãn đa nhãn.
+- [So sánh LR, BiLSTM và BERT (2026)](https://arxiv.org/abs/2601.18162): preprint gần phạm vi đồ án; repo hiện tại chưa có thí nghiệm BiLSTM.
+
 <a id="distilbert-study"></a>
 ### DistilBERT riêng của Nhật Huy
 
@@ -547,8 +596,8 @@ Cách bố trí giới thiệu/cài đặt/ví dụ/nguồn tham khảo
 [Gradio](https://github.com/gradio-app/gradio). Hình quy trình do nhóm tạo;
 không sao chép logo hay mã từ README của các dự án đó.
 
-**Nhóm 4 người:** Duy — baseline A, điều phối B và bàn giao;
-Quốc Khánh — BERT C1; Đức Trí — RoBERTa C2/zero-shot theo phân công;
+**Nhóm 4 người:** Duy — baseline A, zero-shot B, viết/tổng hợp báo cáo và điều phối;
+Quốc Khánh — BERT C1; Đức Trí — RoBERTa C2;
 Nhật Huy — DistilBERT C3, nghiên cứu riêng và demo.
 Tỷ lệ đóng góp do nhóm xác nhận, không suy từ tác giả commit.
 

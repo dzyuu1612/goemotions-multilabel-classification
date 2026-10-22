@@ -1,0 +1,72 @@
+{
+  "checked_at_utc": "2026-10-22T03:17:41.062379+00:00",
+  "interface_check_method": "HTTP config and Gradio API; no visual browser access",
+  "http_status": 200,
+  "dropdown_models": [
+    [
+      "C1 · BERT — mô hình mặc định",
+      "bert"
+    ],
+    [
+      "C2 · RoBERTa",
+      "roberta"
+    ],
+    [
+      "C3 · DistilBERT",
+      "distilbert"
+    ],
+    [
+      "A · TF-IDF + Logistic Regression — thường",
+      "baseline_standard"
+    ],
+    [
+      "A · TF-IDF + Logistic Regression — cân bằng lớp",
+      "baseline_balanced"
+    ],
+    [
+      "B · Zero-shot BART-MNLI",
+      "zero_shot"
+    ]
+  ],
+  "default_model": "bert",
+  "cases": [
+    {
+      "model": "bert",
+      "message": "**Mô hình:** C1 · BERT — mô hình mặc định · seed 123\n\n**Cảm xúc dự đoán:** gratitude, joy",
+      "rows": 28,
+      "seconds": 13.89
+    },
+    {
+      "model": "roberta",
+      "message": "**Mô hình:** C2 · RoBERTa · seed 2026\n\n**Cảm xúc dự đoán:** gratitude",
+      "rows": 28,
+      "seconds": 2.47
+    },
+    {
+      "model": "distilbert",
+      "message": "**Mô hình:** C3 · DistilBERT · seed 123\n\n**Cảm xúc dự đoán:** gratitude",
+      "rows": 28,
+      "seconds": 2.31
+    },
+    {
+      "model": "baseline_standard",
+      "message": "**Mô hình:** A · TF-IDF + Logistic Regression — thường\n\n**Cảm xúc dự đoán:** gratitude",
+      "rows": 28,
+      "seconds": 1.83
+    },
+    {
+      "model": "baseline_balanced",
+      "message": "**Mô hình:** A · TF-IDF + Logistic Regression — cân bằng lớp\n\n**Cảm xúc dự đoán:** gratitude, joy",
+      "rows": 28,
+      "seconds": 1.61
+    },
+    {
+      "model": "zero_shot",
+      "message": "**Mô hình:** B · Zero-shot BART-MNLI\n\n**Cảm xúc dự đoán:** admiration, approval, caring, curiosity, desire, excitement, gratitude, joy, love, optimism, pride, realization, relief, surprise",
+      "rows": 28,
+      "seconds": 8.84
+    }
+  ],
+  "input_checks_passed": true,
+  "current_c3_case_passed": true
+}

@@ -1,0 +1,233 @@
+{
+  "checked_at_utc": "2026-10-22T03:21:52.755295+00:00",
+  "scope": "Read official splits; reconstruct train-only TF-IDF; inspect saved learning curves. No model training or threshold tuning.",
+  "dataset_revision": "add492243ff905527e67aeb8b80c082af02207c3",
+  "dataset_files": [
+    {
+      "split": "train",
+      "url": "https://huggingface.co/datasets/google-research-datasets/go_emotions/resolve/add492243ff905527e67aeb8b80c082af02207c3/simplified/train-00000-of-00001.parquet",
+      "path": "data/raw/train-00000-of-00001.parquet",
+      "sha256": "b7d74279616ae7c9b8374ab62ea9f9d6504d36a577bb17f745d720dc2b0d4e76",
+      "bytes": 2767678,
+      "rows": 43410
+    },
+    {
+      "split": "validation",
+      "url": "https://huggingface.co/datasets/google-research-datasets/go_emotions/resolve/add492243ff905527e67aeb8b80c082af02207c3/simplified/validation-00000-of-00001.parquet",
+      "path": "data/raw/validation-00000-of-00001.parquet",
+      "sha256": "d46ad5633c4fa41829d22d549743a7bf858d94129536a02af7280c281db5e63a",
+      "bytes": 350063,
+      "rows": 5426
+    },
+    {
+      "split": "test",
+      "url": "https://huggingface.co/datasets/google-research-datasets/go_emotions/resolve/add492243ff905527e67aeb8b80c082af02207c3/simplified/test-00000-of-00001.parquet",
+      "path": "data/raw/test-00000-of-00001.parquet",
+      "sha256": "fd0953e535ba2569edc6a1daaa1133f8e4b9071691d540c9bab812fda132bc26",
+      "bytes": 346630,
+      "rows": 5427
+    }
+  ],
+  "quality": {
+    "train": {
+      "rows": 43410,
+      "label_matrix_shape": [
+        43410,
+        28
+      ],
+      "id_duplicates": 0,
+      "missing_or_blank_text": 0,
+      "exact_duplicate_rows_within_split": 183,
+      "positive_label_assignments": 51103
+    },
+    "validation": {
+      "rows": 5426,
+      "label_matrix_shape": [
+        5426,
+        28
+      ],
+      "id_duplicates": 0,
+      "missing_or_blank_text": 0,
+      "exact_duplicate_rows_within_split": 3,
+      "positive_label_assignments": 6380
+    },
+    "test": {
+      "rows": 5427,
+      "label_matrix_shape": [
+        5427,
+        28
+      ],
+      "id_duplicates": 0,
+      "missing_or_blank_text": 0,
+      "exact_duplicate_rows_within_split": 6,
+      "positive_label_assignments": 6329
+    }
+  },
+  "cross_split_overlap": {
+    "train__validation": {
+      "shared_ids": 0,
+      "shared_exact_texts": 41,
+      "affected_rows_left": 84,
+      "affected_rows_right": 43
+    },
+    "train__test": {
+      "shared_ids": 0,
+      "shared_exact_texts": 32,
+      "affected_rows_left": 79,
+      "affected_rows_right": 37
+    },
+    "validation__test": {
+      "shared_ids": 0,
+      "shared_exact_texts": 10,
+      "affected_rows_left": 10,
+      "affected_rows_right": 13
+    }
+  },
+  "baseline_train_only": {
+    "standard": {
+      "vocabulary_size": 58338,
+      "same_as_train_only_vocabulary": true,
+      "max_abs_idf_difference_from_train_only": 0.0,
+      "validation_test_transform_preserved_idf": true,
+      "three_row_transform_shapes": {
+        "validation": [
+          3,
+          58338
+        ],
+        "test": [
+          3,
+          58338
+        ]
+      }
+    },
+    "balanced": {
+      "vocabulary_size": 58338,
+      "same_as_train_only_vocabulary": true,
+      "max_abs_idf_difference_from_train_only": 0.0,
+      "validation_test_transform_preserved_idf": true,
+      "three_row_transform_shapes": {
+        "validation": [
+          3,
+          58338
+        ],
+        "test": [
+          3,
+          58338
+        ]
+      }
+    }
+  },
+  "learning_curves_sha256": "588bb6ff56e0d372b42ae4cef5af08fd3bbfc7e6e083027ddfa296fcba35ee36",
+  "learning_curves": [
+    {
+      "architecture": "bert",
+      "seed": 42,
+      "epochs": 4,
+      "train_loss_first": 0.1451629002624682,
+      "train_loss_last": 0.0472368273431376,
+      "validation_macro_f1_first": 0.289325701378578,
+      "validation_macro_f1_last": 0.4641477447849761,
+      "validation_macro_f1_best_epoch": 4,
+      "validation_f1_strictly_increased_each_epoch": true
+    },
+    {
+      "architecture": "bert",
+      "seed": 123,
+      "epochs": 4,
+      "train_loss_first": 0.144341925616584,
+      "train_loss_last": 0.0495618992725177,
+      "validation_macro_f1_first": 0.3117644186330602,
+      "validation_macro_f1_last": 0.4772943277612574,
+      "validation_macro_f1_best_epoch": 4,
+      "validation_f1_strictly_increased_each_epoch": true
+    },
+    {
+      "architecture": "bert",
+      "seed": 2026,
+      "epochs": 4,
+      "train_loss_first": 0.1443403905096676,
+      "train_loss_last": 0.0484743811221022,
+      "validation_macro_f1_first": 0.2979165751196436,
+      "validation_macro_f1_last": 0.4723458439691597,
+      "validation_macro_f1_best_epoch": 4,
+      "validation_f1_strictly_increased_each_epoch": true
+    },
+    {
+      "architecture": "distilbert",
+      "seed": 42,
+      "epochs": 3,
+      "train_loss_first": 0.1630275776302985,
+      "train_loss_last": 0.0759916358495007,
+      "validation_macro_f1_first": 0.2625935925257544,
+      "validation_macro_f1_last": 0.4015902092743305,
+      "validation_macro_f1_best_epoch": 3,
+      "validation_f1_strictly_increased_each_epoch": true
+    },
+    {
+      "architecture": "distilbert",
+      "seed": 123,
+      "epochs": 3,
+      "train_loss_first": 0.1627302245627183,
+      "train_loss_last": 0.0760823073666701,
+      "validation_macro_f1_first": 0.2673304851267563,
+      "validation_macro_f1_last": 0.4117180759186307,
+      "validation_macro_f1_best_epoch": 3,
+      "validation_f1_strictly_increased_each_epoch": true
+    },
+    {
+      "architecture": "distilbert",
+      "seed": 2026,
+      "epochs": 3,
+      "train_loss_first": 0.1620950410155842,
+      "train_loss_last": 0.0758087802771886,
+      "validation_macro_f1_first": 0.2543583894511139,
+      "validation_macro_f1_last": 0.4047011662150233,
+      "validation_macro_f1_best_epoch": 3,
+      "validation_f1_strictly_increased_each_epoch": true
+    },
+    {
+      "architecture": "roberta",
+      "seed": 42,
+      "epochs": 3,
+      "train_loss_first": 0.1545964403550379,
+      "train_loss_last": 0.076949961254692,
+      "validation_macro_f1_first": 0.2328606143222416,
+      "validation_macro_f1_last": 0.4286452070128942,
+      "validation_macro_f1_best_epoch": 3,
+      "validation_f1_strictly_increased_each_epoch": true
+    },
+    {
+      "architecture": "roberta",
+      "seed": 123,
+      "epochs": 3,
+      "train_loss_first": 0.1548478535605833,
+      "train_loss_last": 0.0778009555149163,
+      "validation_macro_f1_first": 0.2131971990445197,
+      "validation_macro_f1_last": 0.4110529738257568,
+      "validation_macro_f1_best_epoch": 3,
+      "validation_f1_strictly_increased_each_epoch": true
+    },
+    {
+      "architecture": "roberta",
+      "seed": 2026,
+      "epochs": 3,
+      "train_loss_first": 0.153076822290605,
+      "train_loss_last": 0.0764589123460478,
+      "validation_macro_f1_first": 0.2318626837764863,
+      "validation_macro_f1_last": 0.4306234800101281,
+      "validation_macro_f1_best_epoch": 3,
+      "validation_f1_strictly_increased_each_epoch": true
+    }
+  ],
+  "conclusion": {
+    "saved_tfidf_matches_train_only": true,
+    "cross_split_exact_text_overlap_present": true,
+    "all_nine_runs_best_at_last_epoch": true,
+    "caveats": [
+      "Exact-text overlap is contamination risk even when IDs are disjoint; this is not a certificate of zero leakage.",
+      "Near duplicates, shared conversations/authors and pretraining contamination are not ruled out.",
+      "Test labels have already been inspected during EDA and earlier reporting.",
+      "Logs lack train evaluation F1 and per-epoch validation loss; absence of overfitting/underfitting cannot be established."
+    ]
+  }
+}

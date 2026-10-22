@@ -1,4 +1,4 @@
-"""Demo D dùng đúng checkpoint C full được chọn từ ba kiến trúc × ba seed.
+"""Demo D mặc định dùng C đã chọn; có thể thử A, B và ba kiến trúc C.
 
 Chạy: python app.py --device auto
 Không có checkpoint đầy đủ thì báo cách tạo; không trả kết quả giả.
@@ -18,21 +18,35 @@ from src.paths import ROOT
 
 class TransformerDemo:
     def __init__(self, selection, device="auto", thresholds=None, artifact_root=ROOT):
-        import torch
-        from transformers import AutoModelForSequenceClassification, AutoTokenizer
         folder, self.metadata, self.thresholds = load_demo_selection(
             artifact_root, selection, thresholds_path=thresholds
         )
+        self._load_checkpoint(folder / "checkpoint", device)
+
+    def _load_checkpoint(self, checkpoint, device):
+        import torch
+        from transformers import AutoModelForSequenceClassification, AutoTokenizer
+
         self.device = resolve_device(device)
-        self.tokenizer = AutoTokenizer.from_pretrained(folder / "checkpoint", local_files_only=True)
+        self.tokenizer = AutoTokenizer.from_pretrained(checkpoint, local_files_only=True)
         self.model = AutoModelForSequenceClassification.from_pretrained(
-            folder / "checkpoint", local_files_only=True, trust_remote_code=False
+            checkpoint, local_files_only=True, trust_remote_code=False
         ).to(self.device).eval()
         self.labels = self.metadata["label_names"]
         self.max_length = self.metadata["config"]["max_length"]
-        if self.model.config.num_labels != 28:
-            raise ValueError("Checkpoint demo không có head 28 nhãn")
+        if (self.model.config.num_labels != 28 or
+                [self.model.config.id2label[i] for i in range(28)] != self.labels or
+                self.model.config.problem_type != "multi_label_classification"):
+            raise ValueError("Checkpoint demo không khớp head/mapping đa nhãn")
         self.torch = torch
+
+    @classmethod
+    def from_checked_checkpoint(cls, checkpoint, metadata, device):
+        """Caller kiểm biên nhận của run trước khi gọi hàm nạp dùng chung."""
+        predictor = cls.__new__(cls)
+        predictor.metadata, predictor.thresholds = metadata, 0.5
+        predictor._load_checkpoint(checkpoint, device)
+        return predictor
 
     def predict(self, text):
         """Cùng tokenizer/mapping/sigmoid/ngưỡng như lúc đánh giá checkpoint."""
@@ -79,16 +93,25 @@ def main():
     args.artifacts_root = args.artifacts_root.resolve()
     if args.selection is None:
         args.selection = args.artifacts_root / "data/processed/transformers/selected_model.json"
-    if not args.selection.is_file():
-        parser.error("Chưa có best C. Chạy đủ ba kiến trúc × ba seed, rồi "
-                     "python -m scripts.transformers.select_best_transformer. Xem README.md#experiments.")
     import gradio as gr
-    predictor = TransformerDemo(args.selection, args.device, args.thresholds, args.artifacts_root)
+    from src.apps.model_selector import ModelSelector
+
+    selector = ModelSelector(args.artifacts_root, args.selection, args.device, args.thresholds)
+
+    def predict(text, model_key):
+        try:
+            return selector.predict(text, model_key)
+        except (ValueError, OSError, RuntimeError) as error:
+            raise gr.Error(f"Không thể dự đoán bằng mô hình đã chọn: {error}") from error
+
     with gr.Blocks(title="GoEmotions — nhận diện cảm xúc") as demo:
         gr.Markdown("# Nhận diện cảm xúc trong bình luận\n"
                     "Nhập văn bản **tiếng Anh**. Một câu có thể có nhiều cảm xúc trong 28 nhãn GoEmotions.")
-        gr.Markdown(f"Mô hình: **{predictor.metadata['architecture']}**. "
-                    "Điểm là đầu ra của mô hình, chưa được hiệu chuẩn thành xác suất đáng tin cậy.")
+        model_choice = gr.Dropdown(choices=selector.choices, value=selector.default,
+                                   label="Chọn mô hình", interactive=True)
+        model_info = gr.Markdown(selector.describe(selector.default))
+        gr.Markdown("Điểm là đầu ra của từng mô hình, chưa được hiệu chuẩn thành xác suất "
+                    "đáng tin cậy. Lần chọn mô hình đầu tiên có thể cần thời gian nạp.")
         text = gr.Textbox(label="Bình luận tiếng Anh", lines=4,
                           placeholder="Thank you so much! I am really happy with your help.")
         button = gr.Button("Nhận diện cảm xúc", variant="primary")
@@ -96,7 +119,11 @@ def main():
         table = gr.Dataframe(headers=["Cảm xúc", "Điểm", "Ngưỡng", "Được chọn"],
                              datatype=["str", "number", "number", "str"], interactive=False,
                              label="Điểm của 28 nhãn")
-        button.click(predictor.predict, inputs=text, outputs=[result, table], concurrency_limit=1)
+        model_choice.change(lambda key: (selector.describe(key), "", []),
+                            inputs=model_choice, outputs=[model_info, result, table],
+                            queue=False, api_name=False)
+        button.click(predict, inputs=[text, model_choice], outputs=[result, table],
+                     concurrency_limit=1, api_name="predict")
         gr.Examples(examples=[["Thank you so much! I am really happy with your help."],
                               ["I am disappointed and worried about what will happen next."],
                               ["The meeting starts at nine tomorrow."]], inputs=text)
