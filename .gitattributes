@@ -9,6 +9,3 @@ reports/reproducibility/artifacts/** -text
 reports/baseline_validation/paired_examples.csv -text
 # Biên nhận giữ byte CRLF gốc để các hash checkpoint/protocol vẫn đối chiếu được.
 results/report_2_1/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
-# Giữ byte của bộ câu đã khóa và kết quả suy luận để hash không đổi khi clone.
-examples/data/external_reviews_20.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
-results/external_review_probe/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol

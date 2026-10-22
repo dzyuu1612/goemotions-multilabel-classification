@@ -454,43 +454,6 @@ nhập câu, bấm dự đoán trên trình duyệt độc lập. Ảnh giao di�
 Biên nhận demo trong snapshot báo cáo cũ chỉ kiểm hàm suy
 luận và vẫn giữ nguyên phạm vi lịch sử của lần kiểm đó.
 
-### Thử nghiệm ngoài dữ liệu và phân tích lỗi bổ sung
-
-[Bộ câu đã khóa](examples/data/external_reviews_20.json) gồm 20 câu nguyên văn từ
-[UCI Sentiment Labelled Sentences](https://archive.ics.uci.edu/dataset/331/sentiment+labelled+sentences)
-(Amazon 6, IMDb 6, Yelp 8; CC BY 4.0) và 10 câu đối chứng do AI soạn.
-Nhãn tích cực/tiêu cực của UCI được giữ riêng. **Nhãn 28 cảm xúc là đề xuất của AI,
-chưa được con người thẩm định**; đây là khảo sát thăm dò, không phải benchmark
-gold mới. Không gộp câu đối chứng vào kết quả 20 câu nguồn thật.
-
-[Phiếu rà soát nhãn](results/external_review_probe/annotation_review.csv) có cột
-riêng cho hai người đọc, nhãn thống nhất và ghi chú bất đồng; chưa điền kết quả
-thẩm định thay cho thành viên nhóm.
-
-```powershell
-& $py -m scripts.analysis.evaluate_external_texts --artifacts-root ../goemotions-multilabel-classification --verify-source
-& $py -m scripts.analysis.evaluate_external_texts --verify-only
-```
-
-[Kết quả và phạm vi kiểm](results/external_review_probe/receipt.json) ghi 12 lượt
-suy luận: hai A, B và đủ ba seed cho mỗi C; 360 vector điểm chưa làm tròn,
-720 quyết định theo hai luật ngưỡng. Không huấn luyện lại và không chọn ngưỡng
-bằng bộ câu mới. Checkpoint và ngưỡng riêng giữ đúng protocol validation cũ.
-Không có câu trùng nguyên văn hoặc trùng sau chuẩn hóa khoảng trắng/chữ hoa
-với ba split GoEmotions; chưa loại trừ gần trùng hoặc dữ liệu pretraining.
-
-[Bảng chỉ số](results/external_review_probe/metrics.csv),
-[dự đoán và FN/FP từng câu](results/external_review_probe/predictions.csv),
-[điểm và cấu hình chưa làm tròn](results/external_review_probe/scores.json),
-[phân rã logit baseline](results/external_review_probe/linear_explanation.json)
-được lưu để đối chiếu báo cáo. `--verify-only` tính lại toàn bộ chỉ số và 720
-dòng dự đoán từ điểm đã lưu, không cần tải model. Micro-F1, Hamming Loss và số
-câu đúng toàn bộ nhãn được báo riêng cho mỗi tập; Macro-F1 đủ 28 nhãn dùng
-`zero_division=0`, trong khi bộ 20 câu chỉ có 13 nhãn tham chiếu xuất hiện.
-Không dùng thứ hạng trên mẫu nhỏ này để chọn lại mô hình demo hoặc kết luận hết
-overfit. Kiểm tra hành vi bằng các cặp câu có tham khảo
-[CheckList (ACL 2020)](https://aclanthology.org/2020.acl-main.442/).
-
 Các nghiên cứu để đối chiếu, không phải các kỹ thuật đều đã được chạy trong repo:
 
 - [GoEmotions (ACL 2020)](https://aclanthology.org/2020.acl-main.372/): dữ liệu, taxonomy và hướng fine-tuning BERT được kế thừa.
