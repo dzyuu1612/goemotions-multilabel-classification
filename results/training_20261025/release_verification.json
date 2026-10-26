@@ -1,0 +1,85 @@
+{
+  "release_url": "https://github.com/trangkhanh-ai/goemotions-multilabel-classification/releases/tag/goemotions-full-20261025",
+  "release_tag": "goemotions-full-20261025",
+  "published_at_utc": "2026-10-26T06:31:13Z",
+  "draft": false,
+  "assets_verified": 10,
+  "total_bytes": 3662985675,
+  "checks": [
+    "remote asset sizes match local ZIPs",
+    "GitHub SHA-256 digest matches local ZIPs",
+    "all public download links return HTTP 200"
+  ],
+  "assets": [
+    {
+      "name": "bert_seed_42.zip",
+      "size": 435059236,
+      "sha256": "541c01ab65b5d4a96dd2c770264f5776f9aba8a043c2ba4e8eb6f30a8e54a36f",
+      "download_url": "https://github.com/trangkhanh-ai/goemotions-multilabel-classification/releases/download/goemotions-full-20261025/bert_seed_42.zip",
+      "state": "uploaded"
+    },
+    {
+      "name": "bert_seed_123.zip",
+      "size": 435062481,
+      "sha256": "778b2403d637975a6af3f472321d9d1fd1a9f063947b7e72eec4b4cdfb9a889c",
+      "download_url": "https://github.com/trangkhanh-ai/goemotions-multilabel-classification/releases/download/goemotions-full-20261025/bert_seed_123.zip",
+      "state": "uploaded"
+    },
+    {
+      "name": "bert_seed_2026.zip",
+      "size": 435061797,
+      "sha256": "7003b69dbf6685b37981c6728332e7fd57174980bee15b7a4f2504a5097f4e9f",
+      "download_url": "https://github.com/trangkhanh-ai/goemotions-multilabel-classification/releases/download/goemotions-full-20261025/bert_seed_2026.zip",
+      "state": "uploaded"
+    },
+    {
+      "name": "roberta_seed_42.zip",
+      "size": 504334024,
+      "sha256": "d56b8924020e816189c782e9ffb62cbcd8c7c9f17f3735c5140e07531a3ab9b1",
+      "download_url": "https://github.com/trangkhanh-ai/goemotions-multilabel-classification/releases/download/goemotions-full-20261025/roberta_seed_42.zip",
+      "state": "uploaded"
+    },
+    {
+      "name": "roberta_seed_123.zip",
+      "size": 504332946,
+      "sha256": "1305b0bb7581dd33cb726b5a346a2a514ae49fb690fe669a9e84a3aa9bceb6cf",
+      "download_url": "https://github.com/trangkhanh-ai/goemotions-multilabel-classification/releases/download/goemotions-full-20261025/roberta_seed_123.zip",
+      "state": "uploaded"
+    },
+    {
+      "name": "roberta_seed_2026.zip",
+      "size": 504333723,
+      "sha256": "e0e877fba599999b8ca3f5c457b5ddba83e45d9a64ec809d3534346f4d9d3164",
+      "download_url": "https://github.com/trangkhanh-ai/goemotions-multilabel-classification/releases/download/goemotions-full-20261025/roberta_seed_2026.zip",
+      "state": "uploaded"
+    },
+    {
+      "name": "distilbert_seed_42.zip",
+      "size": 269690146,
+      "sha256": "92fbb3c52ff7e877ac315ce8254f98af78b8606a04fe05ee98adb283e9bc43ad",
+      "download_url": "https://github.com/trangkhanh-ai/goemotions-multilabel-classification/releases/download/goemotions-full-20261025/distilbert_seed_42.zip",
+      "state": "uploaded"
+    },
+    {
+      "name": "distilbert_seed_123.zip",
+      "size": 269687295,
+      "sha256": "cd5a033ad49b53b09863124356528895cb9d493af195ecb6ec9a41c0488ebf75",
+      "download_url": "https://github.com/trangkhanh-ai/goemotions-multilabel-classification/releases/download/goemotions-full-20261025/distilbert_seed_123.zip",
+      "state": "uploaded"
+    },
+    {
+      "name": "distilbert_seed_2026.zip",
+      "size": 269688616,
+      "sha256": "4e312373e580f9ddac65d9200b8b99e88651e18709d5ca179831bf54e176a853",
+      "download_url": "https://github.com/trangkhanh-ai/goemotions-multilabel-classification/releases/download/goemotions-full-20261025/distilbert_seed_2026.zip",
+      "state": "uploaded"
+    },
+    {
+      "name": "baseline_models.zip",
+      "size": 35735411,
+      "sha256": "e4df228ec81575dd0f7f94f619aed118936b58715d09823d8d32f684b2571a55",
+      "download_url": "https://github.com/trangkhanh-ai/goemotions-multilabel-classification/releases/download/goemotions-full-20261025/baseline_models.zip",
+      "state": "uploaded"
+    }
+  ]
+}
