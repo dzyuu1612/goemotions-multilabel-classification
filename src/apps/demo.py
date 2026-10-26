@@ -89,6 +89,8 @@ def main():
     parser.add_argument("--thresholds", type=Path, help="Ngưỡng validation của đúng run C được chọn")
     parser.add_argument("--device", choices=("auto", "cpu", "cuda"), default="auto")
     parser.add_argument("--port", type=int, default=7860)
+    parser.add_argument("--c3-source", choices=("benchmark", "report-2-1"), default="benchmark",
+                        help="benchmark: cùng bộ 9 run của pipeline; report-2-1: bundle C3 riêng của báo cáo cũ")
     args = parser.parse_args()
     args.artifacts_root = args.artifacts_root.resolve()
     if args.selection is None:
@@ -96,7 +98,7 @@ def main():
     import gradio as gr
     from src.apps.model_selector import ModelSelector
 
-    selector = ModelSelector(args.artifacts_root, args.selection, args.device, args.thresholds)
+    selector = ModelSelector(args.artifacts_root, args.selection, args.device, args.thresholds, args.c3_source)
 
     def predict(text, model_key):
         try:

@@ -103,7 +103,8 @@ def predict_scores(model, loader, device):
     batches = []
     with torch.no_grad():
         for batch in loader:
-            inputs = {name: value.to(device) for name, value in batch.items() if name != "labels"}
+            inputs = {name: value.to(device, non_blocking=device.type == "cuda")
+                      for name, value in batch.items() if name != "labels"}
             context = torch.autocast("cuda", dtype=torch.float16) if device.type == "cuda" else nullcontext()
             with context:
                 logits = model(**inputs).logits
@@ -213,6 +214,7 @@ def main():
                         "transformers": transformers.__version__, "device": str(device),
                         "gpu": torch.cuda.get_device_name(device) if amp_enabled else None,
                         "cuda_runtime": torch.version.cuda, "amp_fp16": amp_enabled,
+                        "host_to_device_non_blocking": amp_enabled,
                         "deterministic_algorithms": "warn_only; same-machine reproducibility goal"},
         "history": [], "selected_epoch": None,
     }
@@ -225,8 +227,11 @@ def main():
         optimizer.zero_grad(set_to_none=True)
         total_loss, seen = 0.0, 0
         for index, batch in enumerate(train_loader):
-            targets = batch["labels"].to(device)
-            inputs = {name: value.to(device) for name, value in batch.items() if name != "labels"}
+            # DataLoader ghim batch trong RAM; cùng CUDA stream giữ đúng thứ tự
+            # sao chép -> forward mà không buộc CPU chờ sau từng tensor.
+            targets = batch["labels"].to(device, non_blocking=amp_enabled)
+            inputs = {name: value.to(device, non_blocking=amp_enabled)
+                      for name, value in batch.items() if name != "labels"}
             context = torch.autocast("cuda", dtype=torch.float16) if amp_enabled else nullcontext()
             with context:
                 logits = model(**inputs).logits
