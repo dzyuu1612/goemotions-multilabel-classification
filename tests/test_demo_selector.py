@@ -12,6 +12,30 @@ from src.apps.model_selector import ModelSelector, format_scores
 
 
 class DemoSelectorTest(unittest.TestCase):
+    def test_default_label_follows_validation_winner(self):
+        with tempfile.TemporaryDirectory() as folder:
+            path = Path(folder) / 'selected_model.json'
+            path.write_text(json.dumps({'architecture': 'roberta'}), encoding='utf-8')
+            selector = ModelSelector(folder, path, 'cpu')
+            defaults = [key for name, key in selector.choices if 'mặc định' in name]
+            self.assertEqual(defaults, ['roberta'])
+            self.assertNotIn('mặc định của báo cáo', selector.describe('bert'))
+
+    def test_missing_benchmark_c3_does_not_use_historical_bundle(self):
+        with tempfile.TemporaryDirectory() as folder:
+            selector = self.make_selector(folder)
+            with patch('src.current_report.current_c3_root') as historical:
+                with self.assertRaises(FileNotFoundError):
+                    selector._load('distilbert')
+                historical.assert_not_called()
+
+    def test_c3_source_must_be_explicit_and_valid(self):
+        with tempfile.TemporaryDirectory() as folder:
+            path = Path(folder) / 'selected_model.json'
+            path.write_text(json.dumps({'architecture': 'bert'}), encoding='utf-8')
+            with self.assertRaises(ValueError):
+                ModelSelector(folder, path, c3_source='unknown')
+
     def make_selector(self, folder):
         path = Path(folder) / "selected_model.json"
         path.write_text(json.dumps({"architecture": "bert"}), encoding="utf-8")

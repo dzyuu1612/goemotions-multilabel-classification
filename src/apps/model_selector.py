@@ -108,7 +108,7 @@ class ZeroShotDemo:
 class ModelSelector:
     """Nạp khi cần và chỉ giữ một model để tránh chiếm RAM khi đổi lựa chọn."""
     choices = [
-        ("C1 · BERT — mô hình mặc định", "bert"),
+        ("C1 · BERT", "bert"),
         ("C2 · RoBERTa", "roberta"),
         ("C3 · DistilBERT", "distilbert"),
         ("A · TF-IDF + Logistic Regression — thường", "baseline_standard"),
@@ -116,12 +116,17 @@ class ModelSelector:
         ("B · Zero-shot BART-MNLI", "zero_shot"),
     ]
 
-    def __init__(self, root, selection, device="auto", thresholds=None):
+    def __init__(self, root, selection, device="auto", thresholds=None, c3_source="benchmark"):
         self.root, self.selection = Path(root).resolve(), Path(selection)
         self.device, self.thresholds = device, thresholds
         self.default = read_json(self.selection)["architecture"]
         if self.default not in ("bert", "roberta", "distilbert"):
             raise ValueError("Mô hình C mặc định không thuộc ba kiến trúc")
+        if c3_source not in ("benchmark", "report-2-1"):
+            raise ValueError("Nguồn C3 phải là benchmark hoặc report-2-1")
+        self.c3_source = c3_source
+        self.choices = [(name + (" — mô hình mặc định" if key == self.default else ""), key)
+                        for name, key in type(self).choices]
         self._key, self._predictor = None, None
         self._lock = Lock()
 
@@ -130,9 +135,11 @@ class ModelSelector:
         if key not in names:
             raise ValueError("Lựa chọn mô hình không hợp lệ")
         details = {
-            "bert": "Checkpoint BERT được chọn bằng validation; mặc định của báo cáo.",
+            "bert": "Dùng seed có Macro-F1 validation cao nhất trong ba seed BERT.",
             "roberta": "Dùng seed có Macro-F1 validation cao nhất trong ba seed RoBERTa.",
-            "distilbert": "Dùng seed đại diện của bộ DistilBERT trong báo cáo 2.1.",
+            "distilbert": ("Dùng seed đại diện của bộ DistilBERT trong báo cáo 2.1."
+                           if self.c3_source == "report-2-1" else
+                           "Dùng seed có Macro-F1 validation cao nhất trong ba seed DistilBERT của lượt chạy chung."),
             "baseline_standard": "TF-IDF và 28 bộ phân loại Logistic Regression, không cân bằng lớp.",
             "baseline_balanced": "TF-IDF và Logistic Regression có trọng số cân bằng lớp.",
             "zero_shot": "BART-MNLI suy luận trực tiếp, không fine-tune trên GoEmotions; có thể chậm hơn.",
@@ -146,7 +153,7 @@ class ModelSelector:
 
         if key == self.default:
             return TransformerDemo(self.selection, self.device, self.thresholds, self.root)
-        if key in ("bert", "roberta"):
+        if key in ("bert", "roberta") or (key == "distilbert" and self.c3_source == "benchmark"):
             base = self.root / "data/processed/transformers" / key
             candidates = []
             for folder in sorted(base.glob("seed_*/full/standard")):

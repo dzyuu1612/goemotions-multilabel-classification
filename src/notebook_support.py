@@ -47,9 +47,16 @@ def replay_test(root, system, seed=42):
     Trả bảng metric mới và sai lệch với artifact báo cáo. Không dùng test tìm
     ngưỡng/checkpoint và không ghi đè weights hoặc scores lịch sử.
     """
+    return replay_split(root, system, seed, split="test")
+
+
+def replay_split(root, system, seed=42, split="test"):
+    """Replay validation/test from the same checked benchmark without retraining."""
+    if split not in ("validation", "test"):
+        raise ValueError("Replay chỉ dùng validation hoặc test")
     root = Path(root)
     result, frames, labels = benchmark(str(root.resolve()))
-    frame = frames["test"]
+    frame = frames[split]
     if system.startswith("A_"):
         import joblib
         variant = system.removeprefix("A_")
@@ -59,7 +66,8 @@ def replay_test(root, system, seed=42):
         folder = base / ("full" if variant == "standard" else "balanced/full")
         model = joblib.load(folder / "model.joblib")
         scores = model.predict_proba(frame.text.tolist())
-        reference = base / f"final/{variant}_test_scores.npz"
+        reference = (base / f"final/{variant}_test_scores.npz" if split == "test"
+                     else folder / "validation_scores.npz")
         choices = [c for c in read_json(base / "final_protocol.json")["configurations"] if c["variant"] == variant]
     elif system.startswith("C_"):
         import torch
@@ -79,7 +87,7 @@ def replay_test(root, system, seed=42):
         loader = torch.utils.data.DataLoader(data, batch_size=metadata["config"]["batch_size"],
                                              shuffle=False, collate_fn=trim_padding_collate)
         scores = predict_scores(model, loader, device)
-        reference, choices = folder / "test_scores.npz", protocol["configurations"]
+        reference, choices = folder / f"{split}_scores.npz", protocol["configurations"]
         del model, loader, data
         if device.type == "cuda":
             torch.cuda.empty_cache()
@@ -91,18 +99,18 @@ def replay_test(root, system, seed=42):
     for choice in choices:
         metric = evaluate_multilabel(truth, scores, labels, choice["thresholds"])
         old = next(r for r in result["records"] if r["system"] == system and r["seed"] == seed
-                   and r["split"] == "test" and r["threshold_mode"] == choice["threshold_mode"])
+                   and r["split"] == split and r["threshold_mode"] == choice["threshold_mode"])
         difference = max(abs(metric[k] - old[k]) for k in METRIC_NAMES)
         if difference > 1e-12:
             raise ValueError(f"Suy luận mới khác metric báo cáo: {system}/{seed}/{choice['threshold_mode']}")
-        rows.append({"system": system, "seed": seed, "split": "test",
+        rows.append({"system": system, "seed": seed, "split": split,
                      "threshold_mode": choice["threshold_mode"], "n_samples": len(frame),
                      **{k: metric[k] for k in METRIC_NAMES},
                      "metric_max_abs_diff": difference,
                      "score_max_abs_diff": float(np.max(np.abs(scores - previous)))})
     output = ROOT / "reports/notebook_replay"
     output.mkdir(parents=True, exist_ok=True)
-    np.savez_compressed(output / f"{system}_{seed}_test.npz", ids=frame.id.to_numpy(dtype=str),
+    np.savez_compressed(output / f"{system}_{seed}_{split}.npz", ids=frame.id.to_numpy(dtype=str),
                         scores=scores, label_names=np.asarray(labels, dtype=str))
     return pd.DataFrame(rows)
 

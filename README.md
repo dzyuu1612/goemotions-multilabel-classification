@@ -11,9 +11,45 @@
 **Xem kết quả ngay trên GitHub:** mở [bộ notebook đã chạy có output](notebooks/executed/).
 Source để chỉnh sửa nằm trực tiếp trong `notebooks/`; bản đã chạy nằm trong
 `notebooks/executed/`, có manifest kiểm hash và xác nhận mọi code cell đã thực thi.
-Các bản này dùng đúng bộ số báo cáo 2.1: A/C kiểm bằng suy luận từ checkpoint; B tính lại từ scores NLI đã lưu.
+Notebook đọc bộ artifacts cục bộ đã kiểm: A/C suy luận thật từ checkpoint;
+B tính lại metric từ scores NLI đã lưu. Manifest ghi rõ lần chạy từng notebook.
 
-## Kết luận kiểm tra fine-tune và số báo cáo
+## Hoàn tất mô hình và chạy demo trên máy hiện tại
+
+Chạy từ gốc repo bằng môi trường đã cài đủ thư viện. Trên máy Huy:
+
+```powershell
+$py = ".venv-huy/Scripts/python.exe"
+$env:PYTHONUTF8 = "1"
+$env:HF_HOME = "$PWD/data/cache/huggingface"
+& $py -m scripts.baseline.run_baseline
+& $py -m scripts.baseline.run_baseline --variant balanced
+& $py -m scripts.baseline.analyze_baseline
+& $py -m scripts.pipeline.complete_project --device cuda
+& $py -m scripts.verification.reproduce_report --artifacts-root .
+& $py -m scripts.data.run_notebooks --notebook all --publish --artifacts-root .
+& $py -m scripts.transformers.verify_demo --device cuda
+& $py -m scripts.verification.verify_model_selector --device cuda
+& $py app.py --device cuda --c3-source benchmark
+```
+
+Chỉ chạy các lệnh train A khi chưa có model cần giữ. Pipeline C tự kiểm và bỏ qua
+run full đã hoàn thành; không dùng `--overwrite` cho checkpoint muốn bảo toàn.
+Run dở cần kiểm log trước khi quyết định chạy lại. Mỗi thời điểm chạy một tác vụ GPU.
+
+Pipeline tạo hai A, BART-MNLI zero-shot và ba kiến trúc C × ba seed 42/123/2026.
+Checkpoint/ngưỡng chọn bằng validation rồi khóa trước test. Số mới nằm trong
+`reports/project_results/`, model và scores trong `data/processed/`.
+Notebook 04/05 dùng cùng bộ chín checkpoint này. Không chuyển số từ snapshot
+`results/report_2_1/` thành kết quả của máy hiện tại.
+
+Demo mở tại `http://127.0.0.1:7860`. Kiến trúc mặc định lấy từ
+`selected_model.json`, không cố định BERT hoặc seed 123. Có sáu lựa chọn:
+hai baseline A, zero-shot B và ba kiến trúc C. Lệnh kiểm toàn bộ lựa chọn ghi
+`reports/demo_all_models_verification.json`; kiểm hàm suy luận không thay cho
+minh chứng giao diện trình duyệt. Các lượt chạy mới không bảo đảm trùng điểm cũ.
+
+## Snapshot báo cáo 2.1 đã công bố trước lượt chạy cục bộ
 
 **Đã fine-tune ba C, chưa có bằng chứng đã tìm được cấu hình tốt nhất.**
 Mỗi kiến trúc chạy một cấu hình với ba seed 42/123/2026. Đây là kiểm độ ổn định,
@@ -71,7 +107,8 @@ Kiểm trực tiếp bản Word mới:
 & $py -m scripts.verification.verify_current_c3_report --run-root reports/c3_current_environment_2026-10-21 --report "đường-dẫn-bản-Word-đã-cập-nhật.docx"
 ```
 
-Notebook 04 và 05 dùng đúng ba checkpoint C3 của báo cáo 2.1. Notebook 05 suy luận validation/test, kiểm 18 dòng metric, nhãn hiếm, nhóm lỗi và các ví dụ; không trộn thêm bộ thí nghiệm khác.
+Các lệnh trong mục C3 phía trên dành riêng cho bộ báo cáo 2.1. Notebook 04/05
+hiện dùng C3 trong pipeline chung; giữ riêng snapshot và bundle lịch sử.
 
 ### Tính lại bộ benchmark lịch sử từ artifacts hiện có
 
@@ -257,7 +294,7 @@ Smoke dùng 5.000 train/1.000 val, lưu riêng, không thay model full hoặc be
 | [01 · EDA](notebooks/01_eda.ipynb) | [Mở kết quả 01](notebooks/executed/01_eda.executed.ipynb) | Tính mới thống kê/biểu đồ trên official snapshot |
 | [02 · Baseline](notebooks/02_baseline.ipynb) | [Mở kết quả 02](notebooks/executed/02_baseline.executed.ipynb) | Đọc model đã fit, suy luận test mới cả hai A, kiểm sáu cấu hình |
 | [03 · Zero-shot](notebooks/03_zero_shot.ipynb) | [Mở kết quả 03](notebooks/executed/03_zero_shot.executed.ipynb) | Tính lại sáu dòng validation/test từ scores NLI đã lưu; không chạy mới BART |
-| [04 · Transformers](notebooks/04_transformers.ipynb) | [Mở kết quả 04](notebooks/executed/04_transformers.executed.ipynb) | Hồ sơ C1/C2/C3; BCE forward; suy luận test đủ chín checkpoint khớp báo cáo 2.1 |
+| [04 · Transformers](notebooks/04_transformers.ipynb) | [Mở kết quả 04](notebooks/executed/04_transformers.executed.ipynb) | Hồ sơ C1/C2/C3; BCE forward; suy luận test đủ chín checkpoint của pipeline cục bộ |
 | [05 · DistilBERT Huy](notebooks/05_distilbert_huy.ipynb) | [Mở kết quả 05](notebooks/executed/05_distilbert_huy.executed.ipynb) | Ba lượt full C3; suy luận validation/test, kiểm metric, ngưỡng, nhãn hiếm, lỗi và dự đoán |
 | [06 · EDA bổ sung](notebooks/06_eda_extra.ipynb) | [Mở kết quả 06](notebooks/executed/06_eda_extra.executed.ipynb) | EDA độc lập; tokenizer ghim revision; đồng xuất hiện dùng int64 tránh tràn uint8 |
 
@@ -281,7 +318,7 @@ thư mục có `data/` và `reports/` của các run đã báo cáo. Nếu mở 
 có thể đặt biến môi trường `GOEMOTIONS_ARTIFACTS_ROOT`; notebook tự tìm thư mục
 code bằng các thư mục cha, kể cả khi mở bản trong `notebooks/executed/`.
 
-Bản notebook công bố dùng các checkpoint đã đối chiếu với báo cáo 2.1. Manifest ghi thời điểm thực thi cell riêng với thời điểm huấn luyện.
+Bản notebook công bố dùng checkpoint đối chiếu với bảng `reports/project_results/` của cùng lượt chạy. Manifest ghi thời điểm thực thi cell riêng với thời điểm huấn luyện.
 **Run All không huấn luyện lại các mô hình benchmark từ pretrained.** Code train
 và log từng epoch được trình bày; các cell đánh giá A/C gọi model thật trên 5.427
 mẫu test và kiểm với bộ số báo cáo. Không tìm ngưỡng hoặc chọn lại model bằng test.
@@ -292,7 +329,10 @@ mọi source có bản chạy, cell thực thi tuần tự, không có error out
 source. Clone mới xem được output ngay; muốn Run All lại cần dataset/artifacts,
 weights lớn không được nhúng vào Git.
 
-Notebook 04/05 cần thêm bundle C3 mới tại `reports/c3_current_environment_2026-10-21/`. Nếu bundle ở chỗ khác, đặt `GOEMOTIONS_C3_RUN_ROOT` tới thư mục có `completion.json` và ba thư mục seed. Thiếu bộ này sẽ dừng, không lấy C3 lịch sử thế vào. [Bảng số liệu và hình của báo cáo 2.1](results/report_2_1/) được công bố kèm manifest; trọng số lớn được giữ trong bộ bàn giao cục bộ.
+Notebook 04/05 cần bộ model/score/protocol do pipeline chung tạo, gồm C3 tại
+`data/processed/transformers/distilbert/seed_*/full/standard/`. Thiếu bộ nào sẽ dừng,
+không thay bằng checkpoint C3 riêng. [Bảng số liệu và hình của báo cáo 2.1](results/report_2_1/)
+vẫn được giữ làm snapshot lịch sử; trọng số lớn nằm trong bộ bàn giao cục bộ.
 
 <a id="data"></a>
 ## 5. Dữ liệu và đánh giá chung
@@ -417,7 +457,8 @@ ngưỡng 0,5 theo mặc định. Kết quả hiển thị tên mô hình, seed 
 các nhãn được chọn và bảng điểm đủ 28 nhãn. Thông số huấn luyện, các thí nghiệm
 chọn ngưỡng và kết quả benchmark được trình bày trong các mục thực nghiệm.
 Nếu truyền `--thresholds`, tệp ngưỡng riêng chỉ áp dụng cho model mặc định.
-RoBERTa dùng seed tốt nhất theo validation; DistilBERT dùng seed đại diện từ bộ
+RoBERTa và DistilBERT dùng seed tốt nhất theo validation của lượt chạy chung.
+Muốn xem riêng C3 của snapshot 2.1, dùng `--c3-source report-2-1` và cung cấp bundle
 C3 hiện tại của báo cáo 2.1 (hoặc đường dẫn `GOEMOTIONS_C3_RUN_ROOT`).
 Kết quả cũ được xóa khi đổi lựa chọn. Model được nạp khi bấm dự đoán và app chỉ
 giữ một model trong bộ nhớ. BART-MNLI tải đúng revision đã ghi trong metadata
