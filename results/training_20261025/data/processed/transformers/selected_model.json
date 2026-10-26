@@ -1,0 +1,222 @@
+{
+  "artifact_version": 1,
+  "method": "C",
+  "smoke": false,
+  "selected_at_utc": "2026-10-25T15:10:58.208045+00:00",
+  "selection_rule": "highest validation mean Macro-F1@0.5; tie: lower sample std, fewer parameters, name",
+  "checkpoint_rule": "best validation Macro-F1 seed in winning architecture; smaller seed on tie",
+  "architecture": "bert",
+  "seed": 123,
+  "run_dir": "data/processed/transformers/bert/seed_123/full/standard",
+  "run_metadata_sha256": "8b8d648bee1ffc8ae1489a13794436f1f5db8a7bedcd7a673a272d270f7a7af7",
+  "label_names": [
+    "admiration",
+    "amusement",
+    "anger",
+    "annoyance",
+    "approval",
+    "caring",
+    "confusion",
+    "curiosity",
+    "desire",
+    "disappointment",
+    "disapproval",
+    "disgust",
+    "embarrassment",
+    "excitement",
+    "fear",
+    "gratitude",
+    "grief",
+    "joy",
+    "love",
+    "nervousness",
+    "optimism",
+    "pride",
+    "realization",
+    "relief",
+    "remorse",
+    "sadness",
+    "surprise",
+    "neutral"
+  ],
+  "default_threshold": 0.5,
+  "variant": "standard",
+  "architecture_summary": [
+    {
+      "architecture": "bert",
+      "seeds": [
+        42,
+        123,
+        2026
+      ],
+      "n_seeds": 3,
+      "metrics": {
+        "macro_f1": {
+          "mean": 0.47175960401904565,
+          "std": 0.01061062056194759
+        },
+        "micro_f1": {
+          "mean": 0.579175745561645,
+          "std": 0.003643559630134218
+        },
+        "macro_precision": {
+          "mean": 0.5509414298500258,
+          "std": 0.02974345301855364
+        },
+        "macro_recall": {
+          "mean": 0.42852119458457544,
+          "std": 0.004986559508908325
+        },
+        "micro_precision": {
+          "mean": 0.6392115096780799,
+          "std": 0.00699261109504505
+        },
+        "micro_recall": {
+          "mean": 0.5294670846394984,
+          "std": 0.0026367717619531173
+        },
+        "hamming_loss": {
+          "mean": 0.032311358011689745,
+          "std": 0.00039497875806112194
+        }
+      },
+      "parameter_count": 108331804
+    },
+    {
+      "architecture": "roberta",
+      "seeds": [
+        42,
+        123,
+        2026
+      ],
+      "n_seeds": 3,
+      "metrics": {
+        "macro_f1": {
+          "mean": 0.42416136056507364,
+          "std": 0.012462601159802304
+        },
+        "micro_f1": {
+          "mean": 0.5779000104033146,
+          "std": 0.004133228644405408
+        },
+        "macro_precision": {
+          "mean": 0.5919517583250474,
+          "std": 0.00986039963340097
+        },
+        "macro_recall": {
+          "mean": 0.36868264539669493,
+          "std": 0.01154091591583684
+        },
+        "micro_precision": {
+          "mean": 0.7107635988181146,
+          "std": 0.006911914789449339
+        },
+        "micro_recall": {
+          "mean": 0.48693834900731453,
+          "std": 0.0065874245451528115
+        },
+        "hamming_loss": {
+          "mean": 0.02986941182665473,
+          "std": 0.0002508103691650989
+        }
+      },
+      "parameter_count": 124667164
+    },
+    {
+      "architecture": "distilbert",
+      "seeds": [
+        42,
+        123,
+        2026
+      ],
+      "n_seeds": 3,
+      "metrics": {
+        "macro_f1": {
+          "mean": 0.4057824211740238,
+          "std": 0.00549779728358993
+        },
+        "micro_f1": {
+          "mean": 0.5738104326107428,
+          "std": 0.004381478213197622
+        },
+        "macro_precision": {
+          "mean": 0.5732138338069611,
+          "std": 0.004236482119929337
+        },
+        "macro_recall": {
+          "mean": 0.3463951705811761,
+          "std": 0.0052870139222205926
+        },
+        "micro_precision": {
+          "mean": 0.7105079335856045,
+          "std": 0.002622123128337233
+        },
+        "micro_recall": {
+          "mean": 0.4812434691745036,
+          "std": 0.005772481355222119
+        },
+        "hamming_loss": {
+          "mean": 0.03001860530426693,
+          "std": 0.00019573576018193598
+        }
+      },
+      "parameter_count": 66975004
+    }
+  ],
+  "run_sources": [
+    {
+      "architecture": "bert",
+      "seed": 42,
+      "run_dir": "data/processed/transformers/bert/seed_42/full/standard",
+      "run_metadata_sha256": "f587d1315a7a03ff1e4d02b2a5b53f7666f3ded128ba197136579d83d30c02ba"
+    },
+    {
+      "architecture": "bert",
+      "seed": 123,
+      "run_dir": "data/processed/transformers/bert/seed_123/full/standard",
+      "run_metadata_sha256": "8b8d648bee1ffc8ae1489a13794436f1f5db8a7bedcd7a673a272d270f7a7af7"
+    },
+    {
+      "architecture": "bert",
+      "seed": 2026,
+      "run_dir": "data/processed/transformers/bert/seed_2026/full/standard",
+      "run_metadata_sha256": "8f789ede306147c2acc8493a903cbd51759d9a91f69085f0a53587b4cab5ad56"
+    },
+    {
+      "architecture": "roberta",
+      "seed": 42,
+      "run_dir": "data/processed/transformers/roberta/seed_42/full/standard",
+      "run_metadata_sha256": "bd56d16c9c845c21c65dc7ff541d76837db8e0cdf661ce7b7febd5d7d0d64f67"
+    },
+    {
+      "architecture": "roberta",
+      "seed": 123,
+      "run_dir": "data/processed/transformers/roberta/seed_123/full/standard",
+      "run_metadata_sha256": "f6d4df794164500cbdd8d4e485cb38a5ddeecb7138cad5eac021e4f74920370f"
+    },
+    {
+      "architecture": "roberta",
+      "seed": 2026,
+      "run_dir": "data/processed/transformers/roberta/seed_2026/full/standard",
+      "run_metadata_sha256": "fb23afa90e4523eb305604f16be183a25906cdb06b5f139c2bf8331dacab9ae3"
+    },
+    {
+      "architecture": "distilbert",
+      "seed": 42,
+      "run_dir": "data/processed/transformers/distilbert/seed_42/full/standard",
+      "run_metadata_sha256": "8fdbc7b930d7adf64195c8b696b3b39b31b7f26ea2412042cf0ea85f101b22e4"
+    },
+    {
+      "architecture": "distilbert",
+      "seed": 123,
+      "run_dir": "data/processed/transformers/distilbert/seed_123/full/standard",
+      "run_metadata_sha256": "43b511f996babfa38ba5f594b4f936e15a61dd0da3270c4318d265409ced7c4a"
+    },
+    {
+      "architecture": "distilbert",
+      "seed": 2026,
+      "run_dir": "data/processed/transformers/distilbert/seed_2026/full/standard",
+      "run_metadata_sha256": "27fe54c6ed92b8d10ed9e610b688c5d8104d46236e010b0fdc5578d4622b1764"
+    }
+  ]
+}

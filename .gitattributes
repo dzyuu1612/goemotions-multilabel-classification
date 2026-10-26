@@ -9,3 +9,18 @@ reports/reproducibility/artifacts/** -text
 reports/baseline_validation/paired_examples.csv -text
 # Biên nhận giữ byte CRLF gốc để các hash checkpoint/protocol vẫn đối chiếu được.
 results/report_2_1/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+
+# Published receipts preserve exact bytes so SHA-256 remains valid after clone.
+results/training_20261025/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+reports/project_results/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+reports/errors_test_standard_fixed/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+reports/errors_validation_standard_fixed/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+reports/tables/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+reports/figures/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+reports/reproduction_report_20261026/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+reports/demo_all_models_verification.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+reports/demo_http_verification.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+reports/demo_verification.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+reports/environment.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+reports/summary.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+reports/verification.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol

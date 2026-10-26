@@ -1,0 +1,21 @@
+﻿category,id,text,focus_label,focus_score,true_labels,predicted_labels
+rare_false_negative,ed5y7a8,"Lost my only grandfather two years ago to Alzheimer's, this is great news knowingly this disease sucks",grief,0.4387,grief,"admiration, disappointment, realization, sadness"
+rare_false_negative,ed8hn3s,I'm an inspiring man,pride,0.0557,pride,"joy, neutral"
+rare_false_negative,edv6odo,"Dude, I can't express in words how much relief this man brings to my soul.",relief,0.4517,relief,sadness
+rare_false_negative,edm887i,Thank you so much . I'm really really really nervous.. I just want to cry.,nervousness,0.3124,"gratitude, nervousness","desire, gratitude, sadness"
+rare_false_negative,eepe4lk,Its a bit weird of them to recommend you a song by The Strokes after they told you their offer,embarrassment,0.3914,"embarrassment, neutral","annoyance, neutral"
+false_positive,ed832y6,"""Homeopaths love it!""",love,1.0,neutral,love
+false_positive,ef4vnin,Lmao no fun allowed,amusement,1.0,disapproval,"amusement, anger, disapproval, joy"
+false_positive,eelvj5l,wow wow wow hold my beer!,surprise,1.0,excitement,"admiration, excitement, joy, surprise"
+false_positive,ed28149,OMG! 😂😂😂😂,surprise,1.0,"amusement, excitement","excitement, surprise"
+false_positive,edwz4ms,"Haha, love it! :)",love,1.0,amusement,"amusement, joy, love"
+partial_multi_label,ee84bjg,"You know the answer man, you are programmed to capture those codes they send you, don’t avoid them!",approval,0.2124,"approval, neutral","annoyance, disapproval, neutral"
+partial_multi_label,edc32e2,"The economy is heavily controlled and subsidized by the government. In any case, I was poking at the lack of nuance in US politics today",approval,0.2289,"approval, neutral",neutral
+partial_multi_label,ed2znun,Lol dream on buddy. You’ve had enough attention today. Actually learn what your talking about helps a lot. Sorry your stuck in free roam smokin crack,annoyance,0.1192,"amusement, annoyance, sadness","amusement, caring, remorse"
+partial_multi_label,ed2qbu3,"oh shoot, im sorry to hear that. was it someone close to you? ",curiosity,0.4172,"curiosity, remorse","remorse, sadness"
+partial_multi_label,ef9wfsk,Pretty fuking sure exit scam..,annoyance,0.0976,"annoyance, approval","admiration, approval"
+no_label_predicted,eeakpqf,I find that fascinating considering that racism and sexism so often intersect.,admiration,0.5,realization,
+no_label_predicted,eeafgnu,supposed to be brain ache but I am too tired with all these losses i have,annoyance,0.5,disappointment,
+no_label_predicted,eehpoqu,The glass used in this vintage is extremely exquisite,neutral,0.4996,admiration,
+no_label_predicted,ed25izo,"Eh, keep it here. There's plenty of need for content that isn't about politics or antisemitism. Food is fun for everyone to talk about.",confusion,0.4992,neutral,
+no_label_predicted,edcunta,Im 13 I can't get a job..,neutral,0.4988,"disappointment, sadness",

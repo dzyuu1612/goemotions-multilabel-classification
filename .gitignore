@@ -49,3 +49,27 @@ docs/
 .idea/
 .DS_Store
 Thumbs.db
+
+# Published results of the current full benchmark (2026-10-25)
+!/reports/
+/reports/*
+!/reports/project_results/
+!/reports/project_results/**
+!/reports/errors_test_standard_fixed/
+!/reports/errors_test_standard_fixed/**
+!/reports/errors_validation_standard_fixed/
+!/reports/errors_validation_standard_fixed/**
+!/reports/tables/
+!/reports/tables/**
+!/reports/figures/
+!/reports/figures/**
+!/reports/reproduction_report_20261026/
+!/reports/reproduction_report_20261026/**
+!/reports/demo_all_models_verification.json
+!/reports/demo_http_verification.json
+!/reports/demo_verification.json
+!/reports/environment.json
+!/reports/summary.json
+!/reports/verification.json
+!/results/training_20261025/
+!/results/training_20261025/**

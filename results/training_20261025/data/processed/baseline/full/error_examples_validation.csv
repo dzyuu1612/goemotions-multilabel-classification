@@ -1,0 +1,21 @@
+﻿category,id,text,focus_label,focus_score,true_labels,predicted_labels
+rare_false_negative,edwloev,He died 4 days later of dehydration,grief,0.0189,grief,neutral
+rare_false_negative,eczwil0,I am so proud of this community.,pride,0.3776,pride,
+rare_false_negative,efaj757,Cool. Glad I'm not the only one who found it weird.,relief,0.0574,"approval, relief",
+rare_false_negative,ed6q46k,I'm getting worried,nervousness,0.2006,nervousness,
+rare_false_negative,eeynqjj,That was just embarrassing. We should not be loosing here.,embarrassment,0.092,embarrassment,
+false_positive,ed832y6,"""Homeopaths love it!""",love,1.0,neutral,love
+false_positive,ef4vnin,Lmao no fun allowed,amusement,0.9971,disapproval,amusement
+false_positive,edwz4ms,"Haha, love it! :)",love,0.9966,amusement,"amusement, love"
+false_positive,eekpx4d,Lol definitely not,amusement,0.9942,disapproval,amusement
+false_positive,ed6snhc,Lol thanks.,amusement,0.9936,gratitude,"amusement, gratitude"
+partial_multi_label,ee84bjg,"You know the answer man, you are programmed to capture those codes they send you, don’t avoid them!",approval,0.041,"approval, neutral",neutral
+partial_multi_label,edc32e2,"The economy is heavily controlled and subsidized by the government. In any case, I was poking at the lack of nuance in US politics today",approval,0.0493,"approval, neutral",neutral
+partial_multi_label,eczdvun,Thank you. I really appreciate your response,admiration,0.4989,"admiration, gratitude",gratitude
+partial_multi_label,efb6lk2,"I am confused. I don't understand how that relates to what I said. Could you explain? Sorry, maybe I'm just tired lol",amusement,0.2348,"amusement, confusion, curiosity, remorse",confusion
+partial_multi_label,effzk6n,*scoff* maybe you can’t. /s,disapproval,0.1049,"disapproval, neutral",neutral
+no_label_predicted,eeoh5vh,"And he even dared to reference fairly odd parents in there, wtf lol",amusement,0.4999,amusement,
+no_label_predicted,eeqng0m,This is a great photoshop! On a related note... retire [NAME] Number and Maybe [NAME] number..... oh and also fire Garpax,admiration,0.4998,admiration,
+no_label_predicted,eeq783v,"Teachers, do not diddle these kids!",neutral,0.4998,neutral,
+no_label_predicted,ed7uvgp,"[NAME], if you're doing an Undertale deal, not having a red heart on your ass is inexcusable.",neutral,0.4998,disapproval,
+no_label_predicted,edp2h4q,Lol it should be in the brig (not the brigantine) for those poor souls to play but it only plays becalmed.,amusement,0.4997,amusement,

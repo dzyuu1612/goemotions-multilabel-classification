@@ -1,0 +1,16 @@
+﻿architecture,seed,label,train_positive_count,evaluation_positive_count,tp,fn,fp,precision,recall,f1
+bert,123,grief,77,13,0,13,0,0.0,0.0,0.0
+bert,123,pride,111,15,3,12,0,1.0,0.2,0.3333333333333333
+bert,123,relief,153,18,0,18,0,0.0,0.0,0.0
+bert,123,nervousness,164,21,7,14,4,0.6363636363636364,0.3333333333333333,0.4375
+bert,123,embarrassment,303,35,15,20,4,0.7894736842105263,0.42857142857142855,0.5555555555555556
+roberta,2026,grief,77,13,0,13,0,0.0,0.0,0.0
+roberta,2026,pride,111,15,0,15,0,0.0,0.0,0.0
+roberta,2026,relief,153,18,0,18,0,0.0,0.0,0.0
+roberta,2026,nervousness,164,21,0,21,0,0.0,0.0,0.0
+roberta,2026,embarrassment,303,35,12,23,1,0.9230769230769231,0.34285714285714286,0.5
+distilbert,123,grief,77,13,0,13,0,0.0,0.0,0.0
+distilbert,123,pride,111,15,0,15,0,0.0,0.0,0.0
+distilbert,123,relief,153,18,0,18,0,0.0,0.0,0.0
+distilbert,123,nervousness,164,21,0,21,0,0.0,0.0,0.0
+distilbert,123,embarrassment,303,35,8,27,3,0.7272727272727273,0.22857142857142856,0.34782608695652173

@@ -1,0 +1,449 @@
+﻿label,direction,rank,feature,coefficient
+admiration,positive,1,great,14.8417
+admiration,positive,2,awesome,11.06789
+admiration,positive,3,good,10.62138
+admiration,positive,4,amazing,10.61651
+admiration,positive,5,beautiful,9.29677
+admiration,positive,6,nice,8.80445
+admiration,positive,7,appreciate,7.32683
+admiration,positive,8,cute,7.1014
+admiration,negative,1,not,-3.84806
+admiration,negative,2,lol,-2.93833
+admiration,negative,3,sorry,-2.84489
+admiration,negative,4,don,-2.62924
+admiration,negative,5,luck,-2.37142
+admiration,negative,6,good luck,-2.36488
+admiration,negative,7,bad,-2.36413
+admiration,negative,8,no,-2.31179
+amusement,positive,1,lol,24.41097
+amusement,positive,2,haha,14.32805
+amusement,positive,3,funny,12.50632
+amusement,positive,4,lmao,10.1796
+amusement,positive,5,fun,9.07223
+amusement,positive,6,hilarious,8.90153
+amusement,positive,7,hahaha,7.59394
+amusement,positive,8,joke,6.62988
+amusement,negative,1,thanks,-2.13998
+amusement,negative,2,not,-1.6312
+amusement,negative,3,love,-1.56275
+amusement,negative,4,great,-1.54568
+amusement,negative,5,happy,-1.39875
+amusement,negative,6,sorry,-1.34806
+amusement,negative,7,don,-1.32926
+amusement,negative,8,wish,-1.12714
+anger,positive,1,fuck,9.67012
+anger,positive,2,hate,8.97424
+anger,positive,3,fucking,8.42148
+anger,positive,4,angry,5.67295
+anger,positive,5,stupid,4.94582
+anger,positive,6,bitch,4.04191
+anger,positive,7,stop,3.9912
+anger,positive,8,shut,3.90648
+anger,negative,1,love,-3.19194
+anger,negative,2,thanks,-2.95588
+anger,negative,3,lol,-2.6438
+anger,negative,4,good,-2.3105
+anger,negative,5,thank,-2.19547
+anger,negative,6,thank you,-1.84113
+anger,negative,7,great,-1.80387
+anger,negative,8,sorry,-1.66697
+annoyance,positive,1,annoying,5.95817
+annoyance,positive,2,stupid,5.89681
+annoyance,positive,3,shit,4.52214
+annoyance,positive,4,fucking,4.02344
+annoyance,positive,5,damn,4.0115
+annoyance,positive,6,dumb,3.92431
+annoyance,positive,7,sucks,3.81251
+annoyance,positive,8,frustrating,3.69378
+annoyance,negative,1,love,-4.21835
+annoyance,negative,2,good,-2.72093
+annoyance,negative,3,thank you,-2.55651
+annoyance,negative,4,lol,-2.55116
+annoyance,negative,5,thank,-2.52079
+annoyance,negative,6,thanks,-2.42517
+annoyance,negative,7,great,-2.34566
+annoyance,negative,8,sorry,-2.14321
+approval,positive,1,agree,9.85932
+approval,positive,2,agreed,5.49202
+approval,positive,3,yes,5.1401
+approval,positive,4,exactly,4.39193
+approval,positive,5,true,4.35494
+approval,positive,6,yeah,4.32166
+approval,positive,7,sure,4.3019
+approval,positive,8,right,4.20368
+approval,negative,1,thanks,-3.85396
+approval,negative,2,lol,-3.01612
+approval,negative,3,hope,-2.83135
+approval,negative,4,love,-2.39027
+approval,negative,5,fuck,-2.22537
+approval,negative,6,not,-2.12008
+approval,negative,7,wow,-2.02122
+approval,negative,8,thank,-1.929
+caring,positive,1,you,5.33775
+caring,positive,2,worry,4.95413
+caring,positive,3,your,4.67517
+caring,positive,4,help,4.55321
+caring,positive,5,careful,4.3413
+caring,positive,6,safe,4.05428
+caring,positive,7,stay,4.02058
+caring,positive,8,bless,3.97501
+caring,negative,1,thank,-2.34783
+caring,negative,2,thank you,-2.30715
+caring,negative,3,was,-2.13504
+caring,negative,4,lol,-2.04898
+caring,negative,5,thanks,-1.99107
+caring,negative,6,me,-1.93203
+caring,negative,7,how,-1.45989
+caring,negative,8,this,-1.36623
+confusion,positive,1,confused,8.85431
+confusion,positive,2,not sure,6.2452
+confusion,positive,3,why,5.85293
+confusion,positive,4,or,5.793
+confusion,positive,5,sure,4.64715
+confusion,positive,6,don know,4.36321
+confusion,positive,7,understand,4.29937
+confusion,positive,8,idk,4.02022
+confusion,negative,1,love,-2.29604
+confusion,negative,2,this is,-1.81479
+confusion,negative,3,great,-1.72752
+confusion,negative,4,hope,-1.70944
+confusion,negative,5,lol,-1.68187
+confusion,negative,6,thank,-1.46738
+confusion,negative,7,thanks,-1.41622
+confusion,negative,8,my,-1.37567
+curiosity,positive,1,curious,8.96843
+curiosity,positive,2,what,5.67995
+curiosity,positive,3,why,5.65236
+curiosity,positive,4,how,5.28582
+curiosity,positive,5,is that,5.13836
+curiosity,positive,6,do you,4.71402
+curiosity,positive,7,is it,4.67739
+curiosity,positive,8,is this,4.5019
+curiosity,negative,1,my,-2.30484
+curiosity,negative,2,thanks,-2.24932
+curiosity,negative,3,love,-2.23909
+curiosity,negative,4,thank,-2.13749
+curiosity,negative,5,you can,-2.12744
+curiosity,negative,6,fuck,-1.95948
+curiosity,negative,7,too,-1.91013
+curiosity,negative,8,this is,-1.8681
+desire,positive,1,wish,16.26098
+desire,positive,2,want,7.96749
+desire,positive,3,need,5.04861
+desire,positive,4,hope,4.0582
+desire,positive,5,wanted,3.72954
+desire,positive,6,wanna,2.94536
+desire,positive,7,to,2.80795
+desire,positive,8,could,2.57443
+desire,negative,1,you,-2.51849
+desire,negative,2,don,-1.76248
+desire,negative,3,is,-1.37705
+desire,negative,4,lol,-1.31151
+desire,negative,5,thanks,-1.25857
+desire,negative,6,never,-0.97896
+desire,negative,7,not,-0.95621
+desire,negative,8,why,-0.93829
+disappointment,positive,1,disappointed,5.85573
+disappointment,positive,2,bad,5.32154
+disappointment,positive,3,disappointing,5.20302
+disappointment,positive,4,miss,4.17172
+disappointment,positive,5,unfortunately,3.99659
+disappointment,positive,6,lost,3.89428
+disappointment,positive,7,upset,3.6839
+disappointment,positive,8,missed,3.34576
+disappointment,negative,1,love,-2.9631
+disappointment,negative,2,lol,-2.58932
+disappointment,negative,3,thanks,-2.35909
+disappointment,negative,4,you,-2.21697
+disappointment,negative,5,thank,-1.74255
+disappointment,negative,6,your,-1.52943
+disappointment,negative,7,thank you,-1.4686
+disappointment,negative,8,wow,-1.33847
+disapproval,positive,1,don,7.92192
+disapproval,positive,2,not,7.84491
+disapproval,positive,3,no,5.82072
+disapproval,positive,4,disagree,4.69473
+disapproval,positive,5,doesn,4.47635
+disapproval,positive,6,nope,4.28559
+disapproval,positive,7,wrong,4.0284
+disapproval,positive,8,dont,3.70687
+disapproval,negative,1,thanks,-2.71778
+disapproval,negative,2,love,-2.67296
+disapproval,negative,3,lol,-2.16893
+disapproval,negative,4,thank,-1.92769
+disapproval,negative,5,thank you,-1.87986
+disapproval,negative,6,oh,-1.87888
+disapproval,negative,7,name,-1.64546
+disapproval,negative,8,hope,-1.62513
+disgust,positive,1,disgusting,11.57056
+disgust,positive,2,awful,8.03512
+disgust,positive,3,worst,6.82179
+disgust,positive,4,worse,6.74781
+disgust,positive,5,weird,6.4565
+disgust,positive,6,nasty,4.64366
+disgust,positive,7,the worst,4.09823
+disgust,positive,8,ugly,3.85889
+disgust,negative,1,love,-2.22978
+disgust,negative,2,thanks,-1.88017
+disgust,negative,3,for,-1.72857
+disgust,negative,4,lol,-1.56463
+disgust,negative,5,great,-1.3782
+disgust,negative,6,you,-1.3382
+disgust,negative,7,good,-1.1998
+disgust,negative,8,happy,-1.14102
+embarrassment,positive,1,embarrassing,7.7981
+embarrassment,positive,2,shame,6.65634
+embarrassment,positive,3,awkward,6.62755
+embarrassment,positive,4,embarrassment,3.54708
+embarrassment,positive,5,ashamed,3.36238
+embarrassment,positive,6,embarrassed,3.2922
+embarrassment,positive,7,weird,2.45141
+embarrassment,positive,8,uncomfortable,1.96386
+embarrassment,negative,1,name,-1.73718
+embarrassment,negative,2,you,-1.33668
+embarrassment,negative,3,love,-1.22798
+embarrassment,negative,4,thanks,-1.19746
+embarrassment,negative,5,your,-0.97107
+embarrassment,negative,6,good,-0.96435
+embarrassment,negative,7,he,-0.91718
+embarrassment,negative,8,think,-0.86272
+excitement,positive,1,excited,9.94595
+excitement,positive,2,interesting,5.61122
+excitement,positive,3,wow,5.30598
+excitement,positive,4,can wait,4.73888
+excitement,positive,5,happy,3.93345
+excitement,positive,6,exciting,3.61642
+excitement,positive,7,crazy,3.48225
+excitement,positive,8,omg,3.41384
+excitement,negative,1,not,-2.21159
+excitement,negative,2,thanks,-2.05124
+excitement,negative,3,don,-1.90525
+excitement,negative,4,he,-1.81402
+excitement,negative,5,lol,-1.63917
+excitement,negative,6,no,-1.63693
+excitement,negative,7,you,-1.58566
+excitement,negative,8,sorry,-1.33208
+fear,positive,1,scared,9.39166
+fear,positive,2,afraid,8.38649
+fear,positive,3,scary,8.06342
+fear,positive,4,terrible,7.73398
+fear,positive,5,terrifying,6.63569
+fear,positive,6,horrible,6.50523
+fear,positive,7,fear,5.19334
+fear,positive,8,dangerous,4.27877
+fear,negative,1,you,-2.13591
+fear,negative,2,love,-1.71383
+fear,negative,3,thanks,-1.62023
+fear,negative,4,good,-1.54879
+fear,negative,5,lol,-1.44696
+fear,negative,6,thank,-1.18077
+fear,negative,7,not,-1.14022
+fear,negative,8,thank you,-1.048
+gratitude,positive,1,thanks,27.31288
+gratitude,positive,2,thank,17.78115
+gratitude,positive,3,thank you,13.81187
+gratitude,positive,4,thanks for,7.06788
+gratitude,positive,5,welcome,6.3229
+gratitude,positive,6,congrats,6.13437
+gratitude,positive,7,glad,4.76367
+gratitude,positive,8,for,4.45633
+gratitude,negative,1,no thanks,-2.67235
+gratitude,negative,2,they,-1.85214
+gratitude,negative,3,no,-1.73544
+gratitude,negative,4,he,-1.6225
+gratitude,negative,5,is,-1.52041
+gratitude,negative,6,why thank,-1.49847
+gratitude,negative,7,love,-1.38674
+gratitude,negative,8,why,-1.33289
+grief,positive,1,died,3.99204
+grief,positive,2,rip,2.89484
+grief,positive,3,loss,2.35162
+grief,positive,4,your loss,1.89845
+grief,positive,5,sorry for,1.861
+grief,positive,6,sorry,1.82844
+grief,positive,7,death,1.59656
+grief,positive,8,your,1.47092
+grief,negative,1,it,-0.77519
+grief,negative,2,is,-0.67986
+grief,negative,3,the,-0.67425
+grief,negative,4,you,-0.63783
+grief,negative,5,this,-0.45274
+grief,negative,6,at,-0.4405
+grief,negative,7,thanks,-0.43039
+grief,negative,8,but,-0.4008
+joy,positive,1,glad,12.52598
+joy,positive,2,happy,11.83147
+joy,positive,3,enjoy,10.00528
+joy,positive,4,fun,7.03556
+joy,positive,5,enjoyed,6.0665
+joy,positive,6,cheers,5.08241
+joy,positive,7,enjoying,3.92977
+joy,positive,8,glad you,3.60652
+joy,negative,1,thanks,-2.10718
+joy,negative,2,sorry,-1.82959
+joy,negative,3,doesn,-1.55164
+joy,negative,4,what,-1.46052
+joy,negative,5,not,-1.37987
+joy,negative,6,no,-1.37078
+joy,negative,7,bad,-1.32289
+joy,negative,8,why,-1.25175
+love,positive,1,love,26.0357
+love,positive,2,loved,11.73686
+love,positive,3,like,8.30083
+love,positive,4,loves,7.14588
+love,positive,5,loving,5.20294
+love,positive,6,favorite,4.92536
+love,positive,7,lovely,4.00158
+love,positive,8,my,3.75116
+love,negative,1,lol,-2.18811
+love,negative,2,don,-1.93837
+love,negative,3,looks like,-1.619
+love,negative,4,looks,-1.58242
+love,negative,5,thanks,-1.53706
+love,negative,6,thank,-1.41707
+love,negative,7,is,-1.3761
+love,negative,8,or,-1.31055
+nervousness,positive,1,worried,4.95942
+nervousness,positive,2,nervous,4.65173
+nervousness,positive,3,anxiety,4.27741
+nervousness,positive,4,edgy,2.64387
+nervousness,positive,5,me,2.3684
+nervousness,positive,6,anxious,1.93595
+nervousness,positive,7,worrying,1.87299
+nervousness,positive,8,about,1.83585
+nervousness,negative,1,you,-1.53018
+nervousness,negative,2,name,-1.28791
+nervousness,negative,3,love,-0.86231
+nervousness,negative,4,thanks,-0.7741
+nervousness,negative,5,your,-0.70997
+nervousness,negative,6,lol,-0.6095
+nervousness,negative,7,good,-0.55783
+nervousness,negative,8,thank,-0.55194
+optimism,positive,1,hope,18.64399
+optimism,positive,2,hopefully,10.41957
+optimism,positive,3,hoping,8.23466
+optimism,positive,4,will,5.5547
+optimism,positive,5,luck,4.80892
+optimism,positive,6,ll,4.43123
+optimism,positive,7,wish,3.76472
+optimism,positive,8,would,3.51261
+optimism,negative,1,thanks,-1.87166
+optimism,negative,2,lol,-1.76553
+optimism,negative,3,how,-1.41756
+optimism,negative,4,because,-1.17667
+optimism,negative,5,thank you,-1.14758
+optimism,negative,6,thank,-1.14567
+optimism,negative,7,what,-1.10063
+optimism,negative,8,do you,-1.09973
+pride,positive,1,proud,7.63246
+pride,positive,2,proud of,4.38418
+pride,positive,3,so proud,2.10774
+pride,positive,4,pride,2.0089
+pride,positive,5,of you,1.89202
+pride,positive,6,my,1.63513
+pride,positive,7,of,1.55555
+pride,positive,8,my man,1.47499
+pride,negative,1,what,-0.76353
+pride,negative,2,is,-0.57026
+pride,negative,3,they,-0.5385
+pride,negative,4,the,-0.50174
+pride,negative,5,that,-0.49659
+pride,negative,6,her,-0.48445
+pride,negative,7,one,-0.47221
+pride,negative,8,like,-0.47152
+realization,positive,1,realize,6.47996
+realization,positive,2,realized,5.9297
+realization,positive,3,forgot,3.55037
+realization,positive,4,thought,3.20306
+realization,positive,5,was,3.17819
+realization,positive,6,remember,2.945
+realization,positive,7,didn,2.82212
+realization,positive,8,noticed,2.6636
+realization,negative,1,name,-2.2834
+realization,negative,2,love,-2.05904
+realization,negative,3,you,-2.03469
+realization,negative,4,good,-1.67424
+realization,negative,5,hope,-1.42831
+realization,negative,6,thanks,-1.39106
+realization,negative,7,they,-1.245
+realization,negative,8,fucking,-1.11979
+relief,positive,1,glad,4.69226
+relief,positive,2,at least,2.48389
+relief,positive,3,least,2.39277
+relief,positive,4,relief,2.11977
+relief,positive,5,thank god,1.84034
+relief,positive,6,thank name,1.75826
+relief,positive,7,thank,1.73454
+relief,positive,8,relieved,1.68236
+relief,negative,1,you,-1.07795
+relief,negative,2,name,-0.99061
+relief,negative,3,thank you,-0.74413
+relief,negative,4,is,-0.7061
+relief,negative,5,for,-0.70207
+relief,negative,6,that,-0.64982
+relief,negative,7,love,-0.6412
+relief,negative,8,what,-0.52059
+remorse,positive,1,sorry,19.17161
+remorse,positive,2,regret,6.15452
+remorse,positive,3,apologies,3.5973
+remorse,positive,4,apologize,3.2251
+remorse,positive,5,sorry but,2.91677
+remorse,positive,6,my,2.62986
+remorse,positive,7,guilty,2.29432
+remorse,positive,8,sorry you,2.17543
+remorse,negative,1,love,-1.43675
+remorse,negative,2,thanks,-1.0002
+remorse,negative,3,lol,-0.96172
+remorse,negative,4,he,-0.90839
+remorse,negative,5,thank,-0.88581
+remorse,negative,6,name,-0.87981
+remorse,negative,7,that awful,-0.87773
+remorse,negative,8,happy,-0.83062
+sadness,positive,1,sad,14.51464
+sadness,positive,2,sadly,9.14547
+sadness,positive,3,sorry,6.56227
+sadness,positive,4,miss,5.76763
+sadness,positive,5,poor,5.54223
+sadness,positive,6,hurts,5.48438
+sadness,positive,7,crying,5.29761
+sadness,positive,8,painful,5.05168
+sadness,negative,1,lol,-2.46427
+sadness,negative,2,love,-2.32958
+sadness,negative,3,thanks,-2.1794
+sadness,negative,4,good,-2.05802
+sadness,negative,5,you,-1.76291
+sadness,negative,6,thank,-1.6239
+sadness,negative,7,name,-1.58173
+sadness,negative,8,thank you,-1.44355
+surprise,positive,1,surprised,12.68539
+surprise,positive,2,wow,11.70481
+surprise,positive,3,wonder,7.99826
+surprise,positive,4,omg,6.93987
+surprise,positive,5,shocked,6.0233
+surprise,positive,6,surprise,5.32382
+surprise,positive,7,can believe,4.663
+surprise,positive,8,wondering,4.55985
+surprise,negative,1,love,-2.49986
+surprise,negative,2,good,-1.83391
+surprise,negative,3,you,-1.79755
+surprise,negative,4,lol,-1.7858
+surprise,negative,5,thanks,-1.73
+surprise,negative,6,great,-1.42956
+surprise,negative,7,for,-1.35207
+surprise,negative,8,thank,-1.34064
+neutral,positive,1,they,3.01013
+neutral,positive,2,no thanks,2.55036
+neutral,positive,3,you don,2.35771
+neutral,positive,4,more like,2.00525
+neutral,positive,5,name,1.91704
+neutral,positive,6,hello,1.77284
+neutral,positive,7,remindme,1.72635
+neutral,positive,8,says,1.61121
+neutral,negative,1,thanks,-9.72556
+neutral,negative,2,love,-9.28635
+neutral,negative,3,lol,-8.6213
+neutral,negative,4,great,-7.12006
+neutral,negative,5,sorry,-7.03882
+neutral,negative,6,thank,-6.92082
+neutral,negative,7,hope,-6.75131
+neutral,negative,8,wow,-6.49356

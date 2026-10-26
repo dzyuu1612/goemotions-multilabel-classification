@@ -1,0 +1,218 @@
+{
+  "generated_at_utc": "2026-10-25T15:28:32.700555+00:00",
+  "split": "validation",
+  "data_revision": "add492243ff905527e67aeb8b80c082af02207c3",
+  "label_names": [
+    "admiration",
+    "amusement",
+    "anger",
+    "annoyance",
+    "approval",
+    "caring",
+    "confusion",
+    "curiosity",
+    "desire",
+    "disappointment",
+    "disapproval",
+    "disgust",
+    "embarrassment",
+    "excitement",
+    "fear",
+    "gratitude",
+    "grief",
+    "joy",
+    "love",
+    "nervousness",
+    "optimism",
+    "pride",
+    "realization",
+    "relief",
+    "remorse",
+    "sadness",
+    "surprise",
+    "neutral"
+  ],
+  "sample_count": 5426,
+  "data_sha256": {
+    "train": "b7d74279616ae7c9b8374ab62ea9f9d6504d36a577bb17f745d720dc2b0d4e76",
+    "validation": "d46ad5633c4fa41829d22d549743a7bf858d94129536a02af7280c281db5e63a"
+  },
+  "variant": "standard",
+  "threshold_mode": "fixed",
+  "representative_selection": "highest validation Macro-F1@0.5; smaller seed on tie",
+  "rare_label_selection": "five smallest train positive counts; label ID on tie",
+  "rare_labels": [
+    {
+      "label": "grief",
+      "train_support": 77
+    },
+    {
+      "label": "pride",
+      "train_support": 111
+    },
+    {
+      "label": "relief",
+      "train_support": 153
+    },
+    {
+      "label": "nervousness",
+      "train_support": 164
+    },
+    {
+      "label": "embarrassment",
+      "train_support": 303
+    }
+  ],
+  "architecture_summary_validation": [
+    {
+      "architecture": "bert",
+      "seeds": [
+        42,
+        123,
+        2026
+      ],
+      "n_seeds": 3,
+      "metrics": {
+        "macro_f1": {
+          "mean": 0.47175960401904565,
+          "std": 0.01061062056194759
+        },
+        "micro_f1": {
+          "mean": 0.579175745561645,
+          "std": 0.003643559630134218
+        },
+        "macro_precision": {
+          "mean": 0.5509414298500258,
+          "std": 0.02974345301855364
+        },
+        "macro_recall": {
+          "mean": 0.42852119458457544,
+          "std": 0.004986559508908325
+        },
+        "micro_precision": {
+          "mean": 0.6392115096780799,
+          "std": 0.00699261109504505
+        },
+        "micro_recall": {
+          "mean": 0.5294670846394984,
+          "std": 0.0026367717619531173
+        },
+        "hamming_loss": {
+          "mean": 0.032311358011689745,
+          "std": 0.00039497875806112194
+        }
+      },
+      "parameter_count": 108331804
+    },
+    {
+      "architecture": "roberta",
+      "seeds": [
+        42,
+        123,
+        2026
+      ],
+      "n_seeds": 3,
+      "metrics": {
+        "macro_f1": {
+          "mean": 0.42416136056507364,
+          "std": 0.012462601159802304
+        },
+        "micro_f1": {
+          "mean": 0.5779000104033146,
+          "std": 0.004133228644405408
+        },
+        "macro_precision": {
+          "mean": 0.5919517583250474,
+          "std": 0.00986039963340097
+        },
+        "macro_recall": {
+          "mean": 0.36868264539669493,
+          "std": 0.01154091591583684
+        },
+        "micro_precision": {
+          "mean": 0.7107635988181146,
+          "std": 0.006911914789449339
+        },
+        "micro_recall": {
+          "mean": 0.48693834900731453,
+          "std": 0.0065874245451528115
+        },
+        "hamming_loss": {
+          "mean": 0.02986941182665473,
+          "std": 0.0002508103691650989
+        }
+      },
+      "parameter_count": 124667164
+    },
+    {
+      "architecture": "distilbert",
+      "seeds": [
+        42,
+        123,
+        2026
+      ],
+      "n_seeds": 3,
+      "metrics": {
+        "macro_f1": {
+          "mean": 0.4057824211740238,
+          "std": 0.00549779728358993
+        },
+        "micro_f1": {
+          "mean": 0.5738104326107428,
+          "std": 0.004381478213197622
+        },
+        "macro_precision": {
+          "mean": 0.5732138338069611,
+          "std": 0.004236482119929337
+        },
+        "macro_recall": {
+          "mean": 0.3463951705811761,
+          "std": 0.0052870139222205926
+        },
+        "micro_precision": {
+          "mean": 0.7105079335856045,
+          "std": 0.002622123128337233
+        },
+        "micro_recall": {
+          "mean": 0.4812434691745036,
+          "std": 0.005772481355222119
+        },
+        "hamming_loss": {
+          "mean": 0.03001860530426693,
+          "std": 0.00019573576018193598
+        }
+      },
+      "parameter_count": 66975004
+    }
+  ],
+  "runs": [
+    {
+      "architecture": "bert",
+      "seed": 123,
+      "run_dir": "data/processed/transformers/bert/seed_123/full/standard",
+      "validation_macro_f1_fixed": 0.4804237377476623,
+      "thresholds": 0.5,
+      "run_metadata_sha256": "8b8d648bee1ffc8ae1489a13794436f1f5db8a7bedcd7a673a272d270f7a7af7",
+      "scores_sha256": "e6a718c833becfc076370348984285bfc96d061bd52c75703de9a7019349150c"
+    },
+    {
+      "architecture": "roberta",
+      "seed": 2026,
+      "run_dir": "data/processed/transformers/roberta/seed_2026/full/standard",
+      "validation_macro_f1_fixed": 0.4382910909439764,
+      "thresholds": 0.5,
+      "run_metadata_sha256": "fb23afa90e4523eb305604f16be183a25906cdb06b5f139c2bf8331dacab9ae3",
+      "scores_sha256": "3f9e2954d9d47e8d655a9d56af2cbeb1f9fbc7da430c5c4cc31b2efc6cbce466"
+    },
+    {
+      "architecture": "distilbert",
+      "seed": 123,
+      "run_dir": "data/processed/transformers/distilbert/seed_123/full/standard",
+      "validation_macro_f1_fixed": 0.41199258432207325,
+      "thresholds": 0.5,
+      "run_metadata_sha256": "43b511f996babfa38ba5f594b4f936e15a61dd0da3270c4318d265409ced7c4a",
+      "scores_sha256": "cb51712e5973a9f20bd0798b696f0c4d4fa41ccb11f4fb1f4e132f0a25b6592a"
+    }
+  ],
+  "notes": "Error groups overlap. Representative seed diagnostics are not mean±std. Linguistic notes require human review."
+}

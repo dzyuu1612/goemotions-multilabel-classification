@@ -1,0 +1,4 @@
+﻿architecture,status,n_seeds_available,n_seeds_expected,elapsed_seconds_sum,elapsed_seconds_mean,parameter_count,reason,scope
+bert,ok,3,3,9209.265362900012,3069.755120966671,108331804,,"elapsed_seconds per full C run: preparation, training, validation, checkpoint IO"
+roberta,ok,3,3,5018.220465099963,1672.740155033321,124667164,,"elapsed_seconds per full C run: preparation, training, validation, checkpoint IO"
+distilbert,ok,3,3,2674.5426139000047,891.5142046333349,66975004,,"elapsed_seconds per full C run: preparation, training, validation, checkpoint IO"

@@ -14,6 +14,50 @@ Source để chỉnh sửa nằm trực tiếp trong `notebooks/`; bản đã ch
 Notebook đọc bộ artifacts cục bộ đã kiểm: A/C suy luận thật từ checkpoint;
 B tính lại metric từ scores NLI đã lưu. Manifest ghi rõ lần chạy từng notebook.
 
+## Kết quả hiện tại để làm báo cáo và slide
+
+Bộ chạy full hoàn tất ngày **25/10/2026 trên máy Nhật Huy**, dùng cho báo cáo cập nhật
+26/10/2026. Đây là bộ số liệu hiện tại; `results/report_2_1/` là bản lịch sử.
+
+| Cần xem | Đường dẫn |
+|---|---|
+| Bảng tổng hợp A/B/C và mean ± std | [reports/project_results/mean_std.csv](reports/project_results/mean_std.csv) |
+| Kết quả từng seed và từng ngưỡng | [all_runs.csv](reports/project_results/all_runs.csv) |
+| F1 từng nhãn và cải thiện nhãn hiếm | [per_label.csv](reports/project_results/per_label.csv), [rare_before_after.csv](reports/project_results/rare_before_after.csv) |
+| Log từng epoch, train loss, validation F1 | [learning_curves.csv](reports/project_results/learning_curves.csv), các `run_metadata.json` trong [bộ kết quả huấn luyện](results/training_20261025/data/processed/transformers/) |
+| Biểu đồ thực nghiệm | [reports/project_results/figures/](reports/project_results/figures/) |
+| EDA và biểu đồ dữ liệu | [reports/tables/](reports/tables/), [reports/figures/](reports/figures/) |
+| Phân tích lỗi, ví dụ thật | [reports/errors_test_standard_fixed/](reports/errors_test_standard_fixed/) |
+| Kiểm lại số liệu báo cáo | [reports/reproduction_report_20261026/](reports/reproduction_report_20261026/) |
+| Minh chứng demo sáu lựa chọn | [kiểm suy luận](reports/demo_all_models_verification.json), [kiểm HTTP/API](reports/demo_http_verification.json) |
+| Scores validation/test, ngưỡng và cấu hình đã lưu | [results/training_20261025/](results/training_20261025/) |
+| Notebook có sẵn output | [notebooks/executed/](notebooks/executed/) |
+
+**Không cần huấn luyện lại để đọc các bảng và notebook trên.** Bộ huấn luyện lưu đủ
+cấu hình, môi trường, log epoch và scores cho chín run C (3 kiến trúc × 3 seed), hai
+baseline A và B zero-shot. B chỉ suy luận, không có epoch fine-tune. Mỗi bản sao
+có SHA-256 trong [manifest](results/training_20261025/manifest.json).
+
+### Tải checkpoint để chạy demo hoặc suy luận
+
+Trọng số của cả **9 checkpoint C và 2 mô hình A** nằm trong
+[Releases của chính repo](https://github.com/trangkhanh-ai/goemotions-multilabel-classification/releases/tag/goemotions-full-20261025).
+[Danh sách ZIP, dung lượng và SHA-256](results/training_20261025/checkpoint_assets.json)
+cho phép kiểm tra file đã tải. Các ZIP giữ đường dẫn `data/processed/...`.
+
+1. Clone repo và cài thư viện theo phần setup bên dưới.
+2. Chép nội dung `results/training_20261025/data/` vào `data/` của bản clone.
+3. Tải và giải nén các ZIP checkpoint tại gốc repo. Muốn đủ cả ba kiến trúc × ba seed,
+   tải đủ chín ZIP C và `baseline_models.zip`. Muốn chỉ chạy demo, dùng seed đại diện
+   BERT 123, RoBERTa 2026, DistilBERT 123 cùng baseline.
+4. Tải dữ liệu bằng lệnh trong README nếu cần chạy lại đánh giá. BART-MNLI được nạp
+   từ Hugging Face theo revision trong metadata khi chọn zero-shot lần đầu.
+5. Chạy `python app.py --device auto --c3-source benchmark`.
+
+Giải nén checkpoint và chạy demo không huấn luyện lại mô hình. Các file trọng số lớn
+được phát hành dưới dạng release assets, không nằm trong lịch sử Git. Bộ minh chứng
+demo hiện xác nhận HTTP/API; chưa thay thế kiểm tra trực quan giao diện trình duyệt.
+
 ## Hoàn tất mô hình và chạy demo trên máy hiện tại
 
 Chạy từ gốc repo bằng môi trường đã cài đủ thư viện. Trên máy Huy:
