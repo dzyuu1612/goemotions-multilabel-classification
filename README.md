@@ -1,192 +1,120 @@
-# GoEmotions · Multi-label Emotion Classification
+# GoEmotions phân loại cảm xúc đa nhãn
 
-**Một bình luận. Nhiều cảm xúc. Một quy trình thực nghiệm có thể kiểm lại.**
+Bộ nộp ngày **26/10/2026** dùng **A/B/BERT/RoBERTa của Duy** và **toàn bộ ba seed
+DistilBERT của Huy**. Báo cáo dùng bản Duy làm nền. Nguồn được ghi rõ trong
+[provenance.json](results/final_submission/provenance.json); không ghép từng seed
+hoặc từng chỉ số cao hơn từ hai bộ.
 
-![Python](https://img.shields.io/badge/Python-3.12%20%7C%203.13-3776AB?logo=python&logoColor=white)
-![28 labels](https://img.shields.io/badge/GoEmotions-28%20labels-0F766E)
-![NLP](https://img.shields.io/badge/NLP-Multi--label-7C3AED)
+Nhóm đã xem test của cả hai bộ trước khi chốt nguồn này. Vì vậy, lựa chọn nguồn
+không độc lập với test; so sánh cuối mang tính mô tả. Trong từng run gốc,
+checkpoint và ngưỡng vẫn giữ lựa chọn trên validation. Test đã được quan sát
+trong EDA; không nhận đây là một tập chưa từng được xem.
 
-[Chạy thử](#quick-start) · [Baseline của Duy](#baseline) · [Notebook](#notebooks) · [Thực nghiệm](#experiments) · [Demo](#demo) · [Đọc code](#code-map)
+[Notebook có output](notebooks/executed/) · [Bộ nộp chính thức](results/final_submission/)
+· [Checkpoint đã huấn luyện](https://github.com/trangkhanh-ai/goemotions-multilabel-classification/releases/tag/goemotions-final-duy-huy-20261026)
+· [Demo](#demo) · [Cách đọc code](#code-map)
 
-**Xem kết quả ngay trên GitHub:** mở [bộ notebook đã chạy có output](notebooks/executed/).
-Source để chỉnh sửa nằm trực tiếp trong `notebooks/`; bản đã chạy nằm trong
-`notebooks/executed/`, có manifest kiểm hash và xác nhận mọi code cell đã thực thi.
-Notebook đọc bộ artifacts cục bộ đã kiểm: A/C suy luận thật từ checkpoint;
-B tính lại metric từ scores NLI đã lưu. Manifest ghi rõ lần chạy từng notebook.
+## Kết quả chính thức
 
-## Kết quả hiện tại để làm báo cáo và slide
+Chỉ số **test**, ngưỡng riêng đã khóa từ validation. C dùng mean ± sample std
+(`ddof=1`) của đủ ba seed 42, 123, 2026. A/B có một model cho mỗi cấu hình.
 
-Bộ chạy full hoàn tất ngày **25/10/2026 trên máy Nhật Huy**, dùng cho báo cáo cập nhật
-26/10/2026. Đây là bộ số liệu hiện tại; `results/report_2_1/` là bản lịch sử.
+| Hệ | Macro-F1 | Micro-F1 | Hamming Loss ↓ |
+|---|---:|---:|---:|
+| A balanced tuned | 0.4493 | 0.5277 | 0.0467 |
+| B BART-MNLI tuned | 0.1609 | 0.1752 | 0.2941 |
+| C1 BERT tuned | 0.5038 ± 0.0097 | 0.5900 ± 0.0029 | 0.0373 ± 0.0003 |
+| C2 RoBERTa tuned | 0.4872 ± 0.0156 | 0.6048 ± 0.0057 | 0.0365 ± 0.0014 |
+| C3 DistilBERT tuned | 0.4907 ± 0.0093 | 0.5974 ± 0.0023 | 0.0370 ± 0.0005 |
 
-| Cần xem | Đường dẫn |
+Demo mặc định BERT seed 123 theo Macro-F1 validation ở ngưỡng 0,5. BERT dẫn
+Macro-F1; RoBERTa có Micro-F1 sau tuning cao hơn. Đây là một cấu hình mỗi kiến
+trúc với ba seed, chưa phải tìm siêu tham số tối ưu hoặc đối chứng chỉ thay encoder.
+
+| Minh chứng | Tệp |
 |---|---|
-| Bảng tổng hợp A/B/C và mean ± std | [reports/project_results/mean_std.csv](reports/project_results/mean_std.csv) |
-| Kết quả từng seed và từng ngưỡng | [all_runs.csv](reports/project_results/all_runs.csv) |
-| F1 từng nhãn và cải thiện nhãn hiếm | [per_label.csv](reports/project_results/per_label.csv), [rare_before_after.csv](reports/project_results/rare_before_after.csv) |
-| Log từng epoch, train loss, validation F1 | [learning_curves.csv](reports/project_results/learning_curves.csv), các `run_metadata.json` trong [bộ kết quả huấn luyện](results/training_20261025/data/processed/transformers/) |
-| Biểu đồ thực nghiệm | [reports/project_results/figures/](reports/project_results/figures/) |
-| EDA và biểu đồ dữ liệu | [reports/tables/](reports/tables/), [reports/figures/](reports/figures/) |
-| Phân tích lỗi, ví dụ thật | [reports/errors_test_standard_fixed/](reports/errors_test_standard_fixed/) |
-| Kiểm lại số liệu báo cáo | [reports/reproduction_report_20261026/](reports/reproduction_report_20261026/) |
-| Minh chứng demo sáu lựa chọn | [kiểm suy luận](reports/demo_all_models_verification.json), [kiểm HTTP/API](reports/demo_http_verification.json) |
-| Scores validation/test, ngưỡng và cấu hình đã lưu | [results/training_20261025/](results/training_20261025/) |
-| Notebook có sẵn output | [notebooks/executed/](notebooks/executed/) |
+| 72 dòng metric và 36 nhóm mean/std | [all_runs.csv](results/final_submission/report_data/all_runs.csv), [mean_std.csv](results/final_submission/report_data/mean_std.csv) |
+| 30 điểm đường học | [learning_curves.csv](results/final_submission/report_data/learning_curves.csv) |
+| F1 nhãn hiếm, số đếm lỗi và ví dụ | [report_data/](results/final_submission/report_data/) |
+| 14 biểu đồ từ đúng bộ nộp | [figures/](results/final_submission/figures/), [mã vẽ](scripts/analysis/plot_submission.py) |
+| Kiểm số và hash checkpoint | [verification.json](results/final_submission/report_data/verification.json) |
+| Mười câu BRIGHTER đã khóa và 240 dự đoán | [external_probe/](results/final_submission/external_probe/) |
+| Kiểm dữ liệu trùng và train-only TF-IDF | [data_boundary_audit.json](results/final_submission/data_boundary_audit.json) |
+| Mã hóa riêng các split và kiểm truncation/UNK | [encoding_audit.json](results/final_submission/encoding_audit.json) |
+| Đối chiếu metric độc lập | [independent_crosscheck.json](results/final_submission/independent_crosscheck.json) |
+| Chênh lệch suy luận mới so với scores gốc | [replay_comparison.csv](results/final_submission/replay_comparison.csv) |
+| Sáu lựa chọn demo | [demo_verification.json](results/final_submission/demo_verification.json) |
 
-**Không cần huấn luyện lại để đọc các bảng và notebook trên.** Bộ huấn luyện lưu đủ
-cấu hình, môi trường, log epoch và scores cho chín run C (3 kiến trúc × 3 seed), hai
-baseline A và B zero-shot. B chỉ suy luận, không có epoch fine-tune. Mỗi bản sao
-có SHA-256 trong [manifest](results/training_20261025/manifest.json).
+## Khôi phục bộ nộp và chạy demo
 
-### Tải checkpoint để chạy demo hoặc suy luận
+Dùng Python 3.12 hoặc 3.13 trong môi trường riêng. Cài PyTorch phù hợp máy theo
+phần setup bên dưới; các lệnh sau chạy ở thư mục chứa `pyproject.toml`.
 
-Trọng số của cả **9 checkpoint C và 2 mô hình A** nằm trong
-[Releases của chính repo](https://github.com/trangkhanh-ai/goemotions-multilabel-classification/releases/tag/goemotions-full-20261025).
-[Danh sách ZIP, dung lượng và SHA-256](results/training_20261025/checkpoint_assets.json)
-cho phép kiểm tra file đã tải. Các ZIP giữ đường dẫn `data/processed/...`.
-
-1. Clone repo và cài thư viện theo phần setup bên dưới.
-2. Chép nội dung `results/training_20261025/data/` vào `data/` của bản clone.
-3. Tải và giải nén các ZIP checkpoint tại gốc repo. Muốn đủ cả ba kiến trúc × ba seed,
-   tải đủ chín ZIP C và `baseline_models.zip`. Muốn chỉ chạy demo, dùng seed đại diện
-   BERT 123, RoBERTa 2026, DistilBERT 123 cùng baseline.
-4. Tải dữ liệu bằng lệnh trong README nếu cần chạy lại đánh giá. BART-MNLI được nạp
-   từ Hugging Face theo revision trong metadata khi chọn zero-shot lần đầu.
-5. Chạy `python app.py --device auto --c3-source benchmark`.
-
-Giải nén checkpoint và chạy demo không huấn luyện lại mô hình. Các file trọng số lớn
-được phát hành dưới dạng release assets, không nằm trong lịch sử Git. Bộ minh chứng
-demo hiện xác nhận HTTP/API; chưa thay thế kiểm tra trực quan giao diện trình duyệt.
-
-## Hoàn tất mô hình và chạy demo trên máy hiện tại
-
-Chạy từ gốc repo bằng môi trường đã cài đủ thư viện. Trên máy Huy:
-
-```powershell
-$py = ".venv-huy/Scripts/python.exe"
-$env:PYTHONUTF8 = "1"
-$env:HF_HOME = "$PWD/data/cache/huggingface"
-& $py -m scripts.baseline.run_baseline
-& $py -m scripts.baseline.run_baseline --variant balanced
-& $py -m scripts.baseline.analyze_baseline
-& $py -m scripts.pipeline.complete_project --device cuda
-& $py -m scripts.verification.reproduce_report --artifacts-root .
-& $py -m scripts.data.run_notebooks --notebook all --publish --artifacts-root .
-& $py -m scripts.transformers.verify_demo --device cuda
-& $py -m scripts.verification.verify_model_selector --device cuda
-& $py app.py --device cuda --c3-source benchmark
+```bash
+python -m pip install -e ".[eda,transformers,notebooks]"
+python -m scripts.verification.prepare_submission --checkpoints
+python -m scripts.verification.verify_submission --full
+python app.py --device auto
 ```
 
-Chỉ chạy các lệnh train A khi chưa có model cần giữ. Pipeline C tự kiểm và bỏ qua
-run full đã hoàn thành; không dùng `--overwrite` cho checkpoint muốn bảo toàn.
-Run dở cần kiểm log trước khi quyết định chạy lại. Mỗi thời điểm chạy một tác vụ GPU.
+`prepare_submission` kiểm SHA-256 rồi khôi phục dữ liệu, scores, metadata và
+selection vào `artifacts/final_submission/`. Thêm `--checkpoints` tải chín C và
+hai A từ Releases theo [catalog](results/final_submission/checkpoint_assets.json).
+Nếu chỉ chạy demo, thêm `--demo-only` để lấy ba checkpoint đại diện và hai A.
+BART-MNLI tải từ Hugging Face theo revision đã khóa khi được chọn lần đầu.
+Đây là khôi phục kết quả đã huấn luyện, không train lại. Mặc định app và notebook
+chọn đúng profile này; biến `GOEMOTIONS_ARTIFACTS_ROOT` hoặc `--artifacts-root`
+là tùy chọn chủ động khi cần một bộ khác. Không chép đè metadata của hai bộ lên nhau.
 
-Pipeline tạo hai A, BART-MNLI zero-shot và ba kiến trúc C × ba seed 42/123/2026.
-Checkpoint/ngưỡng chọn bằng validation rồi khóa trước test. Số mới nằm trong
-`reports/project_results/`, model và scores trong `data/processed/`.
-Notebook 04/05 dùng cùng bộ chín checkpoint này. Không chuyển số từ snapshot
-`results/report_2_1/` thành kết quả của máy hiện tại.
+Muốn chỉ tính lại bảng từ scores, chưa cần trọng số lớn:
 
-Demo mở tại `http://127.0.0.1:7860`. Kiến trúc mặc định lấy từ
-`selected_model.json`, không cố định BERT hoặc seed 123. Có sáu lựa chọn:
-hai baseline A, zero-shot B và ba kiến trúc C. Lệnh kiểm toàn bộ lựa chọn ghi
-`reports/demo_all_models_verification.json`; kiểm hàm suy luận không thay cho
-minh chứng giao diện trình duyệt. Các lượt chạy mới không bảo đảm trùng điểm cũ.
-
-## Snapshot báo cáo 2.1 đã công bố trước lượt chạy cục bộ
-
-**Đã fine-tune ba C, chưa có bằng chứng đã tìm được cấu hình tốt nhất.**
-Mỗi kiến trúc chạy một cấu hình với ba seed 42/123/2026. Đây là kiểm độ ổn định,
-chưa phải tìm learning rate, epoch hoặc batch size. Cả 9 run đều chọn epoch cuối
-(BERT 4, RoBERTa/DistilBERT 3); nên thử thêm trên validation trước khi kết luận đã hội tụ.
-Không suy ra chắc chắn thêm epoch sẽ tốt hơn.
-
-Số **test**, ba C là mean ± sample std của ba seed; ngưỡng riêng đã khóa từ validation:
-
-| Hệ thống | Macro-F1 | Micro-F1 |
-|---|---:|---:|
-| A balanced, tuned | 0.4493 | 0.5277 |
-| B BART-MNLI, tuned | 0.1609 | 0.1752 |
-| C1 BERT, tuned | 0.5038 ± 0.0097 | 0.5900 ± 0.0029 |
-| C2 RoBERTa, tuned | 0.4872 ± 0.0156 | 0.6048 ± 0.0057 |
-| C3 DistilBERT, tuned | 0.4863 ± 0.0065 | 0.5952 ± 0.0046 |
-
-BERT thắng theo Macro-F1; RoBERTa có Micro-F1 tuned cao hơn.
-Demo vẫn dùng **BERT seed 123**, đã chọn trước bằng **validation Macro-F1 @0.5**,
-không đổi người thắng theo test. B không fine-tune; A chưa tìm C/ngram tốt nhất.
-Chỉnh ngưỡng không đồng nghĩa với fine-tune trọng số. C3 dùng ba seed 42/123/2026 theo thiết kế của Huy; mọi bảng và biểu đồ lấy cùng một bộ kết quả đã kiểm.
-
-### C3 DistilBERT theo thiết kế của Nhật Huy
-
-Fine-tune từ pretrained, đủ **43.410 train / 5.426 validation**,
-ba seed 42/123/2026, 3 epoch, batch 16, LR 2e-5, max length 128, AMP FP16 và
-gradient checkpointing. Môi trường: **Python 3.13.9,
-PyTorch 2.13.0+cu130, Transformers 4.57.6**. Chọn checkpoint và ngưỡng bằng
-validation; khóa đủ ba protocol trước khi suy luận **5.427 test**.
-
-| Ngưỡng C3 trên test | Macro-F1 | Micro-F1 |
-|---|---:|---:|
-| Fixed 0.5 | 0.4134 ± 0.0021 | 0.5742 ± 0.0005 |
-| Từng nhãn chọn trên validation | 0.4863 ± 0.0065 | 0.5952 ± 0.0046 |
-
-Từ thư mục code, dùng môi trường hiện có:
-
-```powershell
-$py = "../goemotions-multilabel-classification/.venv-models/Scripts/python.exe"
-& $py -m scripts.distilbert.reproduce_c3 --output reports/c3_current_environment_2026-10-21
-& $py -m scripts.distilbert.export_c3_report_data --run-root reports/c3_current_environment_2026-10-21 --historical-root ../goemotions-multilabel-classification
-& $py -m scripts.distilbert.plot_c3_report --data reports/c3_current_environment_2026-10-21/report_data
+```bash
+python -m scripts.verification.prepare_submission
+python -m scripts.verification.verify_submission --export
 ```
 
-Muốn huấn luyện một bộ mới, dùng đường dẫn output mới. Output đã hoàn tất chỉ được
-tái sử dụng sau khi kiểm config, nguồn, dataset, checkpoint và hash. Runner từ chối
-ghi đè lượt dở; không tự tiếp tục optimizer từ giữa epoch. Mỗi seed có `run.json`,
-`history.json`, `best/`, scores, ngưỡng, `final_protocol.json` và `test_results.json`.
-`report_data/` có **72 bản ghi / 36 nhóm**, nhãn hiếm, các cặp lỗi và ba ví dụ cùng ID.
-`historical_verification/` giữ bằng chứng kiểm A/B/C1/C2; không gọi đây là train mới.
+Muốn kiểm notebook, tokenizer, dữ liệu và vẽ lại sau khi tải đủ checkpoint:
 
-Kiểm trực tiếp bản Word mới:
-
-```powershell
-& $py -m scripts.verification.verify_current_c3_report --run-root reports/c3_current_environment_2026-10-21 --report "đường-dẫn-bản-Word-đã-cập-nhật.docx"
+```bash
+python -m scripts.data.run_notebooks --notebook all --publish
+python -m scripts.verification.audit_encoding
+python -m scripts.verification.crosscheck_submission
+python -m scripts.analysis.plot_submission
+python -m scripts.analysis.evaluate_external_probe
 ```
 
-Các lệnh trong mục C3 phía trên dành riêng cho bộ báo cáo 2.1. Notebook 04/05
-hiện dùng C3 trong pipeline chung; giữ riêng snapshot và bundle lịch sử.
+Bảy notebook đã chạy đủ **72 cell mã**. A và cả chín C có suy luận lại từ
+checkpoint; B trong notebook tính metric từ scores NLI đã lưu. Phép thử mười
+câu có suy luận mới cho cả A/B/chín C, không chỉnh nhãn, train hoặc tìm ngưỡng.
+Các kết quả mới của lệnh thử câu được ghi riêng ở `artifacts/external_probe_replay/`.
 
-### Tính lại bộ benchmark lịch sử từ artifacts hiện có
+Benchmark kiểm chính xác từ scores gốc và hash trọng số. Replay AMP trên môi
+trường khác có thể lệch sát ngưỡng: lượt này C3 có max score drift 0,001775 và tối
+đa năm quyết định nhãn đổi trong một cấu hình; C1/C2 khớp trên môi trường hiện tại.
+Notebook dùng giới hạn score drift 0,005 cho C, báo số quyết định đổi và chênh
+metric; đây không phải chứng nhận metric replay bằng hệt benchmark. Scores gốc,
+ngưỡng, checkpoint và bảng báo cáo không bị ghi đè. Chẩn đoán train/validation
+float32 cũng được lưu riêng với log AMP huấn luyện.
 
-Trong workspace này, code chính nằm ở `goemotions-source-only`; dataset/checkpoint/
-scores lịch sử nằm ở thư mục cạnh nó `goemotions-multilabel-classification`.
-Chạy từ thư mục code bằng Python đã có đủ thư viện:
+Demo giữ giao diện cũ có sáu lựa chọn. HTTP/API đã kiểm thành công cho cả sáu,
+mỗi lựa chọn trả đủ 28 hàng điểm. Phiên cuối **chưa kiểm lại trực quan trình
+duyệt** vì công cụ bị dừng; [ảnh cũ](assets/demo.png) chỉ minh họa bố cục đã dùng.
+`127.0.0.1:7860` là địa chỉ cục bộ, chưa có hosting công khai.
 
-```powershell
-$py = "../goemotions-multilabel-classification/.venv-models/Scripts/python.exe"
-& $py -m scripts.verification.reproduce_report --artifacts-root ../goemotions-multilabel-classification
-```
+## Các bộ kết quả giữ riêng để đối chiếu
 
-Lệnh kiểm hash dataset/model/protocol, ghép scores theo ID, áp đúng ngưỡng đã khóa,
-tính lại **72 dòng và 36 nhóm**, so toàn bộ 7 metric với CSV gốc ở sai số ≤ 1e-12.
-Thiếu/sai dữ liệu sẽ dừng; không tải mạng, không tự tìm ngưỡng mới.
-Kết quả kiểm ở `reports/reproduction/verification.json`; CSV tính lại nằm cùng thư mục.
+`results/final_submission/` là nguồn cho Word final. `results/training_20261025/`
+và `reports/project_results/` giữ nguyên bộ Huy chạy lại toàn bộ; `results/report_2_1/`
+giữ snapshot trước đó. Các nghiên cứu trong `scripts/distilbert/` là hồ sơ lịch sử,
+không tự động trở thành C3 của bản final. Checkpoint lớn phát hành ở Releases;
+Git chỉ giữ bundle runtime khoảng 23,5 MB, bảng, hình và biên nhận.
 
-Muốn **suy luận test thật lại** từ hai model A và cả 9 checkpoint C, thêm:
+## Huấn luyện một thực nghiệm khác
 
-```powershell
-& $py -m scripts.verification.reproduce_report --artifacts-root ../goemotions-multilabel-classification --inference-baseline --inference-c --device cuda
-```
-
-Với bản Word dùng đúng bộ C3 lịch sử, có thể thêm `--report <đường-dẫn-báo-cáo-cuối-kỳ.docx>` để đối chiếu trực tiếp
-111 ô metric trong 9 bảng kết quả Word. Output luôn tách khỏi artifacts gốc.
-Lượt kiểm 20/10/2026 đã chạy cả hai A và chín C: scores/metric trùng bản cũ,
-sai lệch lớn nhất bằng **0** trên cùng máy. B được tính lại từ scores NLI đã lưu;
-hai lệnh trên không chạy lại suy luận B. Nghiên cứu C3 riêng của Huy thiếu bundle
-checkpoint tại workspace này nên chưa suy luận lại được; không ảnh hưởng C3 chung.
-
-Đây là tái lập metric/suy luận, **không phải huấn luyện lại** từ pretrained.
-Huấn luyện lại cần cùng revision, seed, dependency và GPU; không bảo đảm giống bit
-trên mọi máy. Muốn cải tiến mô hình, dùng thí nghiệm mới và validation; giữ bộ số
-đã báo cáo cùng protocol cũ để đối chiếu.
+Các hướng dẫn phía dưới dành cho học và tạo lượt chạy mới. Dùng thư mục artifacts
+riêng và chỉ định rõ khi chạy công cụ tổng hợp/kiểm chứng. Không dùng pipeline train
+để mở lại bộ nộp đã khóa. `--resume` chỉ bỏ qua lượt hoàn thành hợp lệ;
+`--overwrite` thay kết quả cũ nên không dùng cho bộ cần giữ.
 
 ![Văn bản đi qua A/B/C độc lập, rồi áp ngưỡng để trả nhiều cảm xúc](assets/overview.png)
 
@@ -470,26 +398,15 @@ Cặp FN/FP khác đồng xuất hiện nhãn thật; điểm toy/smoke không t
 Đây là minh chứng một lần chạy, không khẳng định app đang mở trên máy bạn.
 Giao diện giữ bố cục đơn giản: chọn mô hình, nhập bình luận, bấm nhận diện rồi
 xem nhãn và bảng điểm. Sáu lựa chọn dùng ngưỡng 0,5 khi khởi động mặc định.
-Sau khi pipeline tạo checkpoint C và `selected_model.json` ở máy:
+Sau khi khôi phục bộ nộp và checkpoint như hướng dẫn đầu trang:
 
 ```bash
 python -m scripts.transformers.verify_demo --device auto
 python app.py --device auto
 ```
 
-Trong workspace có sẵn artifacts bên cạnh, dùng biến `$py` ở phần tái lập:
-
-```powershell
-& $py app.py --artifacts-root ../goemotions-multilabel-classification --device cuda
-```
-
-Kiểm hàm dự đoán và luồng nhập sau khi đổi cấu trúc:
-`& $py -m scripts.transformers.verify_demo --artifacts-root ../goemotions-multilabel-classification --device cuda`.
-
-Lượt kiểm ngày 22/10/2026 đã nạp BERT seed 123, đối chiếu ba câu validation và
-kiểm đầu vào rỗng, vượt giới hạn ký tự, cắt token. Cả sáu phép kiểm suy luận/đầu
-vào đều đạt. [Biên nhận demo](results/report_2_1/demo_verification.json) ghi thiết bị,
-sai lệch scores và phạm vi kiểm; ảnh giao diện phía trên là minh chứng trước đó.
+Minh chứng mới: [kiểm HTTP/API sáu lựa chọn](results/final_submission/demo_verification.json).
+Ảnh ngày 22/10/2026 là minh họa giao diện cũ; phiên cuối chưa kiểm lại trực quan.
 
 Mở `http://127.0.0.1:7860/`. App cần checkpoint thật; clone source không có trọng số.
 Ngưỡng mặc định 0,5; ngưỡng riêng cần `--thresholds` đúng protocol run đã chọn.
@@ -501,9 +418,9 @@ ngưỡng 0,5 theo mặc định. Kết quả hiển thị tên mô hình, seed 
 các nhãn được chọn và bảng điểm đủ 28 nhãn. Thông số huấn luyện, các thí nghiệm
 chọn ngưỡng và kết quả benchmark được trình bày trong các mục thực nghiệm.
 Nếu truyền `--thresholds`, tệp ngưỡng riêng chỉ áp dụng cho model mặc định.
-RoBERTa và DistilBERT dùng seed tốt nhất theo validation của lượt chạy chung.
+RoBERTa và DistilBERT dùng seed tốt nhất theo validation trong bộ đã chốt.
 Muốn xem riêng C3 của snapshot 2.1, dùng `--c3-source report-2-1` và cung cấp bundle
-C3 hiện tại của báo cáo 2.1 (hoặc đường dẫn `GOEMOTIONS_C3_RUN_ROOT`).
+C3 lịch sử của báo cáo 2.1 (hoặc đường dẫn `GOEMOTIONS_C3_RUN_ROOT`).
 Kết quả cũ được xóa khi đổi lựa chọn. Model được nạp khi bấm dự đoán và app chỉ
 giữ một model trong bộ nhớ. BART-MNLI tải đúng revision đã ghi trong metadata
 vào cache trên ổ chứa repo khi chưa có; lần đầu có thể cần tải trọng số lớn.
@@ -566,7 +483,7 @@ Sau khi đủ run riêng, `python -m scripts.distilbert.analyze_c3_full` và
 `app_distilbert_huy.py` là Streamlit riêng, cần bundle C3; `app.py` là demo benchmark chính.
 
 <a id="huy-c3-test"></a>
-#### Hồ sơ C3 bổ sung của Huy — bộ đối chiếu riêng
+#### Hồ sơ C3 lịch sử trước bộ nộp ngày 26/10/2026
 
 Ba checkpoint full seed 42, 123, 2026 của Huy đã được đánh giá trên 5.427 mẫu
 test từ checkpoint có sẵn. Checkpoint và ngưỡng được
@@ -577,7 +494,7 @@ chọn trên validation và khóa trước khi chạy test. Mean ± sample std (
 | Cố định 0,5 | 0.4157 ± 0.0045 | 0.5756 ± 0.0025 |
 | Riêng từng nhãn từ validation | 0.4913 ± 0.0091 | 0.5952 ± 0.0037 |
 
-Các số này thuộc bản nghiên cứu bổ sung của Huy; không gộp vào bảng chính của báo cáo nhóm 2.1. BERT seed 123 vẫn được chọn cho demo
+Các số ở mục lịch sử này khác bộ training_20261025 được chọn cho final; không dùng để thay hàng C3 ở đầu README. Chúng thuộc nghiên cứu bổ sung trước đó của Huy; không gộp vào bảng chính của báo cáo nhóm 2.1. BERT seed 123 vẫn được chọn cho demo
 bằng validation. Test đã được nhóm quan sát trước trong EDA/báo cáo.
 
 Tái kiểm kết quả và xuất bảng/hình từ checkpoint, scores đã lưu tại máy:

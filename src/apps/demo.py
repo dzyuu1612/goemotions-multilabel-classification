@@ -83,7 +83,7 @@ class TransformerDemo:
 def main():
     configure_console()
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--artifacts-root", type=Path, default=ROOT,
+    parser.add_argument("--artifacts-root", type=Path,
                         help="Thư mục chứa data/ của lượt chạy đã báo cáo")
     parser.add_argument("--selection", type=Path)
     parser.add_argument("--thresholds", type=Path, help="Ngưỡng validation của đúng run C được chọn")
@@ -92,6 +92,9 @@ def main():
     parser.add_argument("--c3-source", choices=("benchmark", "report-2-1"), default="benchmark",
                         help="benchmark: cùng bộ 9 run của pipeline; report-2-1: bundle C3 riêng của báo cáo cũ")
     args = parser.parse_args()
+    if args.artifacts_root is None:
+        from src.notebook_support import artifacts_root
+        args.artifacts_root = artifacts_root()
     args.artifacts_root = args.artifacts_root.resolve()
     if args.selection is None:
         args.selection = args.artifacts_root / "data/processed/transformers/selected_model.json"

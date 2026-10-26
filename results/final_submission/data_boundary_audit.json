@@ -1,0 +1,243 @@
+{
+  "checked_at_utc": "2026-10-26T07:05:04.739574+00:00",
+  "scope": "Read official splits; reconstruct train-only TF-IDF; inspect saved learning curves. No model training or threshold tuning.",
+  "dataset_revision": "add492243ff905527e67aeb8b80c082af02207c3",
+  "dataset_files": [
+    {
+      "split": "train",
+      "url": "https://huggingface.co/datasets/google-research-datasets/go_emotions/resolve/add492243ff905527e67aeb8b80c082af02207c3/simplified/train-00000-of-00001.parquet",
+      "path": "data/raw/train-00000-of-00001.parquet",
+      "sha256": "b7d74279616ae7c9b8374ab62ea9f9d6504d36a577bb17f745d720dc2b0d4e76",
+      "bytes": 2767678,
+      "rows": 43410
+    },
+    {
+      "split": "validation",
+      "url": "https://huggingface.co/datasets/google-research-datasets/go_emotions/resolve/add492243ff905527e67aeb8b80c082af02207c3/simplified/validation-00000-of-00001.parquet",
+      "path": "data/raw/validation-00000-of-00001.parquet",
+      "sha256": "d46ad5633c4fa41829d22d549743a7bf858d94129536a02af7280c281db5e63a",
+      "bytes": 350063,
+      "rows": 5426
+    },
+    {
+      "split": "test",
+      "url": "https://huggingface.co/datasets/google-research-datasets/go_emotions/resolve/add492243ff905527e67aeb8b80c082af02207c3/simplified/test-00000-of-00001.parquet",
+      "path": "data/raw/test-00000-of-00001.parquet",
+      "sha256": "fd0953e535ba2569edc6a1daaa1133f8e4b9071691d540c9bab812fda132bc26",
+      "bytes": 346630,
+      "rows": 5427
+    }
+  ],
+  "quality": {
+    "train": {
+      "rows": 43410,
+      "label_matrix_shape": [
+        43410,
+        28
+      ],
+      "id_duplicates": 0,
+      "missing_or_blank_text": 0,
+      "exact_duplicate_rows_within_split": 183,
+      "positive_label_assignments": 51103
+    },
+    "validation": {
+      "rows": 5426,
+      "label_matrix_shape": [
+        5426,
+        28
+      ],
+      "id_duplicates": 0,
+      "missing_or_blank_text": 0,
+      "exact_duplicate_rows_within_split": 3,
+      "positive_label_assignments": 6380
+    },
+    "test": {
+      "rows": 5427,
+      "label_matrix_shape": [
+        5427,
+        28
+      ],
+      "id_duplicates": 0,
+      "missing_or_blank_text": 0,
+      "exact_duplicate_rows_within_split": 6,
+      "positive_label_assignments": 6329
+    }
+  },
+  "cross_split_overlap": {
+    "train__validation": {
+      "shared_ids": 0,
+      "shared_exact_texts": 41,
+      "affected_rows_left": 84,
+      "affected_rows_right": 43
+    },
+    "train__test": {
+      "shared_ids": 0,
+      "shared_exact_texts": 32,
+      "affected_rows_left": 79,
+      "affected_rows_right": 37
+    },
+    "validation__test": {
+      "shared_ids": 0,
+      "shared_exact_texts": 10,
+      "affected_rows_left": 10,
+      "affected_rows_right": 13
+    }
+  },
+  "baseline_train_only": {
+    "standard": {
+      "vocabulary_size": 58338,
+      "same_as_train_only_vocabulary": true,
+      "max_abs_idf_difference_from_train_only": 0.0,
+      "validation_test_transform_preserved_idf": true,
+      "three_row_transform_shapes": {
+        "validation": [
+          3,
+          58338
+        ],
+        "test": [
+          3,
+          58338
+        ]
+      }
+    },
+    "balanced": {
+      "vocabulary_size": 58338,
+      "same_as_train_only_vocabulary": true,
+      "max_abs_idf_difference_from_train_only": 0.0,
+      "validation_test_transform_preserved_idf": true,
+      "three_row_transform_shapes": {
+        "validation": [
+          3,
+          58338
+        ],
+        "test": [
+          3,
+          58338
+        ]
+      }
+    }
+  },
+  "history_sources_sha256": {
+    "data/processed/transformers/bert/seed_42/full/standard/run_metadata.json": "0713fb195a22a955c712ea261e7d0d3d78e729144a7641aacbc55efea38382a8",
+    "data/processed/transformers/bert/seed_123/full/standard/run_metadata.json": "68669e33e916efd6ff85db78b4be5485d29dade7fe58946055bfcf8d600627b9",
+    "data/processed/transformers/bert/seed_2026/full/standard/run_metadata.json": "a8babfa50db8d4faf05e294267b67e9f5453682a83c67ffb558ccbf7a3342fba",
+    "data/processed/transformers/roberta/seed_42/full/standard/run_metadata.json": "c524276da9c963d472d57fdb3a0ba67fe12a2a3a69d4c40fd09ab1870597afda",
+    "data/processed/transformers/roberta/seed_123/full/standard/run_metadata.json": "0897c7825e151098902cba28f1f60bafd403add9daa4d7efe9745dc388211929",
+    "data/processed/transformers/roberta/seed_2026/full/standard/run_metadata.json": "34fa83b9408e5abba960523a2056fe9891397c55c026bb02e93aca5efe119b35",
+    "data/processed/transformers/distilbert/seed_42/full/standard/run_metadata.json": "8fdbc7b930d7adf64195c8b696b3b39b31b7f26ea2412042cf0ea85f101b22e4",
+    "data/processed/transformers/distilbert/seed_123/full/standard/run_metadata.json": "43b511f996babfa38ba5f594b4f936e15a61dd0da3270c4318d265409ced7c4a",
+    "data/processed/transformers/distilbert/seed_2026/full/standard/run_metadata.json": "27fe54c6ed92b8d10ed9e610b688c5d8104d46236e010b0fdc5578d4622b1764"
+  },
+  "learning_curves": [
+    {
+      "architecture": "bert",
+      "seed": 42,
+      "epochs": 4,
+      "train_loss_first": 0.14516290026246828,
+      "train_loss_last": 0.047236827343137645,
+      "validation_macro_f1_first": 0.28932570137857805,
+      "validation_macro_f1_last": 0.46414774478497617,
+      "validation_macro_f1_best_epoch": 4,
+      "validation_f1_strictly_increased_each_epoch": true
+    },
+    {
+      "architecture": "bert",
+      "seed": 123,
+      "epochs": 4,
+      "train_loss_first": 0.144341925616584,
+      "train_loss_last": 0.04956189927251774,
+      "validation_macro_f1_first": 0.3117644186330602,
+      "validation_macro_f1_last": 0.4772943277612574,
+      "validation_macro_f1_best_epoch": 4,
+      "validation_f1_strictly_increased_each_epoch": true
+    },
+    {
+      "architecture": "bert",
+      "seed": 2026,
+      "epochs": 4,
+      "train_loss_first": 0.14434039050966768,
+      "train_loss_last": 0.04847438112210222,
+      "validation_macro_f1_first": 0.2979165751196436,
+      "validation_macro_f1_last": 0.47234584396915974,
+      "validation_macro_f1_best_epoch": 4,
+      "validation_f1_strictly_increased_each_epoch": true
+    },
+    {
+      "architecture": "distilbert",
+      "seed": 42,
+      "epochs": 3,
+      "train_loss_first": 0.1630763508503035,
+      "train_loss_last": 0.07586815398099771,
+      "validation_macro_f1_first": 0.26442984758030624,
+      "validation_macro_f1_last": 0.4015366467283613,
+      "validation_macro_f1_best_epoch": 3,
+      "validation_f1_strictly_increased_each_epoch": true
+    },
+    {
+      "architecture": "distilbert",
+      "seed": 123,
+      "epochs": 3,
+      "train_loss_first": 0.1627427245289657,
+      "train_loss_last": 0.07623176719462149,
+      "validation_macro_f1_first": 0.27081083473201834,
+      "validation_macro_f1_last": 0.41199258432207325,
+      "validation_macro_f1_best_epoch": 3,
+      "validation_f1_strictly_increased_each_epoch": true
+    },
+    {
+      "architecture": "distilbert",
+      "seed": 2026,
+      "epochs": 3,
+      "train_loss_first": 0.16182419885155025,
+      "train_loss_last": 0.07590832286006953,
+      "validation_macro_f1_first": 0.24385420462706103,
+      "validation_macro_f1_last": 0.40381803247163683,
+      "validation_macro_f1_best_epoch": 3,
+      "validation_f1_strictly_increased_each_epoch": true
+    },
+    {
+      "architecture": "roberta",
+      "seed": 42,
+      "epochs": 3,
+      "train_loss_first": 0.15459644035503795,
+      "train_loss_last": 0.076949961254692,
+      "validation_macro_f1_first": 0.23286061432224164,
+      "validation_macro_f1_last": 0.4286452070128942,
+      "validation_macro_f1_best_epoch": 3,
+      "validation_f1_strictly_increased_each_epoch": true
+    },
+    {
+      "architecture": "roberta",
+      "seed": 123,
+      "epochs": 3,
+      "train_loss_first": 0.15484785356058337,
+      "train_loss_last": 0.07780095551491635,
+      "validation_macro_f1_first": 0.21319719904451975,
+      "validation_macro_f1_last": 0.41105297382575684,
+      "validation_macro_f1_best_epoch": 3,
+      "validation_f1_strictly_increased_each_epoch": true
+    },
+    {
+      "architecture": "roberta",
+      "seed": 2026,
+      "epochs": 3,
+      "train_loss_first": 0.15307682229060507,
+      "train_loss_last": 0.07645891234604782,
+      "validation_macro_f1_first": 0.23186268377648633,
+      "validation_macro_f1_last": 0.4306234800101281,
+      "validation_macro_f1_best_epoch": 3,
+      "validation_f1_strictly_increased_each_epoch": true
+    }
+  ],
+  "conclusion": {
+    "saved_tfidf_matches_train_only": true,
+    "cross_split_exact_text_overlap_present": true,
+    "all_nine_runs_best_at_last_epoch": true,
+    "caveats": [
+      "Exact-text overlap is contamination risk even when IDs are disjoint; this is not a certificate of zero leakage.",
+      "Near duplicates, shared conversations/authors and pretraining contamination are not ruled out.",
+      "Test labels have already been inspected during EDA and earlier reporting.",
+      "Logs lack train evaluation F1 and per-epoch validation loss; absence of overfitting/underfitting cannot be established."
+    ]
+  }
+}

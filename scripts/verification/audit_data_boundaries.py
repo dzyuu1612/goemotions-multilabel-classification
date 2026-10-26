@@ -65,8 +65,16 @@ def audit(root):
         }
         if not same_vocabulary or difference > 1e-12 or not np.array_equal(before, vectorizer.idf_):
             raise ValueError(f"TF-IDF {variant} không khớp fit train-only")
-    history_path = ROOT / "results/report_2_1/learning_curves.csv"
-    history = pd.read_csv(history_path)
+    history_rows, history_sources = [], {}
+    for architecture in ("bert", "roberta", "distilbert"):
+        for seed in (42, 123, 2026):
+            path = root / f"data/processed/transformers/{architecture}/seed_{seed}/full/standard/run_metadata.json"
+            metadata = json.loads(path.read_text(encoding="utf-8"))
+            history_sources[path.relative_to(root).as_posix()] = sha256(path)
+            history_rows.extend(dict(architecture=architecture, seed=seed, epoch=row["epoch"],
+                                     train_loss=row["train_loss"], validation_macro_f1=row["macro_f1"])
+                                for row in metadata["history"])
+    history = pd.DataFrame(history_rows)
     curves = []
     for (architecture, seed), group in history.groupby(["architecture", "seed"]):
         group = group.sort_values("epoch")
@@ -84,7 +92,7 @@ def audit(root):
         "scope": "Read official splits; reconstruct train-only TF-IDF; inspect saved learning curves. No model training or threshold tuning.",
         "dataset_revision": manifest["revision"], "dataset_files": manifest["files"],
         "quality": quality, "cross_split_overlap": overlaps, "baseline_train_only": baseline,
-        "learning_curves_sha256": sha256(history_path), "learning_curves": curves,
+        "history_sources_sha256": history_sources, "learning_curves": curves,
         "conclusion": {
             "saved_tfidf_matches_train_only": True,
             "cross_split_exact_text_overlap_present": any(v["shared_exact_texts"] for v in overlaps.values()) > 0,

@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "benchmark_metric_configurations": 72,
+  "external_metric_configurations": 24,
+  "predictions_checked": 240,
+  "diagnostic_splits_checked": 6,
+  "metric_max_abs_difference": 9.71445146547012e-17,
+  "frozen_fixture_sha256": "2941e1d4cc72c9fda36513776a9e78d363bde6b6e67b94e28d58b9cc228d7f11",
+  "training_repeated": false,
+  "threshold_search_repeated": false
+}

@@ -1,0 +1,91 @@
+{
+  "a_thresholds": {
+    "sources": [
+      "all_runs.csv",
+      "mean_std.csv"
+    ],
+    "sha256": "f349d5c025cfc3a2baf9b910a50f1f3a6656542ed39a95724b836670f4208e28"
+  },
+  "b_thresholds": {
+    "sources": [
+      "mean_std.csv"
+    ],
+    "sha256": "9278f64a3620b1119fa53a15357ef217d0662bb0f50b98ed7a79095c05578e83"
+  },
+  "tensor_shapes": {
+    "sources": [
+      "scores.json: parameters",
+      "encoding_audit.json (verified in previous revision)"
+    ],
+    "sha256": "f0956e41928cfe76d3e173da0c73b2846db07510960b3f06931d7b092e4d2c5c"
+  },
+  "seed_curves": {
+    "sources": [
+      "learning_curves.csv"
+    ],
+    "sha256": "056c2c466f34515be8acde169aa8bec5bd3abf78afb98eae0dad07255ff9c244"
+  },
+  "train_validation": {
+    "sources": [
+      "bert_diagnostic.json",
+      "roberta_diagnostic.json",
+      "distilbert_diagnostic.json"
+    ],
+    "sha256": "c1e530a4dc988062fe982cc11469b3d50a62a460e46a1ea81adc5b408ad178f6"
+  },
+  "precision_recall": {
+    "sources": [
+      "mean_std.csv"
+    ],
+    "sha256": "eac5929e6797f999825d4b1778a7eb929ffe2e04233c490dcfe483a7cb23c0a2"
+  },
+  "rare_labels": {
+    "sources": [
+      "rare_labels_test.csv",
+      "a_rare.json"
+    ],
+    "sha256": "785029a7243e88d38276c86894182a887bcdef2d332442299bbe182e41ae0077"
+  },
+  "error_groups": {
+    "sources": [
+      "error_counts.csv"
+    ],
+    "sha256": "d3f3a0c769ea2a98058aabe06c3de62f736e79e890dd088a89a26ac4e7551c85"
+  },
+  "error_pairs": {
+    "sources": [
+      "top_error_pairs.csv"
+    ],
+    "sha256": "beccd98cc0dd1e1f22095dc5b6cfe293644a6249b4b41439561b7295daafd7bd"
+  },
+  "external_metrics": {
+    "sources": [
+      "summary.json"
+    ],
+    "sha256": "fa548f8d6fab3238b9167cb5fcb21d4b4bc6f1a834c755f28f0fb6d2ff583a5a"
+  },
+  "case_scores": {
+    "sources": [
+      "scores.json"
+    ],
+    "sha256": "fca9a5ed974cb018cee8976594e90ab9cb8fa1cea3b6f7747986eb2b76327b6b"
+  },
+  "validation_mean": {
+    "sources": [
+      "learning_curves.csv"
+    ],
+    "sha256": "3774d057f267d76ed2b974d19727ccf64d16a552e3e7cd64668cc4bf2e8ebe66"
+  },
+  "test_f1_summary": {
+    "sources": [
+      "mean_std.csv"
+    ],
+    "sha256": "d95f99710975d1f8f9753517d667815c4d4f5247575a5959e017c936680c6159"
+  },
+  "external_errors": {
+    "sources": [
+      "external_probe/predictions.json"
+    ],
+    "sha256": "51a7144ee653bdd498858f3a471d26c7093420f1f8e2230c33e6c99544847c2d"
+  }
+}

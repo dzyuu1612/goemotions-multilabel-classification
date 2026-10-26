@@ -1,0 +1,23 @@
+{
+  "seed": 123,
+  "model": "bert",
+  "rows": [
+    {
+      "split": "train",
+      "n": 43410,
+      "bce": 0.038037939534102734,
+      "macro_f1": 0.72772796539958,
+      "micro_f1": 0.8475155019272667,
+      "hamming_loss": 0.011977161286076283
+    },
+    {
+      "split": "validation",
+      "n": 5426,
+      "bce": 0.09183668682256473,
+      "macro_f1": 0.4773562056058886,
+      "micro_f1": 0.5839001291433491,
+      "hamming_loss": 0.031811121057342955
+    }
+  ],
+  "mode": "Frozen checkpoint in eval mode, no training, no dropout, unweighted mean BCE. Not epoch training loss."
+}

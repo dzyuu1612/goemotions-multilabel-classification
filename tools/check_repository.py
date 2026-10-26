@@ -23,6 +23,16 @@ FORBIDDEN_SUFFIXES = {".docx", ".doc", ".pdf", ".tex", ".html", ".pptx", ".xlsx"
                       ".joblib", ".safetensors", ".pt", ".pth"}
 GENERATED_PREFIXES = ("reports/", "data/raw/", "data/processed/", "data/cache/",
                       "data/tokenizers/", "artifacts/", "outputs/", "private/", "docs/")
+PUBLISHED_REPORT_PREFIXES = (
+    "reports/project_results/", "reports/errors_test_standard_fixed/",
+    "reports/errors_validation_standard_fixed/", "reports/tables/", "reports/figures/",
+    "reports/reproduction_report_20261026/",
+)
+PUBLISHED_REPORT_FILES = {
+    "reports/demo_all_models_verification.json", "reports/demo_http_verification.json",
+    "reports/demo_verification.json", "reports/environment.json", "reports/summary.json",
+    "reports/verification.json",
+}
 RETIRED_GENERATORS = {"build_report_docx.py", "build_ieee_paper.py", "build_progress_reports.py",
                       "update_report_results.py", "verify_final_reports.py", "report_c3_full.py"}
 LINK = re.compile(r"!?(?:\[[^\]]*\])\(([^)]+)\)")
@@ -49,7 +59,10 @@ def check_source(paths):
         if not path.is_file():
             errors.append(f"{name}: tệp đã đổi chỗ nhưng chưa git add")
             continue
-        if (name.startswith(GENERATED_PREFIXES) or path.suffix.lower() in FORBIDDEN_SUFFIXES
+        published_report = name.startswith(PUBLISHED_REPORT_PREFIXES) or name in PUBLISHED_REPORT_FILES
+        runtime_zip = name == "results/final_submission/runtime_bundle.zip"
+        if ((name.startswith(GENERATED_PREFIXES) and not published_report)
+                or (path.suffix.lower() in FORBIDDEN_SUFFIXES and not runtime_zip)
                 or path.name in RETIRED_GENERATORS):
             errors.append(f"{name}: tệp ngoài phạm vi source")
         if path.suffix.lower() in {".md", ".markdown"} and name != "README.md":
@@ -126,6 +139,14 @@ def check_source(paths):
                     errors.append(f'Hash kết quả báo cáo 2.1 không khớp: {name}')
         except (OSError, ValueError, KeyError, TypeError) as error:
             errors.append(f'Manifest kết quả báo cáo không hợp lệ: {error}')
+    if (ROOT / "results/final_submission/manifest.json").is_file():
+        try:
+            from tempfile import TemporaryDirectory
+            from src.final_submission import prepare_runtime
+            with TemporaryDirectory() as folder:
+                prepare_runtime(folder)
+        except (OSError, ValueError, KeyError) as error:
+            errors.append(f"Runtime bộ nộp không hợp lệ: {error}")
     return counts, errors
 
 

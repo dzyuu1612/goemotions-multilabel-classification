@@ -73,3 +73,5 @@ Thumbs.db
 !/reports/verification.json
 !/results/training_20261025/
 !/results/training_20261025/**
+!/results/final_submission/
+!/results/final_submission/**

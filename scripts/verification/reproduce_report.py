@@ -295,7 +295,7 @@ def inference_test(artifact_root, output, frames, labels, records, *, all_c=Fals
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--artifacts-root", type=Path, default=ROOT)
+    parser.add_argument("--artifacts-root", type=Path)
     parser.add_argument("--output", type=Path, default=ROOT / "reports/reproduction")
     parser.add_argument("--report", type=Path, help="Báo cáo cuối kỳ DOCX để kiểm 9 bảng kết quả")
     parser.add_argument("--inference-c", action="store_true", help="Suy luận test thật cho 9 checkpoint C")
@@ -304,6 +304,9 @@ def main():
     args = parser.parse_args()
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(encoding="utf-8")
+    if args.artifacts_root is None:
+        from src.notebook_support import artifacts_root
+        args.artifacts_root = artifacts_root()
     root, output = args.artifacts_root.resolve(), args.output.resolve()
     # Output phải riêng: không cho ghi đè dataset, scores hay bảng báo cáo cũ.
     for reserved in (root / "data", root / "reports/project_results"):
