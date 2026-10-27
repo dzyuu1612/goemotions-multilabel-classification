@@ -43,7 +43,32 @@ trúc với ba seed, chưa phải tìm siêu tham số tối ưu hoặc đối c
 | Mã hóa riêng các split và kiểm truncation/UNK | [encoding_audit.json](results/final_submission/encoding_audit.json) |
 | Đối chiếu metric độc lập | [independent_crosscheck.json](results/final_submission/independent_crosscheck.json) |
 | Chênh lệch suy luận mới so với scores gốc | [replay_comparison.csv](results/final_submission/replay_comparison.csv) |
-| Sáu lựa chọn demo | [demo_verification.json](results/final_submission/demo_verification.json) |
+| Sáu lựa chọn demo, kiểm API mới nhất | [demo_api_recheck.json](results/final_submission/demo_api_recheck.json) |
+
+### Bản Word rút gọn hoàn thiện
+
+Bản rút gọn giữ 48 trang, dùng cùng bộ kết quả chính thức ở trên và đủ ba seed
+DistilBERT của Huy. Bảng chính giữ bốn cấu hình baseline standard/balanced ×
+ngưỡng 0,5/ngưỡng riêng để phân biệt tác động của weighting và tuning.
+Phần nghiên cứu liên quan bổ sung BERT Macro-F1 khoảng 0,46 và BiLSTM khoảng
+0,41 của bài GoEmotions; std 0,19 trong bài gốc là giữa các nhãn, khác std giữa
+ba seed. Không suy ra kết luận vượt bài gốc từ hai thiết lập khác nhau.
+
+[Biên nhận bản rút gọn](results/final_submission/compact_report/report_manifest.json)
+ghi tên, hash và số trang của Word phát hành cục bộ. Biên nhận
+[bản đầy đủ 84 trang](results/final_submission/report_manifest.json) được giữ riêng.
+Ba hình bổ sung có [ảnh và dữ liệu vẽ](results/final_submission/compact_report/)
+và [mã tái tạo](scripts/analysis/plot_compact_report.py):
+
+```bash
+python -m scripts.analysis.plot_compact_report
+```
+
+Lệnh đọc CSV/JSON đã lưu để vẽ phân bố số nhãn, hai điểm Precision–Recall trước/sau
+tuning và FN/FP trên mười câu BRIGHTER; không train, tìm ngưỡng hoặc ghi đè
+scores. [Biên nhận vẽ](results/final_submission/compact_report/plot_manifest.json)
+ghi hash nguồn, số liệu từng hình và phạm vi checkpoint. BRIGHTER được dẫn theo
+[bản ACL 2025 đã xuất bản](https://aclanthology.org/2025.acl-long.436/).
 
 ## Khôi phục bộ nộp và chạy demo
 
@@ -405,7 +430,9 @@ python -m scripts.transformers.verify_demo --device auto
 python app.py --device auto
 ```
 
-Minh chứng mới: [kiểm HTTP/API sáu lựa chọn](results/final_submission/demo_verification.json).
+Minh chứng mới: [kiểm API sáu lựa chọn](results/final_submission/demo_api_recheck.json).
+Mỗi lựa chọn trả đủ 28 nhãn; đầu vào rỗng được xử lý. Biên nhận này không thêm
+ngày mới và giữ riêng [biên nhận lịch sử](results/final_submission/demo_verification.json).
 Ảnh ngày 22/10/2026 là minh họa giao diện cũ; phiên cuối chưa kiểm lại trực quan.
 
 Mở `http://127.0.0.1:7860/`. App cần checkpoint thật; clone source không có trọng số.

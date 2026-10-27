@@ -1,0 +1,37 @@
+{
+  "filename": "Nhóm 6_Đề Tài 1_GOEMOTIONS_24DH190309_Nguyễn Bảo Duy_RUT_GON_HOAN_THIEN.docx",
+  "sha256": "e385a5b81d10b098cb07aa2780070c3a2dc0f7c36d7e5d3c2d3ce4036334d94c",
+  "profile": "final-duy-ab-c1-c2-huy-c3-20261026",
+  "pages": 48,
+  "tables": 14,
+  "inline_images": 17,
+  "main_figures": 15,
+  "native_equations_preserved": 51,
+  "cover_pages_pixel_identical_to_48_page_base": true,
+  "source_report_sha256": "ffdd3b601c40e325c590140e3b2221af2d596014f0e4521046913e8b7f9b2ca7",
+  "all_three_huy_distilbert_seeds_preserved": [
+    42,
+    123,
+    2026
+  ],
+  "contribution_percentages": "Left blank for user to enter, as requested.",
+  "distribution": "DOCX delivered locally. Code, frozen numeric sources and reproducible figures are on GitHub.",
+  "historical_full_report_manifest": "results/final_submission/report_manifest.json",
+  "plot_manifest": "results/final_submission/compact_report/plot_manifest.json",
+  "latest_api_receipt": "results/final_submission/demo_api_recheck.json",
+  "api_status": "PASS",
+  "visual_interface_status": "NOT_VISUALLY_RECHECKED",
+  "changes": [
+    "Original GoEmotions BERT/BiLSTM results and distinction between across-label std and three-seed std",
+    "Two baseline control rows from frozen test metrics",
+    "Successful six-choice API check without introducing a visible check date",
+    "Published ACL 2025 BRIGHTER reference",
+    "Portable code and source hashes for three compact-report figures"
+  ],
+  "frozen_sources": {
+    "results/final_submission/report_data/all_runs.csv": "3664c253cffdea038f1dcf8e892ce892aab03c5a30afc69afdb4d80a12e2dca8",
+    "results/final_submission/report_data/mean_std.csv": "58ae9397a8dc0620ad73098c5f250a8191d5d70d58928c95c82c8cdfdfd05762",
+    "results/final_submission/report_data/learning_curves.csv": "8bbc11e1e816789605f278f4842813f2e18cb759e6faeb52b472c56a2d9d4d58",
+    "results/final_submission/provenance.json": "253b32b1de4f8ddd2f327c405a1036b6aba7dccb06b688e4435b8313e17466cc"
+  }
+}
