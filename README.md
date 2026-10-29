@@ -2,6 +2,25 @@
 
 ## Bản nâng cấp ngày 29/10/2026
 
+Bổ sung biểu đồ ngày **30/10/2026**: ma trận đồng xuất hiện FN/FP của ba C,
+bảng màu F1 theo đủ 28 nhãn và biểu đồ điểm/ngưỡng của câu demo. Ý tưởng trình
+bày tham khảo báo cáo XED của nhóm Quý; toàn bộ số liệu lấy từ GoEmotions.
+Giữ cùng 10 nhãn và thang màu cho ba ma trận. Chúng đếm cặp lỗi trên cùng câu,
+không phải ma trận đơn nhãn hoặc chứng minh cải thiện mô hình. Word/slide bổ sung
+được lưu riêng, không ghi đè bản ngày 29/10.
+
+Tái tạo biểu đồ từ CSV đã chốt, không train hoặc tìm ngưỡng:
+
+```bash
+python -m scripts.analysis.plot_error_heatmaps --output artifacts/charts_20261030
+```
+
+Thêm `--demo-scores /path/to/new_cases_c123.json` để vẽ điểm/ngưỡng cho case 2
+từ bộ câu mới đã lưu. File này nằm ở `verification/` của gói nâng cấp ngày 29/10.
+Script xuất năm PNG khi có demo scores, ba bảng CSV và manifest ghi SHA-256 nguồn.
+F1 heatmap dùng mean đủ ba seed; std giữ trong CSV. Ma trận lỗi dùng từng
+checkpoint đại diện BERT/123, RoBERTa/2026, DistilBERT/123 ở ngưỡng 0,5.
+
 Nhánh `codex/goemotions-upgrade-20261029` được tạo từ `a7798d9` của source
 hiện có. Giữ nguyên benchmark `results/final_submission`; thay đổi mới bổ sung
 khả năng chẩn đoán huấn luyện và đóng gói suy luận. Chưa chạy tìm siêu tham số
