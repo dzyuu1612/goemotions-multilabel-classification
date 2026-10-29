@@ -91,8 +91,21 @@
       "error_cells": 0,
       "scope": "Fresh independent advanced EDA, pinned tokenizer, int64 co-occurrence counts; no model training",
       "benchmark_training_repeated": false
+    },
+    {
+      "source": "notebooks/07_improvement_workflow.ipynb",
+      "source_sha256": "df97a2100e1860d335a7b4163092ce29485866142734fa9d0788d3e1b4f2c8da",
+      "executed": "notebooks/executed/07_improvement_workflow.executed.ipynb",
+      "executed_sha256": "f7320f0f7d4bb1ac61a719d94864f773c0cbc9850f864b450580b1baeafcdcfc",
+      "started_at_utc": "2026-10-29T16:07:16.694251+00:00",
+      "finished_at_utc": "2026-10-29T16:07:24.882299+00:00",
+      "code_cells": 8,
+      "executed_code_cells": 8,
+      "error_cells": 0,
+      "scope": "learning example",
+      "benchmark_training_repeated": false
     }
   ],
-  "updated_at_utc": "2026-10-26T06:54:09.854505+00:00",
+  "updated_at_utc": "2026-10-29T16:07:24.882371+00:00",
   "hash_policy": "sha256:utf8-lf"
 }

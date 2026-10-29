@@ -79,7 +79,12 @@ Kiểm bản nâng cấp:
 ```bash
 python -m unittest tests.test_training_control tests.test_portable tests.test_transformer tests.test_metrics -v
 python tools/check_repository.py
+python -m examples.pretrained_math
 ```
+
+[Notebook 07](notebooks/07_improvement_workflow.ipynb) tách các bước C1/C2/C3,
+để cờ huấn luyện mặc định tắt. Ví dụ `pretrained_math` kiểm gradient bằng sai phân
+hữu hạn và in attention/BCE/SGD đúng các phép tính ở Phụ lục C.
 
 Bản Word và PPTX được tạo từ bản gốc GoEmotions, giữ ngoài Git. Phụ lục C đối
 chiếu ba PDF môn học, giải thích pretrained/LR/seed/tokenizer, tính tay gradient,
