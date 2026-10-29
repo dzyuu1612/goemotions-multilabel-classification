@@ -30,6 +30,7 @@ outputs/
 *.pdf
 *.tex
 *.html
+!deployment/index.html
 *.pptx
 *.xlsx
 *.zip

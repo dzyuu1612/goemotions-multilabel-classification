@@ -61,8 +61,9 @@ def check_source(paths):
             continue
         published_report = name.startswith(PUBLISHED_REPORT_PREFIXES) or name in PUBLISHED_REPORT_FILES
         runtime_zip = name == "results/final_submission/runtime_bundle.zip"
+        deployment_html = name == "deployment/index.html"
         if ((name.startswith(GENERATED_PREFIXES) and not published_report)
-                or (path.suffix.lower() in FORBIDDEN_SUFFIXES and not runtime_zip)
+                or (path.suffix.lower() in FORBIDDEN_SUFFIXES and not runtime_zip and not deployment_html)
                 or path.name in RETIRED_GENERATORS):
             errors.append(f"{name}: tệp ngoài phạm vi source")
         if path.suffix.lower() in {".md", ".markdown"} and name != "README.md":

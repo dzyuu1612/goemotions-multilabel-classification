@@ -33,6 +33,7 @@ from src.models.transformer import (ARCHITECTURES, artifact_hashes, load_transfo
                         seed_everything, training_config, write_json, configure_console)
 
 from src.paths import ROOT
+from src.models.training_control import EarlyStopping
 
 
 def parse_args():
@@ -50,6 +51,10 @@ def parse_args():
     parser.add_argument("--smoke", action="store_true", help="64 train/32 validation, 1 epoch; không báo cáo cuối")
     parser.add_argument("--resume", action="store_true", help="Bỏ qua run hoàn tất đúng cấu hình/hash")
     parser.add_argument("--overwrite", action="store_true", help="Cho phép chạy lại riêng folder run này")
+    parser.add_argument("--output-root", type=Path, help="Gốc kết quả mới; dữ liệu vẫn đọc từ repo")
+    parser.add_argument("--patience", type=int, default=0, help="Dừng sau số epoch không cải thiện validation; 0=tắt")
+    parser.add_argument("--min-delta", type=float, default=0.0)
+    parser.add_argument("--diagnostics", action="store_true", help="Đo thêm F1/BCE train ở eval mỗi epoch (tốn thêm suy luận)")
     return parser.parse_args()
 
 
@@ -96,11 +101,11 @@ def trim_padding_collate(items):
 dynamic_padding_collate = trim_padding_collate
 
 
-def predict_scores(model, loader, device):
+def predict_scores(model, loader, device, *, return_loss=False):
     """model.eval + no_grad; sigmoid độc lập cho 28 cảm xúc, không softmax."""
     import torch
     model.eval()
-    batches = []
+    batches, loss_sum, decisions = [], 0.0, 0
     with torch.no_grad():
         for batch in loader:
             inputs = {name: value.to(device, non_blocking=device.type == "cuda")
@@ -111,7 +116,13 @@ def predict_scores(model, loader, device):
             if logits.ndim != 2 or logits.shape[1] != 28:
                 raise ValueError("Head Transformer phải trả N × 28 logits")
             batches.append(torch.sigmoid(logits.float()).cpu().numpy())
-    return np.concatenate(batches)
+            if return_loss:
+                target = batch["labels"].to(device)
+                loss_sum += torch.nn.functional.binary_cross_entropy_with_logits(
+                    logits.float(), target.float(), reduction="sum").item()
+                decisions += target.numel()
+    scores = np.concatenate(batches)
+    return (scores, loss_sum / decisions) if return_loss else scores
 
 
 def main():
@@ -122,7 +133,11 @@ def main():
                              epochs=args.epochs, learning_rate=args.learning_rate,
                              batch_size=args.batch_size, gradient_accumulation=args.gradient_accumulation,
                              max_length=args.max_length, device=args.device, revision=args.revision)
-    output = run_folder(ROOT, args.architecture, args.seed, smoke=args.smoke, weighted=args.weighted)
+    stopper = EarlyStopping(args.patience, args.min_delta)
+    if args.patience or args.min_delta or args.diagnostics:
+        config.update(early_stopping_patience=args.patience, early_stopping_min_delta=args.min_delta,
+                      epoch_diagnostics=args.diagnostics)
+    output = run_folder(args.output_root or ROOT, args.architecture, args.seed, smoke=args.smoke, weighted=args.weighted)
     metadata_path = output / "run_metadata.json"
     if metadata_path.exists() and args.resume:
         previous = json.loads(metadata_path.read_text(encoding="utf-8"))
@@ -177,6 +192,10 @@ def main():
     validation_loader = torch.utils.data.DataLoader(validation_data, batch_size=args.batch_size,
                                                     shuffle=False, num_workers=0,
                                                     pin_memory=amp_enabled, collate_fn=trim_padding_collate)
+    train_eval_loader = torch.utils.data.DataLoader(
+        train_data, batch_size=args.batch_size, shuffle=False, num_workers=0,
+        generator=torch.Generator().manual_seed(args.seed),
+        pin_memory=amp_enabled, collate_fn=trim_padding_collate) if args.diagnostics else None
     model = AutoModelForSequenceClassification.from_pretrained(
         config["checkpoint"], revision=revision, num_labels=len(labels),
         id2label={i: name for i, name in enumerate(labels)},
@@ -258,13 +277,21 @@ def main():
                 print(f"{args.architecture} seed={args.seed} epoch={epoch} "
                       f"batch={index + 1}/{len(train_loader)} loss={total_loss / seen:.5f}", flush=True)
         prediction_started = time.perf_counter()
-        scores = predict_scores(model, validation_loader, device)
+        scores, validation_bce = predict_scores(model, validation_loader, device, return_loss=True)
         validation_seconds = time.perf_counter() - prediction_started
         metrics = evaluate_multilabel(y_validation, scores, labels, threshold=0.5)
         metadata["history"].append({"epoch": epoch, "train_loss": total_loss / seen,
                                     "macro_f1": metrics["macro_f1"], "micro_f1": metrics["micro_f1"],
                                     "epoch_seconds": time.perf_counter() - epoch_start,
                                     "validation_seconds": validation_seconds})
+        metadata["history"][-1]["validation_bce_eval"] = validation_bce
+        metadata["history"][-1]["learning_rate_end"] = optimizer.param_groups[0]["lr"]
+        if train_eval_loader is not None:
+            train_scores, train_bce = predict_scores(model, train_eval_loader, device, return_loss=True)
+            train_metrics = evaluate_multilabel(y_train, train_scores, labels, threshold=0.5)
+            metadata["history"][-1].update(train_bce_eval=train_bce,
+                train_macro_f1_eval=train_metrics["macro_f1"], train_micro_f1_eval=train_metrics["micro_f1"],
+                macro_f1_gap_eval=train_metrics["macro_f1"] - metrics["macro_f1"])
         if metrics["macro_f1"] > best_f1:
             best_f1 = metrics["macro_f1"]
             model.save_pretrained(output / "checkpoint", safe_serialization=True)
@@ -276,8 +303,13 @@ def main():
         write_json(metadata_path, metadata)
         print(f"{args.architecture} seed={args.seed} epoch={epoch}: "
               f"Macro-F1={metrics['macro_f1']:.4f}; Micro-F1={metrics['micro_f1']:.4f}", flush=True)
+        if stopper.update(metrics["macro_f1"]):
+            metadata["stopping_reason"] = "validation_macro_f1_plateau"
+            metadata["stopped_epoch"] = epoch
+            break
     # BƯỚC 5 — Chỉ đánh dấu hoàn tất sau khi đã có checkpoint và scores tốt nhất.
     metadata["completed"] = True
+    metadata.setdefault("stopping_reason", "maximum_epochs_reached")
     metadata["completed_at_utc"] = datetime.now(timezone.utc).isoformat()
     metadata["elapsed_seconds"] = time.perf_counter() - started
     metadata["artifact_sha256"] = artifact_hashes(output)

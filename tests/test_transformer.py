@@ -173,7 +173,8 @@ class TransformerTest(unittest.TestCase):
             args = SimpleNamespace(architecture="bert", seed=42, smoke=False, weighted=False,
                                    epochs=None, learning_rate=None, batch_size=16,
                                    gradient_accumulation=1, max_length=128, device="cpu",
-                                   revision="main", resume=True, overwrite=False)
+                                   revision="main", resume=True, overwrite=False,
+                                   patience=0, min_delta=0.0, diagnostics=False, output_root=None)
             with patch.object(train_transformer, "ROOT", root), patch.object(
                     train_transformer, "parse_args", return_value=args):
                 with self.assertRaisesRegex(RuntimeError, "--overwrite"):

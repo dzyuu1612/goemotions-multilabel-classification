@@ -1,5 +1,92 @@
 # GoEmotions phân loại cảm xúc đa nhãn
 
+## Bản nâng cấp ngày 29/10/2026
+
+Nhánh `codex/goemotions-upgrade-20261029` được tạo từ `a7798d9` của source
+hiện có. Giữ nguyên benchmark `results/final_submission`; thay đổi mới bổ sung
+khả năng chẩn đoán huấn luyện và đóng gói suy luận. Chưa chạy tìm siêu tham số
+full, nên chưa có kết quả chứng minh cấu hình mới tăng F1.
+
+### Demo không huấn luyện lại
+
+Sau khi khôi phục checkpoint như hướng dẫn bên dưới, tạo một tệp mô hình và
+một gói web cục bộ:
+
+```bash
+python -m scripts.verification.package_demo --output artifacts/portable_release
+```
+
+Gói `GoEmotions_Web.zip` chứa `GoEmotions_BERT.goemotions`, giao diện và bộ khởi
+động Windows. Tệp `.goemotions` chứa BERT seed 123 đã fine-tune, tokenizer,
+mapping, max_length và 28 ngưỡng từ validation, kèm SHA-256 từng thành phần.
+Không mở notebook, train hoặc tìm ngưỡng khi demo. Giải nén rồi chạy
+`START_DEMO.cmd`. Máy cần Python 3.12/3.13 và Internet cho lần cài dependency
+đầu; sau đó suy luận cục bộ offline ở `http://127.0.0.1:7870`.
+Đây là gói web có mô hình, chưa phải MSI chứa sẵn Python.
+
+Có thể chạy trực tiếp bằng môi trường đã cài dependency:
+
+```bash
+python deployment/web_demo.py --model artifacts/portable_release/GoEmotions_Web/GoEmotions_BERT.goemotions
+```
+
+Web cho nhập câu mới, đổi ngưỡng riêng/0,5, xem token và xuất bảng CSV.
+CSV chỉ chứa điểm dự đoán, không chứa trọng số mô hình. Câu demo tự soạn không
+có gold label nên không dùng để tính accuracy. Các mô hình so sánh A/B/C vẫn
+có ở Gradio gốc. Web đóng gói chỉ dùng checkpoint C được chọn bằng validation.
+
+### Thử LR và ngân sách epoch cho C1 C2 C3
+
+```bash
+# Chỉ tạo plan.json với 9 cấu hình pilot, chưa train.
+python -m scripts.transformers.plan_improvements --output-root artifacts/improvements/pilot --device cuda
+# Kiểm kỹ thuật 64 train/32 validation, 1 epoch cho mỗi C.
+python -m scripts.transformers.plan_improvements --output-root artifacts/improvements/smoke --device cuda --smoke --execute
+# Chạy full pilot khi có ngân sách GPU.
+python -m scripts.transformers.plan_improvements --output-root artifacts/improvements/pilot --device cuda --execute
+# Sau khi đủ full pilot: chọn bằng validation, tạo kế hoạch xác nhận 3 seed/C.
+python -m scripts.transformers.plan_improvements --stage confirm --pilot-root artifacts/improvements/pilot --output-root artifacts/improvements/confirm --device cuda
+```
+
+Thêm `--execute` ở bước confirm để chạy. Pilot dùng LR 2e-5/3e-5/5e-5, trần
+8 epoch, batch 16, patience 2 và min_delta 0,001 Macro-F1. Đây là các giả thuyết
+khảo sát. Confirm dùng cùng một cấu hình đã chọn cho ba seed 42/123/2026,
+khóa revision theo pilot. Không coi ba smoke run là benchmark hoặc kết luận
+cải thiện. Tăng trần epoch cũng thay lịch LR tuyến tính nên phải ghi cả scheduler.
+Sau confirm, dùng các công cụ freeze/evaluate của dự án với root kết quả mới.
+Test cũ đã được quan sát, nên muốn đánh giá độc lập cần holdout mới.
+
+Trainer có thêm `--output-root`, `--patience`, `--min-delta` và `--diagnostics`.
+Mỗi epoch lưu `validation_bce_eval` và `learning_rate_end`; bật diagnostics
+thì đo thêm `train_bce_eval`, `train_macro_f1_eval`, `train_micro_f1_eval` và gap.
+Eval tắt dropout. BCE eval không trọng số để đối chiếu giữa split, không thay
+loss train có dropout/weighted objective. Diagnostics cần thêm một lượt suy
+luận train mỗi epoch. Best checkpoint luôn theo val Macro-F1 @0,5; patience là
+quy tắc dừng khi không có cải thiện đáng kể, không phải chứng minh overfit.
+
+Seed 42/123/2026 không có tính chất làm F1 cao hơn; chúng cố định các lượt ngẫu
+nhiên để đo dao động. LR nhỏ giúp điều chỉnh biểu diễn pretrained thận trọng,
+nhưng quá nhỏ có thể học chậm. Chín run cũ đều chọn epoch cuối; chỉ nhìn train
+loss giảm chưa xác nhận hội tụ hoặc không overfit. Nguồn giải thích:
+[BERT, Appendix A.3](https://aclanthology.org/N19-1423/),
+[GoEmotions, §5.3](https://aclanthology.org/2020.acl-main.372/),
+[PyTorch reproducibility](https://docs.pytorch.org/docs/stable/notes/randomness.html),
+[BCEWithLogitsLoss](https://docs.pytorch.org/docs/stable/generated/torch.nn.BCEWithLogitsLoss.html),
+[tokenizer theo checkpoint](https://huggingface.co/docs/transformers/v4.57.1/tokenizer_summary).
+
+Kiểm bản nâng cấp:
+
+```bash
+python -m unittest tests.test_training_control tests.test_portable tests.test_transformer tests.test_metrics -v
+python tools/check_repository.py
+```
+
+Bản Word và PPTX được tạo từ bản gốc GoEmotions, giữ ngoài Git. Phụ lục C đối
+chiếu ba PDF môn học, giải thích pretrained/LR/seed/tokenizer, tính tay gradient,
+so sánh phạm vi XED, phân tích lỗi và hướng chạy cải tiến. So sánh XED dựa trên
+báo cáo được cung cấp, chưa có code/checkpoint XED để kiểm độc lập. Không xếp
+hạng F1 giữa hai dataset khác nhau.
+
 Bộ nộp ngày **26/10/2026** dùng **A/B/BERT/RoBERTa của Duy** và **toàn bộ ba seed
 DistilBERT của Huy**. Báo cáo dùng bản Duy làm nền. Nguồn được ghi rõ trong
 [provenance.json](results/final_submission/provenance.json); không ghép từng seed

@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="vi"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GoEmotions · Demo cảm xúc</title>
+<style>
+:root{font-family:system-ui,sans-serif;color:#18312d;background:#f6f7f2}*{box-sizing:border-box}body{max-width:1000px;margin:50px auto;padding:0 25px}h1{font-size:clamp(30px,5vw,46px);line-height:1.15;margin:14px 0}p{line-height:1.6;color:#52645f}.eyebrow{font-weight:700;color:#216653}label{display:block;margin:25px 0 10px;font-weight:650}textarea{width:100%;min-height:130px;resize:vertical;border:1px solid #aebfb5;border-radius:10px;padding:16px;font:inherit;background:white}button,select{font:inherit;padding:12px 18px;border-radius:7px;border:1px solid #aebfb5;background:white}button{cursor:pointer}button.primary{background:#216653;color:white;border-color:#216653;font-weight:650}button:disabled{opacity:.6;cursor:wait}.actions{display:flex;gap:12px;flex-wrap:wrap;margin:15px 0}.examples{display:flex;gap:10px;flex-wrap:wrap}.examples button{font-size:14px;padding:8px 12px}.result{font-size:24px;font-weight:700;margin-top:30px}table{width:100%;border-collapse:collapse;background:#fff;margin:20px 0}td,th{padding:12px;text-align:left;border-bottom:1px solid #e1e8e2}th{background:#e7eee8}progress{width:130px;accent-color:#216653}summary{cursor:pointer;margin:24px 0}code{white-space:pre-wrap}#error{color:#aa2834}footer{margin:35px 0;font-size:14px;color:#52645f}button:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid #bf8c21;outline-offset:3px}
+</style>
+<div class="eyebrow">NHÓM 6 · GOEMOTIONS</div>
+<h1>Một câu có thể mang<br>nhiều cảm xúc</h1>
+<p>Nhập bình luận tiếng Anh để thử mô hình đã huấn luyện. Dự đoán chạy trên máy này.</p>
+<label for="text">Bình luận tiếng Anh</label>
+<textarea id="text" placeholder="I was worried, but your help made me feel so relieved."></textarea>
+<p>Thử nhanh một tình huống</p><div class="examples" id="examples"></div>
+<label for="mode">Cách chọn nhãn</label><select id="mode"><option value="tuned">Ngưỡng riêng đã chọn trên validation</option><option value="fixed">Ngưỡng cố định 0,5</option></select>
+<div class="actions"><button id="predict" class="primary">Nhận diện cảm xúc</button><button id="csv" disabled>Tải bảng CSV</button></div>
+<p id="info"></p><p id="error" role="alert"></p><div id="result" class="result" aria-live="polite"></div><p id="notice"></p>
+<table id="table" hidden><thead><tr><th>Cảm xúc</th><th>Điểm</th><th>Ngưỡng</th><th>Được chọn</th></tr></thead><tbody id="rows"></tbody></table>
+<details id="details" hidden><summary>Xem cách mô hình tách token</summary><code id="tokens"></code></details>
+<footer>Điểm sigmoid chưa được hiệu chuẩn thành xác suất chắc chắn. Không có nhãn đạt ngưỡng không đồng nghĩa với neutral. Ví dụ thử không có nhãn chuẩn để tính độ chính xác.</footer>
+<script>
+const $=id=>document.getElementById(id);let last=null;
+const examples=[['Cảm ơn','You stayed late to help me. I really appreciate it!'],['Lo lắng và nhẹ nhõm','I was worried, but your help made me feel so relieved.'],['Phủ định','I am not angry with you, just disappointed in the result.'],['Mỉa mai','Wonderful, another three hours stuck in traffic.'],['Thông tin','The package will arrive on Tuesday afternoon.']];
+for(const [label,text] of examples){const b=document.createElement('button');b.textContent=label;b.onclick=()=>{$('text').value=text;clear()};$('examples').append(b)}
+function clear(){last=null;$('csv').disabled=true;$('result').textContent='';$('table').hidden=true;$('details').hidden=true;$('notice').textContent='';$('error').textContent=''}
+$('text').oninput=clear;$('mode').onchange=clear;
+fetch('/api/info').then(r=>r.json()).then(x=>{$('info').textContent=`${x.architecture.toUpperCase()} · seed ${x.seed} · 28 nhãn · tối đa ${x.max_length} token`});
+$('predict').onclick=async()=>{clear();$('predict').disabled=true;$('predict').textContent='Đang dự đoán…';try{const r=await fetch('/api/predict',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text:$('text').value,mode:$('mode').value})});const x=await r.json();if(!r.ok)throw new Error(x.error);last=x;$('result').textContent=x.labels.length?x.labels.join(', '):'Chưa có nhãn nào đạt ngưỡng';$('rows').replaceChildren();for(const v of x.rows){const tr=document.createElement('tr');for(const t of [v.label,v.score.toFixed(4),v.threshold.toFixed(2),v.selected?'Có':'']){const td=document.createElement('td');td.textContent=t;tr.append(td)}$('rows').append(tr)}$('table').hidden=false;$('tokens').textContent=x.tokens.join('  ');$('details').hidden=false;$('notice').textContent=x.truncated?'Văn bản đã bị cắt để vừa giới hạn token.':'';$('csv').disabled=false}catch(e){$('error').textContent=e.message}finally{$('predict').disabled=false;$('predict').textContent='Nhận diện cảm xúc'}};
+$('csv').onclick=()=>{if(!last)return;const csv='\uFEFFlabel,score,threshold,selected\n'+last.rows.map(r=>[r.label,r.score,r.threshold,r.selected].join(',')).join('\n');const url=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download='goemotions_prediction.csv';a.click();URL.revokeObjectURL(url)};
+</script></html>
