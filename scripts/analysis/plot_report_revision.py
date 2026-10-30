@@ -101,7 +101,7 @@ def main():
  top=pd.read_csv(d/'top_error_pairs.csv');fig,ax=plt.subplots(figsize=(9.5,4.3));x=np.arange(5)
  for i,(arch,name,color) in enumerate(zip(models,names,MODEL_COLORS)):
   bars=ax.barh(x+(i-1)*.22,top[arch],.20,label=name,color=color);ax.bar_label(bars,padding=3,fontsize=11)
- ax.set_yticks(x,[f'{a} → {b}' for a,b in zip(top.missed_label,top.extra_label)]);ax.invert_yaxis();ax.set_xlim(0,90);ax.set_xlabel('Số câu có cặp FN → FP');ax.legend(ncol=3,frameon=False,loc='upper center');fig.tight_layout();save(fig,'error_pairs')
+ ax.set_yticks(x,[f'{a} → {b}' for a,b in zip(top.missed_label,top.extra_label)]);ax.invert_yaxis();ax.set_xlim(0,90);ax.set_xlabel('Số câu có cặp FN → FP');fig.legend(*ax.get_legend_handles_labels(),ncol=3,frameon=False,loc='upper center');fig.tight_layout(rect=[0,0,1,.89]);save(fig,'error_pairs')
  fig,axes=plt.subplots(1,2,figsize=(9.2,3.6));x=np.arange(3)
  for ax,metric,title in zip(axes,['macro_f1','micro_f1'],['Macro-F1 test','Micro-F1 test']):
   for i,(mode,c,name) in enumerate(zip(['fixed','tuned'],['#888','#167D9A'],['Ngưỡng 0,5','Ngưỡng riêng'])):
