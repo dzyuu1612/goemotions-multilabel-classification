@@ -1,0 +1,23 @@
+{
+  "seed": 2026,
+  "model": "roberta",
+  "rows": [
+    {
+      "split": "train",
+      "n": 43410,
+      "bce": 0.06969703772925835,
+      "macro_f1": 0.4979489420090834,
+      "micro_f1": 0.6609306529673573,
+      "hamming_loss": 0.024381314377858954
+    },
+    {
+      "split": "validation",
+      "n": 5426,
+      "bce": 0.08368937889236917,
+      "macro_f1": 0.43083098456612806,
+      "micro_f1": 0.5791662815417321,
+      "hamming_loss": 0.029968142804486335
+    }
+  ],
+  "mode": "Frozen checkpoint in eval mode, no training, no dropout, unweighted mean BCE. Not epoch training loss."
+}

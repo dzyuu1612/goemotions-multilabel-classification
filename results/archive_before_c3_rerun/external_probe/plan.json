@@ -1,0 +1,25 @@
+{
+  "frozen_at_utc": "2026-10-25T16:44:50.413090+00:00",
+  "fixture_sha256": "2941e1d4cc72c9fda36513776a9e78d363bde6b6e67b94e28d58b9cc228d7f11",
+  "n": 10,
+  "models": [
+    "A_standard",
+    "A_balanced",
+    "B",
+    "bert",
+    "roberta",
+    "distilbert"
+  ],
+  "seeds": [
+    42,
+    123,
+    2026
+  ],
+  "modes": [
+    "fixed",
+    "tuned"
+  ],
+  "mapping": "Threshold each of 28 labels, then OR within each of five published groups.",
+  "threshold_selection_on_new_data": false,
+  "training": false
+}

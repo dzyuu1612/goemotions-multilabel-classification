@@ -1,7 +1,6 @@
-"""Bộ nộp đã chốt: A/B/C1/C2 của Duy và toàn bộ ba seed C3 của Huy.
+"""Khôi phục bộ kết quả A/B/C1/C2/C3 và checkpoint đã công bố.
 
-Giữ nguyên kết quả từng lượt; không huấn luyện hoặc tìm ngưỡng trong bước chuẩn bị.
-Bộ gốc và bộ Huy chạy lại toàn bộ được giữ riêng để đối chiếu.
+Chuẩn bị demo không huấn luyện hoặc tìm ngưỡng; mọi file được kiểm SHA-256.
 """
 from __future__ import annotations
 from functools import lru_cache
@@ -56,7 +55,10 @@ def restore_checkpoints(destination=None,selected_only=False):
     cache=ROOT/'artifacts/downloads';cache.mkdir(parents=True,exist_ok=True)
     for asset in catalog['assets']:
         if selected_only and asset.get('architecture') in ('bert','roberta','distilbert'):
-            if asset['seed']!={'bert':123,'roberta':2026,'distilbert':123}[asset['architecture']]:
+            scores = [(read_json(root/f'data/processed/transformers/{asset["architecture"]}/seed_{seed}/full/standard/validation_metrics.json')['macro_f1'], -seed)
+                      for seed in (42,123,2026)]
+            representative = -max(scores)[1]
+            if asset['seed']!=representative:
                 continue
         expected=asset['weights']
         if all((root/name).is_file() and digest(root/name)==value for name,value in expected.items()):

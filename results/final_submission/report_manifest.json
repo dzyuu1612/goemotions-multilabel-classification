@@ -1,12 +1,13 @@
 {
-  "filename": "Nhóm 6_Đề Tài 1_GOEMOTIONS_24DH190309_Nguyễn Bảo Duy_FINAL_DUY_HUY.docx",
-  "sha256": "a6d82ca56db61d83c219820f78b77d726e8bccd5d3585072623f62fa66378170",
-  "profile": "final-duy-ab-c1-c2-huy-c3-20261026",
-  "pages": 84,
-  "tables": 36,
-  "inline_images": 46,
-  "native_equations_preserved": 51,
-  "cover_pages_pixel_identical_to_duy_base": true,
-  "contribution_percentages": "Left blank for user to enter, as requested.",
-  "distribution": "DOCX delivered locally; checkpoint release and code are on GitHub."
+  "filename": "GoEmotions_BaoCao_CapNhat_C3.docx",
+  "sha256": "21eb3e294f8448ac26a43cb05e87e56020e678dae655f4954d6afea105ed1599",
+  "profile": "Current full GoEmotions submission",
+  "pages": 38,
+  "tables": 17,
+  "inline_images": 17,
+  "native_equations": 1,
+  "cover_pages_preserved": 2,
+  "references": 31,
+  "contribution_percentages": "Group to fill",
+  "distribution": "Local report delivery; source and executed notebooks on the current GitHub branch."
 }

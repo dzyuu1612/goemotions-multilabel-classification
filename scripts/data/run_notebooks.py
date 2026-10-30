@@ -61,6 +61,9 @@ def main():
             raise ValueError(f"{name}: thiếu cell đã chạy hoặc có lỗi; không xuất bản")
         output = output_dir / (name + ".executed.ipynb")
         nbformat.write(notebook, output)
+        if args.publish:
+            # The GitHub notebook itself also opens with genuine saved outputs.
+            nbformat.write(notebook, source)
         count = len(code)
         entry = {"source": source.relative_to(ROOT).as_posix(), "source_sha256": notebook_digest(source),
                  "executed": output.relative_to(ROOT).as_posix(), "executed_sha256": notebook_digest(output),

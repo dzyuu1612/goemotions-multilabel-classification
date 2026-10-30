@@ -1,0 +1,23 @@
+{
+  "seed": 123,
+  "model": "distilbert",
+  "rows": [
+    {
+      "split": "train",
+      "n": 43410,
+      "bce": 0.06919640819047286,
+      "macro_f1": 0.4787546474325711,
+      "micro_f1": 0.6511768115942029,
+      "hamming_loss": 0.02475236120709514
+    },
+    {
+      "split": "validation",
+      "n": 5426,
+      "bce": 0.08408307715317478,
+      "macro_f1": 0.4132001008676058,
+      "micro_f1": 0.5739374124241009,
+      "hamming_loss": 0.030020799325996526
+    }
+  ],
+  "mode": "Frozen checkpoint in eval mode, no training, no dropout, unweighted mean BCE. Not epoch training loss."
+}

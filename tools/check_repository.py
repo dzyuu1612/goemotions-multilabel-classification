@@ -60,13 +60,14 @@ def check_source(paths):
             errors.append(f"{name}: tệp đã đổi chỗ nhưng chưa git add")
             continue
         published_report = name.startswith(PUBLISHED_REPORT_PREFIXES) or name in PUBLISHED_REPORT_FILES
-        runtime_zip = name == "results/final_submission/runtime_bundle.zip"
+        runtime_zip = name in {"results/final_submission/runtime_bundle.zip", "results/archive_before_c3_rerun/runtime_bundle.zip"}
         deployment_html = name == "deployment/index.html"
         if ((name.startswith(GENERATED_PREFIXES) and not published_report)
                 or (path.suffix.lower() in FORBIDDEN_SUFFIXES and not runtime_zip and not deployment_html)
                 or path.name in RETIRED_GENERATORS):
             errors.append(f"{name}: tệp ngoài phạm vi source")
-        if path.suffix.lower() in {".md", ".markdown"} and name != "README.md":
+        allowed_markdown = name == "README.md" or name.startswith(("deployment/", "results/c3_rerun/"))
+        if path.suffix.lower() in {".md", ".markdown"} and not allowed_markdown:
             errors.append(f"{name}: Markdown chỉ được giữ README.md")
         if path.suffix == ".py":
             counts["python"] += 1
@@ -86,7 +87,9 @@ def check_source(paths):
             notebook = json.loads(path.read_text(encoding="utf-8"))
             if notebook.get("nbformat") != 4 or not isinstance(notebook.get("cells"), list):
                 errors.append(f"{name}: sai định dạng notebook")
-            published = name.startswith("notebooks/executed/")
+            # The user-facing source notebooks intentionally include real saved
+            # outputs. publication_errors verifies the matching execution receipt.
+            published = name.startswith("notebooks/")
             for index, cell in enumerate(notebook.get("cells", []), 1):
                 if cell.get("cell_type") == "code" and (
                     cell.get("outputs") or cell.get("execution_count") is not None

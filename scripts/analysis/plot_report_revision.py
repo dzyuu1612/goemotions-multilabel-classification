@@ -18,6 +18,7 @@ def main():
  d=ROOT/'results/final_submission/report_data';eda=ROOT/'reports/tables'
  means=pd.read_csv(d/'mean_std.csv');runs=pd.read_csv(d/'all_runs.csv');per=pd.read_csv(d/'per_label_test.csv');curves=pd.read_csv(d/'learning_curves.csv')
  models=['bert','roberta','distilbert'];names=['C1 BERT','C2 RoBERTa','C3 DistilBERT']
+ representatives={m:int(runs[(runs.system=='C_'+m)&(runs.split=='validation')&(runs.threshold_mode=='fixed')].sort_values(['macro_f1','seed'],ascending=[False,True]).iloc[0].seed) for m in models}
  plt.rcParams.update({'font.family':'DejaVu Sans','font.size':13,'axes.titlesize':15,'axes.labelsize':13,'xtick.labelsize':12,'ytick.labelsize':12,'axes.spines.top':False,'axes.spines.right':False,'axes.unicode_minus':False})
  manifest={'training':False,'threshold_search':False,'figures':{},'source_sha256':{}}
  for path in list(d.glob('*.csv'))+list(d.glob('*diagnostic.json'))+[eda/'label_distribution.csv',eda/'labels_per_sample.csv']:
@@ -47,8 +48,8 @@ def main():
  fig.tight_layout();save(fig,'02_hinh_2_1')
  q=pd.read_csv(eda/'label_distribution.csv').sort_values('train_count',ascending=True)
  fig,ax=plt.subplots(figsize=(9.2,9.5));bars=ax.barh(q.label,q.train_count,color='#167D9A')
- ax.bar_label(bars,labels=[f'{x:,}'.replace(',','.') for x in q.train_count],padding=4,fontsize=11)
- ax.set_xlim(0,q.train_count.max()*1.16);ax.set_xlabel('Số mẫu dương trên tập train');ax.grid(axis='x',alpha=.15);ax.set_axisbelow(True);fig.tight_layout();save(fig,'label_distribution')
+ ax.bar_label(bars,labels=[f'{x:,}'.replace(',','.') for x in q.train_count],padding=4,fontsize=13)
+ ax.tick_params(labelsize=13);ax.set_xlim(0,q.train_count.max()*1.16);ax.set_xlabel('Số mẫu dương trên tập train');ax.grid(axis='x',alpha=.15);ax.set_axisbelow(True);fig.tight_layout();save(fig,'label_distribution')
  card=pd.read_csv(eda/'labels_per_sample.csv');fig,ax=plt.subplots(figsize=(9.2,3.7));x=np.arange(3)
  for i,(split,color) in enumerate(zip(['train','validation','test'],SPLIT_COLORS)):
   q=card[card.split==split];n=q.n_samples.sum();vals=[q[q.n_labels==1].n_samples.sum(),q[q.n_labels==2].n_samples.sum(),q[q.n_labels>=3].n_samples.sum()];vals=np.array(vals)*100/n
@@ -68,7 +69,7 @@ def main():
   for j,(split,color) in enumerate(zip(['train','validation'],SPLIT_COLORS)):
    vals=[next(r[key] for r in z['rows'] if r['split']==split) for z in diag]
    bars=ax.bar(x+(j-.5)*bw,vals,bw,color=color,label=split.capitalize());ax.bar_label(bars,labels=[vi(v) for v in vals],padding=4,fontsize=12)
-  ax.set_title(title);ax.set_ylim(0,lim);ax.set_xticks(x,['C1 / 123','C2 / 2026','C3 / 123']);ax.yaxis.set_major_formatter(fmt);ax.grid(axis='y',alpha=.15)
+  ax.set_title(title);ax.set_ylim(0,lim);ax.set_xticks(x,[f'C{i+1} / {representatives[m]}' for i,m in enumerate(models)]);ax.yaxis.set_major_formatter(fmt);ax.grid(axis='y',alpha=.15)
  axes[0].legend(ncol=2,frameon=False);fig.tight_layout();save(fig,'train_validation')
  fig,axes=plt.subplots(1,3,figsize=(10.8,4.0),sharex=True,sharey=True)
  for ax,arch,name in zip(axes,models,names):
@@ -89,7 +90,7 @@ def main():
     q=per[(per.architecture==arch)&(per.label==label)];a0=q[q.threshold_mode=='fixed'].f1;a1=q[q.threshold_mode=='tuned'].f1;assert len(a0)==len(a1)==3;v0=a0.mean();v1=a1.mean();sd0=a0.std(ddof=1);sd1=a1.std(ddof=1)
    ax.plot([v0,v1],[i,i],color='#AAA');ax.errorbar(v0,i-.09,xerr=sd0,fmt='o',color='#777',capsize=2);ax.errorbar(v1,i+.09,xerr=sd1,fmt='s',color='#167D9A',capsize=2)
    rows.append(dict(model=arch,label=label,before=v0,after=v1,std_before=sd0,std_after=sd1))
-  ax.set_yticks(range(5),[f'{l} (n={n})' for l,n in zip(rare,[6,16,11,23,37])]);ax.invert_yaxis();ax.set_xlim(-.1,.72);ax.set_title(name,fontsize=12);ax.set_xlabel('F1 test');ax.xaxis.set_major_formatter(fmt);ax.grid(axis='x',alpha=.15)
+  ax.set_yticks(range(5),[f'{l} (n={n})' for l,n in zip(rare,[6,16,11,23,37])]);ax.invert_yaxis();ax.set_xlim(-.1,.72);ax.set_title(name,fontsize=13.5);ax.tick_params(labelsize=13.5);ax.set_xlabel('F1 test');ax.xaxis.set_major_formatter(fmt);ax.grid(axis='x',alpha=.15)
  fig.tight_layout();save(fig,'rare_labels');pd.DataFrame(rows).to_csv(t/'rare_f1_before_after.csv',index=False)
  err=pd.read_csv(d/'error_counts.csv');err.to_csv(t/'error_counts_verified.csv',index=False);fig,axes=plt.subplots(3,1,figsize=(9.5,5.3))
  for ax,cat,title in zip(axes,['partial_multi_label','rare_false_negative','missed_extra_pair'],['Câu đa nhãn đúng một phần, còn bỏ sót','Bỏ sót ít nhất một nhãn hiếm','Đồng thời có FN và FP']):
@@ -114,10 +115,12 @@ def main():
   for row in pairs[pairs.architecture==arch].itertuples():mat[labels.index(row.missed_label),labels.index(row.extra_label)]=row.sample_count
   mats.append(mat)
  pooled=sum(mats);importance=pooled.sum(0)+pooled.sum(1);chosen=sorted(range(28),key=lambda i:(-importance[i],i))[:10]
- for arch,name,seed,mat in zip(models,names,[123,2026,123],mats):
-  q=mat[np.ix_(chosen,chosen)];fig,ax=plt.subplots(figsize=(8.7,7.3));im=ax.imshow(q,cmap='Reds',vmin=0,vmax=72);ax.set_xticks(range(10),[labels[i] for i in chosen],rotation=45,ha='right');ax.set_yticks(range(10),[labels[i] for i in chosen]);ax.set_xlabel('Nhãn dự đoán thừa (FP)');ax.set_ylabel('Nhãn thật bị bỏ sót (FN)');ax.set_title(f'{name} / seed {seed} / ngưỡng 0,5')
+ vmax=max(int(m.max()) for m in mats)
+ for arch,name,mat in zip(models,names,mats):
+  seed=representatives[arch]
+  q=mat[np.ix_(chosen,chosen)];fig,ax=plt.subplots(figsize=(8.7,7.3));im=ax.imshow(q,cmap='Blues',vmin=0,vmax=vmax);ax.set_xticks(range(10),[labels[i] for i in chosen],rotation=45,ha='right');ax.set_yticks(range(10),[labels[i] for i in chosen]);ax.set_xlabel('Nhãn dự đoán thừa (FP)');ax.set_ylabel('Nhãn thật bị bỏ sót (FN)');ax.set_title(f'{name} / seed {seed} / ngưỡng 0,5')
   for i in range(10):
-   for j in range(10):ax.text(j,i,str(q[i,j]),ha='center',va='center',color='white' if q[i,j]>40 else '#222',fontsize=11)
+   for j in range(10):ax.text(j,i,str(q[i,j]),ha='center',va='center',color='white' if q[i,j]>.55*vmax else '#222',fontsize=13)
   fig.colorbar(im,ax=ax,shrink=.75,label='Số câu');fig.tight_layout();save(fig,'coerror_'+arch)
  vals=np.zeros((28,6));tab=[]
  for j,arch in enumerate(models):
@@ -126,10 +129,24 @@ def main():
    for i,label in enumerate(labels):vals[i,2*j+k]=g.loc[label,'mean'];tab.append(dict(architecture=arch,mode=mode,label=label,f1_mean=g.loc[label,'mean'],f1_std=g.loc[label,'std']))
    assert abs(vals[:,2*j+k].mean()-group(arch,mode).macro_f1_mean)<1e-12
  pd.DataFrame(tab).to_csv(t/'f1_per_label_mean_std.csv',index=False)
- fig,ax=plt.subplots(figsize=(8.8,11.5));im=ax.imshow(vals,cmap='YlGnBu',vmin=0,vmax=1,aspect='auto');ax.set_yticks(range(28),labels);ax.set_xticks(range(6),['C1\n0,5','C1\nNgưỡng riêng','C2\n0,5','C2\nNgưỡng riêng','C3\n0,5','C3\nNgưỡng riêng'],fontsize=10);ax.set_title('F1 test từng nhãn — trung bình ba seed')
+ fig,ax=plt.subplots(figsize=(8.8,11.5));im=ax.imshow(vals,cmap='YlGnBu',vmin=0,vmax=1,aspect='auto');ax.set_yticks(range(28),labels);ax.set_xticks(range(6),['C1\n0,5','C1\nNgưỡng\nriêng','C2\n0,5','C2\nNgưỡng\nriêng','C3\n0,5','C3\nNgưỡng\nriêng'],fontsize=12);ax.set_title('F1 test từng nhãn — trung bình ba seed')
  for i in range(28):
-  for j in range(6):ax.text(j,i,vi(vals[i,j],3),ha='center',va='center',color='white' if vals[i,j]>.58 else '#222',fontsize=10)
+  for j in range(6):ax.text(j,i,vi(vals[i,j],3),ha='center',va='center',color='white' if vals[i,j]>.58 else '#222',fontsize=12)
  cb=fig.colorbar(im,ax=ax,shrink=.6,label='F1');cb.ax.yaxis.set_major_formatter(fmt);fig.tight_layout();save(fig,'f1_all_labels')
+ probe_path=ROOT/'results/final_submission/external_probe/summary.json'
+ probe=json.loads(probe_path.read_text(encoding='utf-8'))
+ manifest['source_sha256'][probe_path.relative_to(ROOT).as_posix()]=hashlib.sha256(probe_path.read_bytes()).hexdigest()
+ selected=[next(r for r in probe if r['model']==arch and r['seed']==representatives[arch] and r['mode']=='fixed') for arch in models]
+ counts=[np.array([[r['fn'],r['fp']] for r in row['per_label']]) for row in selected]
+ fig,axes=plt.subplots(1,3,figsize=(10.4,3.6),sharey=True)
+ limit=max(1,max(int(m.max()) for m in counts))
+ for ax,arch,name,mat,row in zip(axes,models,names,counts,selected):
+  ax.imshow(mat,cmap='Blues',vmin=0,vmax=limit,aspect='auto')
+  ax.set_xticks([0,1],['FN','FP']);ax.set_yticks(range(5),[f"{r['label']} ({r['support']})" for r in row['per_label']])
+  ax.set_title(f'{name}\nSeed {representatives[arch]}',fontsize=15)
+  for i in range(5):
+   for j in range(2):ax.text(j,i,str(mat[i,j]),ha='center',va='center',fontsize=18,color='white' if mat[i,j]>.55*limit else '#222')
+ fig.tight_layout();save(fig,'brighter_errors')
  (out/'figure_manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2),encoding='utf-8')
  print('Charts:',len(manifest['figures']))
 if __name__=='__main__':main()

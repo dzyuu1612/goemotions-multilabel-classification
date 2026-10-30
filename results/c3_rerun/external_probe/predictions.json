@@ -1,0 +1,4904 @@
+[
+  {
+    "id": "N01",
+    "source_id": "eng_test_track1_556",
+    "model": "A_standard",
+    "seed": null,
+    "mode": "fixed",
+    "truth": [],
+    "raw28": [],
+    "mapped5": [],
+    "fn": [],
+    "fp": []
+  },
+  {
+    "id": "N02",
+    "source_id": "eng_test_track1_339",
+    "model": "A_standard",
+    "seed": null,
+    "mode": "fixed",
+    "truth": [],
+    "raw28": [
+      "neutral"
+    ],
+    "mapped5": [],
+    "fn": [],
+    "fp": []
+  },
+  {
+    "id": "N03",
+    "source_id": "eng_test_track1_2049",
+    "model": "A_standard",
+    "seed": null,
+    "mode": "fixed",
+    "truth": [
+      "anger"
+    ],
+    "raw28": [],
+    "mapped5": [],
+    "fn": [
+      "anger"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N04",
+    "source_id": "eng_test_track1_1786",
+    "model": "A_standard",
+    "seed": null,
+    "mode": "fixed",
+    "truth": [
+      "fear"
+    ],
+    "raw28": [],
+    "mapped5": [],
+    "fn": [
+      "fear"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N05",
+    "source_id": "eng_test_track1_590",
+    "model": "A_standard",
+    "seed": null,
+    "mode": "fixed",
+    "truth": [
+      "joy"
+    ],
+    "raw28": [],
+    "mapped5": [],
+    "fn": [
+      "joy"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N06",
+    "source_id": "eng_test_track1_403",
+    "model": "A_standard",
+    "seed": null,
+    "mode": "fixed",
+    "truth": [
+      "sadness"
+    ],
+    "raw28": [],
+    "mapped5": [],
+    "fn": [
+      "sadness"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N07",
+    "source_id": "eng_test_track1_2537",
+    "model": "A_standard",
+    "seed": null,
+    "mode": "fixed",
+    "truth": [
+      "surprise"
+    ],
+    "raw28": [],
+    "mapped5": [],
+    "fn": [
+      "surprise"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N08",
+    "source_id": "eng_test_track1_2699",
+    "model": "A_standard",
+    "seed": null,
+    "mode": "fixed",
+    "truth": [
+      "fear",
+      "sadness"
+    ],
+    "raw28": [],
+    "mapped5": [],
+    "fn": [
+      "fear",
+      "sadness"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N09",
+    "source_id": "eng_test_track1_121",
+    "model": "A_standard",
+    "seed": null,
+    "mode": "fixed",
+    "truth": [
+      "fear",
+      "sadness"
+    ],
+    "raw28": [],
+    "mapped5": [],
+    "fn": [
+      "fear",
+      "sadness"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N10",
+    "source_id": "eng_test_track1_2529",
+    "model": "A_standard",
+    "seed": null,
+    "mode": "fixed",
+    "truth": [
+      "fear",
+      "sadness"
+    ],
+    "raw28": [],
+    "mapped5": [],
+    "fn": [
+      "fear",
+      "sadness"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N01",
+    "source_id": "eng_test_track1_556",
+    "model": "A_standard",
+    "seed": null,
+    "mode": "tuned",
+    "truth": [],
+    "raw28": [
+      "confusion",
+      "disapproval",
+      "neutral"
+    ],
+    "mapped5": [
+      "anger",
+      "surprise"
+    ],
+    "fn": [],
+    "fp": [
+      "anger",
+      "surprise"
+    ]
+  },
+  {
+    "id": "N02",
+    "source_id": "eng_test_track1_339",
+    "model": "A_standard",
+    "seed": null,
+    "mode": "tuned",
+    "truth": [],
+    "raw28": [
+      "neutral"
+    ],
+    "mapped5": [],
+    "fn": [],
+    "fp": []
+  },
+  {
+    "id": "N03",
+    "source_id": "eng_test_track1_2049",
+    "model": "A_standard",
+    "seed": null,
+    "mode": "tuned",
+    "truth": [
+      "anger"
+    ],
+    "raw28": [
+      "approval",
+      "neutral"
+    ],
+    "mapped5": [
+      "joy"
+    ],
+    "fn": [
+      "anger"
+    ],
+    "fp": [
+      "joy"
+    ]
+  },
+  {
+    "id": "N04",
+    "source_id": "eng_test_track1_1786",
+    "model": "A_standard",
+    "seed": null,
+    "mode": "tuned",
+    "truth": [
+      "fear"
+    ],
+    "raw28": [
+      "neutral"
+    ],
+    "mapped5": [],
+    "fn": [
+      "fear"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N05",
+    "source_id": "eng_test_track1_590",
+    "model": "A_standard",
+    "seed": null,
+    "mode": "tuned",
+    "truth": [
+      "joy"
+    ],
+    "raw28": [
+      "disappointment",
+      "neutral"
+    ],
+    "mapped5": [
+      "sadness"
+    ],
+    "fn": [
+      "joy"
+    ],
+    "fp": [
+      "sadness"
+    ]
+  },
+  {
+    "id": "N06",
+    "source_id": "eng_test_track1_403",
+    "model": "A_standard",
+    "seed": null,
+    "mode": "tuned",
+    "truth": [
+      "sadness"
+    ],
+    "raw28": [
+      "disappointment",
+      "neutral"
+    ],
+    "mapped5": [
+      "sadness"
+    ],
+    "fn": [],
+    "fp": []
+  },
+  {
+    "id": "N07",
+    "source_id": "eng_test_track1_2537",
+    "model": "A_standard",
+    "seed": null,
+    "mode": "tuned",
+    "truth": [
+      "surprise"
+    ],
+    "raw28": [
+      "neutral"
+    ],
+    "mapped5": [],
+    "fn": [
+      "surprise"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N08",
+    "source_id": "eng_test_track1_2699",
+    "model": "A_standard",
+    "seed": null,
+    "mode": "tuned",
+    "truth": [
+      "fear",
+      "sadness"
+    ],
+    "raw28": [],
+    "mapped5": [],
+    "fn": [
+      "fear",
+      "sadness"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N09",
+    "source_id": "eng_test_track1_121",
+    "model": "A_standard",
+    "seed": null,
+    "mode": "tuned",
+    "truth": [
+      "fear",
+      "sadness"
+    ],
+    "raw28": [
+      "disapproval",
+      "neutral"
+    ],
+    "mapped5": [
+      "anger"
+    ],
+    "fn": [
+      "fear",
+      "sadness"
+    ],
+    "fp": [
+      "anger"
+    ]
+  },
+  {
+    "id": "N10",
+    "source_id": "eng_test_track1_2529",
+    "model": "A_standard",
+    "seed": null,
+    "mode": "tuned",
+    "truth": [
+      "fear",
+      "sadness"
+    ],
+    "raw28": [
+      "neutral"
+    ],
+    "mapped5": [],
+    "fn": [
+      "fear",
+      "sadness"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N01",
+    "source_id": "eng_test_track1_556",
+    "model": "A_balanced",
+    "seed": null,
+    "mode": "fixed",
+    "truth": [],
+    "raw28": [
+      "confusion",
+      "disapproval"
+    ],
+    "mapped5": [
+      "anger",
+      "surprise"
+    ],
+    "fn": [],
+    "fp": [
+      "anger",
+      "surprise"
+    ]
+  },
+  {
+    "id": "N02",
+    "source_id": "eng_test_track1_339",
+    "model": "A_balanced",
+    "seed": null,
+    "mode": "fixed",
+    "truth": [],
+    "raw28": [
+      "neutral"
+    ],
+    "mapped5": [],
+    "fn": [],
+    "fp": []
+  },
+  {
+    "id": "N03",
+    "source_id": "eng_test_track1_2049",
+    "model": "A_balanced",
+    "seed": null,
+    "mode": "fixed",
+    "truth": [
+      "anger"
+    ],
+    "raw28": [
+      "approval",
+      "optimism",
+      "neutral"
+    ],
+    "mapped5": [
+      "joy"
+    ],
+    "fn": [
+      "anger"
+    ],
+    "fp": [
+      "joy"
+    ]
+  },
+  {
+    "id": "N04",
+    "source_id": "eng_test_track1_1786",
+    "model": "A_balanced",
+    "seed": null,
+    "mode": "fixed",
+    "truth": [
+      "fear"
+    ],
+    "raw28": [
+      "surprise"
+    ],
+    "mapped5": [
+      "surprise"
+    ],
+    "fn": [
+      "fear"
+    ],
+    "fp": [
+      "surprise"
+    ]
+  },
+  {
+    "id": "N05",
+    "source_id": "eng_test_track1_590",
+    "model": "A_balanced",
+    "seed": null,
+    "mode": "fixed",
+    "truth": [
+      "joy"
+    ],
+    "raw28": [
+      "disappointment"
+    ],
+    "mapped5": [
+      "sadness"
+    ],
+    "fn": [
+      "joy"
+    ],
+    "fp": [
+      "sadness"
+    ]
+  },
+  {
+    "id": "N06",
+    "source_id": "eng_test_track1_403",
+    "model": "A_balanced",
+    "seed": null,
+    "mode": "fixed",
+    "truth": [
+      "sadness"
+    ],
+    "raw28": [
+      "disappointment",
+      "neutral"
+    ],
+    "mapped5": [
+      "sadness"
+    ],
+    "fn": [],
+    "fp": []
+  },
+  {
+    "id": "N07",
+    "source_id": "eng_test_track1_2537",
+    "model": "A_balanced",
+    "seed": null,
+    "mode": "fixed",
+    "truth": [
+      "surprise"
+    ],
+    "raw28": [
+      "confusion",
+      "curiosity"
+    ],
+    "mapped5": [
+      "surprise"
+    ],
+    "fn": [],
+    "fp": []
+  },
+  {
+    "id": "N08",
+    "source_id": "eng_test_track1_2699",
+    "model": "A_balanced",
+    "seed": null,
+    "mode": "fixed",
+    "truth": [
+      "fear",
+      "sadness"
+    ],
+    "raw28": [
+      "sadness"
+    ],
+    "mapped5": [
+      "sadness"
+    ],
+    "fn": [
+      "fear"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N09",
+    "source_id": "eng_test_track1_121",
+    "model": "A_balanced",
+    "seed": null,
+    "mode": "fixed",
+    "truth": [
+      "fear",
+      "sadness"
+    ],
+    "raw28": [
+      "disapproval"
+    ],
+    "mapped5": [
+      "anger"
+    ],
+    "fn": [
+      "fear",
+      "sadness"
+    ],
+    "fp": [
+      "anger"
+    ]
+  },
+  {
+    "id": "N10",
+    "source_id": "eng_test_track1_2529",
+    "model": "A_balanced",
+    "seed": null,
+    "mode": "fixed",
+    "truth": [
+      "fear",
+      "sadness"
+    ],
+    "raw28": [
+      "realization",
+      "neutral"
+    ],
+    "mapped5": [
+      "surprise"
+    ],
+    "fn": [
+      "fear",
+      "sadness"
+    ],
+    "fp": [
+      "surprise"
+    ]
+  },
+  {
+    "id": "N01",
+    "source_id": "eng_test_track1_556",
+    "model": "A_balanced",
+    "seed": null,
+    "mode": "tuned",
+    "truth": [],
+    "raw28": [
+      "confusion",
+      "disapproval",
+      "neutral"
+    ],
+    "mapped5": [
+      "anger",
+      "surprise"
+    ],
+    "fn": [],
+    "fp": [
+      "anger",
+      "surprise"
+    ]
+  },
+  {
+    "id": "N02",
+    "source_id": "eng_test_track1_339",
+    "model": "A_balanced",
+    "seed": null,
+    "mode": "tuned",
+    "truth": [],
+    "raw28": [
+      "neutral"
+    ],
+    "mapped5": [],
+    "fn": [],
+    "fp": []
+  },
+  {
+    "id": "N03",
+    "source_id": "eng_test_track1_2049",
+    "model": "A_balanced",
+    "seed": null,
+    "mode": "tuned",
+    "truth": [
+      "anger"
+    ],
+    "raw28": [
+      "approval",
+      "neutral"
+    ],
+    "mapped5": [
+      "joy"
+    ],
+    "fn": [
+      "anger"
+    ],
+    "fp": [
+      "joy"
+    ]
+  },
+  {
+    "id": "N04",
+    "source_id": "eng_test_track1_1786",
+    "model": "A_balanced",
+    "seed": null,
+    "mode": "tuned",
+    "truth": [
+      "fear"
+    ],
+    "raw28": [
+      "neutral"
+    ],
+    "mapped5": [],
+    "fn": [
+      "fear"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N05",
+    "source_id": "eng_test_track1_590",
+    "model": "A_balanced",
+    "seed": null,
+    "mode": "tuned",
+    "truth": [
+      "joy"
+    ],
+    "raw28": [
+      "disappointment"
+    ],
+    "mapped5": [
+      "sadness"
+    ],
+    "fn": [
+      "joy"
+    ],
+    "fp": [
+      "sadness"
+    ]
+  },
+  {
+    "id": "N06",
+    "source_id": "eng_test_track1_403",
+    "model": "A_balanced",
+    "seed": null,
+    "mode": "tuned",
+    "truth": [
+      "sadness"
+    ],
+    "raw28": [
+      "disappointment",
+      "neutral"
+    ],
+    "mapped5": [
+      "sadness"
+    ],
+    "fn": [],
+    "fp": []
+  },
+  {
+    "id": "N07",
+    "source_id": "eng_test_track1_2537",
+    "model": "A_balanced",
+    "seed": null,
+    "mode": "tuned",
+    "truth": [
+      "surprise"
+    ],
+    "raw28": [
+      "neutral"
+    ],
+    "mapped5": [],
+    "fn": [
+      "surprise"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N08",
+    "source_id": "eng_test_track1_2699",
+    "model": "A_balanced",
+    "seed": null,
+    "mode": "tuned",
+    "truth": [
+      "fear",
+      "sadness"
+    ],
+    "raw28": [],
+    "mapped5": [],
+    "fn": [
+      "fear",
+      "sadness"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N09",
+    "source_id": "eng_test_track1_121",
+    "model": "A_balanced",
+    "seed": null,
+    "mode": "tuned",
+    "truth": [
+      "fear",
+      "sadness"
+    ],
+    "raw28": [
+      "disapproval",
+      "neutral"
+    ],
+    "mapped5": [
+      "anger"
+    ],
+    "fn": [
+      "fear",
+      "sadness"
+    ],
+    "fp": [
+      "anger"
+    ]
+  },
+  {
+    "id": "N10",
+    "source_id": "eng_test_track1_2529",
+    "model": "A_balanced",
+    "seed": null,
+    "mode": "tuned",
+    "truth": [
+      "fear",
+      "sadness"
+    ],
+    "raw28": [
+      "neutral"
+    ],
+    "mapped5": [],
+    "fn": [
+      "fear",
+      "sadness"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N01",
+    "source_id": "eng_test_track1_556",
+    "model": "B",
+    "seed": null,
+    "mode": "fixed",
+    "truth": [],
+    "raw28": [
+      "anger",
+      "annoyance",
+      "confusion",
+      "curiosity",
+      "desire",
+      "disappointment",
+      "disapproval",
+      "disgust",
+      "embarrassment",
+      "fear",
+      "grief",
+      "nervousness",
+      "realization",
+      "sadness",
+      "surprise",
+      "neutral"
+    ],
+    "mapped5": [
+      "anger",
+      "fear",
+      "joy",
+      "sadness",
+      "surprise"
+    ],
+    "fn": [],
+    "fp": [
+      "anger",
+      "fear",
+      "joy",
+      "sadness",
+      "surprise"
+    ]
+  },
+  {
+    "id": "N02",
+    "source_id": "eng_test_track1_339",
+    "model": "B",
+    "seed": null,
+    "mode": "fixed",
+    "truth": [],
+    "raw28": [
+      "admiration",
+      "amusement",
+      "anger",
+      "annoyance",
+      "approval",
+      "caring",
+      "confusion",
+      "curiosity",
+      "desire",
+      "disappointment",
+      "disapproval",
+      "disgust",
+      "embarrassment",
+      "excitement",
+      "fear",
+      "gratitude",
+      "grief",
+      "joy",
+      "love",
+      "nervousness",
+      "pride",
+      "realization",
+      "relief",
+      "remorse",
+      "sadness",
+      "surprise",
+      "neutral"
+    ],
+    "mapped5": [
+      "anger",
+      "fear",
+      "joy",
+      "sadness",
+      "surprise"
+    ],
+    "fn": [],
+    "fp": [
+      "anger",
+      "fear",
+      "joy",
+      "sadness",
+      "surprise"
+    ]
+  },
+  {
+    "id": "N03",
+    "source_id": "eng_test_track1_2049",
+    "model": "B",
+    "seed": null,
+    "mode": "fixed",
+    "truth": [
+      "anger"
+    ],
+    "raw28": [
+      "amusement",
+      "anger",
+      "annoyance",
+      "approval",
+      "confusion",
+      "curiosity",
+      "desire",
+      "disappointment",
+      "disapproval",
+      "disgust",
+      "embarrassment",
+      "nervousness",
+      "realization",
+      "sadness",
+      "surprise"
+    ],
+    "mapped5": [
+      "anger",
+      "fear",
+      "joy",
+      "sadness",
+      "surprise"
+    ],
+    "fn": [],
+    "fp": [
+      "fear",
+      "joy",
+      "sadness",
+      "surprise"
+    ]
+  },
+  {
+    "id": "N04",
+    "source_id": "eng_test_track1_1786",
+    "model": "B",
+    "seed": null,
+    "mode": "fixed",
+    "truth": [
+      "fear"
+    ],
+    "raw28": [
+      "anger",
+      "annoyance",
+      "confusion",
+      "curiosity",
+      "desire",
+      "disappointment",
+      "disapproval",
+      "disgust",
+      "embarrassment",
+      "fear",
+      "grief",
+      "nervousness",
+      "remorse",
+      "sadness",
+      "surprise"
+    ],
+    "mapped5": [
+      "anger",
+      "fear",
+      "joy",
+      "sadness",
+      "surprise"
+    ],
+    "fn": [],
+    "fp": [
+      "anger",
+      "joy",
+      "sadness",
+      "surprise"
+    ]
+  },
+  {
+    "id": "N05",
+    "source_id": "eng_test_track1_590",
+    "model": "B",
+    "seed": null,
+    "mode": "fixed",
+    "truth": [
+      "joy"
+    ],
+    "raw28": [
+      "admiration",
+      "amusement",
+      "approval",
+      "caring",
+      "curiosity",
+      "desire",
+      "excitement",
+      "joy",
+      "love",
+      "optimism"
+    ],
+    "mapped5": [
+      "joy",
+      "surprise"
+    ],
+    "fn": [],
+    "fp": [
+      "surprise"
+    ]
+  },
+  {
+    "id": "N06",
+    "source_id": "eng_test_track1_403",
+    "model": "B",
+    "seed": null,
+    "mode": "fixed",
+    "truth": [
+      "sadness"
+    ],
+    "raw28": [
+      "amusement",
+      "anger",
+      "annoyance",
+      "approval",
+      "caring",
+      "confusion",
+      "curiosity",
+      "desire",
+      "disappointment",
+      "disapproval",
+      "disgust",
+      "embarrassment",
+      "fear",
+      "grief",
+      "nervousness",
+      "realization",
+      "remorse",
+      "sadness",
+      "surprise",
+      "neutral"
+    ],
+    "mapped5": [
+      "anger",
+      "fear",
+      "joy",
+      "sadness",
+      "surprise"
+    ],
+    "fn": [],
+    "fp": [
+      "anger",
+      "fear",
+      "joy",
+      "surprise"
+    ]
+  },
+  {
+    "id": "N07",
+    "source_id": "eng_test_track1_2537",
+    "model": "B",
+    "seed": null,
+    "mode": "fixed",
+    "truth": [
+      "surprise"
+    ],
+    "raw28": [
+      "amusement",
+      "anger",
+      "annoyance",
+      "confusion",
+      "curiosity",
+      "desire",
+      "disappointment",
+      "disapproval",
+      "disgust",
+      "embarrassment",
+      "fear",
+      "grief",
+      "nervousness",
+      "sadness",
+      "surprise"
+    ],
+    "mapped5": [
+      "anger",
+      "fear",
+      "joy",
+      "sadness",
+      "surprise"
+    ],
+    "fn": [],
+    "fp": [
+      "anger",
+      "fear",
+      "joy",
+      "sadness"
+    ]
+  },
+  {
+    "id": "N08",
+    "source_id": "eng_test_track1_2699",
+    "model": "B",
+    "seed": null,
+    "mode": "fixed",
+    "truth": [
+      "fear",
+      "sadness"
+    ],
+    "raw28": [
+      "admiration",
+      "curiosity",
+      "desire",
+      "gratitude",
+      "grief",
+      "sadness",
+      "surprise"
+    ],
+    "mapped5": [
+      "joy",
+      "sadness",
+      "surprise"
+    ],
+    "fn": [
+      "fear"
+    ],
+    "fp": [
+      "joy",
+      "surprise"
+    ]
+  },
+  {
+    "id": "N09",
+    "source_id": "eng_test_track1_121",
+    "model": "B",
+    "seed": null,
+    "mode": "fixed",
+    "truth": [
+      "fear",
+      "sadness"
+    ],
+    "raw28": [
+      "anger",
+      "annoyance",
+      "confusion",
+      "curiosity",
+      "desire",
+      "disappointment",
+      "disapproval",
+      "disgust",
+      "embarrassment",
+      "fear",
+      "grief",
+      "nervousness",
+      "remorse",
+      "sadness",
+      "surprise"
+    ],
+    "mapped5": [
+      "anger",
+      "fear",
+      "joy",
+      "sadness",
+      "surprise"
+    ],
+    "fn": [],
+    "fp": [
+      "anger",
+      "joy",
+      "surprise"
+    ]
+  },
+  {
+    "id": "N10",
+    "source_id": "eng_test_track1_2529",
+    "model": "B",
+    "seed": null,
+    "mode": "fixed",
+    "truth": [
+      "fear",
+      "sadness"
+    ],
+    "raw28": [
+      "admiration",
+      "amusement",
+      "anger",
+      "annoyance",
+      "approval",
+      "confusion",
+      "curiosity",
+      "desire",
+      "disappointment",
+      "disapproval",
+      "disgust",
+      "embarrassment",
+      "fear",
+      "grief",
+      "nervousness",
+      "realization",
+      "remorse",
+      "sadness",
+      "surprise"
+    ],
+    "mapped5": [
+      "anger",
+      "fear",
+      "joy",
+      "sadness",
+      "surprise"
+    ],
+    "fn": [],
+    "fp": [
+      "anger",
+      "joy",
+      "surprise"
+    ]
+  },
+  {
+    "id": "N01",
+    "source_id": "eng_test_track1_556",
+    "model": "B",
+    "seed": null,
+    "mode": "tuned",
+    "truth": [],
+    "raw28": [
+      "confusion",
+      "disappointment",
+      "disapproval",
+      "disgust",
+      "fear",
+      "surprise",
+      "neutral"
+    ],
+    "mapped5": [
+      "anger",
+      "fear",
+      "sadness",
+      "surprise"
+    ],
+    "fn": [],
+    "fp": [
+      "anger",
+      "fear",
+      "sadness",
+      "surprise"
+    ]
+  },
+  {
+    "id": "N02",
+    "source_id": "eng_test_track1_339",
+    "model": "B",
+    "seed": null,
+    "mode": "tuned",
+    "truth": [],
+    "raw28": [
+      "admiration",
+      "anger",
+      "annoyance",
+      "approval",
+      "desire",
+      "disappointment",
+      "disapproval",
+      "disgust",
+      "embarrassment",
+      "fear",
+      "gratitude",
+      "grief",
+      "nervousness",
+      "realization",
+      "relief",
+      "remorse",
+      "sadness",
+      "neutral"
+    ],
+    "mapped5": [
+      "anger",
+      "fear",
+      "joy",
+      "sadness",
+      "surprise"
+    ],
+    "fn": [],
+    "fp": [
+      "anger",
+      "fear",
+      "joy",
+      "sadness",
+      "surprise"
+    ]
+  },
+  {
+    "id": "N03",
+    "source_id": "eng_test_track1_2049",
+    "model": "B",
+    "seed": null,
+    "mode": "tuned",
+    "truth": [
+      "anger"
+    ],
+    "raw28": [
+      "amusement",
+      "anger",
+      "annoyance",
+      "confusion",
+      "disapproval",
+      "disgust",
+      "surprise"
+    ],
+    "mapped5": [
+      "anger",
+      "joy",
+      "surprise"
+    ],
+    "fn": [],
+    "fp": [
+      "joy",
+      "surprise"
+    ]
+  },
+  {
+    "id": "N04",
+    "source_id": "eng_test_track1_1786",
+    "model": "B",
+    "seed": null,
+    "mode": "tuned",
+    "truth": [
+      "fear"
+    ],
+    "raw28": [
+      "anger",
+      "annoyance",
+      "confusion",
+      "curiosity",
+      "disapproval",
+      "disgust",
+      "embarrassment",
+      "fear",
+      "grief",
+      "nervousness",
+      "sadness",
+      "surprise"
+    ],
+    "mapped5": [
+      "anger",
+      "fear",
+      "sadness",
+      "surprise"
+    ],
+    "fn": [],
+    "fp": [
+      "anger",
+      "sadness",
+      "surprise"
+    ]
+  },
+  {
+    "id": "N05",
+    "source_id": "eng_test_track1_590",
+    "model": "B",
+    "seed": null,
+    "mode": "tuned",
+    "truth": [
+      "joy"
+    ],
+    "raw28": [
+      "admiration",
+      "amusement",
+      "approval",
+      "curiosity",
+      "desire",
+      "excitement",
+      "love"
+    ],
+    "mapped5": [
+      "joy",
+      "surprise"
+    ],
+    "fn": [],
+    "fp": [
+      "surprise"
+    ]
+  },
+  {
+    "id": "N06",
+    "source_id": "eng_test_track1_403",
+    "model": "B",
+    "seed": null,
+    "mode": "tuned",
+    "truth": [
+      "sadness"
+    ],
+    "raw28": [
+      "anger",
+      "annoyance",
+      "confusion",
+      "disappointment",
+      "disapproval",
+      "disgust",
+      "embarrassment",
+      "fear",
+      "grief",
+      "nervousness",
+      "realization",
+      "sadness",
+      "surprise",
+      "neutral"
+    ],
+    "mapped5": [
+      "anger",
+      "fear",
+      "sadness",
+      "surprise"
+    ],
+    "fn": [],
+    "fp": [
+      "anger",
+      "fear",
+      "surprise"
+    ]
+  },
+  {
+    "id": "N07",
+    "source_id": "eng_test_track1_2537",
+    "model": "B",
+    "seed": null,
+    "mode": "tuned",
+    "truth": [
+      "surprise"
+    ],
+    "raw28": [
+      "confusion",
+      "curiosity",
+      "disapproval",
+      "surprise"
+    ],
+    "mapped5": [
+      "anger",
+      "surprise"
+    ],
+    "fn": [],
+    "fp": [
+      "anger"
+    ]
+  },
+  {
+    "id": "N08",
+    "source_id": "eng_test_track1_2699",
+    "model": "B",
+    "seed": null,
+    "mode": "tuned",
+    "truth": [
+      "fear",
+      "sadness"
+    ],
+    "raw28": [
+      "sadness",
+      "neutral"
+    ],
+    "mapped5": [
+      "sadness"
+    ],
+    "fn": [
+      "fear"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N09",
+    "source_id": "eng_test_track1_121",
+    "model": "B",
+    "seed": null,
+    "mode": "tuned",
+    "truth": [
+      "fear",
+      "sadness"
+    ],
+    "raw28": [
+      "anger",
+      "annoyance",
+      "confusion",
+      "disappointment",
+      "disapproval",
+      "nervousness",
+      "surprise",
+      "neutral"
+    ],
+    "mapped5": [
+      "anger",
+      "fear",
+      "sadness",
+      "surprise"
+    ],
+    "fn": [],
+    "fp": [
+      "anger",
+      "surprise"
+    ]
+  },
+  {
+    "id": "N10",
+    "source_id": "eng_test_track1_2529",
+    "model": "B",
+    "seed": null,
+    "mode": "tuned",
+    "truth": [
+      "fear",
+      "sadness"
+    ],
+    "raw28": [
+      "annoyance",
+      "embarrassment",
+      "realization",
+      "surprise",
+      "neutral"
+    ],
+    "mapped5": [
+      "anger",
+      "sadness",
+      "surprise"
+    ],
+    "fn": [
+      "fear"
+    ],
+    "fp": [
+      "anger",
+      "surprise"
+    ]
+  },
+  {
+    "id": "N01",
+    "source_id": "eng_test_track1_556",
+    "model": "bert",
+    "seed": 42,
+    "mode": "fixed",
+    "truth": [],
+    "raw28": [
+      "disapproval"
+    ],
+    "mapped5": [
+      "anger"
+    ],
+    "fn": [],
+    "fp": [
+      "anger"
+    ]
+  },
+  {
+    "id": "N02",
+    "source_id": "eng_test_track1_339",
+    "model": "bert",
+    "seed": 42,
+    "mode": "fixed",
+    "truth": [],
+    "raw28": [
+      "neutral"
+    ],
+    "mapped5": [],
+    "fn": [],
+    "fp": []
+  },
+  {
+    "id": "N03",
+    "source_id": "eng_test_track1_2049",
+    "model": "bert",
+    "seed": 42,
+    "mode": "fixed",
+    "truth": [
+      "anger"
+    ],
+    "raw28": [
+      "neutral"
+    ],
+    "mapped5": [],
+    "fn": [
+      "anger"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N04",
+    "source_id": "eng_test_track1_1786",
+    "model": "bert",
+    "seed": 42,
+    "mode": "fixed",
+    "truth": [
+      "fear"
+    ],
+    "raw28": [
+      "surprise"
+    ],
+    "mapped5": [
+      "surprise"
+    ],
+    "fn": [
+      "fear"
+    ],
+    "fp": [
+      "surprise"
+    ]
+  },
+  {
+    "id": "N05",
+    "source_id": "eng_test_track1_590",
+    "model": "bert",
+    "seed": 42,
+    "mode": "fixed",
+    "truth": [
+      "joy"
+    ],
+    "raw28": [
+      "desire"
+    ],
+    "mapped5": [
+      "joy"
+    ],
+    "fn": [],
+    "fp": []
+  },
+  {
+    "id": "N06",
+    "source_id": "eng_test_track1_403",
+    "model": "bert",
+    "seed": 42,
+    "mode": "fixed",
+    "truth": [
+      "sadness"
+    ],
+    "raw28": [
+      "neutral"
+    ],
+    "mapped5": [],
+    "fn": [
+      "sadness"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N07",
+    "source_id": "eng_test_track1_2537",
+    "model": "bert",
+    "seed": 42,
+    "mode": "fixed",
+    "truth": [
+      "surprise"
+    ],
+    "raw28": [
+      "confusion",
+      "curiosity"
+    ],
+    "mapped5": [
+      "surprise"
+    ],
+    "fn": [],
+    "fp": []
+  },
+  {
+    "id": "N08",
+    "source_id": "eng_test_track1_2699",
+    "model": "bert",
+    "seed": 42,
+    "mode": "fixed",
+    "truth": [
+      "fear",
+      "sadness"
+    ],
+    "raw28": [],
+    "mapped5": [],
+    "fn": [
+      "fear",
+      "sadness"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N09",
+    "source_id": "eng_test_track1_121",
+    "model": "bert",
+    "seed": 42,
+    "mode": "fixed",
+    "truth": [
+      "fear",
+      "sadness"
+    ],
+    "raw28": [
+      "neutral"
+    ],
+    "mapped5": [],
+    "fn": [
+      "fear",
+      "sadness"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N10",
+    "source_id": "eng_test_track1_2529",
+    "model": "bert",
+    "seed": 42,
+    "mode": "fixed",
+    "truth": [
+      "fear",
+      "sadness"
+    ],
+    "raw28": [
+      "neutral"
+    ],
+    "mapped5": [],
+    "fn": [
+      "fear",
+      "sadness"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N01",
+    "source_id": "eng_test_track1_556",
+    "model": "bert",
+    "seed": 42,
+    "mode": "tuned",
+    "truth": [],
+    "raw28": [
+      "disapproval"
+    ],
+    "mapped5": [
+      "anger"
+    ],
+    "fn": [],
+    "fp": [
+      "anger"
+    ]
+  },
+  {
+    "id": "N02",
+    "source_id": "eng_test_track1_339",
+    "model": "bert",
+    "seed": 42,
+    "mode": "tuned",
+    "truth": [],
+    "raw28": [
+      "neutral"
+    ],
+    "mapped5": [],
+    "fn": [],
+    "fp": []
+  },
+  {
+    "id": "N03",
+    "source_id": "eng_test_track1_2049",
+    "model": "bert",
+    "seed": 42,
+    "mode": "tuned",
+    "truth": [
+      "anger"
+    ],
+    "raw28": [
+      "neutral"
+    ],
+    "mapped5": [],
+    "fn": [
+      "anger"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N04",
+    "source_id": "eng_test_track1_1786",
+    "model": "bert",
+    "seed": 42,
+    "mode": "tuned",
+    "truth": [
+      "fear"
+    ],
+    "raw28": [
+      "surprise"
+    ],
+    "mapped5": [
+      "surprise"
+    ],
+    "fn": [
+      "fear"
+    ],
+    "fp": [
+      "surprise"
+    ]
+  },
+  {
+    "id": "N05",
+    "source_id": "eng_test_track1_590",
+    "model": "bert",
+    "seed": 42,
+    "mode": "tuned",
+    "truth": [
+      "joy"
+    ],
+    "raw28": [
+      "desire"
+    ],
+    "mapped5": [
+      "joy"
+    ],
+    "fn": [],
+    "fp": []
+  },
+  {
+    "id": "N06",
+    "source_id": "eng_test_track1_403",
+    "model": "bert",
+    "seed": 42,
+    "mode": "tuned",
+    "truth": [
+      "sadness"
+    ],
+    "raw28": [
+      "neutral"
+    ],
+    "mapped5": [],
+    "fn": [
+      "sadness"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N07",
+    "source_id": "eng_test_track1_2537",
+    "model": "bert",
+    "seed": 42,
+    "mode": "tuned",
+    "truth": [
+      "surprise"
+    ],
+    "raw28": [
+      "confusion",
+      "curiosity"
+    ],
+    "mapped5": [
+      "surprise"
+    ],
+    "fn": [],
+    "fp": []
+  },
+  {
+    "id": "N08",
+    "source_id": "eng_test_track1_2699",
+    "model": "bert",
+    "seed": 42,
+    "mode": "tuned",
+    "truth": [
+      "fear",
+      "sadness"
+    ],
+    "raw28": [
+      "neutral"
+    ],
+    "mapped5": [],
+    "fn": [
+      "fear",
+      "sadness"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N09",
+    "source_id": "eng_test_track1_121",
+    "model": "bert",
+    "seed": 42,
+    "mode": "tuned",
+    "truth": [
+      "fear",
+      "sadness"
+    ],
+    "raw28": [
+      "neutral"
+    ],
+    "mapped5": [],
+    "fn": [
+      "fear",
+      "sadness"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N10",
+    "source_id": "eng_test_track1_2529",
+    "model": "bert",
+    "seed": 42,
+    "mode": "tuned",
+    "truth": [
+      "fear",
+      "sadness"
+    ],
+    "raw28": [
+      "neutral"
+    ],
+    "mapped5": [],
+    "fn": [
+      "fear",
+      "sadness"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N01",
+    "source_id": "eng_test_track1_556",
+    "model": "bert",
+    "seed": 123,
+    "mode": "fixed",
+    "truth": [],
+    "raw28": [
+      "disapproval"
+    ],
+    "mapped5": [
+      "anger"
+    ],
+    "fn": [],
+    "fp": [
+      "anger"
+    ]
+  },
+  {
+    "id": "N02",
+    "source_id": "eng_test_track1_339",
+    "model": "bert",
+    "seed": 123,
+    "mode": "fixed",
+    "truth": [],
+    "raw28": [
+      "neutral"
+    ],
+    "mapped5": [],
+    "fn": [],
+    "fp": []
+  },
+  {
+    "id": "N03",
+    "source_id": "eng_test_track1_2049",
+    "model": "bert",
+    "seed": 123,
+    "mode": "fixed",
+    "truth": [
+      "anger"
+    ],
+    "raw28": [
+      "neutral"
+    ],
+    "mapped5": [],
+    "fn": [
+      "anger"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N04",
+    "source_id": "eng_test_track1_1786",
+    "model": "bert",
+    "seed": 123,
+    "mode": "fixed",
+    "truth": [
+      "fear"
+    ],
+    "raw28": [
+      "surprise"
+    ],
+    "mapped5": [
+      "surprise"
+    ],
+    "fn": [
+      "fear"
+    ],
+    "fp": [
+      "surprise"
+    ]
+  },
+  {
+    "id": "N05",
+    "source_id": "eng_test_track1_590",
+    "model": "bert",
+    "seed": 123,
+    "mode": "fixed",
+    "truth": [
+      "joy"
+    ],
+    "raw28": [],
+    "mapped5": [],
+    "fn": [
+      "joy"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N06",
+    "source_id": "eng_test_track1_403",
+    "model": "bert",
+    "seed": 123,
+    "mode": "fixed",
+    "truth": [
+      "sadness"
+    ],
+    "raw28": [
+      "neutral"
+    ],
+    "mapped5": [],
+    "fn": [
+      "sadness"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N07",
+    "source_id": "eng_test_track1_2537",
+    "model": "bert",
+    "seed": 123,
+    "mode": "fixed",
+    "truth": [
+      "surprise"
+    ],
+    "raw28": [
+      "confusion",
+      "curiosity"
+    ],
+    "mapped5": [
+      "surprise"
+    ],
+    "fn": [],
+    "fp": []
+  },
+  {
+    "id": "N08",
+    "source_id": "eng_test_track1_2699",
+    "model": "bert",
+    "seed": 123,
+    "mode": "fixed",
+    "truth": [
+      "fear",
+      "sadness"
+    ],
+    "raw28": [
+      "sadness"
+    ],
+    "mapped5": [
+      "sadness"
+    ],
+    "fn": [
+      "fear"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N09",
+    "source_id": "eng_test_track1_121",
+    "model": "bert",
+    "seed": 123,
+    "mode": "fixed",
+    "truth": [
+      "fear",
+      "sadness"
+    ],
+    "raw28": [
+      "neutral"
+    ],
+    "mapped5": [],
+    "fn": [
+      "fear",
+      "sadness"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N10",
+    "source_id": "eng_test_track1_2529",
+    "model": "bert",
+    "seed": 123,
+    "mode": "fixed",
+    "truth": [
+      "fear",
+      "sadness"
+    ],
+    "raw28": [],
+    "mapped5": [],
+    "fn": [
+      "fear",
+      "sadness"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N01",
+    "source_id": "eng_test_track1_556",
+    "model": "bert",
+    "seed": 123,
+    "mode": "tuned",
+    "truth": [],
+    "raw28": [
+      "disapproval"
+    ],
+    "mapped5": [
+      "anger"
+    ],
+    "fn": [],
+    "fp": [
+      "anger"
+    ]
+  },
+  {
+    "id": "N02",
+    "source_id": "eng_test_track1_339",
+    "model": "bert",
+    "seed": 123,
+    "mode": "tuned",
+    "truth": [],
+    "raw28": [
+      "neutral"
+    ],
+    "mapped5": [],
+    "fn": [],
+    "fp": []
+  },
+  {
+    "id": "N03",
+    "source_id": "eng_test_track1_2049",
+    "model": "bert",
+    "seed": 123,
+    "mode": "tuned",
+    "truth": [
+      "anger"
+    ],
+    "raw28": [
+      "amusement",
+      "neutral"
+    ],
+    "mapped5": [
+      "joy"
+    ],
+    "fn": [
+      "anger"
+    ],
+    "fp": [
+      "joy"
+    ]
+  },
+  {
+    "id": "N04",
+    "source_id": "eng_test_track1_1786",
+    "model": "bert",
+    "seed": 123,
+    "mode": "tuned",
+    "truth": [
+      "fear"
+    ],
+    "raw28": [
+      "surprise"
+    ],
+    "mapped5": [
+      "surprise"
+    ],
+    "fn": [
+      "fear"
+    ],
+    "fp": [
+      "surprise"
+    ]
+  },
+  {
+    "id": "N05",
+    "source_id": "eng_test_track1_590",
+    "model": "bert",
+    "seed": 123,
+    "mode": "tuned",
+    "truth": [
+      "joy"
+    ],
+    "raw28": [
+      "neutral"
+    ],
+    "mapped5": [],
+    "fn": [
+      "joy"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N06",
+    "source_id": "eng_test_track1_403",
+    "model": "bert",
+    "seed": 123,
+    "mode": "tuned",
+    "truth": [
+      "sadness"
+    ],
+    "raw28": [
+      "neutral"
+    ],
+    "mapped5": [],
+    "fn": [
+      "sadness"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N07",
+    "source_id": "eng_test_track1_2537",
+    "model": "bert",
+    "seed": 123,
+    "mode": "tuned",
+    "truth": [
+      "surprise"
+    ],
+    "raw28": [
+      "confusion",
+      "curiosity"
+    ],
+    "mapped5": [
+      "surprise"
+    ],
+    "fn": [],
+    "fp": []
+  },
+  {
+    "id": "N08",
+    "source_id": "eng_test_track1_2699",
+    "model": "bert",
+    "seed": 123,
+    "mode": "tuned",
+    "truth": [
+      "fear",
+      "sadness"
+    ],
+    "raw28": [
+      "sadness"
+    ],
+    "mapped5": [
+      "sadness"
+    ],
+    "fn": [
+      "fear"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N09",
+    "source_id": "eng_test_track1_121",
+    "model": "bert",
+    "seed": 123,
+    "mode": "tuned",
+    "truth": [
+      "fear",
+      "sadness"
+    ],
+    "raw28": [
+      "neutral"
+    ],
+    "mapped5": [],
+    "fn": [
+      "fear",
+      "sadness"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N10",
+    "source_id": "eng_test_track1_2529",
+    "model": "bert",
+    "seed": 123,
+    "mode": "tuned",
+    "truth": [
+      "fear",
+      "sadness"
+    ],
+    "raw28": [
+      "neutral"
+    ],
+    "mapped5": [],
+    "fn": [
+      "fear",
+      "sadness"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N01",
+    "source_id": "eng_test_track1_556",
+    "model": "bert",
+    "seed": 2026,
+    "mode": "fixed",
+    "truth": [],
+    "raw28": [
+      "disapproval"
+    ],
+    "mapped5": [
+      "anger"
+    ],
+    "fn": [],
+    "fp": [
+      "anger"
+    ]
+  },
+  {
+    "id": "N02",
+    "source_id": "eng_test_track1_339",
+    "model": "bert",
+    "seed": 2026,
+    "mode": "fixed",
+    "truth": [],
+    "raw28": [
+      "neutral"
+    ],
+    "mapped5": [],
+    "fn": [],
+    "fp": []
+  },
+  {
+    "id": "N03",
+    "source_id": "eng_test_track1_2049",
+    "model": "bert",
+    "seed": 2026,
+    "mode": "fixed",
+    "truth": [
+      "anger"
+    ],
+    "raw28": [
+      "approval",
+      "neutral"
+    ],
+    "mapped5": [
+      "joy"
+    ],
+    "fn": [
+      "anger"
+    ],
+    "fp": [
+      "joy"
+    ]
+  },
+  {
+    "id": "N04",
+    "source_id": "eng_test_track1_1786",
+    "model": "bert",
+    "seed": 2026,
+    "mode": "fixed",
+    "truth": [
+      "fear"
+    ],
+    "raw28": [
+      "surprise"
+    ],
+    "mapped5": [
+      "surprise"
+    ],
+    "fn": [
+      "fear"
+    ],
+    "fp": [
+      "surprise"
+    ]
+  },
+  {
+    "id": "N05",
+    "source_id": "eng_test_track1_590",
+    "model": "bert",
+    "seed": 2026,
+    "mode": "fixed",
+    "truth": [
+      "joy"
+    ],
+    "raw28": [],
+    "mapped5": [],
+    "fn": [
+      "joy"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N06",
+    "source_id": "eng_test_track1_403",
+    "model": "bert",
+    "seed": 2026,
+    "mode": "fixed",
+    "truth": [
+      "sadness"
+    ],
+    "raw28": [
+      "neutral"
+    ],
+    "mapped5": [],
+    "fn": [
+      "sadness"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N07",
+    "source_id": "eng_test_track1_2537",
+    "model": "bert",
+    "seed": 2026,
+    "mode": "fixed",
+    "truth": [
+      "surprise"
+    ],
+    "raw28": [
+      "curiosity"
+    ],
+    "mapped5": [
+      "surprise"
+    ],
+    "fn": [],
+    "fp": []
+  },
+  {
+    "id": "N08",
+    "source_id": "eng_test_track1_2699",
+    "model": "bert",
+    "seed": 2026,
+    "mode": "fixed",
+    "truth": [
+      "fear",
+      "sadness"
+    ],
+    "raw28": [],
+    "mapped5": [],
+    "fn": [
+      "fear",
+      "sadness"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N09",
+    "source_id": "eng_test_track1_121",
+    "model": "bert",
+    "seed": 2026,
+    "mode": "fixed",
+    "truth": [
+      "fear",
+      "sadness"
+    ],
+    "raw28": [
+      "neutral"
+    ],
+    "mapped5": [],
+    "fn": [
+      "fear",
+      "sadness"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N10",
+    "source_id": "eng_test_track1_2529",
+    "model": "bert",
+    "seed": 2026,
+    "mode": "fixed",
+    "truth": [
+      "fear",
+      "sadness"
+    ],
+    "raw28": [
+      "neutral"
+    ],
+    "mapped5": [],
+    "fn": [
+      "fear",
+      "sadness"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N01",
+    "source_id": "eng_test_track1_556",
+    "model": "bert",
+    "seed": 2026,
+    "mode": "tuned",
+    "truth": [],
+    "raw28": [
+      "disapproval"
+    ],
+    "mapped5": [
+      "anger"
+    ],
+    "fn": [],
+    "fp": [
+      "anger"
+    ]
+  },
+  {
+    "id": "N02",
+    "source_id": "eng_test_track1_339",
+    "model": "bert",
+    "seed": 2026,
+    "mode": "tuned",
+    "truth": [],
+    "raw28": [
+      "neutral"
+    ],
+    "mapped5": [],
+    "fn": [],
+    "fp": []
+  },
+  {
+    "id": "N03",
+    "source_id": "eng_test_track1_2049",
+    "model": "bert",
+    "seed": 2026,
+    "mode": "tuned",
+    "truth": [
+      "anger"
+    ],
+    "raw28": [
+      "approval",
+      "neutral"
+    ],
+    "mapped5": [
+      "joy"
+    ],
+    "fn": [
+      "anger"
+    ],
+    "fp": [
+      "joy"
+    ]
+  },
+  {
+    "id": "N04",
+    "source_id": "eng_test_track1_1786",
+    "model": "bert",
+    "seed": 2026,
+    "mode": "tuned",
+    "truth": [
+      "fear"
+    ],
+    "raw28": [
+      "surprise"
+    ],
+    "mapped5": [
+      "surprise"
+    ],
+    "fn": [
+      "fear"
+    ],
+    "fp": [
+      "surprise"
+    ]
+  },
+  {
+    "id": "N05",
+    "source_id": "eng_test_track1_590",
+    "model": "bert",
+    "seed": 2026,
+    "mode": "tuned",
+    "truth": [
+      "joy"
+    ],
+    "raw28": [],
+    "mapped5": [],
+    "fn": [
+      "joy"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N06",
+    "source_id": "eng_test_track1_403",
+    "model": "bert",
+    "seed": 2026,
+    "mode": "tuned",
+    "truth": [
+      "sadness"
+    ],
+    "raw28": [
+      "disappointment",
+      "neutral"
+    ],
+    "mapped5": [
+      "sadness"
+    ],
+    "fn": [],
+    "fp": []
+  },
+  {
+    "id": "N07",
+    "source_id": "eng_test_track1_2537",
+    "model": "bert",
+    "seed": 2026,
+    "mode": "tuned",
+    "truth": [
+      "surprise"
+    ],
+    "raw28": [
+      "confusion",
+      "curiosity"
+    ],
+    "mapped5": [
+      "surprise"
+    ],
+    "fn": [],
+    "fp": []
+  },
+  {
+    "id": "N08",
+    "source_id": "eng_test_track1_2699",
+    "model": "bert",
+    "seed": 2026,
+    "mode": "tuned",
+    "truth": [
+      "fear",
+      "sadness"
+    ],
+    "raw28": [
+      "sadness"
+    ],
+    "mapped5": [
+      "sadness"
+    ],
+    "fn": [
+      "fear"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N09",
+    "source_id": "eng_test_track1_121",
+    "model": "bert",
+    "seed": 2026,
+    "mode": "tuned",
+    "truth": [
+      "fear",
+      "sadness"
+    ],
+    "raw28": [
+      "neutral"
+    ],
+    "mapped5": [],
+    "fn": [
+      "fear",
+      "sadness"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N10",
+    "source_id": "eng_test_track1_2529",
+    "model": "bert",
+    "seed": 2026,
+    "mode": "tuned",
+    "truth": [
+      "fear",
+      "sadness"
+    ],
+    "raw28": [
+      "neutral"
+    ],
+    "mapped5": [],
+    "fn": [
+      "fear",
+      "sadness"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N01",
+    "source_id": "eng_test_track1_556",
+    "model": "roberta",
+    "seed": 42,
+    "mode": "fixed",
+    "truth": [],
+    "raw28": [
+      "disapproval"
+    ],
+    "mapped5": [
+      "anger"
+    ],
+    "fn": [],
+    "fp": [
+      "anger"
+    ]
+  },
+  {
+    "id": "N02",
+    "source_id": "eng_test_track1_339",
+    "model": "roberta",
+    "seed": 42,
+    "mode": "fixed",
+    "truth": [],
+    "raw28": [
+      "neutral"
+    ],
+    "mapped5": [],
+    "fn": [],
+    "fp": []
+  },
+  {
+    "id": "N03",
+    "source_id": "eng_test_track1_2049",
+    "model": "roberta",
+    "seed": 42,
+    "mode": "fixed",
+    "truth": [
+      "anger"
+    ],
+    "raw28": [
+      "neutral"
+    ],
+    "mapped5": [],
+    "fn": [
+      "anger"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N04",
+    "source_id": "eng_test_track1_1786",
+    "model": "roberta",
+    "seed": 42,
+    "mode": "fixed",
+    "truth": [
+      "fear"
+    ],
+    "raw28": [
+      "surprise"
+    ],
+    "mapped5": [
+      "surprise"
+    ],
+    "fn": [
+      "fear"
+    ],
+    "fp": [
+      "surprise"
+    ]
+  },
+  {
+    "id": "N05",
+    "source_id": "eng_test_track1_590",
+    "model": "roberta",
+    "seed": 42,
+    "mode": "fixed",
+    "truth": [
+      "joy"
+    ],
+    "raw28": [
+      "desire"
+    ],
+    "mapped5": [
+      "joy"
+    ],
+    "fn": [],
+    "fp": []
+  },
+  {
+    "id": "N06",
+    "source_id": "eng_test_track1_403",
+    "model": "roberta",
+    "seed": 42,
+    "mode": "fixed",
+    "truth": [
+      "sadness"
+    ],
+    "raw28": [],
+    "mapped5": [],
+    "fn": [
+      "sadness"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N07",
+    "source_id": "eng_test_track1_2537",
+    "model": "roberta",
+    "seed": 42,
+    "mode": "fixed",
+    "truth": [
+      "surprise"
+    ],
+    "raw28": [],
+    "mapped5": [],
+    "fn": [
+      "surprise"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N08",
+    "source_id": "eng_test_track1_2699",
+    "model": "roberta",
+    "seed": 42,
+    "mode": "fixed",
+    "truth": [
+      "fear",
+      "sadness"
+    ],
+    "raw28": [],
+    "mapped5": [],
+    "fn": [
+      "fear",
+      "sadness"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N09",
+    "source_id": "eng_test_track1_121",
+    "model": "roberta",
+    "seed": 42,
+    "mode": "fixed",
+    "truth": [
+      "fear",
+      "sadness"
+    ],
+    "raw28": [
+      "neutral"
+    ],
+    "mapped5": [],
+    "fn": [
+      "fear",
+      "sadness"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N10",
+    "source_id": "eng_test_track1_2529",
+    "model": "roberta",
+    "seed": 42,
+    "mode": "fixed",
+    "truth": [
+      "fear",
+      "sadness"
+    ],
+    "raw28": [
+      "neutral"
+    ],
+    "mapped5": [],
+    "fn": [
+      "fear",
+      "sadness"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N01",
+    "source_id": "eng_test_track1_556",
+    "model": "roberta",
+    "seed": 42,
+    "mode": "tuned",
+    "truth": [],
+    "raw28": [
+      "disapproval"
+    ],
+    "mapped5": [
+      "anger"
+    ],
+    "fn": [],
+    "fp": [
+      "anger"
+    ]
+  },
+  {
+    "id": "N02",
+    "source_id": "eng_test_track1_339",
+    "model": "roberta",
+    "seed": 42,
+    "mode": "tuned",
+    "truth": [],
+    "raw28": [
+      "neutral"
+    ],
+    "mapped5": [],
+    "fn": [],
+    "fp": []
+  },
+  {
+    "id": "N03",
+    "source_id": "eng_test_track1_2049",
+    "model": "roberta",
+    "seed": 42,
+    "mode": "tuned",
+    "truth": [
+      "anger"
+    ],
+    "raw28": [
+      "neutral"
+    ],
+    "mapped5": [],
+    "fn": [
+      "anger"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N04",
+    "source_id": "eng_test_track1_1786",
+    "model": "roberta",
+    "seed": 42,
+    "mode": "tuned",
+    "truth": [
+      "fear"
+    ],
+    "raw28": [
+      "surprise"
+    ],
+    "mapped5": [
+      "surprise"
+    ],
+    "fn": [
+      "fear"
+    ],
+    "fp": [
+      "surprise"
+    ]
+  },
+  {
+    "id": "N05",
+    "source_id": "eng_test_track1_590",
+    "model": "roberta",
+    "seed": 42,
+    "mode": "tuned",
+    "truth": [
+      "joy"
+    ],
+    "raw28": [
+      "desire"
+    ],
+    "mapped5": [
+      "joy"
+    ],
+    "fn": [],
+    "fp": []
+  },
+  {
+    "id": "N06",
+    "source_id": "eng_test_track1_403",
+    "model": "roberta",
+    "seed": 42,
+    "mode": "tuned",
+    "truth": [
+      "sadness"
+    ],
+    "raw28": [
+      "disappointment",
+      "neutral"
+    ],
+    "mapped5": [
+      "sadness"
+    ],
+    "fn": [],
+    "fp": []
+  },
+  {
+    "id": "N07",
+    "source_id": "eng_test_track1_2537",
+    "model": "roberta",
+    "seed": 42,
+    "mode": "tuned",
+    "truth": [
+      "surprise"
+    ],
+    "raw28": [
+      "confusion",
+      "curiosity",
+      "neutral"
+    ],
+    "mapped5": [
+      "surprise"
+    ],
+    "fn": [],
+    "fp": []
+  },
+  {
+    "id": "N08",
+    "source_id": "eng_test_track1_2699",
+    "model": "roberta",
+    "seed": 42,
+    "mode": "tuned",
+    "truth": [
+      "fear",
+      "sadness"
+    ],
+    "raw28": [
+      "sadness",
+      "neutral"
+    ],
+    "mapped5": [
+      "sadness"
+    ],
+    "fn": [
+      "fear"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N09",
+    "source_id": "eng_test_track1_121",
+    "model": "roberta",
+    "seed": 42,
+    "mode": "tuned",
+    "truth": [
+      "fear",
+      "sadness"
+    ],
+    "raw28": [
+      "disapproval",
+      "neutral"
+    ],
+    "mapped5": [
+      "anger"
+    ],
+    "fn": [
+      "fear",
+      "sadness"
+    ],
+    "fp": [
+      "anger"
+    ]
+  },
+  {
+    "id": "N10",
+    "source_id": "eng_test_track1_2529",
+    "model": "roberta",
+    "seed": 42,
+    "mode": "tuned",
+    "truth": [
+      "fear",
+      "sadness"
+    ],
+    "raw28": [
+      "neutral"
+    ],
+    "mapped5": [],
+    "fn": [
+      "fear",
+      "sadness"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N01",
+    "source_id": "eng_test_track1_556",
+    "model": "roberta",
+    "seed": 123,
+    "mode": "fixed",
+    "truth": [],
+    "raw28": [
+      "disapproval"
+    ],
+    "mapped5": [
+      "anger"
+    ],
+    "fn": [],
+    "fp": [
+      "anger"
+    ]
+  },
+  {
+    "id": "N02",
+    "source_id": "eng_test_track1_339",
+    "model": "roberta",
+    "seed": 123,
+    "mode": "fixed",
+    "truth": [],
+    "raw28": [
+      "neutral"
+    ],
+    "mapped5": [],
+    "fn": [],
+    "fp": []
+  },
+  {
+    "id": "N03",
+    "source_id": "eng_test_track1_2049",
+    "model": "roberta",
+    "seed": 123,
+    "mode": "fixed",
+    "truth": [
+      "anger"
+    ],
+    "raw28": [
+      "amusement"
+    ],
+    "mapped5": [
+      "joy"
+    ],
+    "fn": [
+      "anger"
+    ],
+    "fp": [
+      "joy"
+    ]
+  },
+  {
+    "id": "N04",
+    "source_id": "eng_test_track1_1786",
+    "model": "roberta",
+    "seed": 123,
+    "mode": "fixed",
+    "truth": [
+      "fear"
+    ],
+    "raw28": [
+      "surprise"
+    ],
+    "mapped5": [
+      "surprise"
+    ],
+    "fn": [
+      "fear"
+    ],
+    "fp": [
+      "surprise"
+    ]
+  },
+  {
+    "id": "N05",
+    "source_id": "eng_test_track1_590",
+    "model": "roberta",
+    "seed": 123,
+    "mode": "fixed",
+    "truth": [
+      "joy"
+    ],
+    "raw28": [],
+    "mapped5": [],
+    "fn": [
+      "joy"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N06",
+    "source_id": "eng_test_track1_403",
+    "model": "roberta",
+    "seed": 123,
+    "mode": "fixed",
+    "truth": [
+      "sadness"
+    ],
+    "raw28": [
+      "neutral"
+    ],
+    "mapped5": [],
+    "fn": [
+      "sadness"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N07",
+    "source_id": "eng_test_track1_2537",
+    "model": "roberta",
+    "seed": 123,
+    "mode": "fixed",
+    "truth": [
+      "surprise"
+    ],
+    "raw28": [],
+    "mapped5": [],
+    "fn": [
+      "surprise"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N08",
+    "source_id": "eng_test_track1_2699",
+    "model": "roberta",
+    "seed": 123,
+    "mode": "fixed",
+    "truth": [
+      "fear",
+      "sadness"
+    ],
+    "raw28": [
+      "sadness"
+    ],
+    "mapped5": [
+      "sadness"
+    ],
+    "fn": [
+      "fear"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N09",
+    "source_id": "eng_test_track1_121",
+    "model": "roberta",
+    "seed": 123,
+    "mode": "fixed",
+    "truth": [
+      "fear",
+      "sadness"
+    ],
+    "raw28": [
+      "disapproval"
+    ],
+    "mapped5": [
+      "anger"
+    ],
+    "fn": [
+      "fear",
+      "sadness"
+    ],
+    "fp": [
+      "anger"
+    ]
+  },
+  {
+    "id": "N10",
+    "source_id": "eng_test_track1_2529",
+    "model": "roberta",
+    "seed": 123,
+    "mode": "fixed",
+    "truth": [
+      "fear",
+      "sadness"
+    ],
+    "raw28": [
+      "neutral"
+    ],
+    "mapped5": [],
+    "fn": [
+      "fear",
+      "sadness"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N01",
+    "source_id": "eng_test_track1_556",
+    "model": "roberta",
+    "seed": 123,
+    "mode": "tuned",
+    "truth": [],
+    "raw28": [
+      "disapproval"
+    ],
+    "mapped5": [
+      "anger"
+    ],
+    "fn": [],
+    "fp": [
+      "anger"
+    ]
+  },
+  {
+    "id": "N02",
+    "source_id": "eng_test_track1_339",
+    "model": "roberta",
+    "seed": 123,
+    "mode": "tuned",
+    "truth": [],
+    "raw28": [
+      "neutral"
+    ],
+    "mapped5": [],
+    "fn": [],
+    "fp": []
+  },
+  {
+    "id": "N03",
+    "source_id": "eng_test_track1_2049",
+    "model": "roberta",
+    "seed": 123,
+    "mode": "tuned",
+    "truth": [
+      "anger"
+    ],
+    "raw28": [
+      "amusement",
+      "neutral"
+    ],
+    "mapped5": [
+      "joy"
+    ],
+    "fn": [
+      "anger"
+    ],
+    "fp": [
+      "joy"
+    ]
+  },
+  {
+    "id": "N04",
+    "source_id": "eng_test_track1_1786",
+    "model": "roberta",
+    "seed": 123,
+    "mode": "tuned",
+    "truth": [
+      "fear"
+    ],
+    "raw28": [
+      "surprise"
+    ],
+    "mapped5": [
+      "surprise"
+    ],
+    "fn": [
+      "fear"
+    ],
+    "fp": [
+      "surprise"
+    ]
+  },
+  {
+    "id": "N05",
+    "source_id": "eng_test_track1_590",
+    "model": "roberta",
+    "seed": 123,
+    "mode": "tuned",
+    "truth": [
+      "joy"
+    ],
+    "raw28": [
+      "desire",
+      "neutral"
+    ],
+    "mapped5": [
+      "joy"
+    ],
+    "fn": [],
+    "fp": []
+  },
+  {
+    "id": "N06",
+    "source_id": "eng_test_track1_403",
+    "model": "roberta",
+    "seed": 123,
+    "mode": "tuned",
+    "truth": [
+      "sadness"
+    ],
+    "raw28": [
+      "disappointment",
+      "neutral"
+    ],
+    "mapped5": [
+      "sadness"
+    ],
+    "fn": [],
+    "fp": []
+  },
+  {
+    "id": "N07",
+    "source_id": "eng_test_track1_2537",
+    "model": "roberta",
+    "seed": 123,
+    "mode": "tuned",
+    "truth": [
+      "surprise"
+    ],
+    "raw28": [
+      "confusion",
+      "curiosity"
+    ],
+    "mapped5": [
+      "surprise"
+    ],
+    "fn": [],
+    "fp": []
+  },
+  {
+    "id": "N08",
+    "source_id": "eng_test_track1_2699",
+    "model": "roberta",
+    "seed": 123,
+    "mode": "tuned",
+    "truth": [
+      "fear",
+      "sadness"
+    ],
+    "raw28": [
+      "sadness"
+    ],
+    "mapped5": [
+      "sadness"
+    ],
+    "fn": [
+      "fear"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N09",
+    "source_id": "eng_test_track1_121",
+    "model": "roberta",
+    "seed": 123,
+    "mode": "tuned",
+    "truth": [
+      "fear",
+      "sadness"
+    ],
+    "raw28": [
+      "disapproval",
+      "neutral"
+    ],
+    "mapped5": [
+      "anger"
+    ],
+    "fn": [
+      "fear",
+      "sadness"
+    ],
+    "fp": [
+      "anger"
+    ]
+  },
+  {
+    "id": "N10",
+    "source_id": "eng_test_track1_2529",
+    "model": "roberta",
+    "seed": 123,
+    "mode": "tuned",
+    "truth": [
+      "fear",
+      "sadness"
+    ],
+    "raw28": [
+      "neutral"
+    ],
+    "mapped5": [],
+    "fn": [
+      "fear",
+      "sadness"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N01",
+    "source_id": "eng_test_track1_556",
+    "model": "roberta",
+    "seed": 2026,
+    "mode": "fixed",
+    "truth": [],
+    "raw28": [
+      "disapproval"
+    ],
+    "mapped5": [
+      "anger"
+    ],
+    "fn": [],
+    "fp": [
+      "anger"
+    ]
+  },
+  {
+    "id": "N02",
+    "source_id": "eng_test_track1_339",
+    "model": "roberta",
+    "seed": 2026,
+    "mode": "fixed",
+    "truth": [],
+    "raw28": [
+      "neutral"
+    ],
+    "mapped5": [],
+    "fn": [],
+    "fp": []
+  },
+  {
+    "id": "N03",
+    "source_id": "eng_test_track1_2049",
+    "model": "roberta",
+    "seed": 2026,
+    "mode": "fixed",
+    "truth": [
+      "anger"
+    ],
+    "raw28": [
+      "neutral"
+    ],
+    "mapped5": [],
+    "fn": [
+      "anger"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N04",
+    "source_id": "eng_test_track1_1786",
+    "model": "roberta",
+    "seed": 2026,
+    "mode": "fixed",
+    "truth": [
+      "fear"
+    ],
+    "raw28": [
+      "surprise"
+    ],
+    "mapped5": [
+      "surprise"
+    ],
+    "fn": [
+      "fear"
+    ],
+    "fp": [
+      "surprise"
+    ]
+  },
+  {
+    "id": "N05",
+    "source_id": "eng_test_track1_590",
+    "model": "roberta",
+    "seed": 2026,
+    "mode": "fixed",
+    "truth": [
+      "joy"
+    ],
+    "raw28": [],
+    "mapped5": [],
+    "fn": [
+      "joy"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N06",
+    "source_id": "eng_test_track1_403",
+    "model": "roberta",
+    "seed": 2026,
+    "mode": "fixed",
+    "truth": [
+      "sadness"
+    ],
+    "raw28": [],
+    "mapped5": [],
+    "fn": [
+      "sadness"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N07",
+    "source_id": "eng_test_track1_2537",
+    "model": "roberta",
+    "seed": 2026,
+    "mode": "fixed",
+    "truth": [
+      "surprise"
+    ],
+    "raw28": [],
+    "mapped5": [],
+    "fn": [
+      "surprise"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N08",
+    "source_id": "eng_test_track1_2699",
+    "model": "roberta",
+    "seed": 2026,
+    "mode": "fixed",
+    "truth": [
+      "fear",
+      "sadness"
+    ],
+    "raw28": [
+      "sadness"
+    ],
+    "mapped5": [
+      "sadness"
+    ],
+    "fn": [
+      "fear"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N09",
+    "source_id": "eng_test_track1_121",
+    "model": "roberta",
+    "seed": 2026,
+    "mode": "fixed",
+    "truth": [
+      "fear",
+      "sadness"
+    ],
+    "raw28": [
+      "neutral"
+    ],
+    "mapped5": [],
+    "fn": [
+      "fear",
+      "sadness"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N10",
+    "source_id": "eng_test_track1_2529",
+    "model": "roberta",
+    "seed": 2026,
+    "mode": "fixed",
+    "truth": [
+      "fear",
+      "sadness"
+    ],
+    "raw28": [
+      "neutral"
+    ],
+    "mapped5": [],
+    "fn": [
+      "fear",
+      "sadness"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N01",
+    "source_id": "eng_test_track1_556",
+    "model": "roberta",
+    "seed": 2026,
+    "mode": "tuned",
+    "truth": [],
+    "raw28": [
+      "disapproval"
+    ],
+    "mapped5": [
+      "anger"
+    ],
+    "fn": [],
+    "fp": [
+      "anger"
+    ]
+  },
+  {
+    "id": "N02",
+    "source_id": "eng_test_track1_339",
+    "model": "roberta",
+    "seed": 2026,
+    "mode": "tuned",
+    "truth": [],
+    "raw28": [
+      "neutral"
+    ],
+    "mapped5": [],
+    "fn": [],
+    "fp": []
+  },
+  {
+    "id": "N03",
+    "source_id": "eng_test_track1_2049",
+    "model": "roberta",
+    "seed": 2026,
+    "mode": "tuned",
+    "truth": [
+      "anger"
+    ],
+    "raw28": [
+      "approval",
+      "neutral"
+    ],
+    "mapped5": [
+      "joy"
+    ],
+    "fn": [
+      "anger"
+    ],
+    "fp": [
+      "joy"
+    ]
+  },
+  {
+    "id": "N04",
+    "source_id": "eng_test_track1_1786",
+    "model": "roberta",
+    "seed": 2026,
+    "mode": "tuned",
+    "truth": [
+      "fear"
+    ],
+    "raw28": [
+      "surprise"
+    ],
+    "mapped5": [
+      "surprise"
+    ],
+    "fn": [
+      "fear"
+    ],
+    "fp": [
+      "surprise"
+    ]
+  },
+  {
+    "id": "N05",
+    "source_id": "eng_test_track1_590",
+    "model": "roberta",
+    "seed": 2026,
+    "mode": "tuned",
+    "truth": [
+      "joy"
+    ],
+    "raw28": [
+      "desire",
+      "neutral"
+    ],
+    "mapped5": [
+      "joy"
+    ],
+    "fn": [],
+    "fp": []
+  },
+  {
+    "id": "N06",
+    "source_id": "eng_test_track1_403",
+    "model": "roberta",
+    "seed": 2026,
+    "mode": "tuned",
+    "truth": [
+      "sadness"
+    ],
+    "raw28": [
+      "disappointment",
+      "neutral"
+    ],
+    "mapped5": [
+      "sadness"
+    ],
+    "fn": [],
+    "fp": []
+  },
+  {
+    "id": "N07",
+    "source_id": "eng_test_track1_2537",
+    "model": "roberta",
+    "seed": 2026,
+    "mode": "tuned",
+    "truth": [
+      "surprise"
+    ],
+    "raw28": [
+      "confusion",
+      "curiosity",
+      "neutral"
+    ],
+    "mapped5": [
+      "surprise"
+    ],
+    "fn": [],
+    "fp": []
+  },
+  {
+    "id": "N08",
+    "source_id": "eng_test_track1_2699",
+    "model": "roberta",
+    "seed": 2026,
+    "mode": "tuned",
+    "truth": [
+      "fear",
+      "sadness"
+    ],
+    "raw28": [
+      "sadness"
+    ],
+    "mapped5": [
+      "sadness"
+    ],
+    "fn": [
+      "fear"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N09",
+    "source_id": "eng_test_track1_121",
+    "model": "roberta",
+    "seed": 2026,
+    "mode": "tuned",
+    "truth": [
+      "fear",
+      "sadness"
+    ],
+    "raw28": [
+      "disapproval",
+      "neutral"
+    ],
+    "mapped5": [
+      "anger"
+    ],
+    "fn": [
+      "fear",
+      "sadness"
+    ],
+    "fp": [
+      "anger"
+    ]
+  },
+  {
+    "id": "N10",
+    "source_id": "eng_test_track1_2529",
+    "model": "roberta",
+    "seed": 2026,
+    "mode": "tuned",
+    "truth": [
+      "fear",
+      "sadness"
+    ],
+    "raw28": [
+      "neutral"
+    ],
+    "mapped5": [],
+    "fn": [
+      "fear",
+      "sadness"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N01",
+    "source_id": "eng_test_track1_556",
+    "model": "distilbert",
+    "seed": 42,
+    "mode": "fixed",
+    "truth": [],
+    "raw28": [
+      "disapproval"
+    ],
+    "mapped5": [
+      "anger"
+    ],
+    "fn": [],
+    "fp": [
+      "anger"
+    ]
+  },
+  {
+    "id": "N02",
+    "source_id": "eng_test_track1_339",
+    "model": "distilbert",
+    "seed": 42,
+    "mode": "fixed",
+    "truth": [],
+    "raw28": [
+      "neutral"
+    ],
+    "mapped5": [],
+    "fn": [],
+    "fp": []
+  },
+  {
+    "id": "N03",
+    "source_id": "eng_test_track1_2049",
+    "model": "distilbert",
+    "seed": 42,
+    "mode": "fixed",
+    "truth": [
+      "anger"
+    ],
+    "raw28": [],
+    "mapped5": [],
+    "fn": [
+      "anger"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N04",
+    "source_id": "eng_test_track1_1786",
+    "model": "distilbert",
+    "seed": 42,
+    "mode": "fixed",
+    "truth": [
+      "fear"
+    ],
+    "raw28": [
+      "surprise"
+    ],
+    "mapped5": [
+      "surprise"
+    ],
+    "fn": [
+      "fear"
+    ],
+    "fp": [
+      "surprise"
+    ]
+  },
+  {
+    "id": "N05",
+    "source_id": "eng_test_track1_590",
+    "model": "distilbert",
+    "seed": 42,
+    "mode": "fixed",
+    "truth": [
+      "joy"
+    ],
+    "raw28": [],
+    "mapped5": [],
+    "fn": [
+      "joy"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N06",
+    "source_id": "eng_test_track1_403",
+    "model": "distilbert",
+    "seed": 42,
+    "mode": "fixed",
+    "truth": [
+      "sadness"
+    ],
+    "raw28": [],
+    "mapped5": [],
+    "fn": [
+      "sadness"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N07",
+    "source_id": "eng_test_track1_2537",
+    "model": "distilbert",
+    "seed": 42,
+    "mode": "fixed",
+    "truth": [
+      "surprise"
+    ],
+    "raw28": [
+      "curiosity"
+    ],
+    "mapped5": [
+      "surprise"
+    ],
+    "fn": [],
+    "fp": []
+  },
+  {
+    "id": "N08",
+    "source_id": "eng_test_track1_2699",
+    "model": "distilbert",
+    "seed": 42,
+    "mode": "fixed",
+    "truth": [
+      "fear",
+      "sadness"
+    ],
+    "raw28": [],
+    "mapped5": [],
+    "fn": [
+      "fear",
+      "sadness"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N09",
+    "source_id": "eng_test_track1_121",
+    "model": "distilbert",
+    "seed": 42,
+    "mode": "fixed",
+    "truth": [
+      "fear",
+      "sadness"
+    ],
+    "raw28": [
+      "neutral"
+    ],
+    "mapped5": [],
+    "fn": [
+      "fear",
+      "sadness"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N10",
+    "source_id": "eng_test_track1_2529",
+    "model": "distilbert",
+    "seed": 42,
+    "mode": "fixed",
+    "truth": [
+      "fear",
+      "sadness"
+    ],
+    "raw28": [
+      "neutral"
+    ],
+    "mapped5": [],
+    "fn": [
+      "fear",
+      "sadness"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N01",
+    "source_id": "eng_test_track1_556",
+    "model": "distilbert",
+    "seed": 42,
+    "mode": "tuned",
+    "truth": [],
+    "raw28": [
+      "disapproval"
+    ],
+    "mapped5": [
+      "anger"
+    ],
+    "fn": [],
+    "fp": [
+      "anger"
+    ]
+  },
+  {
+    "id": "N02",
+    "source_id": "eng_test_track1_339",
+    "model": "distilbert",
+    "seed": 42,
+    "mode": "tuned",
+    "truth": [],
+    "raw28": [
+      "neutral"
+    ],
+    "mapped5": [],
+    "fn": [],
+    "fp": []
+  },
+  {
+    "id": "N03",
+    "source_id": "eng_test_track1_2049",
+    "model": "distilbert",
+    "seed": 42,
+    "mode": "tuned",
+    "truth": [
+      "anger"
+    ],
+    "raw28": [
+      "approval",
+      "neutral"
+    ],
+    "mapped5": [
+      "joy"
+    ],
+    "fn": [
+      "anger"
+    ],
+    "fp": [
+      "joy"
+    ]
+  },
+  {
+    "id": "N04",
+    "source_id": "eng_test_track1_1786",
+    "model": "distilbert",
+    "seed": 42,
+    "mode": "tuned",
+    "truth": [
+      "fear"
+    ],
+    "raw28": [
+      "surprise"
+    ],
+    "mapped5": [
+      "surprise"
+    ],
+    "fn": [
+      "fear"
+    ],
+    "fp": [
+      "surprise"
+    ]
+  },
+  {
+    "id": "N05",
+    "source_id": "eng_test_track1_590",
+    "model": "distilbert",
+    "seed": 42,
+    "mode": "tuned",
+    "truth": [
+      "joy"
+    ],
+    "raw28": [],
+    "mapped5": [],
+    "fn": [
+      "joy"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N06",
+    "source_id": "eng_test_track1_403",
+    "model": "distilbert",
+    "seed": 42,
+    "mode": "tuned",
+    "truth": [
+      "sadness"
+    ],
+    "raw28": [
+      "disappointment",
+      "neutral"
+    ],
+    "mapped5": [
+      "sadness"
+    ],
+    "fn": [],
+    "fp": []
+  },
+  {
+    "id": "N07",
+    "source_id": "eng_test_track1_2537",
+    "model": "distilbert",
+    "seed": 42,
+    "mode": "tuned",
+    "truth": [
+      "surprise"
+    ],
+    "raw28": [
+      "confusion",
+      "curiosity"
+    ],
+    "mapped5": [
+      "surprise"
+    ],
+    "fn": [],
+    "fp": []
+  },
+  {
+    "id": "N08",
+    "source_id": "eng_test_track1_2699",
+    "model": "distilbert",
+    "seed": 42,
+    "mode": "tuned",
+    "truth": [
+      "fear",
+      "sadness"
+    ],
+    "raw28": [],
+    "mapped5": [],
+    "fn": [
+      "fear",
+      "sadness"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N09",
+    "source_id": "eng_test_track1_121",
+    "model": "distilbert",
+    "seed": 42,
+    "mode": "tuned",
+    "truth": [
+      "fear",
+      "sadness"
+    ],
+    "raw28": [
+      "disapproval",
+      "neutral"
+    ],
+    "mapped5": [
+      "anger"
+    ],
+    "fn": [
+      "fear",
+      "sadness"
+    ],
+    "fp": [
+      "anger"
+    ]
+  },
+  {
+    "id": "N10",
+    "source_id": "eng_test_track1_2529",
+    "model": "distilbert",
+    "seed": 42,
+    "mode": "tuned",
+    "truth": [
+      "fear",
+      "sadness"
+    ],
+    "raw28": [
+      "neutral"
+    ],
+    "mapped5": [],
+    "fn": [
+      "fear",
+      "sadness"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N01",
+    "source_id": "eng_test_track1_556",
+    "model": "distilbert",
+    "seed": 123,
+    "mode": "fixed",
+    "truth": [],
+    "raw28": [
+      "disapproval"
+    ],
+    "mapped5": [
+      "anger"
+    ],
+    "fn": [],
+    "fp": [
+      "anger"
+    ]
+  },
+  {
+    "id": "N02",
+    "source_id": "eng_test_track1_339",
+    "model": "distilbert",
+    "seed": 123,
+    "mode": "fixed",
+    "truth": [],
+    "raw28": [
+      "neutral"
+    ],
+    "mapped5": [],
+    "fn": [],
+    "fp": []
+  },
+  {
+    "id": "N03",
+    "source_id": "eng_test_track1_2049",
+    "model": "distilbert",
+    "seed": 123,
+    "mode": "fixed",
+    "truth": [
+      "anger"
+    ],
+    "raw28": [
+      "neutral"
+    ],
+    "mapped5": [],
+    "fn": [
+      "anger"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N04",
+    "source_id": "eng_test_track1_1786",
+    "model": "distilbert",
+    "seed": 123,
+    "mode": "fixed",
+    "truth": [
+      "fear"
+    ],
+    "raw28": [
+      "surprise"
+    ],
+    "mapped5": [
+      "surprise"
+    ],
+    "fn": [
+      "fear"
+    ],
+    "fp": [
+      "surprise"
+    ]
+  },
+  {
+    "id": "N05",
+    "source_id": "eng_test_track1_590",
+    "model": "distilbert",
+    "seed": 123,
+    "mode": "fixed",
+    "truth": [
+      "joy"
+    ],
+    "raw28": [],
+    "mapped5": [],
+    "fn": [
+      "joy"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N06",
+    "source_id": "eng_test_track1_403",
+    "model": "distilbert",
+    "seed": 123,
+    "mode": "fixed",
+    "truth": [
+      "sadness"
+    ],
+    "raw28": [
+      "neutral"
+    ],
+    "mapped5": [],
+    "fn": [
+      "sadness"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N07",
+    "source_id": "eng_test_track1_2537",
+    "model": "distilbert",
+    "seed": 123,
+    "mode": "fixed",
+    "truth": [
+      "surprise"
+    ],
+    "raw28": [
+      "curiosity"
+    ],
+    "mapped5": [
+      "surprise"
+    ],
+    "fn": [],
+    "fp": []
+  },
+  {
+    "id": "N08",
+    "source_id": "eng_test_track1_2699",
+    "model": "distilbert",
+    "seed": 123,
+    "mode": "fixed",
+    "truth": [
+      "fear",
+      "sadness"
+    ],
+    "raw28": [],
+    "mapped5": [],
+    "fn": [
+      "fear",
+      "sadness"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N09",
+    "source_id": "eng_test_track1_121",
+    "model": "distilbert",
+    "seed": 123,
+    "mode": "fixed",
+    "truth": [
+      "fear",
+      "sadness"
+    ],
+    "raw28": [
+      "neutral"
+    ],
+    "mapped5": [],
+    "fn": [
+      "fear",
+      "sadness"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N10",
+    "source_id": "eng_test_track1_2529",
+    "model": "distilbert",
+    "seed": 123,
+    "mode": "fixed",
+    "truth": [
+      "fear",
+      "sadness"
+    ],
+    "raw28": [
+      "neutral"
+    ],
+    "mapped5": [],
+    "fn": [
+      "fear",
+      "sadness"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N01",
+    "source_id": "eng_test_track1_556",
+    "model": "distilbert",
+    "seed": 123,
+    "mode": "tuned",
+    "truth": [],
+    "raw28": [
+      "disapproval"
+    ],
+    "mapped5": [
+      "anger"
+    ],
+    "fn": [],
+    "fp": [
+      "anger"
+    ]
+  },
+  {
+    "id": "N02",
+    "source_id": "eng_test_track1_339",
+    "model": "distilbert",
+    "seed": 123,
+    "mode": "tuned",
+    "truth": [],
+    "raw28": [
+      "neutral"
+    ],
+    "mapped5": [],
+    "fn": [],
+    "fp": []
+  },
+  {
+    "id": "N03",
+    "source_id": "eng_test_track1_2049",
+    "model": "distilbert",
+    "seed": 123,
+    "mode": "tuned",
+    "truth": [
+      "anger"
+    ],
+    "raw28": [
+      "approval",
+      "neutral"
+    ],
+    "mapped5": [
+      "joy"
+    ],
+    "fn": [
+      "anger"
+    ],
+    "fp": [
+      "joy"
+    ]
+  },
+  {
+    "id": "N04",
+    "source_id": "eng_test_track1_1786",
+    "model": "distilbert",
+    "seed": 123,
+    "mode": "tuned",
+    "truth": [
+      "fear"
+    ],
+    "raw28": [
+      "surprise"
+    ],
+    "mapped5": [
+      "surprise"
+    ],
+    "fn": [
+      "fear"
+    ],
+    "fp": [
+      "surprise"
+    ]
+  },
+  {
+    "id": "N05",
+    "source_id": "eng_test_track1_590",
+    "model": "distilbert",
+    "seed": 123,
+    "mode": "tuned",
+    "truth": [
+      "joy"
+    ],
+    "raw28": [
+      "desire"
+    ],
+    "mapped5": [
+      "joy"
+    ],
+    "fn": [],
+    "fp": []
+  },
+  {
+    "id": "N06",
+    "source_id": "eng_test_track1_403",
+    "model": "distilbert",
+    "seed": 123,
+    "mode": "tuned",
+    "truth": [
+      "sadness"
+    ],
+    "raw28": [
+      "neutral"
+    ],
+    "mapped5": [],
+    "fn": [
+      "sadness"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N07",
+    "source_id": "eng_test_track1_2537",
+    "model": "distilbert",
+    "seed": 123,
+    "mode": "tuned",
+    "truth": [
+      "surprise"
+    ],
+    "raw28": [
+      "confusion",
+      "curiosity"
+    ],
+    "mapped5": [
+      "surprise"
+    ],
+    "fn": [],
+    "fp": []
+  },
+  {
+    "id": "N08",
+    "source_id": "eng_test_track1_2699",
+    "model": "distilbert",
+    "seed": 123,
+    "mode": "tuned",
+    "truth": [
+      "fear",
+      "sadness"
+    ],
+    "raw28": [
+      "sadness"
+    ],
+    "mapped5": [
+      "sadness"
+    ],
+    "fn": [
+      "fear"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N09",
+    "source_id": "eng_test_track1_121",
+    "model": "distilbert",
+    "seed": 123,
+    "mode": "tuned",
+    "truth": [
+      "fear",
+      "sadness"
+    ],
+    "raw28": [
+      "disapproval",
+      "neutral"
+    ],
+    "mapped5": [
+      "anger"
+    ],
+    "fn": [
+      "fear",
+      "sadness"
+    ],
+    "fp": [
+      "anger"
+    ]
+  },
+  {
+    "id": "N10",
+    "source_id": "eng_test_track1_2529",
+    "model": "distilbert",
+    "seed": 123,
+    "mode": "tuned",
+    "truth": [
+      "fear",
+      "sadness"
+    ],
+    "raw28": [
+      "neutral"
+    ],
+    "mapped5": [],
+    "fn": [
+      "fear",
+      "sadness"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N01",
+    "source_id": "eng_test_track1_556",
+    "model": "distilbert",
+    "seed": 2026,
+    "mode": "fixed",
+    "truth": [],
+    "raw28": [
+      "disapproval"
+    ],
+    "mapped5": [
+      "anger"
+    ],
+    "fn": [],
+    "fp": [
+      "anger"
+    ]
+  },
+  {
+    "id": "N02",
+    "source_id": "eng_test_track1_339",
+    "model": "distilbert",
+    "seed": 2026,
+    "mode": "fixed",
+    "truth": [],
+    "raw28": [
+      "neutral"
+    ],
+    "mapped5": [],
+    "fn": [],
+    "fp": []
+  },
+  {
+    "id": "N03",
+    "source_id": "eng_test_track1_2049",
+    "model": "distilbert",
+    "seed": 2026,
+    "mode": "fixed",
+    "truth": [
+      "anger"
+    ],
+    "raw28": [],
+    "mapped5": [],
+    "fn": [
+      "anger"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N04",
+    "source_id": "eng_test_track1_1786",
+    "model": "distilbert",
+    "seed": 2026,
+    "mode": "fixed",
+    "truth": [
+      "fear"
+    ],
+    "raw28": [
+      "surprise"
+    ],
+    "mapped5": [
+      "surprise"
+    ],
+    "fn": [
+      "fear"
+    ],
+    "fp": [
+      "surprise"
+    ]
+  },
+  {
+    "id": "N05",
+    "source_id": "eng_test_track1_590",
+    "model": "distilbert",
+    "seed": 2026,
+    "mode": "fixed",
+    "truth": [
+      "joy"
+    ],
+    "raw28": [],
+    "mapped5": [],
+    "fn": [
+      "joy"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N06",
+    "source_id": "eng_test_track1_403",
+    "model": "distilbert",
+    "seed": 2026,
+    "mode": "fixed",
+    "truth": [
+      "sadness"
+    ],
+    "raw28": [
+      "neutral"
+    ],
+    "mapped5": [],
+    "fn": [
+      "sadness"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N07",
+    "source_id": "eng_test_track1_2537",
+    "model": "distilbert",
+    "seed": 2026,
+    "mode": "fixed",
+    "truth": [
+      "surprise"
+    ],
+    "raw28": [
+      "curiosity"
+    ],
+    "mapped5": [
+      "surprise"
+    ],
+    "fn": [],
+    "fp": []
+  },
+  {
+    "id": "N08",
+    "source_id": "eng_test_track1_2699",
+    "model": "distilbert",
+    "seed": 2026,
+    "mode": "fixed",
+    "truth": [
+      "fear",
+      "sadness"
+    ],
+    "raw28": [
+      "sadness"
+    ],
+    "mapped5": [
+      "sadness"
+    ],
+    "fn": [
+      "fear"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N09",
+    "source_id": "eng_test_track1_121",
+    "model": "distilbert",
+    "seed": 2026,
+    "mode": "fixed",
+    "truth": [
+      "fear",
+      "sadness"
+    ],
+    "raw28": [
+      "neutral"
+    ],
+    "mapped5": [],
+    "fn": [
+      "fear",
+      "sadness"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N10",
+    "source_id": "eng_test_track1_2529",
+    "model": "distilbert",
+    "seed": 2026,
+    "mode": "fixed",
+    "truth": [
+      "fear",
+      "sadness"
+    ],
+    "raw28": [
+      "neutral"
+    ],
+    "mapped5": [],
+    "fn": [
+      "fear",
+      "sadness"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N01",
+    "source_id": "eng_test_track1_556",
+    "model": "distilbert",
+    "seed": 2026,
+    "mode": "tuned",
+    "truth": [],
+    "raw28": [
+      "disapproval"
+    ],
+    "mapped5": [
+      "anger"
+    ],
+    "fn": [],
+    "fp": [
+      "anger"
+    ]
+  },
+  {
+    "id": "N02",
+    "source_id": "eng_test_track1_339",
+    "model": "distilbert",
+    "seed": 2026,
+    "mode": "tuned",
+    "truth": [],
+    "raw28": [
+      "neutral"
+    ],
+    "mapped5": [],
+    "fn": [],
+    "fp": []
+  },
+  {
+    "id": "N03",
+    "source_id": "eng_test_track1_2049",
+    "model": "distilbert",
+    "seed": 2026,
+    "mode": "tuned",
+    "truth": [
+      "anger"
+    ],
+    "raw28": [
+      "approval",
+      "neutral"
+    ],
+    "mapped5": [
+      "joy"
+    ],
+    "fn": [
+      "anger"
+    ],
+    "fp": [
+      "joy"
+    ]
+  },
+  {
+    "id": "N04",
+    "source_id": "eng_test_track1_1786",
+    "model": "distilbert",
+    "seed": 2026,
+    "mode": "tuned",
+    "truth": [
+      "fear"
+    ],
+    "raw28": [
+      "surprise"
+    ],
+    "mapped5": [
+      "surprise"
+    ],
+    "fn": [
+      "fear"
+    ],
+    "fp": [
+      "surprise"
+    ]
+  },
+  {
+    "id": "N05",
+    "source_id": "eng_test_track1_590",
+    "model": "distilbert",
+    "seed": 2026,
+    "mode": "tuned",
+    "truth": [
+      "joy"
+    ],
+    "raw28": [
+      "neutral"
+    ],
+    "mapped5": [],
+    "fn": [
+      "joy"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N06",
+    "source_id": "eng_test_track1_403",
+    "model": "distilbert",
+    "seed": 2026,
+    "mode": "tuned",
+    "truth": [
+      "sadness"
+    ],
+    "raw28": [
+      "disappointment",
+      "neutral"
+    ],
+    "mapped5": [
+      "sadness"
+    ],
+    "fn": [],
+    "fp": []
+  },
+  {
+    "id": "N07",
+    "source_id": "eng_test_track1_2537",
+    "model": "distilbert",
+    "seed": 2026,
+    "mode": "tuned",
+    "truth": [
+      "surprise"
+    ],
+    "raw28": [
+      "confusion",
+      "curiosity"
+    ],
+    "mapped5": [
+      "surprise"
+    ],
+    "fn": [],
+    "fp": []
+  },
+  {
+    "id": "N08",
+    "source_id": "eng_test_track1_2699",
+    "model": "distilbert",
+    "seed": 2026,
+    "mode": "tuned",
+    "truth": [
+      "fear",
+      "sadness"
+    ],
+    "raw28": [
+      "sadness"
+    ],
+    "mapped5": [
+      "sadness"
+    ],
+    "fn": [
+      "fear"
+    ],
+    "fp": []
+  },
+  {
+    "id": "N09",
+    "source_id": "eng_test_track1_121",
+    "model": "distilbert",
+    "seed": 2026,
+    "mode": "tuned",
+    "truth": [
+      "fear",
+      "sadness"
+    ],
+    "raw28": [
+      "disapproval",
+      "neutral"
+    ],
+    "mapped5": [
+      "anger"
+    ],
+    "fn": [
+      "fear",
+      "sadness"
+    ],
+    "fp": [
+      "anger"
+    ]
+  },
+  {
+    "id": "N10",
+    "source_id": "eng_test_track1_2529",
+    "model": "distilbert",
+    "seed": 2026,
+    "mode": "tuned",
+    "truth": [
+      "fear",
+      "sadness"
+    ],
+    "raw28": [
+      "neutral"
+    ],
+    "mapped5": [],
+    "fn": [
+      "fear",
+      "sadness"
+    ],
+    "fp": []
+  }
+]

@@ -3915,7 +3915,9 @@
       "fear",
       "sadness"
     ],
-    "raw28": [],
+    "raw28": [
+      "neutral"
+    ],
     "mapped5": [],
     "fn": [
       "fear",
@@ -3969,16 +3971,11 @@
     "mode": "tuned",
     "truth": [],
     "raw28": [
-      "approval",
       "neutral"
     ],
-    "mapped5": [
-      "joy"
-    ],
+    "mapped5": [],
     "fn": [],
-    "fp": [
-      "joy"
-    ]
+    "fp": []
   },
   {
     "id": "N03",
@@ -3990,13 +3987,18 @@
       "anger"
     ],
     "raw28": [
+      "approval",
       "neutral"
     ],
-    "mapped5": [],
+    "mapped5": [
+      "joy"
+    ],
     "fn": [
       "anger"
     ],
-    "fp": []
+    "fp": [
+      "joy"
+    ]
   },
   {
     "id": "N04",
@@ -4029,13 +4031,11 @@
     "truth": [
       "joy"
     ],
-    "raw28": [
-      "excitement"
-    ],
-    "mapped5": [
+    "raw28": [],
+    "mapped5": [],
+    "fn": [
       "joy"
     ],
-    "fn": [],
     "fp": []
   },
   {
@@ -4068,8 +4068,7 @@
     ],
     "raw28": [
       "confusion",
-      "curiosity",
-      "neutral"
+      "curiosity"
     ],
     "mapped5": [
       "surprise"
@@ -4274,14 +4273,11 @@
       "fear",
       "sadness"
     ],
-    "raw28": [
-      "sadness"
-    ],
-    "mapped5": [
-      "sadness"
-    ],
+    "raw28": [],
+    "mapped5": [],
     "fn": [
-      "fear"
+      "fear",
+      "sadness"
     ],
     "fp": []
   },
@@ -4295,7 +4291,9 @@
       "fear",
       "sadness"
     ],
-    "raw28": [],
+    "raw28": [
+      "neutral"
+    ],
     "mapped5": [],
     "fn": [
       "fear",
@@ -4410,8 +4408,7 @@
       "joy"
     ],
     "raw28": [
-      "desire",
-      "neutral"
+      "desire"
     ],
     "mapped5": [
       "joy"
@@ -4448,8 +4445,7 @@
     ],
     "raw28": [
       "confusion",
-      "curiosity",
-      "neutral"
+      "curiosity"
     ],
     "mapped5": [
       "surprise"
@@ -4564,9 +4560,7 @@
     "truth": [
       "anger"
     ],
-    "raw28": [
-      "neutral"
-    ],
+    "raw28": [],
     "mapped5": [],
     "fn": [
       "anger"
@@ -4795,17 +4789,13 @@
       "joy"
     ],
     "raw28": [
-      "nervousness"
+      "neutral"
     ],
-    "mapped5": [
-      "fear"
-    ],
+    "mapped5": [],
     "fn": [
       "joy"
     ],
-    "fp": [
-      "fear"
-    ]
+    "fp": []
   },
   {
     "id": "N06",

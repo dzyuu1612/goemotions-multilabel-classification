@@ -19,8 +19,8 @@ notebooks = ["jupyterlab>=4,<5", "nbformat==5.10.4", "nbclient>=0.10,<0.12", "nb
 dev = ["matplotlib>=3.10,<4", "nbformat==5.10.4"]
 
 [project.urls]
-Repository = "https://github.com/trangkhanh-ai/goemotions-multilabel-classification"
-Documentation = "https://github.com/trangkhanh-ai/goemotions-multilabel-classification#readme"
+Repository = "https://github.com/dzyuu1612/goemotions-multilabel-classification/tree/codex/goemotions-upgrade-20261029"
+Documentation = "https://github.com/dzyuu1612/goemotions-multilabel-classification/tree/codex/goemotions-upgrade-20261029#readme"
 
 [tool.setuptools.packages.find]
 where = ["."]

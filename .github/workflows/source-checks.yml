@@ -3,7 +3,7 @@ name: Source checks
 on:
   pull_request:
   push:
-    branches: [main, "codex/source-only-repo"]
+    branches: [main, "codex/source-only-repo", "codex/goemotions-upgrade-20261029"]
 
 permissions:
   contents: read
@@ -30,6 +30,11 @@ jobs:
         run: python tools/check_repository.py
       - name: Unit tests without dataset or checkpoint downloads
         run: python -m unittest discover -s tests -v
+      - name: Recompute all report metrics from saved scores
+        run: |
+          python -m scripts.verification.prepare_submission
+          python -m scripts.verification.verify_submission --output reports/ci_verification
+          python -m scripts.verification.crosscheck_submission
       - name: Learning example
         run: python -m examples.baseline_from_scratch
       - name: Quick-start notebook without downloads

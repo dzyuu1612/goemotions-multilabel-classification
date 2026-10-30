@@ -1,0 +1,72 @@
+{
+  "profile": "final-duy-ab-c1-c2-huy-c3-20261026",
+  "api_status": "PASS",
+  "interface_status": "NOT_VISUALLY_RECHECKED",
+  "scope": "Live Gradio /predict for all six choices, 28 score rows each, empty input handled. No training or threshold changes.",
+  "url": "http://127.0.0.1:7860",
+  "public_demo_link": null,
+  "models": [
+    {
+      "model": "bert",
+      "passed": true,
+      "score_rows": 28,
+      "unique_labels": 28,
+      "thresholds": [
+        0.5
+      ],
+      "message": "**Mô hình:** C1 · BERT — mô hình mặc định · seed 123\n\n**Cảm xúc dự đoán:** gratitude, joy"
+    },
+    {
+      "model": "roberta",
+      "passed": true,
+      "score_rows": 28,
+      "unique_labels": 28,
+      "thresholds": [
+        0.5
+      ],
+      "message": "**Mô hình:** C2 · RoBERTa · seed 2026\n\n**Cảm xúc dự đoán:** gratitude"
+    },
+    {
+      "model": "distilbert",
+      "passed": true,
+      "score_rows": 28,
+      "unique_labels": 28,
+      "thresholds": [
+        0.5
+      ],
+      "message": "**Mô hình:** C3 · DistilBERT · seed 123\n\n**Cảm xúc dự đoán:** gratitude, joy"
+    },
+    {
+      "model": "baseline_standard",
+      "passed": true,
+      "score_rows": 28,
+      "unique_labels": 28,
+      "thresholds": [
+        0.5
+      ],
+      "message": "**Mô hình:** A · TF-IDF + Logistic Regression — thường\n\n**Cảm xúc dự đoán:** gratitude"
+    },
+    {
+      "model": "baseline_balanced",
+      "passed": true,
+      "score_rows": 28,
+      "unique_labels": 28,
+      "thresholds": [
+        0.5
+      ],
+      "message": "**Mô hình:** A · TF-IDF + Logistic Regression — cân bằng lớp\n\n**Cảm xúc dự đoán:** gratitude, joy"
+    },
+    {
+      "model": "zero_shot",
+      "passed": true,
+      "score_rows": 28,
+      "unique_labels": 28,
+      "thresholds": [
+        0.5
+      ],
+      "message": "**Mô hình:** B · Zero-shot BART-MNLI\n\n**Cảm xúc dự đoán:** admiration, approval, caring, curiosity, desire, excitement, gratitude, joy, love, optimism, pride, realization, relief, surprise"
+    }
+  ],
+  "empty_input_checked": true,
+  "empty_input_message": "Vui lòng nhập một câu hoặc bình luận tiếng Anh."
+}

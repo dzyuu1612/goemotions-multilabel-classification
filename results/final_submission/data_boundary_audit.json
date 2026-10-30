@@ -1,5 +1,5 @@
 {
-  "checked_at_utc": "2026-10-26T07:05:04.739574+00:00",
+  "checked_at_utc": "2026-10-30T10:54:59.487921+00:00",
   "scope": "Read official splits; reconstruct train-only TF-IDF; inspect saved learning curves. No model training or threshold tuning.",
   "dataset_revision": "add492243ff905527e67aeb8b80c082af02207c3",
   "dataset_files": [
@@ -118,117 +118,21 @@
     }
   },
   "history_sources_sha256": {
-    "data/processed/transformers/bert/seed_42/full/standard/run_metadata.json": "0713fb195a22a955c712ea261e7d0d3d78e729144a7641aacbc55efea38382a8",
-    "data/processed/transformers/bert/seed_123/full/standard/run_metadata.json": "68669e33e916efd6ff85db78b4be5485d29dade7fe58946055bfcf8d600627b9",
-    "data/processed/transformers/bert/seed_2026/full/standard/run_metadata.json": "a8babfa50db8d4faf05e294267b67e9f5453682a83c67ffb558ccbf7a3342fba",
-    "data/processed/transformers/roberta/seed_42/full/standard/run_metadata.json": "c524276da9c963d472d57fdb3a0ba67fe12a2a3a69d4c40fd09ab1870597afda",
-    "data/processed/transformers/roberta/seed_123/full/standard/run_metadata.json": "0897c7825e151098902cba28f1f60bafd403add9daa4d7efe9745dc388211929",
-    "data/processed/transformers/roberta/seed_2026/full/standard/run_metadata.json": "34fa83b9408e5abba960523a2056fe9891397c55c026bb02e93aca5efe119b35",
-    "data/processed/transformers/distilbert/seed_42/full/standard/run_metadata.json": "8fdbc7b930d7adf64195c8b696b3b39b31b7f26ea2412042cf0ea85f101b22e4",
-    "data/processed/transformers/distilbert/seed_123/full/standard/run_metadata.json": "43b511f996babfa38ba5f594b4f936e15a61dd0da3270c4318d265409ced7c4a",
-    "data/processed/transformers/distilbert/seed_2026/full/standard/run_metadata.json": "27fe54c6ed92b8d10ed9e610b688c5d8104d46236e010b0fdc5578d4622b1764"
+    "bert/42": "0713fb195a22a955c712ea261e7d0d3d78e729144a7641aacbc55efea38382a8",
+    "bert/123": "68669e33e916efd6ff85db78b4be5485d29dade7fe58946055bfcf8d600627b9",
+    "bert/2026": "a8babfa50db8d4faf05e294267b67e9f5453682a83c67ffb558ccbf7a3342fba",
+    "roberta/42": "c524276da9c963d472d57fdb3a0ba67fe12a2a3a69d4c40fd09ab1870597afda",
+    "roberta/123": "0897c7825e151098902cba28f1f60bafd403add9daa4d7efe9745dc388211929",
+    "roberta/2026": "34fa83b9408e5abba960523a2056fe9891397c55c026bb02e93aca5efe119b35",
+    "distilbert/42": "b80e246b3fe72fe5c018332da8318c8d58901c9503dcb2c6ab06c3eacab73e71",
+    "distilbert/123": "1852f3f2bc06f86b11b0787e3caa33d8bf57b839f488e9d975d87c51d375beb1",
+    "distilbert/2026": "8d5e8a42bb87a9ca4a4fd574a28a264dc77a9429ce0e8d2a6597f68f3dc09c91"
   },
-  "learning_curves": [
-    {
-      "architecture": "bert",
-      "seed": 42,
-      "epochs": 4,
-      "train_loss_first": 0.14516290026246828,
-      "train_loss_last": 0.047236827343137645,
-      "validation_macro_f1_first": 0.28932570137857805,
-      "validation_macro_f1_last": 0.46414774478497617,
-      "validation_macro_f1_best_epoch": 4,
-      "validation_f1_strictly_increased_each_epoch": true
-    },
-    {
-      "architecture": "bert",
-      "seed": 123,
-      "epochs": 4,
-      "train_loss_first": 0.144341925616584,
-      "train_loss_last": 0.04956189927251774,
-      "validation_macro_f1_first": 0.3117644186330602,
-      "validation_macro_f1_last": 0.4772943277612574,
-      "validation_macro_f1_best_epoch": 4,
-      "validation_f1_strictly_increased_each_epoch": true
-    },
-    {
-      "architecture": "bert",
-      "seed": 2026,
-      "epochs": 4,
-      "train_loss_first": 0.14434039050966768,
-      "train_loss_last": 0.04847438112210222,
-      "validation_macro_f1_first": 0.2979165751196436,
-      "validation_macro_f1_last": 0.47234584396915974,
-      "validation_macro_f1_best_epoch": 4,
-      "validation_f1_strictly_increased_each_epoch": true
-    },
-    {
-      "architecture": "distilbert",
-      "seed": 42,
-      "epochs": 3,
-      "train_loss_first": 0.1630763508503035,
-      "train_loss_last": 0.07586815398099771,
-      "validation_macro_f1_first": 0.26442984758030624,
-      "validation_macro_f1_last": 0.4015366467283613,
-      "validation_macro_f1_best_epoch": 3,
-      "validation_f1_strictly_increased_each_epoch": true
-    },
-    {
-      "architecture": "distilbert",
-      "seed": 123,
-      "epochs": 3,
-      "train_loss_first": 0.1627427245289657,
-      "train_loss_last": 0.07623176719462149,
-      "validation_macro_f1_first": 0.27081083473201834,
-      "validation_macro_f1_last": 0.41199258432207325,
-      "validation_macro_f1_best_epoch": 3,
-      "validation_f1_strictly_increased_each_epoch": true
-    },
-    {
-      "architecture": "distilbert",
-      "seed": 2026,
-      "epochs": 3,
-      "train_loss_first": 0.16182419885155025,
-      "train_loss_last": 0.07590832286006953,
-      "validation_macro_f1_first": 0.24385420462706103,
-      "validation_macro_f1_last": 0.40381803247163683,
-      "validation_macro_f1_best_epoch": 3,
-      "validation_f1_strictly_increased_each_epoch": true
-    },
-    {
-      "architecture": "roberta",
-      "seed": 42,
-      "epochs": 3,
-      "train_loss_first": 0.15459644035503795,
-      "train_loss_last": 0.076949961254692,
-      "validation_macro_f1_first": 0.23286061432224164,
-      "validation_macro_f1_last": 0.4286452070128942,
-      "validation_macro_f1_best_epoch": 3,
-      "validation_f1_strictly_increased_each_epoch": true
-    },
-    {
-      "architecture": "roberta",
-      "seed": 123,
-      "epochs": 3,
-      "train_loss_first": 0.15484785356058337,
-      "train_loss_last": 0.07780095551491635,
-      "validation_macro_f1_first": 0.21319719904451975,
-      "validation_macro_f1_last": 0.41105297382575684,
-      "validation_macro_f1_best_epoch": 3,
-      "validation_f1_strictly_increased_each_epoch": true
-    },
-    {
-      "architecture": "roberta",
-      "seed": 2026,
-      "epochs": 3,
-      "train_loss_first": 0.15307682229060507,
-      "train_loss_last": 0.07645891234604782,
-      "validation_macro_f1_first": 0.23186268377648633,
-      "validation_macro_f1_last": 0.4306234800101281,
-      "validation_macro_f1_best_epoch": 3,
-      "validation_f1_strictly_increased_each_epoch": true
-    }
-  ],
+  "learning_curves": {
+    "points": 30,
+    "csv_sha256": "79bbb48838e009a85073a0c5966855693078329e8f45c09ec2ce3b209d245558",
+    "C3_epoch_history": "results/c3_rerun/epoch_history.csv"
+  },
   "conclusion": {
     "saved_tfidf_matches_train_only": true,
     "cross_split_exact_text_overlap_present": true,

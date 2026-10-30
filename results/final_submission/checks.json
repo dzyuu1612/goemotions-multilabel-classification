@@ -1,14 +1,15 @@
 {
-  "checked_at_utc": "2026-10-26T07:20:00.493572+00:00",
-  "unit_tests": 112,
+  "checked_at_utc": "2026-10-30T10:54:59.487921+00:00",
+  "unit_tests": 116,
   "unit_tests_passed": true,
-  "executed_notebooks": 7,
-  "executed_code_cells": 72,
+  "executed_notebooks": 8,
+  "executed_code_cells": 66,
   "benchmark_rows": 72,
   "mean_std_groups": 36,
   "frozen_benchmark_metric_tolerance": 1e-12,
-  "independent_sklearn_crosscheck": "independent_crosscheck.json",
-  "demo_scope": "HTTP/API on all six choices. Current visual browser check unavailable; old UI screenshot retained and identified.",
-  "training_repeated": false,
-  "threshold_search_repeated": false
+  "full_training_runs": {
+    "C3": 3
+  },
+  "unchanged_A_B_C1_C2_verified": true,
+  "notebook_outputs_saved_in_main_files": true
 }

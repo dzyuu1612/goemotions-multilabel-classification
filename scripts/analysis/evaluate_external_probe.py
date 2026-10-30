@@ -31,7 +31,7 @@ frames,labels,manifest=load_goemotions(A,write_metadata=False)
 texts=[r['text'] for r in fixture['rows']];human=np.array([r['truth'] for r in fixture['rows']],dtype=int)
 group_ids=[[labels.index(n) for n in fixture['mapping'][c]] for c in fixture['labels']]
 out=args.output;out.mkdir(parents=True,exist_ok=True)
-reps={'bert':123,'roberta':2026,'distilbert':123}
+reps={m:max([42,123,2026],key=lambda s:(read(A/f'data/processed/transformers/{m}/seed_{s}/full/standard/validation_metrics.json')['macro_f1'],-s)) for m in ['bert','roberta','distilbert']}
 
 def infer(predictor,items,truth=None,label=''):
     points=[];loss=0.;n=len(items)

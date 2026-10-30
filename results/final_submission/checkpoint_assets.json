@@ -1,6 +1,6 @@
 {
-  "release_tag": "goemotions-final-duy-huy-20261026",
-  "release_url": "https://github.com/trangkhanh-ai/goemotions-multilabel-classification/releases/tag/goemotions-final-duy-huy-20261026",
+  "release_tag": "goemotions-c3-20261030",
+  "release_url": "https://github.com/dzyuu1612/goemotions-multilabel-classification/releases/tag/goemotions-c3-20261030",
   "archive_paths": "Extract at the prepared runtime root, retaining data/processed paths.",
   "assets": [
     {
@@ -73,33 +73,33 @@
       "name": "distilbert_seed_42.zip",
       "architecture": "distilbert",
       "seed": 42,
-      "bytes": 269690146,
-      "sha256": "92fbb3c52ff7e877ac315ce8254f98af78b8606a04fe05ee98adb283e9bc43ad",
-      "download_url": "https://github.com/trangkhanh-ai/goemotions-multilabel-classification/releases/download/goemotions-final-duy-huy-20261026/distilbert_seed_42.zip",
+      "bytes": 248342518,
+      "sha256": "910b2b8375f98e8e694d8d63ecb34b6f99c320c372653bd0becfff52575acf8f",
+      "download_url": "https://github.com/dzyuu1612/goemotions-multilabel-classification/releases/download/goemotions-c3-20261030/distilbert_seed_42.zip",
       "weights": {
-        "data/processed/transformers/distilbert/seed_42/full/standard/checkpoint/model.safetensors": "aae751dbc487f9dd37f5c4cd35fca0f3fcd0cb7e8b3eb0851281eb694fe0902c"
+        "data/processed/transformers/distilbert/seed_42/full/standard/checkpoint/model.safetensors": "b19f9dcbb8e54956be2c301454a82e70c7f8a7646f18c3e9401bb73e4b042fc7"
       }
     },
     {
       "name": "distilbert_seed_123.zip",
       "architecture": "distilbert",
       "seed": 123,
-      "bytes": 269687295,
-      "sha256": "cd5a033ad49b53b09863124356528895cb9d493af195ecb6ec9a41c0488ebf75",
-      "download_url": "https://github.com/trangkhanh-ai/goemotions-multilabel-classification/releases/download/goemotions-final-duy-huy-20261026/distilbert_seed_123.zip",
+      "bytes": 248341678,
+      "sha256": "caafd4b02419d72a91401bbf2204a800a680093972df76553df7c9d8825ace64",
+      "download_url": "https://github.com/dzyuu1612/goemotions-multilabel-classification/releases/download/goemotions-c3-20261030/distilbert_seed_123.zip",
       "weights": {
-        "data/processed/transformers/distilbert/seed_123/full/standard/checkpoint/model.safetensors": "056968b8c2cbdc64f9fa5a1afde75ca06b4edd09e48f46afeabe39bd60f4722f"
+        "data/processed/transformers/distilbert/seed_123/full/standard/checkpoint/model.safetensors": "a5d8cc40c2b8614b3e5bee1a593270ef0ed78b6ae9af97202b8d57565a95e8e2"
       }
     },
     {
       "name": "distilbert_seed_2026.zip",
       "architecture": "distilbert",
       "seed": 2026,
-      "bytes": 269688616,
-      "sha256": "4e312373e580f9ddac65d9200b8b99e88651e18709d5ca179831bf54e176a853",
-      "download_url": "https://github.com/trangkhanh-ai/goemotions-multilabel-classification/releases/download/goemotions-final-duy-huy-20261026/distilbert_seed_2026.zip",
+      "bytes": 248341715,
+      "sha256": "3aed9396e69e1b6a0d482658ca5ac629546c7f06cc5b5d2259eb479dce8453a2",
+      "download_url": "https://github.com/dzyuu1612/goemotions-multilabel-classification/releases/download/goemotions-c3-20261030/distilbert_seed_2026.zip",
       "weights": {
-        "data/processed/transformers/distilbert/seed_2026/full/standard/checkpoint/model.safetensors": "9f283e73527713aa9728ea9134df67330641abdfb4ebf76e3f176364d7c3fa0c"
+        "data/processed/transformers/distilbert/seed_2026/full/standard/checkpoint/model.safetensors": "eb5b8f649ca5e0ee90ee9d56f01235dba8be4295f34bb24c8e550c58257aa590"
       }
     },
     {
@@ -113,5 +113,6 @@
         "data/processed/baseline/balanced/full/model.joblib": "221843039e683a1d3c2013c9e91468c85756865a8459526762a19b46910a6871"
       }
     }
-  ]
+  ],
+  "release_policy": "C3 assets belong to this release. A/B/C1/C2 keep their unchanged original download URLs and SHA-256."
 }

@@ -1,0 +1,179 @@
+{
+  "records": [
+    {
+      "model": "TF-IDF",
+      "split": "train",
+      "n": 43410,
+      "feature_shape": [
+        43410,
+        58338
+      ],
+      "label_shape": [
+        43410,
+        28
+      ],
+      "empty_feature_rows": 46,
+      "positive_labels": 51103,
+      "multilabel_rows": 7102,
+      "neutral_with_other": 1396
+    },
+    {
+      "model": "TF-IDF",
+      "split": "validation",
+      "n": 5426,
+      "feature_shape": [
+        5426,
+        58338
+      ],
+      "label_shape": [
+        5426,
+        28
+      ],
+      "empty_feature_rows": 9,
+      "positive_labels": 6380,
+      "multilabel_rows": 878,
+      "neutral_with_other": 174
+    },
+    {
+      "model": "TF-IDF",
+      "split": "test",
+      "n": 5427,
+      "feature_shape": [
+        5427,
+        58338
+      ],
+      "label_shape": [
+        5427,
+        28
+      ],
+      "empty_feature_rows": 12,
+      "positive_labels": 6329,
+      "multilabel_rows": 837,
+      "neutral_with_other": 181
+    },
+    {
+      "model": "bert",
+      "split": "train",
+      "n": 43410,
+      "max_length": 128,
+      "truncated_rows": 1,
+      "max_original_tokens": 316,
+      "p95_tokens": 35.0,
+      "rows_with_unknown_token": 869,
+      "model_config_sha256": "b9c139f92a29904515580cc22999e7f0ed35bddfbb26365f84ccca70f14d44d9"
+    },
+    {
+      "model": "bert",
+      "split": "validation",
+      "n": 5426,
+      "max_length": 128,
+      "truncated_rows": 0,
+      "max_original_tokens": 57,
+      "p95_tokens": 36.0,
+      "rows_with_unknown_token": 117,
+      "model_config_sha256": "b9c139f92a29904515580cc22999e7f0ed35bddfbb26365f84ccca70f14d44d9"
+    },
+    {
+      "model": "bert",
+      "split": "test",
+      "n": 5427,
+      "max_length": 128,
+      "truncated_rows": 0,
+      "max_original_tokens": 72,
+      "p95_tokens": 35.0,
+      "rows_with_unknown_token": 112,
+      "model_config_sha256": "b9c139f92a29904515580cc22999e7f0ed35bddfbb26365f84ccca70f14d44d9"
+    },
+    {
+      "model": "roberta",
+      "split": "train",
+      "n": 43410,
+      "max_length": 128,
+      "truncated_rows": 4,
+      "max_original_tokens": 1437,
+      "p95_tokens": 33.0,
+      "rows_with_unknown_token": 0,
+      "model_config_sha256": "21bf9242d3a1cf2ea860f928f6323e3adaac11df978d7941dd3228126e178d01"
+    },
+    {
+      "model": "roberta",
+      "split": "validation",
+      "n": 5426,
+      "max_length": 128,
+      "truncated_rows": 0,
+      "max_original_tokens": 73,
+      "p95_tokens": 33.0,
+      "rows_with_unknown_token": 0,
+      "model_config_sha256": "21bf9242d3a1cf2ea860f928f6323e3adaac11df978d7941dd3228126e178d01"
+    },
+    {
+      "model": "roberta",
+      "split": "test",
+      "n": 5427,
+      "max_length": 128,
+      "truncated_rows": 1,
+      "max_original_tokens": 177,
+      "p95_tokens": 33.0,
+      "rows_with_unknown_token": 0,
+      "model_config_sha256": "21bf9242d3a1cf2ea860f928f6323e3adaac11df978d7941dd3228126e178d01"
+    },
+    {
+      "model": "distilbert",
+      "split": "train",
+      "n": 43410,
+      "max_length": 128,
+      "truncated_rows": 1,
+      "max_original_tokens": 316,
+      "p95_tokens": 34.0,
+      "rows_with_unknown_token": 847,
+      "model_config_sha256": "56cd398e0691647439a641a7f382ea4392062a2bdcd5d1bc9427ed996f633991"
+    },
+    {
+      "model": "distilbert",
+      "split": "validation",
+      "n": 5426,
+      "max_length": 128,
+      "truncated_rows": 0,
+      "max_original_tokens": 48,
+      "p95_tokens": 34.0,
+      "rows_with_unknown_token": 115,
+      "model_config_sha256": "56cd398e0691647439a641a7f382ea4392062a2bdcd5d1bc9427ed996f633991"
+    },
+    {
+      "model": "distilbert",
+      "split": "test",
+      "n": 5427,
+      "max_length": 128,
+      "truncated_rows": 0,
+      "max_original_tokens": 55,
+      "p95_tokens": 34.0,
+      "rows_with_unknown_token": 108,
+      "model_config_sha256": "56cd398e0691647439a641a7f382ea4392062a2bdcd5d1bc9427ed996f633991"
+    }
+  ],
+  "architectures": {
+    "bert": {
+      "hidden": 768,
+      "layers": 12,
+      "heads": 12,
+      "tokenizer": "BertTokenizerFast",
+      "vocab_size": 28996
+    },
+    "roberta": {
+      "hidden": 768,
+      "layers": 12,
+      "heads": 12,
+      "tokenizer": "RobertaTokenizerFast",
+      "vocab_size": 50265
+    },
+    "distilbert": {
+      "hidden": 768,
+      "layers": 6,
+      "heads": 12,
+      "tokenizer": "DistilBertTokenizerFast",
+      "vocab_size": 30522
+    }
+  },
+  "tokenizer_scope": "Actual cased BERT, RoBERTa BPE and uncased DistilBERT tokenizers from representative checkpoints. No tokenizer fitting.",
+  "tfidf_scope": "Transform with saved train-only vectorizer; no classifier training."
+}

@@ -5,18 +5,18 @@
     {
       "split": "train",
       "n": 43410,
-      "bce": 0.0693741020541336,
-      "macro_f1": 0.47615280442865987,
-      "micro_f1": 0.6499194324333724,
-      "hamming_loss": 0.024845328594464738
+      "bce": 0.06919640819047286,
+      "macro_f1": 0.4787546474325711,
+      "micro_f1": 0.6511768115942029,
+      "hamming_loss": 0.02475236120709514
     },
     {
       "split": "validation",
       "n": 5426,
-      "bce": 0.08442197738116364,
-      "macro_f1": 0.41204011631935683,
-      "micro_f1": 0.5776119402985075,
-      "hamming_loss": 0.029803591174766993
+      "bce": 0.08408307715317478,
+      "macro_f1": 0.4132001008676058,
+      "micro_f1": 0.5739374124241009,
+      "hamming_loss": 0.030020799325996526
     }
   ],
   "mode": "Frozen checkpoint in eval mode, no training, no dropout, unweighted mean BCE. Not epoch training loss."

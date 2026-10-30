@@ -40,6 +40,8 @@ def publication_errors(root, manifest):
         content = lambda nb: [(c["cell_type"], "".join(c["source"])) for c in nb["cells"]]
         if content(original) != content(ready):
             errors.append(f"Output không chạy từ source hiện tại: {source_name}")
+        if any(c.get("outputs") for c in original["cells"] if c["cell_type"] == "code") and original["cells"] != ready["cells"]:
+            errors.append(f"Output trong notebook chính khác bản đã thực thi: {source_name}")
         code = [c for c in ready["cells"] if c["cell_type"] == "code"]
         if (not code or [c.get("execution_count") for c in code] != list(range(1, len(code) + 1))
                 or entry.get("code_cells") != len(code) or entry.get("executed_code_cells") != len(code)

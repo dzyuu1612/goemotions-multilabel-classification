@@ -1,91 +1,40 @@
 {
-  "a_thresholds": {
-    "sources": [
-      "all_runs.csv",
-      "mean_std.csv"
-    ],
-    "sha256": "f349d5c025cfc3a2baf9b910a50f1f3a6656542ed39a95724b836670f4208e28"
+  "training": false,
+  "threshold_search": false,
+  "figures": {
+    "01_hinh_1_1": "081e714c6f07648296046feb720533d89e9a8fafd36131fd6d4a5556a58e309a",
+    "02_hinh_2_1": "fb87a07496c1052f804eedb9f09f1dd9613de188ababfb33dea9171909f75f9f",
+    "label_distribution": "7b5c0b59cb65a1f8532950b67ce40f6fba378ea8f20372a4c7e4c4a7cd5c6d31",
+    "label_cardinality": "fe0d848864246579821da5008659a33c4d5597a71928b424c5c1e31430f95666",
+    "seed_curves": "f20ba2bdd946a6495964659a861c213b122044f0aa2ae7a3f2c6d40d40732e9e",
+    "train_validation": "e082c468e4de3b4fd326a449363a8653403ddb999bc3906c08d33710d6e2fa48",
+    "precision_recall": "540d392f2e5eb7bdf76ee77d0b85797d42be87aa56f9548d91dc106401c52d1a",
+    "rare_labels": "299471c6b904e2a0f12cee8946038d9a34b6771b52d5d7a404745bc424396f93",
+    "error_groups": "829d64b8e93419712322a2a7fa16e18548c69e0fef5d5a03365bbfa14699ae0d",
+    "error_pairs": "2e677870e9277fb66920c8abc5c13b7940c048d94dabd07af0005151282758c3",
+    "test_f1_summary": "7f33561df4820ac107a0db94a944447c0871fcb58812ccd295c592bf9736758f",
+    "coerror_bert": "d522f5a71a8cff9c694f515f5f6f78c2a9f68be0b3afabb893174d2a57ae9631",
+    "coerror_roberta": "58919b3eac62d1560841cd4781a07b0aef679dc5bce8723ad7201d449d88dc1f",
+    "coerror_distilbert": "47b949345181002c4abc34b83156b1eb03698bb66a2c1cd2ff77828032e4c661",
+    "f1_all_labels": "6a9693fbc2693ba1b21f9353895a5e69d90f6233a25f3f51581f0e4d9bda581d",
+    "brighter_errors": "dd6c0fa941ac6a94da12fa70b098a60ff0356934056b98d2ecb822ca94d59d35"
   },
-  "b_thresholds": {
-    "sources": [
-      "mean_std.csv"
-    ],
-    "sha256": "9278f64a3620b1119fa53a15357ef217d0662bb0f50b98ed7a79095c05578e83"
-  },
-  "tensor_shapes": {
-    "sources": [
-      "scores.json: parameters",
-      "encoding_audit.json (verified in previous revision)"
-    ],
-    "sha256": "f0956e41928cfe76d3e173da0c73b2846db07510960b3f06931d7b092e4d2c5c"
-  },
-  "seed_curves": {
-    "sources": [
-      "learning_curves.csv"
-    ],
-    "sha256": "056c2c466f34515be8acde169aa8bec5bd3abf78afb98eae0dad07255ff9c244"
-  },
-  "train_validation": {
-    "sources": [
-      "bert_diagnostic.json",
-      "roberta_diagnostic.json",
-      "distilbert_diagnostic.json"
-    ],
-    "sha256": "c1e530a4dc988062fe982cc11469b3d50a62a460e46a1ea81adc5b408ad178f6"
-  },
-  "precision_recall": {
-    "sources": [
-      "mean_std.csv"
-    ],
-    "sha256": "eac5929e6797f999825d4b1778a7eb929ffe2e04233c490dcfe483a7cb23c0a2"
-  },
-  "rare_labels": {
-    "sources": [
-      "rare_labels_test.csv",
-      "a_rare.json"
-    ],
-    "sha256": "785029a7243e88d38276c86894182a887bcdef2d332442299bbe182e41ae0077"
-  },
-  "error_groups": {
-    "sources": [
-      "error_counts.csv"
-    ],
-    "sha256": "d3f3a0c769ea2a98058aabe06c3de62f736e79e890dd088a89a26ac4e7551c85"
-  },
-  "error_pairs": {
-    "sources": [
-      "top_error_pairs.csv"
-    ],
-    "sha256": "beccd98cc0dd1e1f22095dc5b6cfe293644a6249b4b41439561b7295daafd7bd"
-  },
-  "external_metrics": {
-    "sources": [
-      "summary.json"
-    ],
-    "sha256": "fa548f8d6fab3238b9167cb5fcb21d4b4bc6f1a834c755f28f0fb6d2ff583a5a"
-  },
-  "case_scores": {
-    "sources": [
-      "scores.json"
-    ],
-    "sha256": "fca9a5ed974cb018cee8976594e90ab9cb8fa1cea3b6f7747986eb2b76327b6b"
-  },
-  "validation_mean": {
-    "sources": [
-      "learning_curves.csv"
-    ],
-    "sha256": "3774d057f267d76ed2b974d19727ccf64d16a552e3e7cd64668cc4bf2e8ebe66"
-  },
-  "test_f1_summary": {
-    "sources": [
-      "mean_std.csv"
-    ],
-    "sha256": "d95f99710975d1f8f9753517d667815c4d4f5247575a5959e017c936680c6159"
-  },
-  "external_errors": {
-    "sources": [
-      "external_probe/predictions.json"
-    ],
-    "sha256": "51a7144ee653bdd498858f3a471d26c7093420f1f8e2230c33e6c99544847c2d"
+  "source_sha256": {
+    "results\\final_submission\\report_data\\all_runs.csv": "6924864f97a2e70c39e2e6fead0e53dcd3e0b8c064737913cfeac152de144205",
+    "results\\final_submission\\report_data\\error_counts.csv": "e8443f07f877d942e4904d20ac6f44723cb4e337e1180f66cdbcfd47258aa8f1",
+    "results\\final_submission\\report_data\\error_pairs.csv": "c4106a0e3256a0efe8de3c8a3df921e19bbc09b5631ce4721afc95e28f1afccb",
+    "results\\final_submission\\report_data\\error_pairs_28x28.csv": "ca23fdc256a8d5fa736dbdc4dc68e7c0cac182e7921d5418410947646b35369b",
+    "results\\final_submission\\report_data\\learning_curves.csv": "79bbb48838e009a85073a0c5966855693078329e8f45c09ec2ce3b209d245558",
+    "results\\final_submission\\report_data\\mean_std.csv": "f9abdaf9c73eb618bd748ab6813686a9a1e57498198e15287b1b6b123a8376be",
+    "results\\final_submission\\report_data\\per_label.csv": "8aba781634a70e7acb316db09ac5747d287c7a74e4ae697c2f8292650b49a660",
+    "results\\final_submission\\report_data\\per_label_test.csv": "16ece1acd3842dd542078bc43f67f32e55b7467dd9b543d5201d5d211a85d1eb",
+    "results\\final_submission\\report_data\\rare_labels_test.csv": "44b5998ae3c939e0f3c0fabc8ae6a7af1b217b6c88919220fa29c997f8014874",
+    "results\\final_submission\\report_data\\top_error_pairs.csv": "f65b7fa7a0623c1df7fb71c439410f7593b6a5a5badad0a25e8df4088245bdd9",
+    "results\\final_submission\\report_data\\bert_diagnostic.json": "a285cd9e19a27cc9f9236ca3f7a7aa464387c75adf263236bf08aa73650a3d53",
+    "results\\final_submission\\report_data\\distilbert_diagnostic.json": "686c525d9cce2aca04ef477a27f3864df8d79a4fe68241ddc61fd6e4066ec422",
+    "results\\final_submission\\report_data\\roberta_diagnostic.json": "e9e4910d7a4abb5656aa7712d2d601c18b40585c11a7ed8e4e65ea4d74554964",
+    "reports\\tables\\label_distribution.csv": "6ce5b40c4b1a727966ca0f90141e835883e0a6e845e2e0b90f3e6d897913dc0a",
+    "reports\\tables\\labels_per_sample.csv": "39f0460580cdcd620d9e37a2b397a8038975068dae0410177f3cb9568e98d07f",
+    "results/final_submission/external_probe/summary.json": "87d8caf218228b712a33b06857b8c01db044b8d83c3f8553c41cedc68d2c8a2f"
   }
 }

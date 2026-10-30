@@ -32,7 +32,8 @@ def main():
     pairs=pd.read_csv(data/'error_pairs.csv');per=pd.read_csv(data/'per_label_test.csv')
     means=pd.read_csv(data/'mean_std.csv')
     architectures=['bert','roberta','distilbert'];names=['C1 BERT','C2 RoBERTa','C3 DistilBERT']
-    seeds=[123,2026,123]
+    runs=pd.read_csv(data/'all_runs.csv')
+    seeds=[int(runs[(runs.system=='C_'+a)&(runs.split=='validation')&(runs.threshold_mode=='fixed')].sort_values(['macro_f1','seed'],ascending=[False,True]).iloc[0].seed) for a in architectures]
     matrices=[];all_rows=[]
     for arch,seed in zip(architectures,seeds):
         q=pairs[pairs.architecture==arch]
@@ -66,7 +67,7 @@ def main():
         manifest['charts'].append({'file':path.name,'sha256':digest(path),'description':description})
     for arch,name,seed,m in zip(architectures,names,seeds,small):
         fig,ax=plt.subplots(figsize=(9.7,8.1))
-        im=ax.imshow(m,cmap='Reds',vmin=0,vmax=vmax)
+        im=ax.imshow(m,cmap='Blues',vmin=0,vmax=vmax)
         ax.set_xticks(range(10),shown_labels,rotation=45,ha='right');ax.set_yticks(range(10),shown_labels)
         ax.set_xlabel('Nhãn dự đoán thừa (FP)');ax.set_ylabel('Nhãn thật bị bỏ sót (FN)')
         ax.set_title(f'{name} / seed {seed}\nĐồng xuất hiện FN và FP trên cùng câu',pad=13,fontsize=16)

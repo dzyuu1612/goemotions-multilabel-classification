@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "final-duy-ab-c1-c2-huy-c3-20261026",
+  "data_revision": "add492243ff905527e67aeb8b80c082af02207c3",
+  "sources": {
+    "A_standard": "Duy saved full run",
+    "A_balanced": "Duy saved full run",
+    "B_bart_mnli": "Duy saved zero-shot scores and frozen thresholds",
+    "C_bert": "Duy complete seeds 42,123,2026",
+    "C_roberta": "Duy complete seeds 42,123,2026",
+    "C_distilbert": "Huy complete seeds 42,123,2026 from training_20261025"
+  },
+  "source_policy": "Whole architecture runs, never select individual seeds across source sets. No training or threshold search repeated.",
+  "selection_timing": "The group had already viewed both sets of test results before fixing this combined set. Report descriptive comparisons; do not claim the run-set choice was independent of test.",
+  "checkpoint_selection": "Within each architecture, checkpoint and per-label thresholds remain the validation-selected choices of the original run. Demo architecture and seed recomputed by the existing validation rule.",
+  "demo": {
+    "architecture": "bert",
+    "seed": 123
+  },
+  "contribution_percentages": "User will fill manually; do not invent values."
+}
