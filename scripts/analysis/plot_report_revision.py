@@ -91,7 +91,7 @@ def main():
    rows.append(dict(model=arch,label=label,before=v0,after=v1,std_before=sd0,std_after=sd1))
   ax.set_yticks(range(5),[f'{l} (n={n})' for l,n in zip(rare,[6,16,11,23,37])]);ax.invert_yaxis();ax.set_xlim(-.1,.72);ax.set_title(name,fontsize=12);ax.set_xlabel('F1 test');ax.xaxis.set_major_formatter(fmt);ax.grid(axis='x',alpha=.15)
  fig.tight_layout();save(fig,'rare_labels');pd.DataFrame(rows).to_csv(t/'rare_f1_before_after.csv',index=False)
- err=pd.read_csv(t/'error_counts_verified.csv');fig,axes=plt.subplots(3,1,figsize=(9.5,5.3))
+ err=pd.read_csv(d/'error_counts.csv');err.to_csv(t/'error_counts_verified.csv',index=False);fig,axes=plt.subplots(3,1,figsize=(9.5,5.3))
  for ax,cat,title in zip(axes,['partial_multi_label','rare_false_negative','missed_extra_pair'],['Câu đa nhãn đúng một phần, còn bỏ sót','Bỏ sót ít nhất một nhãn hiếm','Đồng thời có FN và FP']):
   for i,(arch,color) in enumerate(zip(models,MODEL_COLORS)):
    r=err[(err.architecture==arch)&(err.category==cat)].iloc[0];v=100*r.fraction_eligible
