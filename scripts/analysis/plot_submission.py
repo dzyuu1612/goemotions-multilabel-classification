@@ -1,5 +1,6 @@
 from pathlib import Path
-import json, hashlib
+import json, hashlib, argparse
+from scripts.analysis.report_style import vi, decimal_axes
 import numpy as np
 import pandas as pd
 import matplotlib
@@ -7,13 +8,17 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from matplotlib.patches import FancyBboxPatch
 
-W=Path(__file__).resolve().parents[2]/'results/final_submission'; D=W/'report_data'; F=W/'figures'; F.mkdir(exist_ok=True)
+W=Path(__file__).resolve().parents[2]/'results/final_submission'; D=W/'report_data'
+parser=argparse.ArgumentParser();parser.add_argument('--output',type=Path,default=W.parents[1]/'report_out/legacy');OUTPUT=parser.parse_args().output.resolve()
+if OUTPUT.is_relative_to(W.resolve()):parser.error('Output must be outside frozen results')
+F=OUTPUT/'figures'; F.mkdir(exist_ok=True,parents=True)
 read=lambda p:json.loads(p.read_text(encoding='utf-8-sig'))
 plt.rcParams.update({'font.family':'DejaVu Sans','font.size':16,'axes.titlesize':17,'axes.labelsize':16,'xtick.labelsize':14,'ytick.labelsize':15,'axes.spines.top':False,'axes.spines.right':False,'savefig.facecolor':'white','axes.unicode_minus':False})
-colors=['#21618C','#B35B1F','#327C64']; models=['bert','roberta','distilbert']; names=['C1 BERT','C2 RoBERTa','C3 DistilBERT']; modes=['fixed','global','tuned']; ticks=['0,5','Chung','Từng nhãn']
+colors=['#21618C','#B35B1F','#327C64']; models=['bert','roberta','distilbert']; names=['C1 BERT','C2 RoBERTa','C3 DistilBERT']; modes=['fixed','global','tuned']; ticks=['0,5','Chung','Ngưỡng riêng']
 a=pd.read_csv(D/'all_runs.csv'); means=pd.read_csv(D/'mean_std.csv'); per=pd.read_csv(D/'rare_labels_test.csv'); curves=pd.read_csv(D/'learning_curves.csv')
 manifest={}
 def save(fig,name,sources):
+ decimal_axes(fig.axes)
  fig.savefig(F/(name+'.png'),dpi=220,bbox_inches='tight',pad_inches=.12);plt.close(fig)
  manifest[name]={'sources':sources,'sha256':hashlib.sha256((F/(name+'.png')).read_bytes()).hexdigest()}
 def group(system,split,mode):
@@ -76,8 +81,8 @@ for m,name,c in zip(models,names,colors):
   ax.errorbar(xx[j],yy[j],xerr=q[j].micro_recall_std,yerr=q[j].micro_precision_std,fmt=marker,color=c,capsize=4,markersize=8)
   offset={'bert':[(.006,.004),(.006,.008)],'roberta':[(.008,.012),(.006,.010)],'distilbert':[(-.016,.030),(.006,-.017)]}[m][j]
   ax.text(xx[j]+offset[0],yy[j]+offset[1],name,fontsize=14,color=c)
-ax.plot([],[],marker='o',ls='',color='#444',label='0,5');ax.plot([],[],marker='s',ls='',color='#444',label='Từng nhãn')
-ax.set(xlim=(.44,.73),ylim=(.49,.79),xlabel='Micro-Recall ↑',ylabel='Micro-Precision ↑');ax.grid(alpha=.2);ax.legend(loc='lower left',frameon=False,title='Mũi tên: 0,5 → từng nhãn',fontsize=14,title_fontsize=15)
+ax.plot([],[],marker='o',ls='',color='#444',label='0,5');ax.plot([],[],marker='s',ls='',color='#444',label='Ngưỡng riêng')
+ax.set(xlim=(.44,.73),ylim=(.49,.79),xlabel='Micro-Recall ↑',ylabel='Micro-Precision ↑');ax.grid(alpha=.2);ax.legend(loc='lower left',frameon=False,title='Mũi tên: 0,5 → ngưỡng riêng',fontsize=14,title_fontsize=15)
 fig.tight_layout();save(fig,'precision_recall',['mean_std.csv'])
 # Five rare labels, A contrasts weight+threshold, C contrasts threshold only.
 labels=['grief','pride','relief','nervousness','embarrassment']; supports=[6,16,11,23,37]
@@ -120,7 +125,7 @@ for ax,key,title,limit in zip(axes.ravel(),['macro_f1','micro_f1','hamming_loss'
    assert np.isfinite(q).all()
    v=q.mean();sd=q.std(ddof=1) if len(q)==3 else 0
    ax.errorbar(v,i+dy,xerr=sd,fmt=mk,color=c,capsize=3,markersize=6)
-  ax.plot([],[],marker=mk,ls='',color=c,label='0,5' if mode=='fixed' else 'Từng nhãn đã khóa')
+  ax.plot([],[],marker=mk,ls='',color=c,label='0,5' if mode=='fixed' else 'Ngưỡng riêng đã khóa')
  ax.set_yticks(range(6),extnames);ax.invert_yaxis();ax.set_xlim(-limit*.02,limit);ax.set_title(title,fontsize=16);ax.grid(axis='x',alpha=.2)
 fig.legend(*axes[0,0].get_legend_handles_labels(),loc='upper center',ncol=2,frameon=False,bbox_to_anchor=(.5,1.02));fig.tight_layout(rect=[0,0,1,.95]);save(fig,'external_metrics',['summary.json'])
 # Local explanations anchored in raw 28-label scores and frozen per-label thresholds.
@@ -148,7 +153,7 @@ for m,name,c in zip(models,names,colors):
 ax.set(xlabel='Epoch',ylabel='Macro-F1 validation tại 0,5',ylim=(.1,.53));ax.set_xticks([1,2,3,4]);ax.grid(alpha=.2);ax.legend(frameon=False);fig.tight_layout();save(fig,'validation_mean',['learning_curves.csv'])
 fig,axes=plt.subplots(1,2,figsize=(12.3,5.0));x=np.arange(3);bw=.34
 for ax,key,title in zip(axes,['macro_f1','micro_f1'],['Macro-F1 test ↑','Micro-F1 test ↑']):
- for j,(mode,c,label) in enumerate([('fixed','#7B8790','0,5'),('tuned',colors[0],'Từng nhãn')]):
+ for j,(mode,c,label) in enumerate([('fixed','#7B8790','0,5'),('tuned',colors[0],'Ngưỡng riêng')]):
   q=[group('C_'+m,'test',mode) for m in models]
   ax.bar(x+(j-.5)*bw,[r[key+'_mean'] for r in q],bw,yerr=[r[key+'_std'] for r in q],capsize=4,color=c,label=label)
  ax.set_xticks(x,['C1','C2','C3']);ax.set_ylim(0,.7);ax.set_title(title);ax.grid(axis='y',alpha=.2)
@@ -161,6 +166,6 @@ for ax,(m,seed),name in zip(axes,[('bert',123),('roberta',2026),('distilbert',12
   for j in range(2):ax.text(j,i,str(arr[i,j]),ha='center',va='center',color='white' if arr[i,j]>=3 else 'black',weight='bold',fontsize=14)
 fig.tight_layout();save(fig,'external_errors',['external_probe/predictions.json'])
 
-(W/'plot_manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2),encoding='utf8')
+(OUTPUT/'plot_manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2),encoding='utf8')
 print('Created',len(manifest),'plots, no training or threshold changes.')
 

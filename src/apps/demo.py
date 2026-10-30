@@ -6,7 +6,6 @@ Không có checkpoint đầy đủ thì báo cách tạo; không trả kết qu�
 from __future__ import annotations
 
 import argparse
-from contextlib import nullcontext
 from pathlib import Path
 
 import numpy as np
@@ -15,12 +14,21 @@ from src.models.transformer import load_demo_selection, resolve_device, configur
 
 from src.paths import ROOT
 
+DEMO_SENTENCES = [
+    "You stayed late to help me. I really appreciate it!",
+    "I was worried, but your help made me feel so relieved.",
+    "I am not angry with you, just disappointed in the result.",
+    "Wonderful, another three hours stuck in traffic.",
+    "The package will arrive on Tuesday afternoon.",
+]
+
 
 class TransformerDemo:
     def __init__(self, selection, device="auto", thresholds=None, artifact_root=ROOT):
         folder, self.metadata, self.thresholds = load_demo_selection(
             artifact_root, selection, thresholds_path=thresholds
         )
+        self.run_dir = folder
         self._load_checkpoint(folder / "checkpoint", device)
 
     def _load_checkpoint(self, checkpoint, device):
@@ -48,7 +56,7 @@ class TransformerDemo:
         predictor._load_checkpoint(checkpoint, device)
         return predictor
 
-    def predict(self, text):
+    def predict(self, text, threshold=None):
         """Cùng tokenizer/mapping/sigmoid/ngưỡng như lúc đánh giá checkpoint."""
         text = (text or "").strip()
         if not text:
@@ -62,13 +70,11 @@ class TransformerDemo:
                                  return_tensors="pt")
         inputs = {key: value.to(self.device) for key, value in encoded.items()}
         with self.torch.inference_mode():
-            context = self.torch.autocast("cuda", dtype=self.torch.float16) if self.device.type == "cuda" else nullcontext()
-            with context:
-                logits = self.model(**inputs).logits
+            logits = self.model(**inputs).logits
             scores = self.torch.sigmoid(logits.float())[0].cpu().numpy()
         if scores.shape != (28,) or not np.isfinite(scores).all():
             raise ValueError("Mô hình trả scores sai")
-        limits = np.broadcast_to(np.asarray(self.thresholds), (28,))
+        limits = np.broadcast_to(np.asarray(self.thresholds if threshold is None else threshold), (28,))
         selected = [name for name, score, limit in zip(self.labels, scores, limits) if score >= limit]
         message = ("**Cảm xúc dự đoán:** " + ", ".join(selected)) if selected else (
             "**Chưa có nhãn nào đạt ngưỡng.** Không tự suy ra neutral trong trường hợp này."
@@ -103,9 +109,9 @@ def main():
 
     selector = ModelSelector(args.artifacts_root, args.selection, args.device, args.thresholds, args.c3_source)
 
-    def predict(text, model_key):
+    def predict(text, model_key, threshold_mode):
         try:
-            return selector.predict(text, model_key)
+            return selector.predict(text, model_key, threshold_mode)
         except (ValueError, OSError, RuntimeError) as error:
             raise gr.Error(f"Không thể dự đoán bằng mô hình đã chọn: {error}") from error
 
@@ -115,23 +121,25 @@ def main():
         model_choice = gr.Dropdown(choices=selector.choices, value=selector.default,
                                    label="Chọn mô hình", interactive=True)
         model_info = gr.Markdown(selector.describe(selector.default))
+        threshold_choice = gr.Radio(
+            choices=[("Ngưỡng riêng (mặc định)", "tuned"), ("Ngưỡng 0,5", "fixed")],
+            value="tuned", label="Chế độ ngưỡng", interactive=True)
         gr.Markdown("Điểm là đầu ra của từng mô hình, chưa được hiệu chuẩn thành xác suất "
                     "đáng tin cậy. Lần chọn mô hình đầu tiên có thể cần thời gian nạp.")
         text = gr.Textbox(label="Bình luận tiếng Anh", lines=4,
                           placeholder="Thank you so much! I am really happy with your help.")
         button = gr.Button("Nhận diện cảm xúc", variant="primary")
         result = gr.Markdown()
-        table = gr.Dataframe(headers=["Cảm xúc", "Điểm", "Ngưỡng", "Được chọn"],
+        table = gr.Dataframe(headers=["Cảm xúc", "Điểm", "Ngưỡng áp dụng", "Đạt ngưỡng"],
                              datatype=["str", "number", "number", "str"], interactive=False,
                              label="Điểm của 28 nhãn")
         model_choice.change(lambda key: (selector.describe(key), "", []),
                             inputs=model_choice, outputs=[model_info, result, table],
                             queue=False, api_name=False)
-        button.click(predict, inputs=[text, model_choice], outputs=[result, table],
+        button.click(predict, inputs=[text, model_choice, threshold_choice], outputs=[result, table],
                      concurrency_limit=1, api_name="predict")
-        gr.Examples(examples=[["Thank you so much! I am really happy with your help."],
-                              ["I am disappointed and worried about what will happen next."],
-                              ["The meeting starts at nine tomorrow."]], inputs=text)
+        threshold_choice.change(lambda: ("", []), outputs=[result, table], queue=False, api_name=False)
+        gr.Examples(examples=[[sentence] for sentence in DEMO_SENTENCES], inputs=text)
     demo.launch(server_name="127.0.0.1", server_port=args.port, share=False)
 
 

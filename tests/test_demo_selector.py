@@ -73,9 +73,10 @@ class DemoSelectorTest(unittest.TestCase):
     def test_switch_uses_new_model_and_failed_load_never_reuses_old_predictions(self):
         with tempfile.TemporaryDirectory() as folder:
             selector = self.make_selector(folder)
-            one = SimpleNamespace(predict=lambda text: ("BERT result", []))
-            two = SimpleNamespace(predict=lambda text: ("RoBERTa result", []))
+            one = SimpleNamespace(predict=lambda text, threshold: ("BERT result", []))
+            two = SimpleNamespace(predict=lambda text, threshold: ("RoBERTa result", []))
             with patch.object(selector, "_load", side_effect=[one, two, OSError("missing model")]) as load:
+                selector._limits = lambda key, mode: (0.5, "")
                 with patch.dict("sys.modules", {"torch": SimpleNamespace(
                         set_num_threads=lambda n: None,
                         cuda=SimpleNamespace(is_available=lambda: False))}):

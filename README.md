@@ -1,10 +1,23 @@
 # GoEmotions phân loại cảm xúc đa nhãn
 
+## Cập nhật báo cáo và demo ngày 30/10/2026
+
+Gradio mặc định dùng BERT seed 123 cùng **ngưỡng riêng** đã khóa trên validation; có nút chuyển **ngưỡng 0,5**. Cả sáu lựa chọn mô hình dùng ngưỡng của đúng mô hình/seed, không tìm lại ngưỡng. BART-MNLI chỉ nạp khi được chọn. Demo xuất đủ 28 điểm kèm ngưỡng áp dụng và trạng thái đạt ngưỡng.
+
+```powershell
+python app.py --device auto
+python -m scripts.analysis.plot_report_revision --output ../report_out
+python -m scripts.verification.verify_submission --output ../report_out/verification/submission
+```
+
+Các script vẽ dùng thư mục đầu ra riêng và từ chối ghi vào `results/final_submission/`. Bản báo cáo rút gọn chỉ trình bày ngưỡng 0,5 và ngưỡng riêng; các chế độ lịch sử trong CSV gốc được giữ nguyên. Xem [hướng dẫn Spaces](deployment/DEPLOY_DEMO.md) và gói [Gradio cho BERT/123](deployment/hf_space/README.md). Chủ báo cáo tự tạo và công bố Space, sau đó điền link vào báo cáo.
+
+Năm câu gợi ý: “You stayed late to help me. I really appreciate it!”; “I was worried, but your help made me feel so relieved.”; “I am not angry with you, just disappointed in the result.”; “Wonderful, another three hours stuck in traffic.”; “The package will arrive on Tuesday afternoon.” Các câu này không có nhãn chuẩn và không dùng tính accuracy.
+
 ## Bản nâng cấp ngày 29/10/2026
 
 Bổ sung biểu đồ ngày **30/10/2026**: ma trận đồng xuất hiện FN/FP của ba C,
-bảng màu F1 theo đủ 28 nhãn và biểu đồ điểm/ngưỡng của câu demo. Ý tưởng trình
-bày tham khảo báo cáo XED của nhóm Quý; toàn bộ số liệu lấy từ GoEmotions.
+bảng màu F1 theo đủ 28 nhãn và biểu đồ điểm/ngưỡng của câu demo. Toàn bộ số liệu lấy từ GoEmotions.
 Giữ cùng 10 nhãn và thang màu cho ba ma trận. Chúng đếm cặp lỗi trên cùng câu,
 không phải ma trận đơn nhãn hoặc chứng minh cải thiện mô hình. Word/slide bổ sung
 được lưu riêng, không ghi đè bản ngày 29/10.

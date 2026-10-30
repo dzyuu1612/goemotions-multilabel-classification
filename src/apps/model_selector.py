@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import gc
+import hashlib
 import json
 from pathlib import Path
 from threading import Lock
@@ -13,6 +14,7 @@ from src.models.baseline import load_run_metadata
 from src.models.transformer import load_transformer_run, resolve_device
 from src.models.zero_shot import CHECKPOINT, HYPOTHESIS_TEMPLATE, map_pipeline_scores
 from src.paths import ROOT
+from src.evaluation.metrics import validate_thresholds
 
 
 def read_json(path):
@@ -43,8 +45,8 @@ class BaselineDemo:
         load_run_metadata(folder, variant, self.labels)
         self.model = joblib.load(folder / "model.joblib")
 
-    def predict(self, text):
-        return format_scores(self.labels, self.model.predict_proba([text])[0])
+    def predict(self, text, threshold=0.5):
+        return format_scores(self.labels, self.model.predict_proba([text])[0], threshold)
 
 
 class ZeroShotDemo:
@@ -91,11 +93,11 @@ class ZeroShotDemo:
         if self.classifier.entailment_id < 0:
             raise ValueError("Checkpoint B không có mapping entailment")
 
-    def predict(self, text):
+    def predict(self, text, threshold=0.5):
         result = self.classifier(text, candidate_labels=self.labels, multi_label=True,
                                  hypothesis_template=self.template, batch_size=8)
         scores = map_pipeline_scores(result, self.labels)[0]
-        message, rows = format_scores(self.labels, scores)
+        message, rows = format_scores(self.labels, scores, threshold)
         # Pipeline NLI cắt phần premise khi cặp premise/hypothesis quá dài.
         tokenizer = self.classifier.tokenizer
         lengths = [len(tokenizer(text, self.template.format(label), truncation=False,
@@ -144,8 +146,7 @@ class ModelSelector:
             "baseline_balanced": "TF-IDF và Logistic Regression có trọng số cân bằng lớp.",
             "zero_shot": "BART-MNLI suy luận trực tiếp, không fine-tune trên GoEmotions; có thể chậm hơn.",
         }
-        threshold_note = ("Dùng ngưỡng riêng đã cung cấp cho checkpoint mặc định."
-                          if key == self.default and self.thresholds else "Ngưỡng dự đoán: 0,5.")
+        threshold_note = "Mặc định dùng ngưỡng riêng đã khóa trên validation; có thể chuyển sang ngưỡng 0,5."
         return f"**{names[key]}**. {details[key]} {threshold_note}"
 
     def _load(self, key):
@@ -166,7 +167,9 @@ class ModelSelector:
             metadata = load_transformer_run(folder, require_full=True)
             if metadata["architecture"] != key:
                 raise ValueError("Kiến trúc checkpoint khác lựa chọn")
-            return TransformerDemo.from_checked_checkpoint(folder / "checkpoint", metadata, self.device)
+            predictor = TransformerDemo.from_checked_checkpoint(folder / "checkpoint", metadata, self.device)
+            predictor.run_dir = folder
+            return predictor
         if key == "distilbert":
             from src.current_report import checked_c3, current_c3_root
 
@@ -176,15 +179,54 @@ class ModelSelector:
                 raise ValueError("C3 phải được chọn bằng validation")
             seed = selected["representative_seed"]
             metadata, _ = checked_c3(folder, seed)
-            return TransformerDemo.from_checked_checkpoint(
+            predictor = TransformerDemo.from_checked_checkpoint(
                 folder / f"seed_{seed}" / "best", metadata, self.device)
+            predictor.run_dir = folder / f"seed_{seed}"
+            return predictor
         if key in ("baseline_standard", "baseline_balanced"):
             return BaselineDemo(self.root, key.removeprefix("baseline_"))
         if key == "zero_shot":
             return ZeroShotDemo(self.root, self.device)
         raise ValueError("Lựa chọn mô hình không hợp lệ")
 
-    def predict(self, text, key):
+    def _limits(self, key, mode):
+        if mode not in ("fixed", "tuned"):
+            raise ValueError("Chế độ ngưỡng không hợp lệ")
+        if mode == "fixed":
+            return 0.5, ""
+        if key == self.default and self.thresholds:
+            return self._predictor.thresholds, ""
+        if key.startswith("baseline_"):
+            path = self.root / "data/processed/baseline/final_protocol.json"
+        elif key == "zero_shot":
+            path = self.root / "data/processed/zero_shot/full/final_protocol.json"
+        else:
+            path = self._predictor.run_dir / "final_protocol.json"
+        if not path.is_file():
+            return 0.5, "Ngưỡng riêng của mô hình này chưa có; đang dùng ngưỡng 0,5."
+        saved = read_json(path)
+        labels = self._predictor.labels
+        if saved.get("label_names") != labels or saved.get("data_revision") != REVISION:
+            raise ValueError("Protocol ngưỡng không khớp nhãn hoặc phiên bản dữ liệu")
+        # A restored final-submission protocol must match the frozen published bytes.
+        manifest_path = ROOT / "results/final_submission/manifest.json"
+        if manifest_path.is_file() and path.is_relative_to(self.root):
+            expected = read_json(manifest_path)["files_sha256"].get(path.relative_to(self.root).as_posix())
+            if expected and hashlib.sha256(path.read_bytes()).hexdigest() != expected:
+                raise ValueError("Protocol ngưỡng khác bộ kết quả đã khóa")
+        if key in ("bert", "roberta", "distilbert"):
+            metadata_path = path.parent / "run_metadata.json"
+            if (saved.get("architecture") != key or
+                    saved.get("seed") != self._predictor.metadata.get("seed") or
+                    saved.get("run_metadata_sha256") != hashlib.sha256(metadata_path.read_bytes()).hexdigest()):
+                raise ValueError("Ngưỡng riêng không thuộc đúng checkpoint đang dùng")
+        options = [c for c in saved.get("configurations", []) if c.get("threshold_mode") == "tuned"
+                   and (not key.startswith("baseline_") or c.get("variant") == key.removeprefix("baseline_"))]
+        if len(options) != 1:
+            raise ValueError("Protocol phải có đúng một cấu hình ngưỡng riêng cho mô hình")
+        return validate_thresholds(options[0]["thresholds"], 28), ""
+
+    def predict(self, text, key, threshold_mode="tuned"):
         self.describe(key)
         text = (text or "").strip()
         if not text:
@@ -202,7 +244,10 @@ class ModelSelector:
                     torch.cuda.empty_cache()
                 self._predictor = self._load(key)
                 self._key = key
-            message, rows = self._predictor.predict(text)
+            limits, warning = self._limits(key, threshold_mode)
+            message, rows = self._predictor.predict(text, limits)
+            if warning:
+                message += "\n\n⚠ " + warning
             metadata = getattr(self._predictor, "metadata", {})
             seed = metadata.get("seed", metadata.get("config", {}).get("seed"))
             seed_note = f" · seed {seed}" if seed is not None else ""

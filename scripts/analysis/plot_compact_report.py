@@ -1,11 +1,13 @@
 """Draw the three explanatory figures used by the compact report from frozen data."""
 from pathlib import Path
+from scripts.analysis.report_style import decimal_axes
 from collections import Counter
 import argparse, csv, hashlib, json, math, sys
 from src.paths import ROOT
 parser=argparse.ArgumentParser(description=__doc__)
-parser.add_argument("--output",type=Path,default=ROOT/"results/final_submission/compact_report")
+parser.add_argument("--output",type=Path,default=ROOT/"report_out/compact_report")
 W=parser.parse_args().output.resolve()
+if W.is_relative_to((ROOT/"results/final_submission").resolve()):parser.error("Output must be outside frozen results")
 W.mkdir(parents=True,exist_ok=True)
 import numpy as np
 import matplotlib
@@ -29,6 +31,7 @@ manifest={'sources':{},'figures':{},'training_or_threshold_search':False}
 for path in [EDA/'labels_per_sample.csv',EDA/'multilabel_summary.csv',R/'report_data/mean_std.csv',R/'report_data/all_runs.csv',R/'external_probe/predictions.json',R/'external_probe/new10.json']:
     manifest['sources'][path.relative_to(ROOT).as_posix()]=sha(path)
 def save(fig,name,description,data):
+    decimal_axes(fig.axes)
     path=F/(name+'.png');fig.savefig(path,dpi=260,bbox_inches='tight',pad_inches=.14);plt.close(fig)
     manifest['figures'][name]={'path':path.name,'sha256':sha(path),'meaning':description,'plotted_data':data}
 
