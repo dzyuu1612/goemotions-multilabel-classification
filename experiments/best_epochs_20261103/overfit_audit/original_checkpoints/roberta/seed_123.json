@@ -1,0 +1,41 @@
+{
+  "architecture": "roberta",
+  "seed": 123,
+  "original_epochs": 3,
+  "original_learning_rate": 2e-05,
+  "source_sha256": {
+    "metadata": "0897c7825e151098902cba28f1f60bafd403add9daa4d7efe9745dc388211929",
+    "weights": "60fc3d09d83ee2be5e1e2d453698a5bb362accd10057f81b7e26b4190b782fb0"
+  },
+  "evaluation_config": {
+    "batch_size": 16,
+    "max_length": 128,
+    "amp_fp16": true,
+    "threshold": 0.5,
+    "eval_mode": true,
+    "data_revision": "add492243ff905527e67aeb8b80c082af02207c3",
+    "splits": [
+      "train",
+      "validation"
+    ]
+  },
+  "metrics": {
+    "train": {
+      "macro_f1": 0.474959008974443,
+      "micro_f1": 0.6505206342587767,
+      "bce": 0.07109948249529666,
+      "n_samples": 43410
+    },
+    "validation": {
+      "macro_f1": 0.41105297382575684,
+      "micro_f1": 0.5729557389347337,
+      "bce": 0.08395899900434192,
+      "n_samples": 5426,
+      "max_abs_difference_from_saved_scores": 0.0,
+      "label_decisions_changed_from_saved_scores": 0
+    }
+  },
+  "training_repeated": false,
+  "test_loaded": false,
+  "measured_at_utc": "2026-11-03T18:17:30.227554+00:00"
+}

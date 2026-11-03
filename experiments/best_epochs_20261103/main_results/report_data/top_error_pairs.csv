@@ -1,0 +1,6 @@
+﻿missed_label,extra_label,bert,distilbert,roberta,total
+neutral,approval,89,80,71,240
+approval,neutral,81,80,53,214
+neutral,curiosity,64,64,78,206
+neutral,disapproval,75,59,71,205
+annoyance,neutral,66,71,43,180

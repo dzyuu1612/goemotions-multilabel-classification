@@ -1,0 +1,225 @@
+{
+  "status": "passed",
+  "input_validation_passed": true,
+  "checked_examples": [
+    {
+      "architecture": "bert",
+      "seed": 2026,
+      "mode": "fixed",
+      "text": "Thank you so much! I am really happy with your help."
+    },
+    {
+      "architecture": "bert",
+      "seed": 2026,
+      "mode": "fixed",
+      "text": "I was worried, but your help made me feel so relieved."
+    },
+    {
+      "architecture": "bert",
+      "seed": 2026,
+      "mode": "fixed",
+      "text": "You stayed late to help me. I really appreciate it!"
+    },
+    {
+      "architecture": "bert",
+      "seed": 2026,
+      "mode": "fixed",
+      "text": "I am not angry with you, just disappointed in the result."
+    },
+    {
+      "architecture": "bert",
+      "seed": 2026,
+      "mode": "fixed",
+      "text": "Wonderful, another three hours stuck in traffic."
+    },
+    {
+      "architecture": "bert",
+      "seed": 2026,
+      "mode": "fixed",
+      "text": "The package will arrive on Tuesday afternoon."
+    },
+    {
+      "architecture": "bert",
+      "seed": 2026,
+      "mode": "tuned",
+      "text": "Thank you so much! I am really happy with your help."
+    },
+    {
+      "architecture": "bert",
+      "seed": 2026,
+      "mode": "tuned",
+      "text": "I was worried, but your help made me feel so relieved."
+    },
+    {
+      "architecture": "bert",
+      "seed": 2026,
+      "mode": "tuned",
+      "text": "You stayed late to help me. I really appreciate it!"
+    },
+    {
+      "architecture": "bert",
+      "seed": 2026,
+      "mode": "tuned",
+      "text": "I am not angry with you, just disappointed in the result."
+    },
+    {
+      "architecture": "bert",
+      "seed": 2026,
+      "mode": "tuned",
+      "text": "Wonderful, another three hours stuck in traffic."
+    },
+    {
+      "architecture": "bert",
+      "seed": 2026,
+      "mode": "tuned",
+      "text": "The package will arrive on Tuesday afternoon."
+    },
+    {
+      "architecture": "roberta",
+      "seed": 2026,
+      "mode": "fixed",
+      "text": "Thank you so much! I am really happy with your help."
+    },
+    {
+      "architecture": "roberta",
+      "seed": 2026,
+      "mode": "fixed",
+      "text": "I was worried, but your help made me feel so relieved."
+    },
+    {
+      "architecture": "roberta",
+      "seed": 2026,
+      "mode": "fixed",
+      "text": "You stayed late to help me. I really appreciate it!"
+    },
+    {
+      "architecture": "roberta",
+      "seed": 2026,
+      "mode": "fixed",
+      "text": "I am not angry with you, just disappointed in the result."
+    },
+    {
+      "architecture": "roberta",
+      "seed": 2026,
+      "mode": "fixed",
+      "text": "Wonderful, another three hours stuck in traffic."
+    },
+    {
+      "architecture": "roberta",
+      "seed": 2026,
+      "mode": "fixed",
+      "text": "The package will arrive on Tuesday afternoon."
+    },
+    {
+      "architecture": "roberta",
+      "seed": 2026,
+      "mode": "tuned",
+      "text": "Thank you so much! I am really happy with your help."
+    },
+    {
+      "architecture": "roberta",
+      "seed": 2026,
+      "mode": "tuned",
+      "text": "I was worried, but your help made me feel so relieved."
+    },
+    {
+      "architecture": "roberta",
+      "seed": 2026,
+      "mode": "tuned",
+      "text": "You stayed late to help me. I really appreciate it!"
+    },
+    {
+      "architecture": "roberta",
+      "seed": 2026,
+      "mode": "tuned",
+      "text": "I am not angry with you, just disappointed in the result."
+    },
+    {
+      "architecture": "roberta",
+      "seed": 2026,
+      "mode": "tuned",
+      "text": "Wonderful, another three hours stuck in traffic."
+    },
+    {
+      "architecture": "roberta",
+      "seed": 2026,
+      "mode": "tuned",
+      "text": "The package will arrive on Tuesday afternoon."
+    },
+    {
+      "architecture": "distilbert",
+      "seed": 2026,
+      "mode": "fixed",
+      "text": "Thank you so much! I am really happy with your help."
+    },
+    {
+      "architecture": "distilbert",
+      "seed": 2026,
+      "mode": "fixed",
+      "text": "I was worried, but your help made me feel so relieved."
+    },
+    {
+      "architecture": "distilbert",
+      "seed": 2026,
+      "mode": "fixed",
+      "text": "You stayed late to help me. I really appreciate it!"
+    },
+    {
+      "architecture": "distilbert",
+      "seed": 2026,
+      "mode": "fixed",
+      "text": "I am not angry with you, just disappointed in the result."
+    },
+    {
+      "architecture": "distilbert",
+      "seed": 2026,
+      "mode": "fixed",
+      "text": "Wonderful, another three hours stuck in traffic."
+    },
+    {
+      "architecture": "distilbert",
+      "seed": 2026,
+      "mode": "fixed",
+      "text": "The package will arrive on Tuesday afternoon."
+    },
+    {
+      "architecture": "distilbert",
+      "seed": 2026,
+      "mode": "tuned",
+      "text": "Thank you so much! I am really happy with your help."
+    },
+    {
+      "architecture": "distilbert",
+      "seed": 2026,
+      "mode": "tuned",
+      "text": "I was worried, but your help made me feel so relieved."
+    },
+    {
+      "architecture": "distilbert",
+      "seed": 2026,
+      "mode": "tuned",
+      "text": "You stayed late to help me. I really appreciate it!"
+    },
+    {
+      "architecture": "distilbert",
+      "seed": 2026,
+      "mode": "tuned",
+      "text": "I am not angry with you, just disappointed in the result."
+    },
+    {
+      "architecture": "distilbert",
+      "seed": 2026,
+      "mode": "tuned",
+      "text": "Wonderful, another three hours stuck in traffic."
+    },
+    {
+      "architecture": "distilbert",
+      "seed": 2026,
+      "mode": "tuned",
+      "text": "The package will arrive on Tuesday afternoon."
+    }
+  ],
+  "selection_sha256": "e0a89aa1ba7228b32d92670d2317a92945a45da22f1e956dc5b8f1fb11d11426",
+  "training": false,
+  "threshold_fitting": false
+}

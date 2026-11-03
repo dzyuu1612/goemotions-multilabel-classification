@@ -1,0 +1,20 @@
+{
+  "seed": 2026,
+  "model": "distilbert",
+  "selected_epoch": 8,
+  "rows": [
+    {
+      "split": "train",
+      "n": 43410,
+      "bce": 0.02795634809710429,
+      "macro_f1": 0.779213222173266
+    },
+    {
+      "split": "validation",
+      "n": 5426,
+      "bce": 0.10562487658018888,
+      "macro_f1": 0.4739705552409545
+    }
+  ],
+  "mode": "Full train and validation, eval mode with AMP fp16 at selected checkpoint; no dropout."
+}

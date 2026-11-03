@@ -1,0 +1,41 @@
+{
+  "architecture": "roberta",
+  "seed": 42,
+  "original_epochs": 3,
+  "original_learning_rate": 2e-05,
+  "source_sha256": {
+    "metadata": "c524276da9c963d472d57fdb3a0ba67fe12a2a3a69d4c40fd09ab1870597afda",
+    "weights": "629acc1fe13ed668877857c2788bd1b850dc0fe468adc6c55cd73528d8c08ab1"
+  },
+  "evaluation_config": {
+    "batch_size": 16,
+    "max_length": 128,
+    "amp_fp16": true,
+    "threshold": 0.5,
+    "eval_mode": true,
+    "data_revision": "add492243ff905527e67aeb8b80c082af02207c3",
+    "splits": [
+      "train",
+      "validation"
+    ]
+  },
+  "metrics": {
+    "train": {
+      "macro_f1": 0.4885078727736342,
+      "micro_f1": 0.6578148449403705,
+      "bce": 0.07011130024015552,
+      "n_samples": 43410
+    },
+    "validation": {
+      "macro_f1": 0.4286452070128942,
+      "micro_f1": 0.5779918488329011,
+      "bce": 0.08389202426454227,
+      "n_samples": 5426,
+      "max_abs_difference_from_saved_scores": 0.0,
+      "label_decisions_changed_from_saved_scores": 0
+    }
+  },
+  "training_repeated": false,
+  "test_loaded": false,
+  "measured_at_utc": "2026-11-03T18:15:43.292507+00:00"
+}

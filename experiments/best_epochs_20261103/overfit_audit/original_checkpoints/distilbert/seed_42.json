@@ -1,0 +1,41 @@
+{
+  "architecture": "distilbert",
+  "seed": 42,
+  "original_epochs": 3,
+  "original_learning_rate": 2e-05,
+  "source_sha256": {
+    "metadata": "b80e246b3fe72fe5c018332da8318c8d58901c9503dcb2c6ab06c3eacab73e71",
+    "weights": "b19f9dcbb8e54956be2c301454a82e70c7f8a7646f18c3e9401bb73e4b042fc7"
+  },
+  "evaluation_config": {
+    "batch_size": 16,
+    "max_length": 128,
+    "amp_fp16": true,
+    "threshold": 0.5,
+    "eval_mode": true,
+    "data_revision": "add492243ff905527e67aeb8b80c082af02207c3",
+    "splits": [
+      "train",
+      "validation"
+    ]
+  },
+  "metrics": {
+    "train": {
+      "macro_f1": 0.471050654714846,
+      "micro_f1": 0.6507831304287159,
+      "bce": 0.06895536840320964,
+      "n_samples": 43410
+    },
+    "validation": {
+      "macro_f1": 0.40183530040644694,
+      "micro_f1": 0.5667728038958606,
+      "bce": 0.08444516729777486,
+      "n_samples": 5426,
+      "max_abs_difference_from_saved_scores": 0.0,
+      "label_decisions_changed_from_saved_scores": 0
+    }
+  },
+  "training_repeated": false,
+  "test_loaded": false,
+  "measured_at_utc": "2026-11-03T18:20:23.184467+00:00"
+}

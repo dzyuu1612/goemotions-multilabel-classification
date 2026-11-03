@@ -1,0 +1,624 @@
+[
+  {
+    "architecture": "bert",
+    "seed": 2026,
+    "id": "eczj48j",
+    "text": "This!!! 🐃 and 💍 for your hard work!",
+    "true_labels": [
+      "admiration",
+      "excitement",
+      "neutral"
+    ],
+    "predicted_labels": [
+      "curiosity"
+    ],
+    "missed_labels": [
+      "admiration",
+      "excitement",
+      "neutral"
+    ],
+    "extra_labels": [
+      "curiosity"
+    ],
+    "scores": {
+      "admiration": 0.023689469322562218,
+      "amusement": 0.004022909794002771,
+      "anger": 0.013795365579426289,
+      "annoyance": 0.011201213113963604,
+      "approval": 0.03488088399171829,
+      "caring": 0.00360761652700603,
+      "confusion": 0.007176882121711969,
+      "curiosity": 0.8669230937957764,
+      "desire": 0.013902058824896812,
+      "disappointment": 0.007149102166295052,
+      "disapproval": 0.0036499870475381613,
+      "disgust": 0.0013250223128125072,
+      "embarrassment": 0.00415008096024394,
+      "excitement": 0.00651349825784564,
+      "fear": 0.0014325366355478764,
+      "gratitude": 0.003469890682026744,
+      "grief": 0.0026112475898116827,
+      "joy": 0.0014550630003213882,
+      "love": 0.03468417376279831,
+      "nervousness": 0.0012399960542097688,
+      "optimism": 0.011375600472092628,
+      "pride": 0.007846239022910595,
+      "realization": 0.022371459752321243,
+      "relief": 0.0026214411482214928,
+      "remorse": 0.028652667999267578,
+      "sadness": 0.010328153148293495,
+      "surprise": 0.03102618269622326,
+      "neutral": 0.051941562443971634
+    },
+    "groups": {
+      "partial_multi_label": false,
+      "rare_false_negative": false,
+      "missed_extra_pair": true
+    }
+  },
+  {
+    "architecture": "bert",
+    "seed": 2026,
+    "id": "ed0jr9i",
+    "text": "Try nonchalantly handing them your card as if they had dropped it. I think its normal to be shy. *handing on exit, otherwise it could get awkward",
+    "true_labels": [
+      "embarrassment"
+    ],
+    "predicted_labels": [
+      "embarrassment"
+    ],
+    "missed_labels": [],
+    "extra_labels": [],
+    "scores": {
+      "admiration": 0.0031850608065724373,
+      "amusement": 0.008916126564145088,
+      "anger": 0.025858774781227112,
+      "annoyance": 0.06560483574867249,
+      "approval": 0.004264635033905506,
+      "caring": 0.008348053321242332,
+      "confusion": 0.006338921841233969,
+      "curiosity": 0.012527932412922382,
+      "desire": 0.0009004466701298952,
+      "disappointment": 0.018440209329128265,
+      "disapproval": 0.005511934403330088,
+      "disgust": 0.0684129148721695,
+      "embarrassment": 0.9273632764816284,
+      "excitement": 0.006338921841233969,
+      "fear": 0.0075479233637452126,
+      "gratitude": 0.005576545372605324,
+      "grief": 0.004231587518006563,
+      "joy": 0.00838045310229063,
+      "love": 0.0028449096716940403,
+      "nervousness": 0.03277498483657837,
+      "optimism": 0.01634012721478939,
+      "pride": 0.012821214273571968,
+      "realization": 0.05480259656906128,
+      "relief": 0.008124708198010921,
+      "remorse": 0.025662705302238464,
+      "sadness": 0.010408313944935799,
+      "surprise": 0.0140095679089427,
+      "neutral": 0.060086652636528015
+    },
+    "groups": {
+      "partial_multi_label": false,
+      "rare_false_negative": false,
+      "missed_extra_pair": false
+    }
+  },
+  {
+    "architecture": "bert",
+    "seed": 2026,
+    "id": "eczcvgx",
+    "text": "I always plan that, my wife usually has other ideas though. ",
+    "true_labels": [
+      "neutral"
+    ],
+    "predicted_labels": [
+      "neutral"
+    ],
+    "missed_labels": [],
+    "extra_labels": [],
+    "scores": {
+      "admiration": 0.0006959536112844944,
+      "amusement": 0.000609450158663094,
+      "anger": 0.0002891032490879297,
+      "annoyance": 0.003285833168774843,
+      "approval": 0.39981165528297424,
+      "caring": 0.0005442132824100554,
+      "confusion": 0.0023504828568547964,
+      "curiosity": 0.0005274784052744508,
+      "desire": 0.0020911062601953745,
+      "disappointment": 0.0017140384297817945,
+      "disapproval": 0.003324436955153942,
+      "disgust": 0.0007466114475391805,
+      "embarrassment": 0.00011412239109631628,
+      "excitement": 0.0007236572564579546,
+      "fear": 0.000638679601252079,
+      "gratitude": 0.00012632041762117296,
+      "grief": 0.00020502213737927377,
+      "joy": 0.00038296362617984414,
+      "love": 0.00046917638974264264,
+      "nervousness": 0.0001547666179249063,
+      "optimism": 0.006615392863750458,
+      "pride": 0.00015720345254521817,
+      "realization": 0.010288300924003124,
+      "relief": 0.0003920417802873999,
+      "remorse": 0.00012148174573667347,
+      "sadness": 0.0003199982165824622,
+      "surprise": 0.00034599160426296294,
+      "neutral": 0.8139049410820007
+    },
+    "groups": {
+      "partial_multi_label": false,
+      "rare_false_negative": false,
+      "missed_extra_pair": false
+    }
+  },
+  {
+    "architecture": "bert",
+    "seed": 2026,
+    "id": "eeq65gb",
+    "text": "You gotta work on you dude!! If you're not confident you're not ready, get yourself straight And all will fall into place. ",
+    "true_labels": [
+      "caring",
+      "optimism"
+    ],
+    "predicted_labels": [
+      "caring"
+    ],
+    "missed_labels": [
+      "optimism"
+    ],
+    "extra_labels": [],
+    "scores": {
+      "admiration": 0.005179712548851967,
+      "amusement": 0.0012448433553799987,
+      "anger": 0.0019342610612511635,
+      "annoyance": 0.007317397277802229,
+      "approval": 0.11124119907617569,
+      "caring": 0.9024378061294556,
+      "confusion": 0.00220838887616992,
+      "curiosity": 0.0024249141570180655,
+      "desire": 0.005554925184696913,
+      "disappointment": 0.009125636890530586,
+      "disapproval": 0.006168995052576065,
+      "disgust": 0.0027149852830916643,
+      "embarrassment": 0.0013354008551687002,
+      "excitement": 0.001220795209519565,
+      "fear": 0.0015070488443598151,
+      "gratitude": 0.01009131595492363,
+      "grief": 0.0015548133524134755,
+      "joy": 0.002199798123911023,
+      "love": 0.0018458482809364796,
+      "nervousness": 0.0036499870475381613,
+      "optimism": 0.2603894770145416,
+      "pride": 0.002387409098446369,
+      "realization": 0.015603534877300262,
+      "relief": 0.0060739340260624886,
+      "remorse": 0.005957154091447592,
+      "sadness": 0.0032476764172315598,
+      "surprise": 0.0006563728675246239,
+      "neutral": 0.01971912756562233
+    },
+    "groups": {
+      "partial_multi_label": true,
+      "rare_false_negative": false,
+      "missed_extra_pair": false
+    }
+  },
+  {
+    "architecture": "roberta",
+    "seed": 2026,
+    "id": "eczj48j",
+    "text": "This!!! 🐃 and 💍 for your hard work!",
+    "true_labels": [
+      "admiration",
+      "excitement",
+      "neutral"
+    ],
+    "predicted_labels": [
+      "admiration",
+      "gratitude"
+    ],
+    "missed_labels": [
+      "excitement",
+      "neutral"
+    ],
+    "extra_labels": [
+      "gratitude"
+    ],
+    "scores": {
+      "admiration": 0.7813306450843811,
+      "amusement": 0.0015070488443598151,
+      "anger": 0.005260852165520191,
+      "annoyance": 0.005199879873543978,
+      "approval": 0.02546808309853077,
+      "caring": 0.0038844761438667774,
+      "confusion": 0.001069126301445067,
+      "curiosity": 0.0018821860430762172,
+      "desire": 0.002074867021292448,
+      "disappointment": 0.001838665222749114,
+      "disapproval": 0.002833849750459194,
+      "disgust": 0.002453428227454424,
+      "embarrassment": 0.001103026675991714,
+      "excitement": 0.01784873753786087,
+      "fear": 0.0006070755189284682,
+      "gratitude": 0.6705003976821899,
+      "grief": 0.0006411777576431632,
+      "joy": 0.007011794950813055,
+      "love": 0.002511463360860944,
+      "nervousness": 0.0003077430883422494,
+      "optimism": 0.0025708682369440794,
+      "pride": 0.024798160418868065,
+      "realization": 0.0053640566766262054,
+      "relief": 0.003123648464679718,
+      "remorse": 0.0019800399895757437,
+      "sadness": 0.001604089280590415,
+      "surprise": 0.004718369338661432,
+      "neutral": 0.024845436215400696
+    },
+    "groups": {
+      "partial_multi_label": true,
+      "rare_false_negative": false,
+      "missed_extra_pair": true
+    }
+  },
+  {
+    "architecture": "roberta",
+    "seed": 2026,
+    "id": "ed0jr9i",
+    "text": "Try nonchalantly handing them your card as if they had dropped it. I think its normal to be shy. *handing on exit, otherwise it could get awkward",
+    "true_labels": [
+      "embarrassment"
+    ],
+    "predicted_labels": [
+      "embarrassment"
+    ],
+    "missed_labels": [],
+    "extra_labels": [],
+    "scores": {
+      "admiration": 0.004297939129173756,
+      "amusement": 0.014063628390431404,
+      "anger": 0.014957086183130741,
+      "annoyance": 0.03912164643406868,
+      "approval": 0.04023794084787369,
+      "caring": 0.011463796719908714,
+      "confusion": 0.002957902615889907,
+      "curiosity": 0.016850080341100693,
+      "desire": 0.007577241398394108,
+      "disappointment": 0.013222821988165379,
+      "disapproval": 0.005301894154399633,
+      "disgust": 0.030444350093603134,
+      "embarrassment": 0.783160388469696,
+      "excitement": 0.002115703420713544,
+      "fear": 0.013636835850775242,
+      "gratitude": 0.0031115086749196053,
+      "grief": 0.0034970103297382593,
+      "joy": 0.004399412777274847,
+      "love": 0.0018458482809364796,
+      "nervousness": 0.005469274241477251,
+      "optimism": 0.02076473832130432,
+      "pride": 0.003285833168774843,
+      "realization": 0.014615669846534729,
+      "relief": 0.002305125119164586,
+      "remorse": 0.020177319645881653,
+      "sadness": 0.008093290030956268,
+      "surprise": 0.005448067560791969,
+      "neutral": 0.16844618320465088
+    },
+    "groups": {
+      "partial_multi_label": false,
+      "rare_false_negative": false,
+      "missed_extra_pair": false
+    }
+  },
+  {
+    "architecture": "roberta",
+    "seed": 2026,
+    "id": "eczcvgx",
+    "text": "I always plan that, my wife usually has other ideas though. ",
+    "true_labels": [
+      "neutral"
+    ],
+    "predicted_labels": [
+      "neutral"
+    ],
+    "missed_labels": [],
+    "extra_labels": [],
+    "scores": {
+      "admiration": 0.0013885232619941235,
+      "amusement": 0.0009075025445781648,
+      "anger": 0.0007408055826090276,
+      "annoyance": 0.004281254485249519,
+      "approval": 0.14414885640144348,
+      "caring": 0.0012594986474141479,
+      "confusion": 0.003403005190193653,
+      "curiosity": 0.0012399960542097688,
+      "desire": 0.004886374808847904,
+      "disappointment": 0.004101929254829884,
+      "disapproval": 0.0028449096716940403,
+      "disgust": 0.000661517377011478,
+      "embarrassment": 0.000437334441812709,
+      "excitement": 0.001151399570517242,
+      "fear": 0.0005213363328948617,
+      "gratitude": 0.000471011851914227,
+      "grief": 0.0001837845629779622,
+      "joy": 0.0013939501950517297,
+      "love": 0.0014895173953846097,
+      "nervousness": 0.0005463420529849827,
+      "optimism": 0.012624948285520077,
+      "pride": 0.0005725466180592775,
+      "realization": 0.10669060051441193,
+      "relief": 0.0006641048239544034,
+      "remorse": 0.0003366621967870742,
+      "sadness": 0.0009181900531984866,
+      "surprise": 0.0005357805639505386,
+      "neutral": 0.7895584106445312
+    },
+    "groups": {
+      "partial_multi_label": false,
+      "rare_false_negative": false,
+      "missed_extra_pair": false
+    }
+  },
+  {
+    "architecture": "roberta",
+    "seed": 2026,
+    "id": "eeq65gb",
+    "text": "You gotta work on you dude!! If you're not confident you're not ready, get yourself straight And all will fall into place. ",
+    "true_labels": [
+      "caring",
+      "optimism"
+    ],
+    "predicted_labels": [
+      "caring"
+    ],
+    "missed_labels": [
+      "optimism"
+    ],
+    "extra_labels": [],
+    "scores": {
+      "admiration": 0.015663648024201393,
+      "amusement": 0.001987774157896638,
+      "anger": 0.00937623716890812,
+      "annoyance": 0.017242778092622757,
+      "approval": 0.06916356086730957,
+      "caring": 0.9100669622421265,
+      "confusion": 0.002833849750459194,
+      "curiosity": 0.005819959100335836,
+      "desire": 0.00360761652700603,
+      "disappointment": 0.0030515100806951523,
+      "disapproval": 0.010902374982833862,
+      "disgust": 0.001512938179075718,
+      "embarrassment": 0.0014493984635919333,
+      "excitement": 0.00341627886518836,
+      "fear": 0.0016613906482234597,
+      "gratitude": 0.00457386439666152,
+      "grief": 0.001220795209519565,
+      "joy": 0.005641908384859562,
+      "love": 0.004451041109859943,
+      "nervousness": 0.0034834241960197687,
+      "optimism": 0.07709969580173492,
+      "pride": 0.0018602986820042133,
+      "realization": 0.008030813187360764,
+      "relief": 0.006718870252370834,
+      "remorse": 0.0026214411482214928,
+      "sadness": 0.005119676236063242,
+      "surprise": 0.0009399438858963549,
+      "neutral": 0.07396338135004044
+    },
+    "groups": {
+      "partial_multi_label": true,
+      "rare_false_negative": false,
+      "missed_extra_pair": false
+    }
+  },
+  {
+    "architecture": "distilbert",
+    "seed": 2026,
+    "id": "eczj48j",
+    "text": "This!!! 🐃 and 💍 for your hard work!",
+    "true_labels": [
+      "admiration",
+      "excitement",
+      "neutral"
+    ],
+    "predicted_labels": [
+      "admiration"
+    ],
+    "missed_labels": [
+      "excitement",
+      "neutral"
+    ],
+    "extra_labels": [],
+    "scores": {
+      "admiration": 0.5313310027122498,
+      "amusement": 0.006217078305780888,
+      "anger": 0.0029121784027665854,
+      "annoyance": 0.0026522595435380936,
+      "approval": 0.07737810909748077,
+      "caring": 0.009633651934564114,
+      "confusion": 0.0008459375239908695,
+      "curiosity": 0.00838045310229063,
+      "desire": 0.019382191821932793,
+      "disappointment": 0.011419613845646381,
+      "disapproval": 0.0017007222631946206,
+      "disgust": 0.000626334105618298,
+      "embarrassment": 0.001356401713564992,
+      "excitement": 0.04611974582076073,
+      "fear": 0.0028449096716940403,
+      "gratitude": 0.0002959570847451687,
+      "grief": 0.002511463360860944,
+      "joy": 0.011869121342897415,
+      "love": 0.2716379463672638,
+      "nervousness": 0.001674399245530367,
+      "optimism": 0.003678509034216404,
+      "pride": 0.020215967670083046,
+      "realization": 0.0928521603345871,
+      "relief": 0.0007854739669710398,
+      "remorse": 0.005281333811581135,
+      "sadness": 0.03803509101271629,
+      "surprise": 0.01287075038999319,
+      "neutral": 0.08479540795087814
+    },
+    "groups": {
+      "partial_multi_label": true,
+      "rare_false_negative": false,
+      "missed_extra_pair": false
+    }
+  },
+  {
+    "architecture": "distilbert",
+    "seed": 2026,
+    "id": "ed0jr9i",
+    "text": "Try nonchalantly handing them your card as if they had dropped it. I think its normal to be shy. *handing on exit, otherwise it could get awkward",
+    "true_labels": [
+      "embarrassment"
+    ],
+    "predicted_labels": [
+      "embarrassment"
+    ],
+    "missed_labels": [],
+    "extra_labels": [],
+    "scores": {
+      "admiration": 0.00042223287164233625,
+      "amusement": 0.01572399213910103,
+      "anger": 0.0023141263518482447,
+      "annoyance": 0.1367236226797104,
+      "approval": 0.00748962489888072,
+      "caring": 0.011331753805279732,
+      "confusion": 0.0018102108733728528,
+      "curiosity": 0.0006070755189284682,
+      "desire": 0.0025909794494509697,
+      "disappointment": 0.005080036818981171,
+      "disapproval": 0.0017207354540005326,
+      "disgust": 0.025371311232447624,
+      "embarrassment": 0.6757646203041077,
+      "excitement": 0.00045474787475541234,
+      "fear": 0.0028009270317852497,
+      "gratitude": 0.0026214411482214928,
+      "grief": 0.001085944357328117,
+      "joy": 0.00360761652700603,
+      "love": 0.00026738259475678205,
+      "nervousness": 0.009449081495404243,
+      "optimism": 0.042087726294994354,
+      "pride": 0.0010649627074599266,
+      "realization": 0.0326513797044754,
+      "relief": 0.006930672097951174,
+      "remorse": 0.006564249750226736,
+      "sadness": 0.002540992572903633,
+      "surprise": 0.005119676236063242,
+      "neutral": 0.1201288029551506
+    },
+    "groups": {
+      "partial_multi_label": false,
+      "rare_false_negative": false,
+      "missed_extra_pair": false
+    }
+  },
+  {
+    "architecture": "distilbert",
+    "seed": 2026,
+    "id": "eczcvgx",
+    "text": "I always plan that, my wife usually has other ideas though. ",
+    "true_labels": [
+      "neutral"
+    ],
+    "predicted_labels": [
+      "approval"
+    ],
+    "missed_labels": [
+      "neutral"
+    ],
+    "extra_labels": [
+      "approval"
+    ],
+    "scores": {
+      "admiration": 0.0006932422984391451,
+      "amusement": 0.0003029734070878476,
+      "anger": 0.0001387341326335445,
+      "annoyance": 0.0061450921930372715,
+      "approval": 0.942294716835022,
+      "caring": 0.0067449891939759254,
+      "confusion": 0.0007208379684016109,
+      "curiosity": 0.00013342000602278858,
+      "desire": 0.0011879054363816977,
+      "disappointment": 0.000317508791340515,
+      "disapproval": 0.000552778656128794,
+      "disgust": 0.00012632041762117296,
+      "embarrassment": 2.4682904040673748e-05,
+      "excitement": 0.0002434604539303109,
+      "fear": 5.02506154589355e-05,
+      "gratitude": 0.0005884087877348065,
+      "grief": 3.071818719035946e-05,
+      "joy": 0.00020988310279790312,
+      "love": 0.0008360903011634946,
+      "nervousness": 0.00013765462790615857,
+      "optimism": 0.03949040174484253,
+      "pride": 0.00025514140725135803,
+      "realization": 0.009633651934564114,
+      "relief": 0.00025315635139122605,
+      "remorse": 4.794958294951357e-05,
+      "sadness": 7.426380761899054e-05,
+      "surprise": 3.508111694827676e-05,
+      "neutral": 0.16940586268901825
+    },
+    "groups": {
+      "partial_multi_label": false,
+      "rare_false_negative": false,
+      "missed_extra_pair": true
+    }
+  },
+  {
+    "architecture": "distilbert",
+    "seed": 2026,
+    "id": "eeq65gb",
+    "text": "You gotta work on you dude!! If you're not confident you're not ready, get yourself straight And all will fall into place. ",
+    "true_labels": [
+      "caring",
+      "optimism"
+    ],
+    "predicted_labels": [
+      "caring"
+    ],
+    "missed_labels": [
+      "optimism"
+    ],
+    "extra_labels": [],
+    "scores": {
+      "admiration": 0.030386749655008316,
+      "amusement": 0.00033535013790242374,
+      "anger": 0.0031115086749196053,
+      "annoyance": 0.018264278769493103,
+      "approval": 0.06153673678636551,
+      "caring": 0.8629302382469177,
+      "confusion": 0.004166256170719862,
+      "curiosity": 0.0007763299508951604,
+      "desire": 0.002992665395140648,
+      "disappointment": 0.0016875095898285508,
+      "disapproval": 0.0060975621454417706,
+      "disgust": 0.0004859560285694897,
+      "embarrassment": 0.00018093574908562005,
+      "excitement": 0.0006411777576431632,
+      "fear": 0.00043055712012574077,
+      "gratitude": 0.0041179172694683075,
+      "grief": 0.0003077430883422494,
+      "joy": 0.000810387369710952,
+      "love": 0.0011335690505802631,
+      "nervousness": 0.0006238938658498228,
+      "optimism": 0.369428813457489,
+      "pride": 0.00172745855525136,
+      "realization": 0.006984650157392025,
+      "relief": 0.00220838887616992,
+      "remorse": 0.0006878511630930007,
+      "sadness": 0.0006337125087156892,
+      "surprise": 0.0007350447704084218,
+      "neutral": 0.005426943302154541
+    },
+    "groups": {
+      "partial_multi_label": true,
+      "rare_false_negative": false,
+      "missed_extra_pair": false
+    }
+  }
+]

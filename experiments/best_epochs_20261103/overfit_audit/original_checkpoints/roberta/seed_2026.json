@@ -1,0 +1,41 @@
+{
+  "architecture": "roberta",
+  "seed": 2026,
+  "original_epochs": 3,
+  "original_learning_rate": 2e-05,
+  "source_sha256": {
+    "metadata": "34fa83b9408e5abba960523a2056fe9891397c55c026bb02e93aca5efe119b35",
+    "weights": "fbb502ef82761cf7883d2f1becbd1171061c15980347cd45f9ec94cf1939e7db"
+  },
+  "evaluation_config": {
+    "batch_size": 16,
+    "max_length": 128,
+    "amp_fp16": true,
+    "threshold": 0.5,
+    "eval_mode": true,
+    "data_revision": "add492243ff905527e67aeb8b80c082af02207c3",
+    "splits": [
+      "train",
+      "validation"
+    ]
+  },
+  "metrics": {
+    "train": {
+      "macro_f1": 0.4978738140348827,
+      "micro_f1": 0.6608462823534796,
+      "bce": 0.06969582022332908,
+      "n_samples": 43410
+    },
+    "validation": {
+      "macro_f1": 0.4306234800101281,
+      "micro_f1": 0.5791662815417321,
+      "bce": 0.0836882008791133,
+      "n_samples": 5426,
+      "max_abs_difference_from_saved_scores": 0.0,
+      "label_decisions_changed_from_saved_scores": 0
+    }
+  },
+  "training_repeated": false,
+  "test_loaded": false,
+  "measured_at_utc": "2026-11-03T18:19:21.877448+00:00"
+}

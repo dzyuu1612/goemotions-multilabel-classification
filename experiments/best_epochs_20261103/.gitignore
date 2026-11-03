@@ -1,0 +1,4 @@
+/checkpoints/
+*.zip
+*.download
+__pycache__/

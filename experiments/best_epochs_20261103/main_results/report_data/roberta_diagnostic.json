@@ -1,0 +1,20 @@
+{
+  "seed": 2026,
+  "model": "roberta",
+  "selected_epoch": 5,
+  "rows": [
+    {
+      "split": "train",
+      "n": 43410,
+      "bce": 0.04899142829715219,
+      "macro_f1": 0.6805949194040964
+    },
+    {
+      "split": "validation",
+      "n": 5426,
+      "bce": 0.08815097612363204,
+      "macro_f1": 0.48979722674281323
+    }
+  ],
+  "mode": "Full train and validation, eval mode with AMP fp16 at selected checkpoint; no dropout."
+}

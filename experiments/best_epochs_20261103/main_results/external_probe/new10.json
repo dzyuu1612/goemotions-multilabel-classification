@@ -1,0 +1,212 @@
+{
+  "prepared_at_utc": "2026-10-25T16:44:50.412007+00:00",
+  "dataset": "brighter-dataset/BRIGHTER-emotion-categories",
+  "revision": "419566ac8f46f951b51584be36c13e5363008144",
+  "split": "eng/test, track1 IDs only",
+  "source_rows": 5528,
+  "track_rows": 2767,
+  "unique_track_texts": 2762,
+  "source_sha256": "d2ffa29d9f55227c4630a6287f1ac76325047abf2c21d7431e04190cc22c3548",
+  "license": "CC BY 4.0",
+  "human_labels": true,
+  "labels": [
+    "anger",
+    "fear",
+    "joy",
+    "sadness",
+    "surprise"
+  ],
+  "mapping": {
+    "anger": [
+      "anger",
+      "annoyance",
+      "disapproval"
+    ],
+    "fear": [
+      "fear",
+      "nervousness"
+    ],
+    "joy": [
+      "joy",
+      "amusement",
+      "approval",
+      "excitement",
+      "gratitude",
+      "love",
+      "optimism",
+      "relief",
+      "pride",
+      "admiration",
+      "desire",
+      "caring"
+    ],
+    "sadness": [
+      "sadness",
+      "disappointment",
+      "embarrassment",
+      "grief",
+      "remorse"
+    ],
+    "surprise": [
+      "surprise",
+      "realization",
+      "confusion",
+      "curiosity"
+    ]
+  },
+  "mapping_source": "https://raw.githubusercontent.com/google-research/google-research/master/goemotions/data/ekman_mapping.json",
+  "source_overlap_count": 0,
+  "source_overlap_ids": [],
+  "selection": "Before inference: exclude normalized GoEmotions matches, length outside 20..240 chars and listed classroom-inappropriate keywords; sort ID; Random(20261025); sample 2 none, one single-label example for each of five classes, 3 multi. No model outputs consulted.",
+  "rows": [
+    {
+      "id": "N01",
+      "source_id": "eng_test_track1_556",
+      "text": "i don't believe in ghosts or magic or the supernatural.",
+      "labels": [],
+      "truth": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "N02",
+      "source_id": "eng_test_track1_339",
+      "text": "i kind of sunk down a little, bent my head, then threw it back, `` i know.",
+      "labels": [],
+      "truth": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "N03",
+      "source_id": "eng_test_track1_2049",
+      "text": "it is certainly considerably different to work with as well and i have to keep certain rules in mind that i roll my eyes at when it comes to oils.",
+      "labels": [
+        "anger"
+      ],
+      "truth": [
+        1,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "N04",
+      "source_id": "eng_test_track1_1786",
+      "text": "even as it happened i wondered how my teeth could stand the force of the fall.",
+      "labels": [
+        "fear"
+      ],
+      "truth": [
+        0,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "N05",
+      "source_id": "eng_test_track1_590",
+      "text": "my heart's itching for more of gossip girl!",
+      "labels": [
+        "joy"
+      ],
+      "truth": [
+        0,
+        0,
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "N06",
+      "source_id": "eng_test_track1_403",
+      "text": "by this time the kitchen had closed, and we could not get any food.",
+      "labels": [
+        "sadness"
+      ],
+      "truth": [
+        0,
+        0,
+        0,
+        1,
+        0
+      ]
+    },
+    {
+      "id": "N07",
+      "source_id": "eng_test_track1_2537",
+      "text": "was my nose pierced, or was it untouched and innocent like a few weeks ago?",
+      "labels": [
+        "surprise"
+      ],
+      "truth": [
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "id": "N08",
+      "source_id": "eng_test_track1_2699",
+      "text": "you could say i am lucky i guess, when i cry i don't make a sound and my eyes never turn red, the tears just flow like rain.",
+      "labels": [
+        "fear",
+        "sadness"
+      ],
+      "truth": [
+        0,
+        1,
+        0,
+        1,
+        0
+      ]
+    },
+    {
+      "id": "N09",
+      "source_id": "eng_test_track1_121",
+      "text": "but that requires energy i don't have.",
+      "labels": [
+        "fear",
+        "sadness"
+      ],
+      "truth": [
+        0,
+        1,
+        0,
+        1,
+        0
+      ]
+    },
+    {
+      "id": "N10",
+      "source_id": "eng_test_track1_2529",
+      "text": "peeled off the jeans that were completely soaked and stuck to my legs.",
+      "labels": [
+        "fear",
+        "sadness"
+      ],
+      "truth": [
+        0,
+        1,
+        0,
+        1,
+        0
+      ]
+    }
+  ]
+}

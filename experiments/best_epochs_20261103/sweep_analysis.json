@@ -1,0 +1,146 @@
+{
+  "per_seed": [
+    {
+      "model": "BERT",
+      "seed": 42,
+      "selected_epoch": 7,
+      "val_macro_f1": 0.4559690572534239,
+      "orig_val_macro_f1": 0.46414774478497617,
+      "delta": -0.008178687531552264,
+      "minimum_val_bce_epoch": 3,
+      "train_val_macro_f1_gap": 0.33354428166866873
+    },
+    {
+      "model": "BERT",
+      "seed": 123,
+      "selected_epoch": 6,
+      "val_macro_f1": 0.46193772415890394,
+      "orig_val_macro_f1": 0.4772943277612574,
+      "delta": -0.015356603602353469,
+      "minimum_val_bce_epoch": 3,
+      "train_val_macro_f1_gap": 0.3047609109507868
+    },
+    {
+      "model": "BERT",
+      "seed": 2026,
+      "selected_epoch": 7,
+      "val_macro_f1": 0.4644953983612838,
+      "orig_val_macro_f1": 0.47234584396915974,
+      "delta": -0.007850445607875955,
+      "minimum_val_bce_epoch": 3,
+      "train_val_macro_f1_gap": 0.33608288823417337
+    },
+    {
+      "model": "RoBERTa",
+      "seed": 42,
+      "selected_epoch": 7,
+      "val_macro_f1": 0.48418134692460857,
+      "orig_val_macro_f1": 0.4286452070128942,
+      "delta": 0.055536139911714355,
+      "minimum_val_bce_epoch": 3,
+      "train_val_macro_f1_gap": 0.24789218438210692
+    },
+    {
+      "model": "RoBERTa",
+      "seed": 123,
+      "selected_epoch": 8,
+      "val_macro_f1": 0.4664383643338059,
+      "orig_val_macro_f1": 0.41105297382575684,
+      "delta": 0.05538539050804908,
+      "minimum_val_bce_epoch": 3,
+      "train_val_macro_f1_gap": 0.2630111838033887
+    },
+    {
+      "model": "RoBERTa",
+      "seed": 2026,
+      "selected_epoch": 5,
+      "val_macro_f1": 0.48979722674281323,
+      "orig_val_macro_f1": 0.4306234800101281,
+      "delta": 0.059173746732685106,
+      "minimum_val_bce_epoch": 3,
+      "train_val_macro_f1_gap": 0.1907976926612832
+    },
+    {
+      "model": "DistilBERT",
+      "seed": 42,
+      "selected_epoch": 7,
+      "val_macro_f1": 0.46800871790662285,
+      "orig_val_macro_f1": 0.40183530040644694,
+      "delta": 0.06617341750017591,
+      "minimum_val_bce_epoch": 3,
+      "train_val_macro_f1_gap": 0.2984114717318615
+    },
+    {
+      "model": "DistilBERT",
+      "seed": 123,
+      "selected_epoch": 8,
+      "val_macro_f1": 0.4681179008728153,
+      "orig_val_macro_f1": 0.41322629710858416,
+      "delta": 0.054891603764231134,
+      "minimum_val_bce_epoch": 3,
+      "train_val_macro_f1_gap": 0.3060949956757179
+    },
+    {
+      "model": "DistilBERT",
+      "seed": 2026,
+      "selected_epoch": 8,
+      "val_macro_f1": 0.4739705552409545,
+      "orig_val_macro_f1": 0.40416412478434494,
+      "delta": 0.06980643045660956,
+      "minimum_val_bce_epoch": 3,
+      "train_val_macro_f1_gap": 0.30524266693231156
+    }
+  ],
+  "models": [
+    {
+      "model": "BERT",
+      "mean_val_macro_f1": 0.46080072659120386,
+      "std_val_macro_f1_ddof1": 0.004375408069381896,
+      "mean_orig_val_macro_f1": 0.4712626388384644,
+      "std_orig_val_macro_f1_ddof1": 0.006639891641016094,
+      "mean_delta": -0.010461912247260563,
+      "std_delta_ddof1": 0.004242103049942399,
+      "rule": "descriptive",
+      "conclusion": "So sánh mô tả; BERT đã đổi cả learning rate và lịch huấn luyện",
+      "selected_epochs": [
+        7,
+        6,
+        7
+      ]
+    },
+    {
+      "model": "RoBERTa",
+      "mean_val_macro_f1": 0.48013897933374255,
+      "std_val_macro_f1_ddof1": 0.012192812024528899,
+      "mean_orig_val_macro_f1": 0.4234405536162597,
+      "std_orig_val_macro_f1_ddof1": 0.01077346234097715,
+      "mean_delta": 0.05669842571748285,
+      "std_delta_ddof1": 0.002145015604116393,
+      "rule": "a",
+      "conclusion": "Có dấu hiệu chưa học đủ ở cấu hình 3 epoch",
+      "selected_epochs": [
+        7,
+        8,
+        5
+      ]
+    },
+    {
+      "model": "DistilBERT",
+      "mean_val_macro_f1": 0.47003239134013086,
+      "std_val_macro_f1_ddof1": 0.0034109868678051727,
+      "mean_orig_val_macro_f1": 0.40640857409979203,
+      "std_orig_val_macro_f1_ddof1": 0.006018045032586032,
+      "mean_delta": 0.06362381724033887,
+      "std_delta_ddof1": 0.007777426304995877,
+      "rule": "a",
+      "conclusion": "Có dấu hiệu chưa học đủ ở cấu hình 3 epoch",
+      "selected_epochs": [
+        7,
+        8,
+        8
+      ]
+    }
+  ],
+  "test_evaluated": false,
+  "decision": "DECISION_SWEEP.md"
+}

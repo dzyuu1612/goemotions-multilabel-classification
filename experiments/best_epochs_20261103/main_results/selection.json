@@ -1,0 +1,33 @@
+{
+  "architecture": "roberta",
+  "seed": 2026,
+  "representatives": {
+    "bert": 2026,
+    "roberta": 2026,
+    "distilbert": 2026
+  },
+  "architecture_summaries_validation": [
+    {
+      "architecture": "roberta",
+      "validation_macro_f1_mean": 0.48013897933374255,
+      "validation_macro_f1_std": 0.012192812024528899,
+      "parameter_count": 124667164
+    },
+    {
+      "architecture": "distilbert",
+      "validation_macro_f1_mean": 0.47003239134013086,
+      "validation_macro_f1_std": 0.0034109868678051727,
+      "parameter_count": 66975004
+    },
+    {
+      "architecture": "bert",
+      "validation_macro_f1_mean": 0.46080072659120386,
+      "validation_macro_f1_std": 0.004375408069381896,
+      "parameter_count": 108331804
+    }
+  ],
+  "selection_rule": "highest validation mean Macro-F1@0.5; tie: lower sample std, fewer parameters, name",
+  "representative_rule": "highest validation Macro-F1@0.5 within architecture; smaller seed on tie",
+  "selection_data": "validation",
+  "test_used_for_selection": false
+}

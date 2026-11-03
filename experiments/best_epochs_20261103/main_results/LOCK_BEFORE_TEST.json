@@ -1,0 +1,100 @@
+{
+  "frozen_at_utc": "2026-11-03T18:03:15.459231+00:00",
+  "data_revision": "add492243ff905527e67aeb8b80c082af02207c3",
+  "decision_main_sha256": "3292e45d8415f6b139a6423d4e0fa1bc32d445549e9383086b9f7a5cf6b5bdf0",
+  "selection_sha256": "e0a89aa1ba7228b32d92670d2317a92945a45da22f1e956dc5b8f1fb11d11426",
+  "all_nine_protocols_frozen_before_test": true,
+  "test_used_for_selection": false,
+  "runs": [
+    {
+      "architecture": "bert",
+      "seed": 42,
+      "selected_epoch": 7,
+      "run_dir": "D:\\DoAn\\Đồ án NLP\\GoEmotions_ThuNghiem_Epoch_20261102\\results\\data\\processed\\transformers\\bert\\seed_42\\full\\standard",
+      "protocol": "bert\\seed_42\\final_protocol.json",
+      "protocol_sha256": "490fbde63f2909d943801055768b7880399707539994c465c73fc7132e50e017",
+      "validation_macro_f1": 0.4559690572534239,
+      "parameter_count": 108331804
+    },
+    {
+      "architecture": "bert",
+      "seed": 123,
+      "selected_epoch": 6,
+      "run_dir": "D:\\DoAn\\Đồ án NLP\\GoEmotions_ThuNghiem_Epoch_20261102\\results\\data\\processed\\transformers\\bert\\seed_123\\full\\standard",
+      "protocol": "bert\\seed_123\\final_protocol.json",
+      "protocol_sha256": "87f57ae909a2d7b5f0a8866892f892bc4e48e0ee29cba94968dec164757bb489",
+      "validation_macro_f1": 0.46193772415890394,
+      "parameter_count": 108331804
+    },
+    {
+      "architecture": "bert",
+      "seed": 2026,
+      "selected_epoch": 7,
+      "run_dir": "D:\\DoAn\\Đồ án NLP\\GoEmotions_ThuNghiem_Epoch_20261102\\results\\data\\processed\\transformers\\bert\\seed_2026\\full\\standard",
+      "protocol": "bert\\seed_2026\\final_protocol.json",
+      "protocol_sha256": "67dcf792ddd435e316fa9224237a451d239968dc4489ceaaded107bed89096d2",
+      "validation_macro_f1": 0.4644953983612838,
+      "parameter_count": 108331804
+    },
+    {
+      "architecture": "roberta",
+      "seed": 42,
+      "selected_epoch": 7,
+      "run_dir": "D:\\DoAn\\Đồ án NLP\\GoEmotions_QuetEpoch_C2_C3_20261103\\outputs\\sweep8_roberta\\seed42",
+      "protocol": "roberta\\seed_42\\final_protocol.json",
+      "protocol_sha256": "6352f4487a05d1b74a673d03e37ec0048e11dda7c47314ba907ad61fd7d4c1be",
+      "validation_macro_f1": 0.48418134692460857,
+      "parameter_count": 124667164
+    },
+    {
+      "architecture": "roberta",
+      "seed": 123,
+      "selected_epoch": 8,
+      "run_dir": "D:\\DoAn\\Đồ án NLP\\GoEmotions_QuetEpoch_C2_C3_20261103\\outputs\\sweep8_roberta\\seed123",
+      "protocol": "roberta\\seed_123\\final_protocol.json",
+      "protocol_sha256": "c7ceffbcf13b0f7795ecaef962d0b5c121602a6770abb510d1f152991e979062",
+      "validation_macro_f1": 0.4664383643338059,
+      "parameter_count": 124667164
+    },
+    {
+      "architecture": "roberta",
+      "seed": 2026,
+      "selected_epoch": 5,
+      "run_dir": "D:\\DoAn\\Đồ án NLP\\GoEmotions_QuetEpoch_C2_C3_20261103\\outputs\\sweep8_roberta\\seed2026",
+      "protocol": "roberta\\seed_2026\\final_protocol.json",
+      "protocol_sha256": "33a4f3823057300ef5989b952bc69d79ca1014d852d4dab544db0bc48606c6ab",
+      "validation_macro_f1": 0.48979722674281323,
+      "parameter_count": 124667164
+    },
+    {
+      "architecture": "distilbert",
+      "seed": 42,
+      "selected_epoch": 7,
+      "run_dir": "D:\\DoAn\\Đồ án NLP\\GoEmotions_QuetEpoch_C2_C3_20261103\\outputs\\sweep8_distilbert\\seed42",
+      "protocol": "distilbert\\seed_42\\final_protocol.json",
+      "protocol_sha256": "e243895070b56db6cd33bfc8155cad6376be1664949dc31ce408016471592ab3",
+      "validation_macro_f1": 0.46800871790662285,
+      "parameter_count": 66975004
+    },
+    {
+      "architecture": "distilbert",
+      "seed": 123,
+      "selected_epoch": 8,
+      "run_dir": "D:\\DoAn\\Đồ án NLP\\GoEmotions_QuetEpoch_C2_C3_20261103\\outputs\\sweep8_distilbert\\seed123",
+      "protocol": "distilbert\\seed_123\\final_protocol.json",
+      "protocol_sha256": "24889dcdca59ed44fdb303d746adaf452b06e47c03b6b2dd134d1b43639e250d",
+      "validation_macro_f1": 0.4681179008728153,
+      "parameter_count": 66975004
+    },
+    {
+      "architecture": "distilbert",
+      "seed": 2026,
+      "selected_epoch": 8,
+      "run_dir": "D:\\DoAn\\Đồ án NLP\\GoEmotions_QuetEpoch_C2_C3_20261103\\outputs\\sweep8_distilbert\\seed2026",
+      "protocol": "distilbert\\seed_2026\\final_protocol.json",
+      "protocol_sha256": "f7fd6a5a8c2b0c49709a64b14e8cfac60ee905a37a6ac1cd2a6c7db547154b5a",
+      "validation_macro_f1": 0.4739705552409545,
+      "parameter_count": 66975004
+    }
+  ]
+}

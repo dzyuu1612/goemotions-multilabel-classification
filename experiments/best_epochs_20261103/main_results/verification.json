@@ -1,0 +1,12 @@
+{
+  "status": "passed",
+  "verified_at_utc": "2026-11-03T18:08:14.934467+00:00",
+  "recomputed_C_rows": 54,
+  "A_B_unchanged": true,
+  "all_protocols_locked_before_test": true,
+  "selected_epoch_verified": true,
+  "sample_std_ddof": 1,
+  "report_rows": 72,
+  "summary_groups": 36,
+  "per_label_rows": 756
+}

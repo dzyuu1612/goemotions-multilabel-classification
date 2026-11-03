@@ -1,0 +1,59 @@
+{
+  "models": [
+    {
+      "architecture": "bert",
+      "upstream_model": "google-bert/bert-base-cased",
+      "model_revision": "cd5ef92a9fb2f889e972770a36d4ed042daf221e",
+      "declared_model_card_license": "apache-2.0",
+      "files": {
+        "README.md": {
+          "source_url": "https://huggingface.co/google-bert/bert-base-cased/resolve/cd5ef92a9fb2f889e972770a36d4ed042daf221e/README.md",
+          "sha256": "cc8e037bc719c4776a0f78b146b315df062f8172343bbde9af25792683059080",
+          "bytes": 8982
+        },
+        "LICENSE": {
+          "source_url": "https://raw.githubusercontent.com/google-research/bert/master/LICENSE",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "bytes": 11358
+        }
+      }
+    },
+    {
+      "architecture": "roberta",
+      "upstream_model": "FacebookAI/roberta-base",
+      "model_revision": "e2da8e2f811d1448a5b465c236feacd80ffbac7b",
+      "declared_model_card_license": "mit",
+      "files": {
+        "README.md": {
+          "source_url": "https://huggingface.co/FacebookAI/roberta-base/resolve/e2da8e2f811d1448a5b465c236feacd80ffbac7b/README.md",
+          "sha256": "139c5c5c8d734a8841928308cf7f083018aa5cc49f903c5199e3f1563b3ded51",
+          "bytes": 9079
+        },
+        "LICENSE": {
+          "source_url": "https://raw.githubusercontent.com/facebookresearch/fairseq/main/LICENSE",
+          "sha256": "52412d7bc7ce4157ea628bbaacb8829e0a9cb3c58f57f99176126bc8cf2bfc85",
+          "bytes": 1086
+        }
+      }
+    },
+    {
+      "architecture": "distilbert",
+      "upstream_model": "distilbert/distilbert-base-uncased",
+      "model_revision": "12040accade4e8a0f71eabdb258fecc2e7e948be",
+      "declared_model_card_license": "apache-2.0",
+      "files": {
+        "README.md": {
+          "source_url": "https://huggingface.co/distilbert/distilbert-base-uncased/resolve/12040accade4e8a0f71eabdb258fecc2e7e948be/README.md",
+          "sha256": "b925a22d8efd7a29608a0e10d3f2fb33d5d80df7de4ac6e34093853cd8e0274e",
+          "bytes": 8577
+        },
+        "LICENSE": {
+          "source_url": "https://huggingface.co/distilbert/distilbert-base-uncased/resolve/12040accade4e8a0f71eabdb258fecc2e7e948be/LICENSE",
+          "sha256": "43070e2d4e532684de521b885f385d0841030efa2b1a20bafb76133a5e1379c1",
+          "bytes": 11356
+        }
+      }
+    }
+  ],
+  "note": "Model cards are copied from the pinned pretrained revisions; licenses retain the source text and attribution. The packaged models are fine-tuned GoEmotions checkpoints."
+}

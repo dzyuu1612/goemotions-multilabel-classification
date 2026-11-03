@@ -1,0 +1,20 @@
+{
+  "seed": 2026,
+  "model": "bert",
+  "selected_epoch": 7,
+  "rows": [
+    {
+      "split": "train",
+      "n": 43410,
+      "bce": 0.024565913240817073,
+      "macro_f1": 0.8005782865954572
+    },
+    {
+      "split": "validation",
+      "n": 5426,
+      "bce": 0.10535464653122777,
+      "macro_f1": 0.4644953983612838
+    }
+  ],
+  "mode": "Full train and validation, eval mode with AMP fp16 at selected checkpoint; no dropout."
+}

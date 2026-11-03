@@ -1,0 +1,41 @@
+{
+  "architecture": "bert",
+  "seed": 2026,
+  "original_epochs": 4,
+  "original_learning_rate": 5e-05,
+  "source_sha256": {
+    "metadata": "a8babfa50db8d4faf05e294267b67e9f5453682a83c67ffb558ccbf7a3342fba",
+    "weights": "fa0bff9e815c33725e118d7312310a420a6bf9d948a5cc9ac714d1018d523cb6"
+  },
+  "evaluation_config": {
+    "batch_size": 16,
+    "max_length": 128,
+    "amp_fp16": true,
+    "threshold": 0.5,
+    "eval_mode": true,
+    "data_revision": "add492243ff905527e67aeb8b80c082af02207c3",
+    "splits": [
+      "train",
+      "validation"
+    ]
+  },
+  "metrics": {
+    "train": {
+      "macro_f1": 0.721830073785674,
+      "micro_f1": 0.8533238654163446,
+      "bce": 0.03680523907667119,
+      "n_samples": 43410
+    },
+    "validation": {
+      "macro_f1": 0.47234584396915974,
+      "micro_f1": 0.5821636425881548,
+      "bce": 0.09324536713248312,
+      "n_samples": 5426,
+      "max_abs_difference_from_saved_scores": 0.0,
+      "label_decisions_changed_from_saved_scores": 0
+    }
+  },
+  "training_repeated": false,
+  "test_loaded": false,
+  "measured_at_utc": "2026-11-03T18:13:54.555021+00:00"
+}

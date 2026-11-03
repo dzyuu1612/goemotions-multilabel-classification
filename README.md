@@ -1,17 +1,27 @@
-# GoEmotions phân loại cảm xúc đa nhãn
+# GoEmotions — phân loại cảm xúc đa nhãn
 
-Mã nguồn cho TF-IDF + Logistic Regression (A), zero-shot BART-MNLI (B), BERT (C1), RoBERTa (C2) và DistilBERT (C3). GoEmotions có 28 nhãn, official split **43.410 train / 5.426 validation / 5.427 test**. Mỗi kiến trúc C có ba seed **42, 123, 2026**.
+Mã nguồn đồ án GoEmotions, gồm TF-IDF + Logistic Regression (A), zero-shot BART-MNLI (B), BERT (C1), RoBERTa (C2) và DistilBERT (C3). Dữ liệu dùng bộ chia chính thức: **43.410 train / 5.426 validation / 5.427 test**, 28 nhãn.
 
-Bộ dùng cho báo cáo nằm ở `results/final_submission/`. Notebook đã chạy có kết quả sẵn ngay trong `notebooks/`; bản sao và biên nhận thực thi nằm ở `notebooks/executed/`. Không cần train lại để xem kết quả hoặc demo.
+## Bộ kết quả hiện tại
 
-- [Nhánh mã nguồn hiện tại](https://github.com/dzyuu1612/goemotions-multilabel-classification/tree/codex/goemotions-upgrade-20261029)
-- [Kết quả từng lượt](results/final_submission/report_data/all_runs.csv)
-- [Mean và std mẫu ddof=1](results/final_submission/report_data/mean_std.csv)
-- [Cấu hình và môi trường C3](results/c3_rerun/ENV.json)
+[Bộ mã, số liệu và notebook của báo cáo chính](experiments/best_epochs_20261103/README.md) nằm ở `experiments/best_epochs_20261103/`.
+
+- Cả ba C dùng learning rate `2e-5`, batch 16, max_length 128, ngân sách tám epoch; mỗi kiến trúc có ba seed 42, 123, 2026.
+- Chọn checkpoint từng seed bằng Macro-F1 validation @0,5 cao nhất; hòa lấy epoch sớm hơn. Checkpoint và ngưỡng khóa trước đánh giá test.
+- Epoch chọn theo thứ tự seed: **BERT 7/6/7; RoBERTa 7/8/5; DistilBERT 7/8/8**.
+- A/B giữ nguyên. Bộ số cũ trong `results/final_submission/` dùng để đối chiếu lịch sử, không phải kết quả C của báo cáo hiện tại.
+
+| Mô hình | Macro-F1 test, ngưỡng riêng | Micro-F1 test, ngưỡng riêng | Hamming Loss |
+|---|---:|---:|---:|
+| BERT | 0,4938 ± 0,0075 | 0,5717 ± 0,0051 | 0,0405 ± 0,0016 |
+| RoBERTa | 0,5101 ± 0,0076 | 0,5909 ± 0,0033 | 0,0377 ± 0,0002 |
+| DistilBERT | 0,4972 ± 0,0027 | 0,5779 ± 0,0069 | 0,0389 ± 0,0012 |
+
+Mean và sample std (`ddof=1`) từ đủ ba seed, tính trên số chưa làm tròn. So với lượt trước, Macro-F1 C2/C3 tăng, nhưng Micro-F1 cả ba giảm và Hamming Loss tăng. BERT giảm cả Macro-F1 và Micro-F1. Đường BCE validation tăng trong khi train giảm ở các epoch sau: không kết luận hết overfit chỉ vì F1 tăng. BERT trước dùng bốn epoch/LR5e-5; đây không phải đối chứng BERT ba epoch chỉ thay số epoch. Test từng được xem ở báo cáo trước, không gọi là holdout mới.
 
 ## Cài đặt
 
-Python 3.12 hoặc 3.13. Môi trường huấn luyện C1/C2/C3 thực tế: Python 3.13.9, PyTorch 2.13.0+cu130, Transformers 4.57.6, CUDA runtime 13.0, RTX 5060 Laptop. PyTorch cần bản phù hợp GPU/CPU của máy sử dụng; môi trường khác có thể có sai lệch số học gần ngưỡng.
+Python 3.12 hoặc 3.13. Môi trường chạy thực tế: Python 3.13.9, PyTorch 2.13.0+cu130, Transformers 4.57.6, RTX 5060 Laptop. Cài PyTorch phù hợp GPU/CPU trước nếu máy cần một bản CUDA khác.
 
 ```powershell
 python -m venv .venv
@@ -19,86 +29,33 @@ python -m venv .venv
 python -m pip install -e ".[eda,transformers,notebooks]"
 ```
 
-## Xem kết quả và chạy demo
+## Xem kết quả, không huấn luyện lại
+
+Mở [notebook có sẵn đầu ra](experiments/best_epochs_20261103/GoEmotions_KetQua_EpochTotNhat.ipynb). Notebook đọc điểm dự đoán thật, tính lại 18 hàng test × 7 chỉ số, đối chiếu CSV, tính mean/std và hiện biểu đồ học, kết quả và chẩn đoán overfit.
+
+- [Kết quả từng seed](experiments/best_epochs_20261103/main_results/report_data/all_runs.csv)
+- [Mean và std](experiments/best_epochs_20261103/main_results/report_data/mean_std.csv)
+- [So sánh trước–sau](experiments/best_epochs_20261103/main_results/report_data/test_before_after.csv)
+- [Lịch sử 72 epoch](experiments/best_epochs_20261103/sweep_log.csv)
+- [Đối chiếu overfit](experiments/best_epochs_20261103/overfit_audit/overfit_comparison.csv)
+- [Biên nhận khóa trước test](experiments/best_epochs_20261103/main_results/LOCK_BEFORE_TEST.json)
+
+## Demo Gradio bằng checkpoint đã lưu
+
+Từ thư mục gốc repository:
 
 ```powershell
-# Tải checkpoint đã huấn luyện, kiểm SHA-256; không train.
-python -m scripts.verification.prepare_submission --checkpoints --demo-only
-python app.py --device auto
+python -c "from src.final_submission import prepare_runtime; prepare_runtime()"
+python experiments/best_epochs_20261103/restore_best_models.py
+python experiments/best_epochs_20261103/app_best_epochs.py --device auto
 ```
 
-Gradio tại `http://127.0.0.1:7860`, mặc định **BERT seed 123 / ngưỡng riêng**. Có sáu lựa chọn mô hình và hai chế độ **0,5 / ngưỡng riêng**. BART-MNLI nạp khi được chọn. Thiếu checkpoint của mô hình khác thì khôi phục tất cả:
+Mở `http://127.0.0.1:7861`. Mặc định **RoBERTa seed 2026 / ngưỡng riêng**, chọn bằng validation. Có hai chế độ ngưỡng và sáu lựa chọn A/B/C. Không có nhãn đạt ngưỡng thì trả tập rỗng, không tự thêm neutral. Điểm chưa được hiệu chuẩn thành độ tin cậy tuyệt đối. CPU có thể cho điểm khác AMP GPU gần ngưỡng.
 
-```powershell
-python -m scripts.verification.prepare_submission --checkpoints
-```
+[Một gói ZIP](https://github.com/dzyuu1612/goemotions-multilabel-classification/releases/tag/goemotions-best-epochs-20261103) chứa ba checkpoint C đại diện, tokenizer và giấy phép nguồn; script khôi phục kiểm SHA-256. Không phải ensemble. ZIP còn giữ checkpoint BERT epoch 3 để bảo toàn biên nhận chẩn đoán của lượt gốc. Cả chín lượt được tái hiện đánh giá bằng điểm dự đoán trong repository.
 
-Đầu ra gồm tập nhãn và bảng 28 điểm, ngưỡng áp dụng, trạng thái đạt ngưỡng. Không có nhãn đạt ngưỡng thì trả tập rỗng, không tự thêm neutral. Điểm sigmoid/NLI chưa được hiệu chuẩn thành độ tin cậy tuyệt đối.
+## Huấn luyện khi cần kiểm quy trình
 
-Năm câu tự soạn để thử, không dùng tính accuracy:
+Xem lệnh và giới hạn tái lập tại [hướng dẫn bộ hiện tại](experiments/best_epochs_20261103/README.md). Trainer công bố khớp byte với trainer đã chạy; các module dùng chung được kiểm mã băm. Seed không bảo đảm huấn luyện GPU trùng từng bit; notebook dùng điểm đã lưu để tái hiện bảng báo cáo. Không chạy huấn luyện khi mở notebook kết quả hoặc demo.
 
-1. You stayed late to help me. I really appreciate it!
-2. I was worried, but your help made me feel so relieved.
-3. I am not angry with you, just disappointed in the result.
-4. Wonderful, another three hours stuck in traffic.
-5. The package will arrive on Tuesday afternoon.
-
-Với câu 2, BERT ở ngưỡng riêng chọn nervousness và relief; tại 0,5 không có nhãn đạt ngưỡng. [Gói chuẩn bị cho Hugging Face Spaces](deployment/hf_space/README.md) chỉ dùng BERT/123 trên CPU. [Hướng dẫn triển khai](deployment/DEPLOY_DEMO.md); chưa có link Space công khai.
-
-## Notebook
-
-| Tệp | Nội dung |
-|---|---|
-| [00 Quick start](notebooks/00_quick_start.ipynb) | Ví dụ baseline nhỏ tự tạo, tách khỏi benchmark |
-| [01 EDA](notebooks/01_eda.ipynb) | Dữ liệu, phân bố nhãn, trùng văn bản, độ dài tokenizer |
-| [02 Baseline](notebooks/02_baseline.ipynb) | Hai biến thể TF-IDF + LR, ngưỡng và kiểm kết quả |
-| [03 Zero shot](notebooks/03_zero_shot.ipynb) | BART-MNLI và đánh đổi ngưỡng |
-| [04 C1 C2](notebooks/04_transformers.ipynb) | Cấu hình, đường học, bảng báo cáo và suy luận thật sáu checkpoint |
-| [05 C3](notebooks/05_distilbert.ipynb) | Ba seed DistilBERT, validation/test, nhãn hiếm, lỗi và demo |
-| [06 EDA bổ sung](notebooks/06_eda_extra.ipynb) | Đồng xuất hiện nhãn thật và kiểm chất lượng dữ liệu |
-| [07 Tính tay](notebooks/07_improvement_workflow.ipynb) | Attention, sigmoid, BCE, gradient và cách đọc tham số |
-
-Sau khi khôi phục đủ checkpoint:
-
-```powershell
-python -m scripts.data.run_notebooks --notebook all --publish
-```
-
-Lệnh thực thi toàn bộ cell, dừng khi có lỗi, lưu đầu ra vào notebook chính và bản sao `executed/`, kèm thời gian và SHA-256. **Run All không huấn luyện benchmark**. Bảng báo cáo được tính từ đúng scores của lượt đã chốt, kiểm ID, thứ tự nhãn và đủ ba seed. Các cell suy luận mới hiển thị riêng sai lệch nếu AMP/kernel khác; không sửa số để ép khớp. Huấn luyện và thực thi notebook được chạy trên máy có GPU; GitHub Actions kiểm mã, biên nhận notebook và tính lại 72 dòng metric trên CPU.
-
-## Dữ liệu huấn luyện và đánh giá
-
-TF-IDF chỉ fit trên train. Checkpoint chọn bằng Macro-F1 validation tại 0,5. Ngưỡng riêng chọn trên validation trong lưới 0,05–0,95, bước 0,05; hòa điểm ưu tiên gần 0,5, rồi ngưỡng lớn hơn. Không dùng test chọn seed hoặc ngưỡng. CSV giữ thêm chế độ global để lưu vết; báo cáo chỉ trình bày 0,5 và ngưỡng riêng.
-
-```powershell
-python -m scripts.verification.verify_submission --output reports/verification_current --full
-python -m scripts.verification.crosscheck_submission
-python -m scripts.analysis.plot_report_revision --output ../report_out/C3_20261030
-```
-
-Ma trận lỗi dùng **Blues**. Ô FN(A)–FP(B) đếm câu vừa bỏ sót A vừa dự đoán thừa B; một câu có thể đóng góp nhiều ô. Đây không phải confusion matrix của bài toán đơn nhãn. F1 từng nhãn giữ đủ 28 nhãn, mean/std của ba seed.
-
-## Huấn luyện
-
-Trainer chung: `scripts/transformers/train_transformer.py`. Ba C dùng BCEWithLogitsLoss không trọng số, AdamW, batch 16, accumulation 1, max length 128, warmup 10%, weight decay 0,01, clip norm 1 và AMP fp16 trên CUDA. C1 dùng LR 5e-5 / 4 epoch; C2/C3 dùng 2e-5 / 3 epoch. C3 dùng cùng trainer với C1/C2 và không bật gradient checkpointing.
-
-Ví dụ tạo **thí nghiệm riêng**, không ghi đè bộ báo cáo:
-
-```powershell
-python -m scripts.transformers.train_transformer --architecture distilbert --seed 42 --device cuda --revision 12040accade4e8a0f71eabdb258fecc2e7e948be --output-root artifacts/my_experiment
-```
-
-Thực thi C3 của bộ báo cáo được lưu ở `results/c3_rerun/`: quyết định trước khi chạy, log theo epoch, môi trường, ba seed và biên nhận. `scripts/transformers/rerun_c3.py` từ chối khởi động lại một thí nghiệm đã có. `scripts/transformers/finalize_c3.py` chỉ đánh giá sau khi cả ba seed hoàn tất; khóa ngưỡng trước test và giữ nguyên byte của các dòng A/B/C1/C2. Bộ trước được lưu tại `results/archive_before_c3_rerun/`, checkpoint C3 trước tại `results/archive_c3_old/` (trọng số lớn tải qua Releases).
-
-## Giới hạn
-
-Có 37 dòng test trùng nguyên văn với train. Test của bộ trước và bộ chính đã được quan sát; so sánh là mô tả. C1/C2/C3 khác LR/epoch, chỉ ba seed; chưa có ablation để kết luận nguyên nhân chênh lệch. Ngưỡng validation có thể quá khớp nhãn hiếm. Tăng epoch hoặc đổi LR chưa mặc nhiên làm F1 tốt hơn.
-
-## Nguồn
-
-- [GoEmotions ACL 2020](https://aclanthology.org/2020.acl-main.372/)
-- [Dữ liệu chính thức Google Research](https://github.com/google-research/google-research/tree/master/goemotions)
-- [PyTorch BCEWithLogitsLoss](https://docs.pytorch.org/docs/stable/generated/torch.nn.BCEWithLogitsLoss.html)
-- [PyTorch reproducibility](https://docs.pytorch.org/docs/stable/notes/randomness.html)
-
-Nguồn và trích dẫn chi tiết nằm trong báo cáo. Không coi dữ liệu minh họa tự tạo hoặc câu demo là bằng chứng chất lượng mô hình.
+[GoEmotions — bài báo gốc](https://aclanthology.org/2020.acl-main.372/) và [dữ liệu chính thức](https://github.com/google-research/google-research/tree/master/goemotions). Giấy phép và model card đúng revision của ba mô hình nền nằm trong `experiments/best_epochs_20261103/model_attribution/`.
