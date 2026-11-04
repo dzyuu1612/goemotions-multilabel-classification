@@ -19,7 +19,7 @@ def main():
  saved=pd.read_csv(MAIN/'report_data/all_runs.csv'); summaries=pd.read_csv(MAIN/'report_data/mean_std.csv')
  records=[]
  for run in lock['runs']:
-  path=MAIN/run['protocol'];assert sha(path)==run['protocol_sha256'];protocol=read(path)
+  path=MAIN/Path(run['protocol'].replace('\\','/'));assert sha(path)==run['protocol_sha256'];protocol=read(path)
   receipt=read(path.parent/'test_results.json');scores_file=path.parent/'test_scores.npz';assert sha(scores_file)==receipt['scores_sha256']
   with np.load(scores_file,allow_pickle=False) as array:
    ids=array['ids'].astype(str);scores=array['scores'];names=array['label_names'].astype(str).tolist()

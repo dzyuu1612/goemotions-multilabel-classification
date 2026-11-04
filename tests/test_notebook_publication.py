@@ -33,6 +33,22 @@ class NotebookPublicationTest(unittest.TestCase):
             _, _, _, manifest = self.fixture(root)
             self.assertEqual(publication_errors(root, manifest), [])
 
+    def test_single_executed_file_layout_needs_no_duplicate(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root=Path(folder)
+            source,duplicate,ready,manifest=self.fixture(root)
+            source.write_text(json.dumps(ready),encoding='utf-8')
+            duplicate.unlink()
+            entry=manifest['notebooks'][0]
+            entry.update(executed=entry['source'],source_sha256=notebook_digest(source),
+                         executed_sha256=notebook_digest(source))
+            manifest['schema_version']=2
+            self.assertEqual(publication_errors(root,manifest),[])
+            ready['cells'][0]['execution_count']=None
+            source.write_text(json.dumps(ready),encoding='utf-8')
+            entry.update(source_sha256=notebook_digest(source),executed_sha256=notebook_digest(source))
+            self.assertTrue(any('chạy đủ cell' in e for e in publication_errors(root,manifest)))
+
     def test_changed_source_cannot_keep_old_output_certificate(self):
         with tempfile.TemporaryDirectory() as folder:
             root = Path(folder)

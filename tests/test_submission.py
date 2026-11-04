@@ -38,5 +38,14 @@ class RuntimeIntegrityTest(unittest.TestCase):
         self.manifest['runtime_bundle_sha256']=final.digest(self.published/'runtime_bundle.zip');self.save()
         with self.assertRaisesRegex(ValueError,'vượt thư mục'):final.prepare_runtime(self.root/'runtime')
         self.assertFalse((self.root/'outside.txt').exists())
+    def test_baseline_restore_does_not_download_transformer_weights(self):
+        catalog={'assets':[
+            {'name':'baseline.zip','architecture':'baseline','weights':{self.name:self.manifest['files_sha256'][self.name]}},
+            {'name':'bert.zip','architecture':'bert','weights':{'model.safetensors':'unused'}}]}
+        (self.published/'checkpoint_assets.json').write_text(json.dumps(catalog),encoding='utf8')
+        with patch('src.final_submission.urllib.request.urlopen') as download:
+            root=final.restore_baselines(self.root/'runtime')
+            download.assert_not_called()
+        self.assertEqual((root/self.name).read_bytes(),self.payload)
 
 if __name__=='__main__':unittest.main()

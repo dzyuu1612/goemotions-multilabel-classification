@@ -58,7 +58,7 @@ class BestEpochSelector(ModelSelector):
         if key in ("bert","roberta","distilbert"):
             seed=self.current_selection["representatives"][key]
             row=next(r for r in self.lock["runs"] if r["architecture"]==key and r["seed"]==seed)
-            protocol_path=MAIN/row["protocol"]
+            protocol_path=MAIN/Path(row["protocol"].replace("\\","/"))
             if sha256(protocol_path)!=row["protocol_sha256"]:raise ValueError("Ngưỡng đã thay đổi sau khi khóa")
             run=Path(row["run_dir"])
             if not run.exists():run=ROOT/"checkpoints"/key/f"seed_{seed}"

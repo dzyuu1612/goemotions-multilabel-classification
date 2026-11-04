@@ -19,10 +19,10 @@ notebooks = ["jupyterlab>=4,<5", "nbformat==5.10.4", "nbclient>=0.10,<0.12", "nb
 dev = ["matplotlib>=3.10,<4", "nbformat==5.10.4"]
 
 [project.urls]
-Repository = "https://github.com/dzyuu1612/goemotions-multilabel-classification/tree/codex/goemotions-upgrade-20261029"
-Documentation = "https://github.com/dzyuu1612/goemotions-multilabel-classification/tree/codex/goemotions-upgrade-20261029#readme"
+Repository = "https://github.com/dzyuu1612/goemotions-multilabel-classification"
+Documentation = "https://github.com/dzyuu1612/goemotions-multilabel-classification#readme"
 
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["src", "src.*", "scripts", "scripts.*", "examples", "examples.*", "tools", "tools.*"]
+include = ["src", "src.*", "scripts", "scripts.*", "examples", "examples.*", "tools", "tools.*", "experiments", "experiments.*"]
 namespaces = false

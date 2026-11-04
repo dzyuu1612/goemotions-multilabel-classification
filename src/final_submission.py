@@ -49,11 +49,13 @@ def prepare_runtime(destination=None):
             path.parent.mkdir(parents=True,exist_ok=True);path.write_bytes(payload)
     return root
 
-def restore_checkpoints(destination=None,selected_only=False):
+def restore_checkpoints(destination=None,selected_only=False,architectures=None):
     """Tải weights đã huấn luyện và kiểm ZIP; không chạy train."""
     root=prepare_runtime(destination);catalog=read_json(PUBLISHED/'checkpoint_assets.json')
     cache=ROOT/'artifacts/downloads';cache.mkdir(parents=True,exist_ok=True)
     for asset in catalog['assets']:
+        if architectures is not None and asset.get('architecture') not in architectures:
+            continue
         if selected_only and asset.get('architecture') in ('bert','roberta','distilbert'):
             scores = [(read_json(root/f'data/processed/transformers/{asset["architecture"]}/seed_{seed}/full/standard/validation_metrics.json')['macro_f1'], -seed)
                       for seed in (42,123,2026)]
@@ -85,3 +87,8 @@ def restore_checkpoints(destination=None,selected_only=False):
                 raise ValueError('Weights không khớp bộ nộp: '+name)
         print('Đã kiểm checkpoint:',asset['name'],flush=True)
     return root
+
+
+def restore_baselines(destination=None):
+    """Restore only the two fitted TF-IDF models; do not download Transformer weights."""
+    return restore_checkpoints(destination,architectures={'baseline'})

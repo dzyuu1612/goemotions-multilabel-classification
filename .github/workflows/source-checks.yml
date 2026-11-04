@@ -1,9 +1,9 @@
-name: Source checks
+name: Source and notebook checks
 
 on:
   pull_request:
   push:
-    branches: [main, "codex/source-only-repo", "codex/goemotions-upgrade-20261029"]
+    branches: [main, "codex/goemotions-best-epochs-20261103"]
 
 permissions:
   contents: read
@@ -21,21 +21,16 @@ jobs:
           cache-dependency-path: |
             pyproject.toml
             requirements/*.txt
-      - name: Install CPU test environment
+      - name: Install CPU dependencies
         run: |
           python -m pip install --upgrade pip
           python -m pip install torch --index-url https://download.pytorch.org/whl/cpu
-          python -m pip install -e ".[dev,transformers,notebooks]"
-      - name: Check code, clean sources, executed notebook hashes and README links
+          python -m pip install -e ".[eda,transformers,notebooks]"
+      - name: Check source, notebook executions and README links
         run: python tools/check_repository.py
-      - name: Unit tests without dataset or checkpoint downloads
+      - name: Unit tests without checkpoint downloads
         run: python -m unittest discover -s tests -v
-      - name: Recompute all report metrics from saved scores
-        run: |
-          python -m scripts.verification.prepare_submission
-          python -m scripts.verification.verify_submission --output reports/ci_verification
-          python -m scripts.verification.crosscheck_submission
-      - name: Learning example
+      - name: Recompute current report metrics
+        run: python experiments/best_epochs_20261103/verify_report_tables.py
+      - name: Small baseline example
         run: python -m examples.baseline_from_scratch
-      - name: Quick-start notebook without downloads
-        run: python -m scripts.data.run_notebooks --notebook 00_quick_start

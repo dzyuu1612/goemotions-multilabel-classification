@@ -21,7 +21,7 @@ def main():
     names = [path.stem for path in sorted((ROOT / "notebooks").glob("*.ipynb"))]
     parser = argparse.ArgumentParser(description="Run notebooks and keep executed copies local")
     parser.add_argument("--notebook", nargs="+", choices=["all", *names], default=["00_quick_start"])
-    parser.add_argument("--publish", action="store_true", help="Lưu bản có output trong notebooks/executed/ để commit")
+    parser.add_argument("--publish", action="store_true", help="Lưu output vào chính notebook, không tạo bản trùng")
     parser.add_argument("--artifacts-root", type=Path)
     parser.add_argument("--timeout", type=int, default=1800, help="Timeout mỗi cell, giây")
     args = parser.parse_args()
@@ -30,11 +30,11 @@ def main():
         parser.error("Không lặp tên notebook")
     if args.artifacts_root:
         os.environ["GOEMOTIONS_ARTIFACTS_ROOT"] = str(args.artifacts_root.resolve())
-    output_dir = ROOT / ("notebooks/executed" if args.publish else "reports/notebooks")
+    output_dir = ROOT / ("notebooks" if args.publish else "reports/notebooks")
     output_dir.mkdir(parents=True, exist_ok=True)
     manifest_path = output_dir / "execution_manifest.json"
     manifest = json.loads(manifest_path.read_text(encoding="utf-8")) if manifest_path.exists() else {
-        "schema_version": 1, "notebooks": []}
+        "schema_version": 2 if args.publish else 1, "notebooks": []}
     manifest["hash_policy"] = "sha256:utf8-lf"
 
     for name in selected:
@@ -59,11 +59,8 @@ def main():
         code = [c for c in notebook.cells if c.cell_type == "code"]
         if any(c.execution_count is None or any(o.output_type == "error" for o in c.outputs) for c in code):
             raise ValueError(f"{name}: thiếu cell đã chạy hoặc có lỗi; không xuất bản")
-        output = output_dir / (name + ".executed.ipynb")
+        output = source if args.publish else output_dir / (name + ".executed.ipynb")
         nbformat.write(notebook, output)
-        if args.publish:
-            # The GitHub notebook itself also opens with genuine saved outputs.
-            nbformat.write(notebook, source)
         count = len(code)
         entry = {"source": source.relative_to(ROOT).as_posix(), "source_sha256": notebook_digest(source),
                  "executed": output.relative_to(ROOT).as_posix(), "executed_sha256": notebook_digest(output),

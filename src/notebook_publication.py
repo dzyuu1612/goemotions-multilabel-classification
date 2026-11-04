@@ -17,13 +17,18 @@ def notebook_digest(path):
 def publication_errors(root, manifest):
     root = Path(root).resolve()
     errors, seen = [], set()
+    version = manifest.get("schema_version")
     sources = {p.relative_to(root).as_posix() for p in (root / "notebooks").glob("*.ipynb")}
-    if manifest.get("schema_version") != 1 or not isinstance(manifest.get("notebooks"), list):
+    if version == 2:
+        sources.update(p.relative_to(root).as_posix() for p in
+                       (root / "experiments/best_epochs_20261103").glob("*.ipynb"))
+    if version not in (1, 2) or not isinstance(manifest.get("notebooks"), list):
         return ["Manifest notebook sai schema"]
     for entry in manifest["notebooks"]:
         source_name, executed_name = entry.get("source", ""), entry.get("executed", "")
         source, executed = (root / source_name).resolve(), (root / executed_name).resolve()
-        expected_name = f"notebooks/executed/{Path(source_name).stem}.executed.ipynb"
+        expected_name = (source_name if version == 2 else
+                         f"notebooks/executed/{Path(source_name).stem}.executed.ipynb")
         if (source_name not in sources or source_name in seen or executed_name != expected_name
                 or not source.is_relative_to(root) or not executed.is_relative_to(root)):
             errors.append(f"Manifest sai/trùng đường dẫn: {source_name}")

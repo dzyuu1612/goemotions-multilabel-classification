@@ -1,4 +1,4 @@
-# Python
+# Python and local environment
 .venv/
 .venv-*/
 __pycache__/
@@ -8,8 +8,15 @@ build/
 dist/
 .pytest_cache/
 .ipynb_checkpoints/
+.env
+.env.*
+!.env.example
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
 
-# Downloads and generated outputs
+# Local datasets, checkpoints and generated exports
 data/raw/
 data/tokenizers/
 data/processed/
@@ -19,60 +26,29 @@ data/tokenizer_manifest.json
 reports/
 artifacts/
 outputs/
+private/
+docs/
+assets/
+deployment/
+notebooks/executed/
 *.joblib
 *.safetensors
 *.pt
 *.pth
-
-# Academic documents and exports
 *.docx
 *.doc
 *.pdf
-*.tex
-*.html
-!deployment/index.html
 *.pptx
 *.xlsx
+*.html
 *.zip
-private/
-
-# Hướng dẫn chỉ tập trung trong README; tài liệu khác giữ riêng.
-docs/
-*.md
-*.markdown
-!README.md
-
-# Local settings
-.env
-.env.*
-!.env.example
-.vscode/
-.idea/
-.DS_Store
-Thumbs.db
-
-# Published results of the current full benchmark (2026-10-25)
-!/reports/
-/reports/*
-!/reports/project_results/
-!/reports/project_results/**
-!/reports/errors_test_standard_fixed/
-!/reports/errors_test_standard_fixed/**
-!/reports/errors_validation_standard_fixed/
-!/reports/errors_validation_standard_fixed/**
-!/reports/tables/
-!/reports/tables/**
-!/reports/figures/
-!/reports/figures/**
-!/reports/reproduction_report_20261026/
-!/reports/reproduction_report_20261026/**
-!/reports/demo_all_models_verification.json
-!/reports/demo_http_verification.json
-!/reports/demo_verification.json
-!/reports/environment.json
-!/reports/summary.json
-!/reports/verification.json
-!/results/training_20261025/
-!/results/training_20261025/**
-!/results/final_submission/
-!/results/final_submission/**
+!results/final_submission/runtime_bundle.zip
+results/*
+!results/final_submission/
+results/final_submission/*
+!results/final_submission/manifest.json
+!results/final_submission/checkpoint_assets.json
+!results/final_submission/runtime_bundle.zip
+!results/final_submission/report_data/
+results/final_submission/report_data/*
+!results/final_submission/report_data/mean_std.csv

@@ -76,9 +76,12 @@ def compare_averages(records, expected):
     return actual
 
 
-def verify_scores(artifact_root):
+def verify_scores(artifact_root, systems=None):
     """Chỉ đọc cache có sẵn; thiếu split thì dừng trước khi loader có thể tải mạng."""
     artifact_root = Path(artifact_root).resolve()
+    systems = frozenset(("A", "B", "C") if systems is None else systems)
+    check(systems in (frozenset({"A"}), frozenset({"B"}), frozenset({"A", "B"}),
+                      frozenset({"A", "B", "C"})), "Sai phạm vi kiểm A/B/C")
     for split in EXPECTED_ROWS:
         path = artifact_root / f"data/raw/{split}-00000-of-00001.parquet"
         check(path.is_file(), f"Thiếu dữ liệu cục bộ: {path}")
@@ -105,39 +108,51 @@ def verify_scores(artifact_root):
                 compare_metrics(result, choice["validation_metrics"], f"protocol {system} {seed}")
             records.append(row)
 
-    # Bước 1: A có hai model; cả sáu cấu hình phải thuộc đúng protocol đã khóa.
-    baseline = artifact_root / "data/processed/baseline"
-    protocol = read_json(baseline / "final_protocol.json")
-    check(protocol["data_revision"] == REVISION and protocol["label_names"] == labels, "Sai protocol A")
-    final = read_json(baseline / "final/final_results.json")
-    check(final["protocol_sha256"] == sha256(baseline / "final_protocol.json"), "A test thuộc protocol khác")
-    for variant in ("standard", "balanced"):
-        folder = baseline / ("full" if variant == "standard" else "balanced/full")
-        metadata = load_run_metadata(folder, variant, labels)
-        frozen = protocol["runs"][variant]
-        check(metadata["artifact_sha256"] == frozen["artifact_sha256"] and
-              sha256(folder / "thresholds_validation.json") == frozen["threshold_file_sha256"], "A đã đổi sau khóa")
-        choices = [row for row in protocol["configurations"] if row["variant"] == variant]
-        check({row["threshold_mode"] for row in choices} == {"fixed", "global", "tuned"} and len(choices) == 3,
-              "Thiếu/trùng cấu hình A")
-        for split in ("validation", "test"):
-            path = folder / "validation_scores.npz" if split == "validation" else baseline / f"final/{variant}_test_scores.npz"
-            measure("A_" + variant, 42, split, path, choices)
-    print("PASS A: 12 dòng từ scores thật", flush=True)
+    if "A" in systems:
+        # Bước 1: A có hai model; cả sáu cấu hình phải thuộc đúng protocol đã khóa.
+        baseline = artifact_root / "data/processed/baseline"
+        protocol = read_json(baseline / "final_protocol.json")
+        check(protocol["data_revision"] == REVISION and protocol["label_names"] == labels, "Sai protocol A")
+        final = read_json(baseline / "final/final_results.json")
+        check(final["protocol_sha256"] == sha256(baseline / "final_protocol.json"), "A test thuộc protocol khác")
+        for variant in ("standard", "balanced"):
+            folder = baseline / ("full" if variant == "standard" else "balanced/full")
+            metadata = load_run_metadata(folder, variant, labels)
+            frozen = protocol["runs"][variant]
+            check(metadata["artifact_sha256"] == frozen["artifact_sha256"] and
+                  sha256(folder / "thresholds_validation.json") == frozen["threshold_file_sha256"], "A đã đổi sau khóa")
+            choices = [row for row in protocol["configurations"] if row["variant"] == variant]
+            check({row["threshold_mode"] for row in choices} == {"fixed", "global", "tuned"} and len(choices) == 3,
+                  "Thiếu/trùng cấu hình A")
+            for split in ("validation", "test"):
+                path = folder / "validation_scores.npz" if split == "validation" else baseline / f"final/{variant}_test_scores.npz"
+                measure("A_" + variant, 42, split, path, choices)
+        print("PASS A: 12 dòng từ scores thật", flush=True)
 
-    # Bước 2: B không fine-tune; giữ nguyên scores NLI và ba ngưỡng validation.
-    folder = artifact_root / "data/processed/zero_shot/full"
-    protocol = read_json(folder / "final_protocol.json")
-    validate_protocol(folder, protocol, labels)
-    test = read_json(folder / "test_run_metadata.json")
-    check(test["validation_run_metadata_sha256"] == protocol["run_metadata_sha256"], "Sai run B test")
-    check(test["protocol_sha256"] == sha256(folder / "final_protocol.json"), "B test thuộc protocol khác")
-    for name, expected_hash in test["artifact_sha256"].items():
-        path = (folder / name).resolve()
-        check(path.is_relative_to(folder.resolve()) and sha256(path) == expected_hash, f"B test sai hash {name}")
-    for split in ("validation", "test"):
-        measure("B_bart_mnli", None, split, folder / f"{split}_scores.npz", protocol["configurations"])
-    print("PASS B: 6 dòng từ scores thật", flush=True)
+    if "B" in systems:
+        # Bước 2: B không fine-tune; giữ nguyên scores NLI và ba ngưỡng validation.
+        folder = artifact_root / "data/processed/zero_shot/full"
+        protocol = read_json(folder / "final_protocol.json")
+        validate_protocol(folder, protocol, labels)
+        test = read_json(folder / "test_run_metadata.json")
+        check(test["validation_run_metadata_sha256"] == protocol["run_metadata_sha256"], "Sai run B test")
+        check(test["protocol_sha256"] == sha256(folder / "final_protocol.json"), "B test thuộc protocol khác")
+        for name, expected_hash in test["artifact_sha256"].items():
+            path = (folder / name).resolve()
+            check(path.is_relative_to(folder.resolve()) and sha256(path) == expected_hash, f"B test sai hash {name}")
+        for split in ("validation", "test"):
+            measure("B_bart_mnli", None, split, folder / f"{split}_scores.npz", protocol["configurations"])
+        print("PASS B: 6 dòng từ scores thật", flush=True)
+
+    if "C" not in systems:
+        selected_rows = {record_key(r) for r in expected
+                         if r["system"].split("_", 1)[0] in systems}
+        check({record_key(r) for r in records} == selected_rows,
+              "Thiếu/trùng dòng trong phạm vi A/B")
+        return {"records": records, "averages": summarize(records), "histories": [],
+                "data_manifest": manifest, "score_hashes": input_hashes,
+                "metric_max_absolute_difference": max(differences),
+                "selection": None}, frames, labels
 
     # Bước 3: C phải đủ 3 kiến trúc × 3 seed, đúng weights/tokenizer/scores/hash.
     runs_by_architecture = {architecture: [] for architecture in ARCHITECTURES}

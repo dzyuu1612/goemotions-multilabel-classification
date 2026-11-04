@@ -10,14 +10,14 @@ Mở `GoEmotions_KetQua_EpochTotNhat.ipynb`. Notebook có sẵn đầu ra và t�
 
 Các số gốc và biên nhận nằm trong `main_results/`; đường học đủ 72 epoch nằm trong `sweep_log.csv`. `LOCK_BEFORE_TEST.json` ràng buộc từng checkpoint, epoch và protocol bằng SHA-256. `selected` trong CSV đánh dấu đúng một epoch cho từng mô hình/seed.
 
-Log huấn luyện của sáu lượt C2/C3 nằm trong `training_logs/`. Lịch sử và biên nhận đủ chín lượt nằm trong `main_results/training_receipts/`.
+Lịch sử 72 epoch nằm trong `sweep_log.csv`; log gốc của sáu lượt C2/C3 nằm trong `training_logs/`. Biên nhận đủ chín lượt nằm trong `main_results/training_receipts/`.
 
 ## Demo bằng mô hình đã lưu
 
 Từ thư mục gốc repository, cài các phụ thuộc theo README chính. Khôi phục runtime A/B đã công bố, sau đó tải gói ba checkpoint C đại diện:
 
 ```powershell
-python -c "from src.final_submission import prepare_runtime; prepare_runtime()"
+python -c "from src.final_submission import restore_baselines; restore_baselines()"
 python experiments/best_epochs_20261103/restore_best_models.py
 python experiments/best_epochs_20261103/app_best_epochs.py --device auto
 ```

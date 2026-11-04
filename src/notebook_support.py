@@ -38,10 +38,10 @@ def artifacts_root():
 
 
 @lru_cache(maxsize=4)
-def benchmark(root):
-    """Kiểm 72 dòng/36 nhóm từ scores gốc, dùng lại kết quả trong cùng kernel."""
+def benchmark(root, systems=None):
+    """Kiểm scores theo phạm vi yêu cầu; A/B không cần tải checkpoint C."""
     from scripts.verification.reproduce_report import verify_scores
-    return verify_scores(Path(root))
+    return verify_scores(Path(root), systems=systems)
 
 
 def replay_test(root, system, seed=42):
@@ -58,7 +58,8 @@ def replay_split(root, system, seed=42, split="test"):
     if split not in ("validation", "test"):
         raise ValueError("Replay chỉ dùng validation hoặc test")
     root = Path(root)
-    result, frames, labels = benchmark(str(root.resolve()))
+    scope = ("A",) if system.startswith("A_") else None
+    result, frames, labels = benchmark(str(root.resolve()), scope)
     frame = frames[split]
     if system.startswith("A_"):
         import joblib
