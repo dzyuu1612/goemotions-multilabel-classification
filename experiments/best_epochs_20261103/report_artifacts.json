@@ -37,7 +37,7 @@
     "figures/sweep_BERT.png": "bb204b9c5306726a0341d3a03f427c4c1defa667a6912f28e37776ffe7deb1bb",
     "figures/sweep_DistilBERT.png": "3ebff89a5ef6706e4c7eb5c42286551f377a375cee6e48318d1d0eb75579387d",
     "figures/sweep_RoBERTa.png": "88fa4036656eb7b89a2a9c16bfeb4f10b0b2f560e8baa2c7fd7078b27d821bd3",
-    "GoEmotions_KetQua_EpochTotNhat.ipynb": "1b8fda2637cc1aa68db396e6f475c05d9fdc101a3a2afbe7224fdafb1a5ca4ed",
+    "GoEmotions_KetQua_EpochTotNhat.ipynb": "c96948fc157c932d65bdfb11018ee570faad15177d1e0c622a37a20d72be7240",
     "main_results/bert/seed_123/examples.json": "5ad885b87aa7b8cb6be9e9b1a35d3fe14024d3fe80119d1704e16b6156c7cb70",
     "main_results/bert/seed_123/final_protocol.json": "87f57ae909a2d7b5f0a8866892f892bc4e48e0ee29cba94968dec164757bb489",
     "main_results/bert/seed_123/test_results.json": "5c0090b0244084817159f855c7ef9ed588e533615dd8401ef46c13853d6fb926",
@@ -96,6 +96,7 @@
     "main_results/report_data/error_pairs.csv": "ab2a1e5bdd8f48e963cde67e11b06f42cf0d8db0be843340fa98b29d910de735",
     "main_results/report_data/learning_curves.csv": "e7e13ffb96176e033771aa66c885dbedc4adf229ff84a35ab985caf6403710c2",
     "main_results/report_data/mean_std.csv": "80201cff1e03d1d3be5a84f864a9ade31cebd540bec7e55e5e116c6b55937c5e",
+    "main_results/report_data/original_test_summary.csv": "89db3cf0110856b337465bb6219214472c11bd65395c1afc3a8b9b627b2e190d",
     "main_results/report_data/per_label_test.csv": "4ad620466ce15ae31f2289036f51eb1dfeb42f261de40f284db38ccc0470f6ed",
     "main_results/report_data/report_examples.json": "d3817fbf4b0857fb6ebbc769d1fec1c4c62aef0b3df838ad43a8ac3a81a65500",
     "main_results/report_data/roberta_diagnostic.json": "6dc334f3668783d66368832b5d4471807c5c89b5a881e681bb3c1f21dfa92576",
@@ -174,7 +175,11 @@
     "overfit_audit/overfit_comparison.csv": "c0385c9da870023e33fded0692c2fba671889be03e2a2bee3489cc86c9bf83f7",
     "overfit_audit/overfit_comparison.png": "b1aa9fe2f78cb1e3c91bc006d902e6d2be203b9bf6387eb29b4ca1d1e9423131",
     "overfit_audit/summary.json": "25706e537be9d6889ab029577673cf2c0f578c51fd4c14c0ea39cc5e306fe84f",
-    "README.md": "32685ada044da0cc77245fd30cac80344310ed7035dc261b132c18bba71d856e",
+    "protocol_history/DECISION_MAIN_3C.md": "3292e45d8415f6b139a6423d4e0fa1bc32d445549e9383086b9f7a5cf6b5bdf0",
+    "protocol_history/DECISION_SWEEP.md": "0eeecd24ea78dece7f747c4827e3d7f436a8cfb73d162eb9d404eebbc8af9dc7",
+    "protocol_history/experiment_plan.json": "aad0cd743b421d4d480cdaa1da4e2d7dd8f9e39a1390137969cc7ee276d6c0b6",
+    "README.md": "e0e51da3ec48682d6ba4ce2e57b1c0853354b027152500c1291fb9f4beb0b272",
+    "report_context.json": "bee4c8ddeb72cf0c62aa9be6ef4c3b32255e7639d679fa0725102d7b9711d17b",
     "restore_best_models.py": "00e09abd772d67a6a86c985869191b95174d48f4d511a7d14dd5b96c017dc56b",
     "sweep_analysis.json": "3167e1203d79581465948c042d15f86fa2ef64a74d8b414292f49802559a32ac",
     "sweep_log.csv": "3dba0bf876ab3787bf2004aca88caed0f9c72d19f1c1c22ad418c87a919e8dd5",
@@ -185,6 +190,8 @@
     "training_logs/distilbert_seed_42.log": "cf789c0743bb609933e8648717e4e48c6f4d903ee9f76582d9a0647fa3e39a0e",
     "training_logs/roberta_seed_123.log": "222d6c6a4fe7e809dba8b340f06abf63a36166af3fd7c7a7199ffdddd8a36ab2",
     "training_logs/roberta_seed_2026.log": "bff65e531f829b67a9e410744996ccd92094dbe88e3e40a63a2855b0d441dbfe",
-    "training_logs/roberta_seed_42.log": "30ccf01efee7710f022ec5c6d71787ad7673f9ce1bd41e9d9f5629758940559e"
-  }
+    "training_logs/roberta_seed_42.log": "30ccf01efee7710f022ec5c6d71787ad7673f9ce1bd41e9d9f5629758940559e",
+    "verify_report_tables.py": "adccacfcca617c681cdc40f0aab38a6a23da69c8bda8a44cb9e11d163d5461e1"
+  },
+  "report_version": 6
 }

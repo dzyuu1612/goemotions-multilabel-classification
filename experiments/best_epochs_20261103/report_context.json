@@ -1,0 +1,48 @@
+{
+  "report_version": 6,
+  "common_learning_rate": 2e-05,
+  "maximum_epochs": 8,
+  "reason": "Bảng kết quả chính giữ cùng learning rate 2×10⁻⁵ và ngân sách tám epoch cho ba kiến trúc để hạn chế khác biệt về hai cài đặt này, không chọn cấu hình tốt nhất riêng cho từng mô hình. Vì vậy BERT trong bảng chính có Macro-F1 ngưỡng riêng 0,4938, thấp hơn 0,5038 ở lượt chạy ban đầu (Bảng B.3). Ngân sách tám epoch nằm trong kế hoạch kiểm tra giả thuyết C2/C3 học chưa đủ ở cấu hình ba epoch, đồng thời theo dõi F1 và BCE. Tám epoch là phạm vi khảo sát, chưa được chứng minh tối ưu chung.",
+  "test_history": "Lịch tám epoch được quyết định sau khi nhóm đã xem kết quả test của các lượt chạy ban đầu (xem mục 6.2); các lựa chọn của bộ hiện tại (checkpoint, đại diện, ngưỡng) được khóa bằng validation trước đánh giá test.",
+  "preregistered_scope": "Six C2/C3 sweeps; BERT8 was already complete",
+  "demo_is_public": false,
+  "demo_limitation": "Demo hiện chạy cục bộ; chưa có đường dẫn demo công khai để truy cập từ máy khác. Mã nguồn và gói checkpoint đã được công bố để tải và chạy lại ứng dụng.",
+  "statistics_warning": "Differences are comparable to between-seed variation; no significance test performed",
+  "protocol_timing": {
+    "decision_recorded": "2026-11-03T08:27:54.293363+07:00",
+    "decision_sha256": "0eeecd24ea78dece7f747c4827e3d7f436a8cfb73d162eb9d404eebbc8af9dc7",
+    "runs": [
+      {
+        "architecture": "roberta",
+        "seed": 42,
+        "created_at_utc": "2026-11-03T01:33:23.714723+00:00"
+      },
+      {
+        "architecture": "roberta",
+        "seed": 123,
+        "created_at_utc": "2026-11-03T04:36:41.678114+00:00"
+      },
+      {
+        "architecture": "roberta",
+        "seed": 2026,
+        "created_at_utc": "2026-11-03T07:15:56.281172+00:00"
+      },
+      {
+        "architecture": "distilbert",
+        "seed": 42,
+        "created_at_utc": "2026-11-03T13:43:35.990348+00:00"
+      },
+      {
+        "architecture": "distilbert",
+        "seed": 123,
+        "created_at_utc": "2026-11-03T16:51:35.270498+00:00"
+      },
+      {
+        "architecture": "distilbert",
+        "seed": 2026,
+        "created_at_utc": "2026-11-03T17:27:48.049444+00:00"
+      }
+    ],
+    "scope": "six C2/C3 runs; BERT8 existed beforehand"
+  }
+}

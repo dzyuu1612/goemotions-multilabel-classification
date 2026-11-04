@@ -1,0 +1,49 @@
+{
+  "models": [
+    "roberta",
+    "distilbert"
+  ],
+  "seeds": [
+    42,
+    123,
+    2026
+  ],
+  "epochs": 8,
+  "learning_rate": 2e-05,
+  "batch_size": 16,
+  "gradient_accumulation": 1,
+  "max_length": 128,
+  "weight_decay": 0.01,
+  "warmup_ratio": 0.1,
+  "max_grad_norm": 1.0,
+  "optimizer": "AdamW",
+  "amp_fp16": true,
+  "diagnostics": "full train and validation in eval mode",
+  "planned_steps_per_epoch": 2714,
+  "planned_total_steps": 21712,
+  "planned_warmup_steps": 2171,
+  "early_stopping": false,
+  "test_evaluated": false,
+  "decision_sha256": "0eeecd24ea78dece7f747c4827e3d7f436a8cfb73d162eb9d404eebbc8af9dc7",
+  "code_sha256": {
+    "run_sweep.py": "e32a9ffe4bacb7aee2a2139b2783d733a29a504f692787a8f3527f870402b8c2",
+    "summarize_epoch_sweep.py": "26bbb477e2054c514215a89e2e0c182c156931a988d83f90e50af3112cc188aa",
+    "plot_epoch_sweep.py": "85fadba4c12bb51559782926f1c0ced96d393834e23cae615fd80f8ccf2a1d22"
+  },
+  "baseline_configurations": "original_configs.json",
+  "baseline_validation": "orig_val.csv",
+  "source_hashes": "source_sha256.json",
+  "backup_hashes": "backup_sha256.json",
+  "bert_previous_experiment": "../GoEmotions_ThuNghiem_Epoch_20261102",
+  "documents_to_copy": [
+    "GoEmotions_BaoCao_Final_v4.docx",
+    "GoEmotions_ThuyetTrinh_TheoPhanCong_v3.pptx"
+  ],
+  "rule_precedence": [
+    "a",
+    "b",
+    "c"
+  ],
+  "sign_definition": "positive, zero and negative are distinct signs",
+  "figure_layout": "14 x 8.3 inches; 15pt labels, 12pt legend; intended for landscape Word pages"
+}

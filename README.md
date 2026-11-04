@@ -2,7 +2,7 @@
 
 Mã nguồn đồ án GoEmotions, gồm TF-IDF + Logistic Regression (A), zero-shot BART-MNLI (B), BERT (C1), RoBERTa (C2) và DistilBERT (C3). Dữ liệu dùng bộ chia chính thức: **43.410 train / 5.426 validation / 5.427 test**, 28 nhãn.
 
-## Bộ kết quả hiện tại
+## Bộ kết quả hiện tại — báo cáo Final v6
 
 [Bộ mã, số liệu và notebook của báo cáo chính](experiments/best_epochs_20261103/README.md) nằm ở `experiments/best_epochs_20261103/`.
 
@@ -18,6 +18,12 @@ Mã nguồn đồ án GoEmotions, gồm TF-IDF + Logistic Regression (A), zero-s
 | DistilBERT | 0,4972 ± 0,0027 | 0,5779 ± 0,0069 | 0,0389 ± 0,0012 |
 
 Mean và sample std (`ddof=1`) từ đủ ba seed, tính trên số chưa làm tròn. So với lượt trước, Macro-F1 C2/C3 tăng, nhưng Micro-F1 cả ba giảm và Hamming Loss tăng. BERT giảm cả Macro-F1 và Micro-F1. Đường BCE validation tăng trong khi train giảm ở các epoch sau: không kết luận hết overfit chỉ vì F1 tăng. BERT trước dùng bốn epoch/LR5e-5; đây không phải đối chứng BERT ba epoch chỉ thay số epoch. Test từng được xem ở báo cáo trước, không gọi là holdout mới.
+
+## Vì sao dùng cấu hình chung
+
+Bảng chính giữ cùng LR `2e-5` và ngân sách tám epoch cho ba kiến trúc; không chọn cấu hình tốt nhất riêng cho từng mô hình. Kế hoạch tám epoch kiểm tra giả thuyết C2/C3 ở ba epoch học chưa đủ và theo dõi cả F1/BCE; không chứng minh tám epoch tối ưu chung. Vì vậy BERT hiện tại có Macro-F1 ngưỡng riêng 0,4938, thấp hơn 0,5038 ở lượt bốn epoch/LR5e-5.
+
+Lịch tám epoch được quyết định sau khi test của lượt ban đầu đã được xem. Checkpoint, đại diện và ngưỡng của bộ hiện tại khóa bằng validation trước test. Vẫn cần holdout mới chưa quan sát. [Bảng lịch sử B.3](experiments/best_epochs_20261103/main_results/report_data/original_test_summary.csv) giữ nguyên sáu dòng test của lượt cũ; [hồ sơ quyết định](experiments/best_epochs_20261103/protocol_history/DECISION_SWEEP.md) được ghi trước sáu lượt C2/C3. Lượt BERT tám epoch đã có trước hồ sơ này.
 
 ## Cài đặt
 
@@ -40,6 +46,14 @@ Mở [notebook có sẵn đầu ra](experiments/best_epochs_20261103/GoEmotions_
 - [Đối chiếu overfit](experiments/best_epochs_20261103/overfit_audit/overfit_comparison.csv)
 - [Biên nhận khóa trước test](experiments/best_epochs_20261103/main_results/LOCK_BEFORE_TEST.json)
 
+Kiểm các bảng bằng một lệnh, không mở Jupyter và không train:
+
+```powershell
+python experiments/best_epochs_20261103/verify_report_tables.py
+```
+
+Lệnh tính lại 18 hàng test × 7 chỉ số, kiểm mean/std của ba seed và sáu dòng lịch sử (Bảng B.3).
+
 ## Demo Gradio bằng checkpoint đã lưu
 
 Từ thư mục gốc repository:
@@ -50,7 +64,7 @@ python experiments/best_epochs_20261103/restore_best_models.py
 python experiments/best_epochs_20261103/app_best_epochs.py --device auto
 ```
 
-Mở `http://127.0.0.1:7861`. Mặc định **RoBERTa seed 2026 / ngưỡng riêng**, chọn bằng validation. Có hai chế độ ngưỡng và sáu lựa chọn A/B/C. Không có nhãn đạt ngưỡng thì trả tập rỗng, không tự thêm neutral. Điểm chưa được hiệu chuẩn thành độ tin cậy tuyệt đối. CPU có thể cho điểm khác AMP GPU gần ngưỡng.
+Demo hiện chạy cục bộ, chưa có URL demo công khai để truy cập từ máy khác. Mở `http://127.0.0.1:7861` trên máy chạy ứng dụng. Mặc định **RoBERTa seed 2026 / ngưỡng riêng**, chọn bằng validation. Có hai chế độ ngưỡng và sáu lựa chọn A/B/C. Không có nhãn đạt ngưỡng thì trả tập rỗng, không tự thêm neutral. Điểm chưa được hiệu chuẩn thành độ tin cậy tuyệt đối. CPU có thể cho điểm khác AMP GPU gần ngưỡng.
 
 [Một gói ZIP](https://github.com/dzyuu1612/goemotions-multilabel-classification/releases/tag/goemotions-best-epochs-20261103) chứa ba checkpoint C đại diện, tokenizer và giấy phép nguồn; script khôi phục kiểm SHA-256. Không phải ensemble. ZIP còn giữ checkpoint BERT epoch 3 để bảo toàn biên nhận chẩn đoán của lượt gốc. Cả chín lượt được tái hiện đánh giá bằng điểm dự đoán trong repository.
 
