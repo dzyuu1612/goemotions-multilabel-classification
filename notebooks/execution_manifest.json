@@ -102,14 +102,17 @@
     {
       "source": "experiments/threshold_error_20261110/GoEmotions_PhanTich_Nguong_Loi_DaChay.ipynb",
       "executed": "experiments/threshold_error_20261110/GoEmotions_PhanTich_Nguong_Loi_DaChay.ipynb",
-      "source_sha256": "32943a677c06f73bf6a339270108819fef0d3160f2fbb8466d8297b1c72db0ec",
-      "executed_sha256": "32943a677c06f73bf6a339270108819fef0d3160f2fbb8466d8297b1c72db0ec",
+      "source_sha256": "3dccdd1f7b1fa8289d79f3c0fe4ea29a02cdc3ac55bc9d312ed67f9354f6fa25",
+      "executed_sha256": "3dccdd1f7b1fa8289d79f3c0fe4ea29a02cdc3ac55bc9d312ed67f9354f6fa25",
       "code_cells": 7,
       "executed_code_cells": 7,
       "error_cells": 0,
       "scope": "Final v7: validation audit, 33 frozen-threshold test tables, exclusive/overlap errors; no training",
-      "verified_from_clean_checkout": false,
-      "benchmark_training_repeated": false
+      "verified_from_clean_checkout": true,
+      "benchmark_training_repeated": false,
+      "started_at_utc": "2026-11-10T09:45:15.992519+00:00",
+      "finished_at_utc": "2026-11-10T09:45:22.513181+00:00",
+      "clean_checkout_commit": "883d164"
     }
   ]
 }
