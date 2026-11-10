@@ -1,6 +1,6 @@
 # GoEmotions — phân loại cảm xúc đa nhãn
 
-**Nguyễn Bảo Duy — Nhóm 6, HUFLIT.** Mã nguồn và notebook của báo cáo Final v6: A (TF-IDF + Logistic Regression), B (BART-MNLI), C1 (BERT), C2 (RoBERTa), C3 (DistilBERT).
+**Nguyễn Bảo Duy — Nhóm 6, HUFLIT.** Mã nguồn và notebook của báo cáo Final v7: A (TF-IDF + Logistic Regression), B (BART-MNLI), C1 (BERT), C2 (RoBERTa), C3 (DistilBERT). Bản v7 bổ sung phân tích ngưỡng và lỗi từ điểm đã lưu, không huấn luyện lại.
 
 ## Notebook đã chạy
 
@@ -13,10 +13,13 @@ Mỗi notebook chỉ giữ một bản có đầu ra thật, không có bản `.
 | A — TF-IDF và Logistic Regression | [02_baseline](notebooks/02_baseline.ipynb) |
 | B — BART-MNLI, tính lại từ điểm đã lưu | [03_zero_shot](notebooks/03_zero_shot.ipynb) |
 | **C1/C2/C3 — đủ 9 lượt, kết quả Final v6** | [GoEmotions_KetQua_EpochTotNhat](experiments/best_epochs_20261103/GoEmotions_KetQua_EpochTotNhat.ipynb) |
+| **Final v7 — ba chế độ ngưỡng, năm loại lỗi, giao nhóm, near-miss** | [GoEmotions_PhanTich_Nguong_Loi_DaChay](experiments/threshold_error_20261110/GoEmotions_PhanTich_Nguong_Loi_DaChay.ipynb) |
 | Kiểm dữ liệu và tokenizer | [06_eda_extra](notebooks/06_eda_extra.ipynb) |
 | Tính tay attention, sigmoid, BCE, gradient | [07_improvement_workflow](notebooks/07_improvement_workflow.ipynb) |
 
-Notebook C tính lại 18 hàng test × 7 chỉ số từ điểm dự đoán đã lưu; không huấn luyện lại hoặc chọn ngưỡng trên test. Các notebook A/B và EDA giữ kết quả đã chạy. `notebooks/execution_manifest.json` kiểm mã băm, thứ tự thực thi và lỗi của toàn bộ bảy notebook.
+Notebook C tính lại 18 hàng test × 7 chỉ số từ điểm dự đoán đã lưu; không huấn luyện lại hoặc chọn ngưỡng trên test. Notebook Final v7 kiểm thêm đủ 33 bộ metric, ngưỡng validation và cách đếm lỗi. Các notebook A/B và EDA giữ kết quả đã chạy. `notebooks/execution_manifest.json` kiểm mã băm, thứ tự thực thi và lỗi của toàn bộ tám notebook.
+
+[Hướng dẫn phân tích theo nhận xét của giảng viên](experiments/threshold_error_20261110/README.md) · [Kế hoạch đã ghi](experiments/threshold_error_20261110/DECISION_PHANTICH.md) · [Bảng so ba chế độ](experiments/threshold_error_20261110/results/modes_mean_std.csv). Phần gán nhãn nguyên nhân cần hai người độc lập; các phiếu vẫn để trống, chưa công bố tỷ lệ đồng thuận.
 
 ## Cài đặt
 

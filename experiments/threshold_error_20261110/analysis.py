@@ -11,7 +11,7 @@ lock is committed. Old test results had already been observed before this work.
 """
 from pathlib import Path
 from datetime import datetime, timezone
-import argparse, hashlib, json, subprocess, itertools
+import argparse, hashlib, json, subprocess, itertools, zipfile, sys
 import numpy as np
 import pandas as pd
 from sklearn.metrics import f1_score, precision_score, recall_score, hamming_loss
@@ -36,6 +36,28 @@ def records():
  runs+=[{'model':'A TF-IDF balanced','architecture':'baseline','seed':42,'val_scores':'data/processed/baseline/balanced/full/validation_scores.npz','test_scores':'data/processed/baseline/final/balanced_test_scores.npz','protocol':'data/processed/baseline/balanced/full/thresholds_validation.json'},
         {'model':'B BART-MNLI','architecture':'zero_shot','seed':None,'val_scores':'artifacts/final_submission/data/processed/zero_shot/full/validation_scores.npz','test_scores':'artifacts/final_submission/data/processed/zero_shot/full/test_scores.npz','protocol':'artifacts/final_submission/data/processed/zero_shot/full/final_protocol.json'}]
  return runs
+def ensure_inputs(phase):
+ """Restore only files needed by this phase from the published runtime ZIP.
+
+ Validation-only restoration never extracts test score payloads. Existing
+ files are not overwritten; subsequent hash and ID checks validate them.
+ """
+ runs=records();needed=[]
+ for r in runs:needed.extend([r['val_scores'],r['protocol']] if phase=='validation' else [r['test_scores']])
+ needed=[p for p in needed if not (ROOT/p).exists()]
+ if needed:
+  archive=ROOT/'results/final_submission/runtime_bundle.zip';manifest=read(archive.with_name('manifest.json'))
+  assert sha(archive)==manifest['runtime_bundle_sha256']
+  with zipfile.ZipFile(archive) as bundle:
+   for name in needed:
+    member=name.removeprefix('artifacts/final_submission/')
+    assert member in manifest['files_sha256'],f'Missing published input: {name}'
+    payload=bundle.read(member);assert hashlib.sha256(payload).hexdigest()==manifest['files_sha256'][member]
+    path=ROOT/name;path.parent.mkdir(parents=True,exist_ok=True);path.write_bytes(payload)
+ if phase=='validation' and not (ROOT/'data/raw/validation-00000-of-00001.parquet').exists():
+  sys.path.insert(0,str(ROOT))
+  from src.datasets.goemotions import load_goemotions
+  load_goemotions(ROOT,splits=('validation',),write_metadata=False)
 def load_scores(path,frame,names):
  with np.load(path,allow_pickle=False) as z:
   ids=z['ids'].astype(str);labels=z['label_names'].astype(str).tolist();s=z['scores'].astype(np.float64)
@@ -73,6 +95,7 @@ def frozen_thresholds(proto):
   return np.asarray(cfg['tuned'],dtype=float),float(cfg['global'])
  return np.asarray(proto['thresholds'],dtype=float),float(proto['global_threshold'])
 def freeze():
+ ensure_inputs('validation')
  valpath=ROOT/'data/raw/validation-00000-of-00001.parquet';frame=pd.read_parquet(valpath)
  assert len(frame)==5426
  runs=records();names=read(ROOT/runs[0]['protocol'])['label_names'];y=targets(frame)
@@ -108,6 +131,7 @@ def evaluate():
  committed=subprocess.run(['git','diff','HEAD','--',relative(lockpath)],cwd=ROOT,capture_output=True,text=True,check=True).stdout
  tracked=subprocess.run(['git','ls-files','--error-unmatch',relative(lockpath)],cwd=ROOT,capture_output=True,text=True)
  assert tracked.returncode==0 and not committed,'Commit the validation lock before test evaluation.'
+ ensure_inputs('test')
  assert sha(ROOT/lock['validation_data'])==lock['validation_data_sha256']
  names=lock['label_names'];rare=np.array([names.index(n) for n in RARE]);out=HERE/'results';out.mkdir(exist_ok=True)
  testpath=OLD/'main_results/data/raw/test-00000-of-00001.parquet';frame=pd.read_parquet(testpath);assert len(frame)==5427
@@ -115,6 +139,11 @@ def evaluate():
  rows=[];labels=[];thresholds=[];taxrows=[];overlaps=[];near=[];pairrows=[];samples=[];receipts=[];examples=[]
  for r in lock['checkpoints']:
   assert sha(ROOT/r['val_scores'])==r['validation_scores_sha256'] and sha(ROOT/r['protocol'])==r['protocol_sha256']
+  if r['architecture'] in ['bert','roberta','distilbert']:
+   prior=read((ROOT/r['test_scores']).parent/'test_results.json')
+   assert prior['scores_sha256']==sha(ROOT/r['test_scores'])
+   assert prior['protocol_sha256']==r['protocol_sha256']
+   assert prior['architecture']==r['architecture'] and prior['seed']==r['seed'] and prior['selected_epoch']==r['selected_epoch']
   s=load_scores(ROOT/r['test_scores'],frame,names)
   th=np.asarray(r['thresholds']);modes={'fixed':np.full(28,.5),'global':np.full(28,r['global_threshold']),'tuned':th}
   base={'model':r['model'],'seed':r['seed']}

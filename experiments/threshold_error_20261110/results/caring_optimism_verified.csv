@@ -1,0 +1,7 @@
+﻿model,seed,mode,id,caring,optimism,truth,prediction
+C1 BERT,2026,fixed,eeq65gb,0.9024378061294556,0.2603894770145416,caring|optimism,caring
+C1 BERT,2026,tuned,eeq65gb,0.9024378061294556,0.2603894770145416,caring|optimism,caring
+C2 RoBERTa,2026,fixed,eeq65gb,0.9100669622421265,0.07709969580173492,caring|optimism,caring
+C2 RoBERTa,2026,tuned,eeq65gb,0.9100669622421265,0.07709969580173492,caring|optimism,caring
+C3 DistilBERT,2026,fixed,eeq65gb,0.8629302382469177,0.369428813457489,caring|optimism,caring
+C3 DistilBERT,2026,tuned,eeq65gb,0.8629302382469177,0.369428813457489,caring|optimism,caring|optimism

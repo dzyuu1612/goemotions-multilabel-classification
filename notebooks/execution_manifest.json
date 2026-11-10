@@ -98,6 +98,18 @@
       "scope": "Hand calculations and current nine-run configuration/overfit receipts; no training",
       "benchmark_training_repeated": false,
       "verified_from_clean_checkout": true
+    },
+    {
+      "source": "experiments/threshold_error_20261110/GoEmotions_PhanTich_Nguong_Loi_DaChay.ipynb",
+      "executed": "experiments/threshold_error_20261110/GoEmotions_PhanTich_Nguong_Loi_DaChay.ipynb",
+      "source_sha256": "32943a677c06f73bf6a339270108819fef0d3160f2fbb8466d8297b1c72db0ec",
+      "executed_sha256": "32943a677c06f73bf6a339270108819fef0d3160f2fbb8466d8297b1c72db0ec",
+      "code_cells": 7,
+      "executed_code_cells": 7,
+      "error_cells": 0,
+      "scope": "Final v7: validation audit, 33 frozen-threshold test tables, exclusive/overlap errors; no training",
+      "verified_from_clean_checkout": false,
+      "benchmark_training_repeated": false
     }
   ]
 }

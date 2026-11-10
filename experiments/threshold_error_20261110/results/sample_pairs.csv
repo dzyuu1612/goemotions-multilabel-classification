@@ -1,0 +1,231 @@
+﻿model,seed,pair,row,id,text,true_labels,predicted_labels,score_fn,threshold_fn,score_fp,threshold_fp
+C1 BERT,42.0,relief->admiration,825,edci7fb,Praise the [NAME] for REALITY! WOOF!!!!!,relief,admiration,0.003579642390832305,0.05,0.9438672661781311,0.5
+C1 BERT,42.0,neutral->approval,55,edwusd2,It's real and it plays SO OFTEN I CAN'T STAND IT!!,neutral,approval,0.012336100451648235,0.1,0.9519526958465576,0.2
+C1 BERT,42.0,neutral->approval,352,ed4j5tv,I'm so doing this!,excitement|neutral,approval,0.0918697863817215,0.1,0.8190264105796814,0.2
+C1 BERT,42.0,neutral->approval,624,efgtm33,"As a Jeep driver, I constantly have to remind other Jeep drivers that 4WD/AWD only makes a difference when driving. Everyone has 4-wheel stop.",neutral,approval,0.07779745012521744,0.1,0.8643104434013367,0.2
+C1 BERT,42.0,neutral->approval,651,edonf85,"I wouldnt go that far, but paranoid schizophrenia can definitely do that to someone. Even mild social anxiety can also cause it, though",neutral,approval,0.09203285723924637,0.1,0.8766343593597412,0.2
+C1 BERT,42.0,neutral->approval,766,edgkcyf,"Ok, we get it. You're a top.",admiration|neutral,approval,0.007876706309616566,0.1,0.9453993439674377,0.2
+C1 BERT,42.0,neutral->approval,771,ef1r54h,I believe the term is grill inspector,neutral,approval,0.014728614129126072,0.1,0.9724147915840149,0.2
+C1 BERT,42.0,neutral->approval,1459,ef15dzw,im done with my break im going to make more i promise,neutral,approval|optimism,0.013171950355172157,0.1,0.6004812717437744,0.2
+C1 BERT,42.0,neutral->approval,1784,edlg2g9,"Right. The mantra at my school is that we don't give grades, kids earn them.",neutral,approval,0.022759154438972473,0.1,0.9401335716247559,0.2
+C1 BERT,42.0,neutral->approval,2258,edlp1c6,I actually do that,neutral,approval,0.05070536583662033,0.1,0.9436599016189575,0.2
+C1 BERT,42.0,neutral->approval,2997,eczh6mi,I'm guessing HIS blood type is mountain dew,neutral,approval|confusion,0.09687653183937073,0.1,0.21419788897037506,0.2
+C1 BERT,42.0,neutral->approval,3069,efdyqen,Exactly. It’s all about control,neutral,approval,0.030157409608364105,0.1,0.9735442399978638,0.2
+C1 BERT,42.0,neutral->approval,3363,edog0xh,ok now you are being adorable on purpose i see what youre doing,neutral,admiration|approval,0.02186455763876438,0.1,0.38087406754493713,0.2
+C1 BERT,42.0,neutral->approval,3419,effdp1n,I'd say Rick and Morty fans. I'm a fan of both but I feel that Rick and Morty fans take everything way more seriously.,neutral,approval,0.015967654064297676,0.1,0.93475341796875,0.2
+C1 BERT,42.0,neutral->approval,3845,eehn6sf,"And you got it, a federal tax cut. If you want to pay less taxes overall you need to stop electing democrats.",neutral,annoyance|approval|disapproval,0.037892427295446396,0.1,0.5284421443939209,0.2
+C1 BERT,42.0,neutral->approval,3948,ee79sao,And it needs to keep pushing harder and harder to the left in order to wash away all the crap that's been enacted since [NAME] got into office.,neutral,approval|optimism,0.06560483574867249,0.1,0.272024542093277,0.2
+C1 BERT,42.0,neutral->approval,4540,ef0y67l,Its very popular in the not comic book demographics.,neutral,approval,0.056861549615859985,0.1,0.750552773475647,0.2
+C1 BERT,42.0,neutral->approval,4626,edohpus,So they're just not going to change it like they did in the Louisville game? That's cool..,neutral,approval,0.013955709524452686,0.1,0.2708657681941986,0.2
+C1 BERT,42.0,neutral->approval,4872,eeaku8o,Gotta boost that self esteem.,neutral,approval|caring|optimism,0.013376603834331036,0.1,0.4285920560359955,0.2
+C1 BERT,42.0,neutral->approval,5156,edzarre,So you agree.,neutral,approval,0.01590639166533947,0.1,0.9758545756340027,0.2
+C1 BERT,42.0,neutral->approval,5261,ed9qozj,Only good ones.,neutral,admiration|approval,0.015603534877300262,0.1,0.4750117063522339,0.2
+C1 BERT,123.0,relief->admiration,825,edci7fb,Praise the [NAME] for REALITY! WOOF!!!!!,relief,admiration,0.005469274241477251,0.1,0.9531006813049316,0.35
+C1 BERT,123.0,neutral->approval,232,eevddj9,I dunno. Backhanded compliments in girl world are like professional sports.,neutral,approval,0.03296123817563057,0.1,0.9263036847114563,0.15
+C1 BERT,123.0,neutral->approval,433,ees4p28,"Well, 1/2 has been done already!",neutral,approval,0.011201213113963604,0.1,0.8473372459411621,0.15
+C1 BERT,123.0,neutral->approval,765,efe7pz5,"I know, that's why it's a little unfortunate they don't have a test. ",nervousness|neutral,approval|disappointment|sadness,0.058453235775232315,0.1,0.2420264333486557,0.15
+C1 BERT,123.0,neutral->approval,955,ee7ewg0,You always choose mum bro. What are you thinking,neutral,approval|curiosity,0.0478690043091774,0.1,0.7123322486877441,0.15
+C1 BERT,123.0,neutral->approval,1048,eem0phy,If this is serious mate it’s not the kind of shit you should be posting on reddit,anger|neutral,annoyance|approval,0.024703869596123695,0.1,0.1535491645336151,0.15
+C1 BERT,123.0,neutral->approval,1460,eebhh3i,"No, he's fine. It doesnt compact",neutral,approval,0.05480259656906128,0.1,0.7453983426094055,0.15
+C1 BERT,123.0,neutral->approval,2041,eeyn8fi,I'm sure that's a really important issue to you that consumes your daily life...,neutral,approval,0.056966383010149,0.1,0.9403530955314636,0.15
+C1 BERT,123.0,neutral->approval,2646,eebnuu6,Right. All a delusion in order to control people.,neutral,approval,0.02382536791265011,0.1,0.9570375084877014,0.15
+C1 BERT,123.0,neutral->approval,3069,efdyqen,Exactly. It’s all about control,neutral,approval,0.01711088977754116,0.1,0.961605966091156,0.15
+C1 BERT,123.0,neutral->approval,3331,edy0uwk,"Grew up watching avatar and [NAME] is one of my favorite video game protagonists, especially when RDR2 came out. ",love|neutral,admiration|approval,0.04232459142804146,0.1,0.20228557288646698,0.15
+C1 BERT,123.0,neutral->approval,3705,eeqqgn0,That amiibo addiction is real man....,neutral,approval,0.09334687888622284,0.1,0.867260754108429,0.15
+C1 BERT,123.0,neutral->approval,3812,edn3s0d,Pretty sure the legislature needs to change laws,neutral,approval,0.018869254738092422,0.1,0.960212230682373,0.15
+C1 BERT,123.0,neutral->approval,4206,edcjoj4,"I never disappoint, just ask your mother. ;)",neutral,approval,0.0572819747030735,0.1,0.378459095954895,0.15
+C1 BERT,123.0,neutral->approval,4210,efa9sdv,I've only been once but we parked at a Publix a couple miles away and had Uber drop us off at the gate. It was perfect,neutral,admiration|approval,0.052814021706581116,0.1,0.7601168751716614,0.15
+C1 BERT,123.0,neutral->approval,4387,edcidsm,Thats....that's pretty normal...prolly somewhere in the ballpark of 280miles...If you dont have a fuel efficient car its not hard to do.,neutral,approval,0.028274601325392723,0.1,0.9692078232765198,0.15
+C1 BERT,123.0,neutral->approval,4686,eed8cg1,"Yeah, I mean it's not like anyone else has ever shut down the Government.",neutral,approval,0.0819595456123352,0.1,0.8094266653060913,0.15
+C1 BERT,123.0,neutral->approval,4765,eetfvex,"That's the impression I've always had, but man the owner gets snippy if you disagree on your review!",neutral,annoyance|approval|disappointment,0.05042406916618347,0.1,0.24454335868358612,0.15
+C1 BERT,123.0,neutral->approval,4780,eet51lu,"So it's we now eh jerk-off, as in troll farm to creat FUD and drive the premium up on the order book. I knew it.",neutral,approval,0.08434179425239563,0.1,0.8761053681373596,0.15
+C1 BERT,123.0,neutral->approval,4872,eeaku8o,Gotta boost that self esteem.,neutral,approval|optimism,0.0487670972943306,0.1,0.7327831387519836,0.15
+C1 BERT,123.0,neutral->approval,5197,edhu00c,"I came here once accidentally, saw your commend and now, 2 weeks later, I totally understand. ",neutral,approval,0.032161444425582886,0.1,0.9291837811470032,0.15
+C1 BERT,2026.0,relief->admiration,825,edci7fb,Praise the [NAME] for REALITY! WOOF!!!!!,relief,admiration,0.001081715221516788,0.05,0.9817007184028625,0.45
+C1 BERT,2026.0,neutral->approval,55,edwusd2,It's real and it plays SO OFTEN I CAN'T STAND IT!!,neutral,admiration|approval,0.031084951013326645,0.05,0.605682373046875,0.35
+C1 BERT,2026.0,neutral->approval,433,ees4p28,"Well, 1/2 has been done already!",neutral,approval,0.005842605605721474,0.05,0.8675976395606995,0.35
+C1 BERT,2026.0,neutral->approval,491,efefxzk,SO MUCH.,neutral,approval,0.04248320683836937,0.05,0.8528128862380981,0.35
+C1 BERT,2026.0,neutral->approval,705,eeguj4w,TOO. MUCH. HESITATION. [NAME] should've gotten that on net a second earlier,neutral,admiration|approval,0.018404889851808548,0.05,0.3661363422870636,0.35
+C1 BERT,2026.0,neutral->approval,740,eey30n5,Perfect! Put it in a form they can understand!,neutral,approval,0.032405514270067215,0.05,0.9291837811470032,0.35
+C1 BERT,2026.0,neutral->approval,1255,eel659s,"Pretty much yeah, it’s crazy that 2 years later that someone picked 56 picks later is better as a player",neutral,approval|excitement,0.026912303641438484,0.05,0.8063956499099731,0.35
+C1 BERT,2026.0,neutral->approval,1714,ef5rhti,This. This is too realistic man. Too late for this too.,neutral,approval,0.027066174894571304,0.05,0.7611836194992065,0.35
+C1 BERT,2026.0,neutral->approval,2216,ef4v6d9,Seriously. The only thing that gave it away was no spelling errors.,annoyance|neutral,approval,0.049681153148412704,0.05,0.8510885834693909,0.35
+C1 BERT,2026.0,neutral->approval,2680,eezav9m,"100%. This is made up. If her claim was true, she'd have it on video. ",neutral,approval,0.02876158617436886,0.05,0.972362220287323,0.35
+C1 BERT,2026.0,neutral->approval,3069,efdyqen,Exactly. It’s all about control,neutral,approval,0.022457052022218704,0.05,0.9760379791259766,0.35
+C1 BERT,2026.0,neutral->approval,3365,eewovmg,"lol Whatever that proves, sure.",amusement|neutral,amusement|approval,0.03384403511881828,0.05,0.43476125597953796,0.35
+C1 BERT,2026.0,neutral->approval,3424,ee2kpvc,Best thing about making moonshine is the ether vapors you get to collect :),neutral,approval,0.007785655092447996,0.05,0.6103954315185547,0.35
+C1 BERT,2026.0,neutral->approval,3824,ef6ij1d,[NAME] doesn’t roll his ankle on a 🎾 in 2011 and we win a premiership imo,neutral,approval,0.03258974477648735,0.05,0.41483956575393677,0.35
+C1 BERT,2026.0,neutral->approval,3825,ef4yaoq,True. Icing all three of your villains for the duration of the film is a bad idea. They need to be making moves.,neutral,approval|disapproval,0.008124708198010921,0.05,0.9240047931671143,0.35
+C1 BERT,2026.0,neutral->approval,3845,eehn6sf,"And you got it, a federal tax cut. If you want to pay less taxes overall you need to stop electing democrats.",neutral,annoyance|approval,0.01640303246676922,0.05,0.9124361872673035,0.35
+C1 BERT,2026.0,neutral->approval,3895,eeyg6h4,I would focus on being an enlisted Marine first. That’s what you’ll be doing for the next 4 years.,neutral,approval|optimism,0.020884215831756592,0.05,0.8283842206001282,0.35
+C1 BERT,2026.0,neutral->approval,3906,eee56tq,"I can help out, pm me :)",neutral,approval,0.03422932326793671,0.05,0.9259026646614075,0.35
+C1 BERT,2026.0,neutral->approval,4206,edcjoj4,"I never disappoint, just ask your mother. ;)",neutral,approval,0.02931223064661026,0.05,0.8668103814125061,0.35
+C1 BERT,2026.0,neutral->approval,4626,edohpus,So they're just not going to change it like they did in the Louisville game? That's cool..,neutral,admiration|approval,0.005199879873543978,0.05,0.4650837779045105,0.35
+C1 BERT,2026.0,neutral->approval,5156,edzarre,So you agree.,neutral,approval,0.018020739778876305,0.05,0.9714016318321228,0.35
+C2 RoBERTa,42.0,relief->admiration,825,edci7fb,Praise the [NAME] for REALITY! WOOF!!!!!,relief,admiration,0.0010162440594285727,0.15,0.9368651509284973,0.4
+C2 RoBERTa,42.0,neutral->approval,28,ed2owpy,Same here but it seems like that will make it more rewarding to actually build a base with gardens and stuff.,neutral,approval,0.02517884224653244,0.1,0.4514171779155731,0.45
+C2 RoBERTa,42.0,neutral->approval,766,edgkcyf,"Ok, we get it. You're a top.",admiration|neutral,admiration|approval,0.015014749020338058,0.1,0.5428935885429382,0.45
+C2 RoBERTa,42.0,neutral->approval,989,ee3fa7x,The complete series is on Hulu just finished watching it. Definitely recommend,neutral,approval,0.03283695504069328,0.1,0.9359345436096191,0.45
+C2 RoBERTa,42.0,neutral->approval,990,ed3yi2i,Yeah... I get that. it's like the conversion has already been had before you entered the room and your opinion has been disregarded...,neutral,approval,0.05823862552642822,0.1,0.9015746116638184,0.45
+C2 RoBERTa,42.0,neutral->approval,1066,edhd09y,You deserve WAY more upvotes,admiration|neutral,approval,0.023779986426234245,0.1,0.8674854040145874,0.45
+C2 RoBERTa,42.0,neutral->approval,1784,edlg2g9,"Right. The mantra at my school is that we don't give grades, kids earn them.",neutral,approval,0.0478690043091774,0.1,0.9383503198623657,0.45
+C2 RoBERTa,42.0,neutral->approval,1983,eebhcn9,My favourite is peeing in restrooms and your feet can't touch the floor while sitting on the toilet.,neutral,approval|love,0.04377274215221405,0.1,0.48675087094306946,0.45
+C2 RoBERTa,42.0,neutral->approval,2611,eduohld,Now this exactly what I came to this sub for,neutral,approval,0.09434341639280319,0.1,0.8765287399291992,0.45
+C2 RoBERTa,42.0,neutral->approval,2901,eewmxug,Oh I'd wager it was as addictive :-) 7x70's :-/,neutral,approval,0.04603390023112297,0.1,0.5893619060516357,0.45
+C2 RoBERTa,42.0,neutral->approval,3012,eenrx3n,"Weirdly enough Salad Fingers is one of [NAME] weaker animations, highly recommend ‘The Unfixable Thought Machine’",disgust|neutral,approval,0.09964530169963837,0.1,0.8397339582443237,0.45
+C2 RoBERTa,42.0,neutral->approval,3069,efdyqen,Exactly. It’s all about control,neutral,approval,0.02546808309853077,0.1,0.9643214344978333,0.45
+C2 RoBERTa,42.0,neutral->approval,3419,effdp1n,I'd say Rick and Morty fans. I'm a fan of both but I feel that Rick and Morty fans take everything way more seriously.,neutral,admiration|approval,0.07017629593610764,0.1,0.5350680351257324,0.45
+C2 RoBERTa,42.0,neutral->approval,3812,edn3s0d,Pretty sure the legislature needs to change laws,neutral,approval,0.043691061437129974,0.1,0.9184802770614624,0.45
+C2 RoBERTa,42.0,neutral->approval,3825,ef4yaoq,True. Icing all three of your villains for the duration of the film is a bad idea. They need to be making moves.,neutral,approval|disapproval,0.08570927381515503,0.1,0.5619661211967468,0.45
+C2 RoBERTa,42.0,neutral->approval,4163,ed9azzj,He also stepped in when seabs got suspended in the 2014 playoffs,neutral,approval,0.08772001415491104,0.1,0.888372004032135,0.45
+C2 RoBERTa,42.0,neutral->approval,4437,edg6ig1,"Ah, yes. Again with those goddam ballbusting monkeys. If I had a dollar...",neutral,annoyance|approval,0.09619516879320145,0.1,0.5583872199058533,0.45
+C2 RoBERTa,42.0,neutral->approval,4504,efacxvv,I'm a [NAME] and tripping has only strengthened my faith. To each their own.,neutral,approval,0.08299414813518524,0.1,0.9252299070358276,0.45
+C2 RoBERTa,42.0,neutral->approval,4558,edvq520,these are quite normal thoughts for depressed people,neutral,approval,0.08897849172353745,0.1,0.9039745330810547,0.45
+C2 RoBERTa,42.0,neutral->approval,4599,ed4vau2,There was definitely 90s-drama-film-esque piano music playing when this unfolded.,neutral,approval,0.0819595456123352,0.1,0.9000037312507629,0.45
+C2 RoBERTa,42.0,neutral->approval,5197,edhu00c,"I came here once accidentally, saw your commend and now, 2 weeks later, I totally understand. ",neutral,approval|realization,0.04535258188843727,0.1,0.4673013687133789,0.45
+C2 RoBERTa,123.0,relief->admiration,825,edci7fb,Praise the [NAME] for REALITY! WOOF!!!!!,relief,admiration,0.0023141263518482447,0.1,0.9635062217712402,0.35
+C2 RoBERTa,123.0,neutral->approval,644,eezocyj,It's cool.,neutral,admiration|approval,0.016979992389678955,0.1,0.6978148818016052,0.3
+C2 RoBERTa,123.0,neutral->approval,740,eey30n5,Perfect! Put it in a form they can understand!,neutral,approval,0.07949569821357727,0.1,0.7704647779464722,0.3
+C2 RoBERTa,123.0,neutral->approval,989,ee3fa7x,The complete series is on Hulu just finished watching it. Definitely recommend,neutral,approval,0.01578456163406372,0.1,0.9241418242454529,0.3
+C2 RoBERTa,123.0,neutral->approval,990,ed3yi2i,Yeah... I get that. it's like the conversion has already been had before you entered the room and your opinion has been disregarded...,neutral,approval,0.04569203406572342,0.1,0.8877896666526794,0.3
+C2 RoBERTa,123.0,neutral->approval,1157,edt6gpu,I listened to this song the other day for the first time and... oh boy yeah,neutral,approval,0.04594821110367775,0.1,0.586226761341095,0.3
+C2 RoBERTa,123.0,neutral->approval,1196,eevsblv,For drunks is a paradise!!,neutral,approval,0.0757213681936264,0.1,0.6254380941390991,0.3
+C2 RoBERTa,123.0,neutral->approval,1808,efckr9y,"I believe it was the ""Master Batters.""",neutral,admiration|approval,0.018725162371993065,0.1,0.6620321273803711,0.3
+C2 RoBERTa,123.0,neutral->approval,2041,eeyn8fi,I'm sure that's a really important issue to you that consumes your daily life...,neutral,approval,0.05634009838104248,0.1,0.9153559803962708,0.3
+C2 RoBERTa,123.0,neutral->approval,2679,ed3792u,I feel this!,neutral,approval,0.05707139894366264,0.1,0.9375547766685486,0.3
+C2 RoBERTa,123.0,neutral->approval,3109,ed70d2p,If we can get a 1st rounder it is without a doubt worth it.,neutral,admiration|approval,0.011687257327139378,0.1,0.7732163667678833,0.3
+C2 RoBERTa,123.0,neutral->approval,3416,eehm1c1,Fair enough. I considered it malicious compliance because I followed the letter if the rules while purposely not following the spirit.,neutral,approval,0.020924191921949387,0.1,0.9159594178199768,0.3
+C2 RoBERTa,123.0,neutral->approval,3474,edgrpuf,The only one I'd recomend is [NAME] to be honest,neutral,approval,0.05592617020010948,0.1,0.9443824291229248,0.3
+C2 RoBERTa,123.0,neutral->approval,3895,eeyg6h4,I would focus on being an enlisted Marine first. That’s what you’ll be doing for the next 4 years.,neutral,approval|optimism,0.05490385368466377,0.1,0.5152540802955627,0.3
+C2 RoBERTa,123.0,neutral->approval,4288,ed9ldgu,I've done this my whole life though...,neutral,approval,0.06512755155563354,0.1,0.831963837146759,0.3
+C2 RoBERTa,123.0,neutral->approval,4447,eekimxt,"Yep, this cunt again.",neutral,annoyance|approval,0.06142404302954674,0.1,0.3656831681728363,0.3
+C2 RoBERTa,123.0,neutral->approval,4771,eerjou4,Never let facts get in the way of a good story.,neutral,approval|disapproval,0.07030384987592697,0.1,0.31499800086021423,0.3
+C2 RoBERTa,123.0,neutral->approval,4886,ed4jqtd,Yes. We're finishing the script out now. Shooting starts in February.,neutral,approval,0.026205414906144142,0.1,0.9426124691963196,0.3
+C2 RoBERTa,123.0,neutral->approval,5115,eemh55u,Winter isn't even that bad here.,neutral,approval,0.07751765847206116,0.1,0.7588682174682617,0.3
+C2 RoBERTa,123.0,neutral->approval,5261,ed9qozj,Only good ones.,neutral,admiration|approval,0.049497053027153015,0.1,0.6700687408447266,0.3
+C2 RoBERTa,123.0,neutral->approval,5307,efdl37e,So people will support him in this fake news quick reaction political environment,neutral,approval,0.040692951530218124,0.1,0.9463988542556763,0.3
+C2 RoBERTa,2026.0,relief->admiration,825,edci7fb,Praise the [NAME] for REALITY! WOOF!!!!!,relief,admiration,0.0022872276604175568,0.05,0.9590010046958923,0.45
+C2 RoBERTa,2026.0,neutral->approval,28,ed2owpy,Same here but it seems like that will make it more rewarding to actually build a base with gardens and stuff.,neutral,admiration|approval,0.03919513151049614,0.15,0.34048518538475037,0.25
+C2 RoBERTa,2026.0,neutral->approval,486,edifobn,You beat nerfed [NAME]. Sounds like tier lists do matter.,neutral,admiration|approval,0.06142404302954674,0.15,0.31058982014656067,0.25
+C2 RoBERTa,2026.0,neutral->approval,758,eemni1u,I always give my disclaimer when he asks for my phone number. I understand and respect my situation could be a deal breaker for some.,neutral,approval,0.03365296497941017,0.15,0.8822250962257385,0.25
+C2 RoBERTa,2026.0,neutral->approval,766,edgkcyf,"Ok, we get it. You're a top.",admiration|neutral,admiration|approval,0.023109277710318565,0.15,0.6520198583602905,0.25
+C2 RoBERTa,2026.0,neutral->approval,786,eegqlt6,"Ah yes, downvoted somebody for being different. Ever acceptant.",neutral,approval,0.09009299427270889,0.15,0.8403899669647217,0.25
+C2 RoBERTa,2026.0,neutral->approval,894,ef10sk3,"He did. He needs the facial hair, and that haircut is horrible he should just shave it and start over.",neutral,approval|disgust,0.0787840187549591,0.15,0.2724114954471588,0.25
+C2 RoBERTa,2026.0,neutral->approval,1066,edhd09y,You deserve WAY more upvotes,admiration|neutral,admiration|approval,0.05749328061938286,0.15,0.723504900932312,0.25
+C2 RoBERTa,2026.0,neutral->approval,1157,edt6gpu,I listened to this song the other day for the first time and... oh boy yeah,neutral,approval,0.14318770170211792,0.15,0.2557152211666107,0.25
+C2 RoBERTa,2026.0,neutral->approval,1784,edlg2g9,"Right. The mantra at my school is that we don't give grades, kids earn them.",neutral,approval,0.10034840553998947,0.15,0.8846385478973389,0.25
+C2 RoBERTa,2026.0,neutral->approval,1846,eermq7j,They had a similar panel last year. It's definitely worth a watch.,neutral,admiration|approval,0.05023736134171486,0.15,0.6447844505310059,0.25
+C2 RoBERTa,2026.0,neutral->approval,2041,eeyn8fi,I'm sure that's a really important issue to you that consumes your daily life...,neutral,approval,0.12951278686523438,0.15,0.8560919761657715,0.25
+C2 RoBERTa,2026.0,neutral->approval,2179,ed054lq,I did something along those lines almost 2 years ago and got to 67 upvotes before I got banned,neutral,approval,0.08694165199995041,0.15,0.3640989661216736,0.25
+C2 RoBERTa,2026.0,neutral->approval,3194,eesf98t,That escalated quickly,neutral,approval,0.11008787155151367,0.15,0.709019124507904,0.25
+C2 RoBERTa,2026.0,neutral->approval,3256,ed3co3z,"I was not expecting the giant ""POLICE STATION"" sign. That just makes it all the better. ",neutral,approval,0.12743528187274933,0.15,0.6021785736083984,0.25
+C2 RoBERTa,2026.0,neutral->approval,3365,eewovmg,"lol Whatever that proves, sure.",amusement|neutral,amusement|approval,0.02630527876317501,0.15,0.5651787519454956,0.25
+C2 RoBERTa,2026.0,neutral->approval,3763,ee7ctbp,Seinfeld is one of the only pieces of culture that I feel like I could be competitive in a trivia league about.,neutral,admiration|approval,0.13050688803195953,0.15,0.26626187562942505,0.25
+C2 RoBERTa,2026.0,neutral->approval,3825,ef4yaoq,True. Icing all three of your villains for the duration of the film is a bad idea. They need to be making moves.,neutral,approval,0.11124119907617569,0.15,0.7778065800666809,0.25
+C2 RoBERTa,2026.0,neutral->approval,4206,edcjoj4,"I never disappoint, just ask your mother. ;)",neutral,approval|caring,0.12054229527711868,0.15,0.31394535303115845,0.25
+C2 RoBERTa,2026.0,neutral->approval,4210,efa9sdv,I've only been once but we parked at a Publix a couple miles away and had Uber drop us off at the gate. It was perfect,neutral,admiration|approval,0.06278920918703079,0.15,0.257951945066452,0.25
+C2 RoBERTa,2026.0,neutral->approval,5197,edhu00c,"I came here once accidentally, saw your commend and now, 2 weeks later, I totally understand. ",neutral,approval|realization,0.050611432641744614,0.15,0.46050122380256653,0.25
+C3 DistilBERT,42.0,relief->admiration,825,edci7fb,Praise the [NAME] for REALITY! WOOF!!!!!,relief,admiration|excitement,0.0010242064017802477,0.2,0.9167081117630005,0.5
+C3 DistilBERT,42.0,neutral->approval,224,effpgd8,"Better ye, make some Pho and use lots of sriracha. Things will definitely get heated.",neutral,approval,0.042166538536548615,0.1,0.8787311315536499,0.2
+C3 DistilBERT,42.0,neutral->approval,433,ees4p28,"Well, 1/2 has been done already!",neutral,approval,0.03365296497941017,0.1,0.9238675236701965,0.2
+C3 DistilBERT,42.0,neutral->approval,989,ee3fa7x,The complete series is on Hulu just finished watching it. Definitely recommend,neutral,approval,0.04655127227306366,0.1,0.961243748664856,0.2
+C3 DistilBERT,42.0,neutral->approval,1066,edhd09y,You deserve WAY more upvotes,admiration|neutral,approval,0.01678548939526081,0.1,0.7397985458374023,0.2
+C3 DistilBERT,42.0,neutral->approval,1086,ed1d6a4,Knowing [NAME] he’d probably give [NAME] up for a 5th rounder smh,neutral,approval|optimism,0.08064661175012589,0.1,0.250545859336853,0.2
+C3 DistilBERT,42.0,neutral->approval,1834,ed0rtw0,"Ah yes, the poison. The worst part of any poisoning. ",neutral,approval|disgust,0.01578456163406372,0.1,0.3259495198726654,0.2
+C3 DistilBERT,42.0,neutral->approval,2041,eeyn8fi,I'm sure that's a really important issue to you that consumes your daily life...,neutral,approval,0.013636835850775242,0.1,0.9813465476036072,0.2
+C3 DistilBERT,42.0,neutral->approval,2721,eenle2f,This guy was my high school government teacher. This stuff is all classic to read about,neutral,admiration|approval,0.039048291742801666,0.1,0.27943506836891174,0.2
+C3 DistilBERT,42.0,neutral->approval,3194,eesf98t,That escalated quickly,neutral,approval,0.08464395254850388,0.1,0.7221353054046631,0.2
+C3 DistilBERT,42.0,neutral->approval,3474,edgrpuf,The only one I'd recomend is [NAME] to be honest,neutral,approval,0.01829933375120163,0.1,0.9894702434539795,0.2
+C3 DistilBERT,42.0,neutral->approval,3565,ed1b5wt,"And then if you don't go out and actually sin, you've done nothing wrong.",neutral,approval|disapproval,0.024656856432557106,0.1,0.591428279876709,0.2
+C3 DistilBERT,42.0,neutral->approval,3947,ef78w8k,Yeah I think it largely depends on how you fall. In Judo that’s one of the main things they practice.,neutral,approval,0.07224299758672714,0.1,0.9014011025428772,0.2
+C3 DistilBERT,42.0,neutral->approval,4242,ee7odyo,"As sure as gods got sandals, it sure beats fighting dudes with treasure trails",neutral,approval,0.09518112242221832,0.1,0.7031419277191162,0.2
+C3 DistilBERT,42.0,neutral->approval,4420,efati8j,"She likes sending nudes? I mean, just go with the flow and see what happens. ",curiosity|neutral,approval|curiosity,0.07224299758672714,0.1,0.3785165548324585,0.2
+C3 DistilBERT,42.0,neutral->approval,4549,edf17ah,Thats exactly what a J-word would say,neutral,approval,0.08064661175012589,0.1,0.9531880021095276,0.2
+C3 DistilBERT,42.0,neutral->approval,4635,eepmgiy,It's pretty warm in Australia during this time of year.,neutral,approval,0.03167862445116043,0.1,0.20769643783569336,0.2
+C3 DistilBERT,42.0,neutral->approval,4886,ed4jqtd,Yes. We're finishing the script out now. Shooting starts in February.,neutral,approval,0.024145424365997314,0.1,0.8624675869941711,0.2
+C3 DistilBERT,42.0,neutral->approval,4942,eczcvgx,"I always plan that, my wife usually has other ideas though. ",neutral,approval,0.040692951530218124,0.1,0.9781354665756226,0.2
+C3 DistilBERT,42.0,neutral->approval,5156,edzarre,So you agree.,neutral,approval,0.011072160676121712,0.1,0.9900636076927185,0.2
+C3 DistilBERT,42.0,neutral->approval,5197,edhu00c,"I came here once accidentally, saw your commend and now, 2 weeks later, I totally understand. ",neutral,approval,0.04123002663254738,0.1,0.9477691650390625,0.2
+C3 DistilBERT,123.0,relief->admiration,825,edci7fb,Praise the [NAME] for REALITY! WOOF!!!!!,relief,admiration,0.0006361912237480283,0.2,0.9656413197517395,0.55
+C3 DistilBERT,123.0,neutral->approval,28,ed2owpy,Same here but it seems like that will make it more rewarding to actually build a base with gardens and stuff.,neutral,approval,0.005343256052583456,0.1,0.954647421836853,0.3
+C3 DistilBERT,123.0,neutral->approval,433,ees4p28,"Well, 1/2 has been done already!",neutral,approval,0.02437659725546837,0.1,0.9244152307510376,0.3
+C3 DistilBERT,123.0,neutral->approval,651,edonf85,"I wouldnt go that far, but paranoid schizophrenia can definitely do that to someone. Even mild social anxiety can also cause it, though",neutral,approval,0.02595735713839531,0.1,0.6377079486846924,0.3
+C3 DistilBERT,123.0,neutral->approval,758,eemni1u,I always give my disclaimer when he asks for my phone number. I understand and respect my situation could be a deal breaker for some.,neutral,admiration|approval,0.0014493984635919333,0.1,0.351311057806015,0.3
+C3 DistilBERT,123.0,neutral->approval,766,edgkcyf,"Ok, we get it. You're a top.",admiration|neutral,admiration|approval,0.0022606407292187214,0.1,0.49063223600387573,0.3
+C3 DistilBERT,123.0,neutral->approval,786,eegqlt6,"Ah yes, downvoted somebody for being different. Ever acceptant.",neutral,approval|disapproval,0.0059110685251653194,0.1,0.8174288272857666,0.3
+C3 DistilBERT,123.0,neutral->approval,1482,eetpk59,"Try honing I’m on your art skills! Wood carving, wood burning, mosaics, stained glass, painting, etc. Sell your work!",neutral,approval,0.028167473152279854,0.1,0.818881630897522,0.3
+C3 DistilBERT,123.0,neutral->approval,1784,edlg2g9,"Right. The mantra at my school is that we don't give grades, kids earn them.",neutral,approval,0.002521268092095852,0.1,0.9738444089889526,0.3
+C3 DistilBERT,123.0,neutral->approval,2041,eeyn8fi,I'm sure that's a really important issue to you that consumes your daily life...,neutral,approval,0.007204769179224968,0.1,0.9899863600730896,0.3
+C3 DistilBERT,123.0,neutral->approval,2682,eeee29f,Literally one visit to that subreddit is proof enough it's mentally addictive. Brain craving dopamine when it's not producing it.,neutral,approval,0.06669065356254578,0.1,0.8914335370063782,0.3
+C3 DistilBERT,123.0,neutral->approval,3069,efdyqen,Exactly. It’s all about control,neutral,approval,0.004718369338661432,0.1,0.9909096360206604,0.3
+C3 DistilBERT,123.0,neutral->approval,3079,eeqai17,Before.revolution can happen in the streets it first has to happen in their minds - Stuck Mojo,neutral,approval,0.0616496242582798,0.1,0.3565586805343628,0.3
+C3 DistilBERT,123.0,neutral->approval,3365,eewovmg,"lol Whatever that proves, sure.",amusement|neutral,amusement|approval,0.019419347867369652,0.1,0.6351093053817749,0.3
+C3 DistilBERT,123.0,neutral->approval,3416,eehm1c1,Fair enough. I considered it malicious compliance because I followed the letter if the rules while purposely not following the spirit.,neutral,approval,0.005469274241477251,0.1,0.9875203371047974,0.3
+C3 DistilBERT,123.0,neutral->approval,3526,ed0uib8,The cognitive dissonance is strong with you.,neutral,admiration|approval,0.03422932326793671,0.1,0.35142233967781067,0.3
+C3 DistilBERT,123.0,neutral->approval,3895,eeyg6h4,I would focus on being an enlisted Marine first. That’s what you’ll be doing for the next 4 years.,neutral,approval|optimism,0.007039045449346304,0.1,0.4446552097797394,0.3
+C3 DistilBERT,123.0,neutral->approval,3947,ef78w8k,Yeah I think it largely depends on how you fall. In Judo that’s one of the main things they practice.,neutral,approval,0.0753123015165329,0.1,0.9622496962547302,0.3
+C3 DistilBERT,123.0,neutral->approval,4437,edg6ig1,"Ah, yes. Again with those goddam ballbusting monkeys. If I had a dollar...",neutral,approval,0.006877107545733452,0.1,0.5449527502059937,0.3
+C3 DistilBERT,123.0,neutral->approval,4504,efacxvv,I'm a [NAME] and tripping has only strengthened my faith. To each their own.,neutral,approval,0.01384861022233963,0.1,0.9431384205818176,0.3
+C3 DistilBERT,123.0,neutral->approval,4626,edohpus,So they're just not going to change it like they did in the Louisville game? That's cool..,neutral,admiration|approval|curiosity,0.005576545372605324,0.1,0.390766441822052,0.3
+C3 DistilBERT,2026.0,relief->admiration,825,edci7fb,Praise the [NAME] for REALITY! WOOF!!!!!,relief,admiration,0.0008040859247557819,0.15,0.9267027974128723,0.5
+C3 DistilBERT,2026.0,neutral->approval,330,ef8avyw,I live here! Apparently I need to be keeping my eyes open.,neutral,approval|realization,0.0398624911904335,0.1,0.21255874633789062,0.2
+C3 DistilBERT,2026.0,neutral->approval,556,edil1da,"""I will do what I must.""",neutral,approval,0.03132111579179764,0.1,0.9530133008956909,0.2
+C3 DistilBERT,2026.0,neutral->approval,740,eey30n5,Perfect! Put it in a form they can understand!,neutral,approval,0.059101540595293045,0.1,0.8818185925483704,0.2
+C3 DistilBERT,2026.0,neutral->approval,766,edgkcyf,"Ok, we get it. You're a top.",admiration|neutral,admiration|approval,0.041852131485939026,0.1,0.5882388353347778,0.2
+C3 DistilBERT,2026.0,neutral->approval,786,eegqlt6,"Ah yes, downvoted somebody for being different. Ever acceptant.",neutral,approval|disappointment,0.04629189893603325,0.1,0.6645402908325195,0.2
+C3 DistilBERT,2026.0,neutral->approval,866,ee0h640,"Yes, your trolling is very good. You’re so brave for giving us the opportunity to downvote your sock account to hell.",neutral,admiration|approval,0.0026214411482214928,0.1,0.26511871814727783,0.2
+C3 DistilBERT,2026.0,neutral->approval,1460,eebhh3i,"No, he's fine. It doesnt compact",neutral,approval|disapproval,0.07751765847206116,0.1,0.6495786309242249,0.2
+C3 DistilBERT,2026.0,neutral->approval,1829,edsfhji,Same outfit as the cute art school barista that works at my coffee shop,neutral,admiration|approval,0.005842605605721474,0.1,0.3568948209285736,0.2
+C3 DistilBERT,2026.0,neutral->approval,2123,ee7sylj,"Best form of government is 150 people tribe in a situation where there are no non-perishable goods, just food an clothes. ",neutral,admiration|approval,0.060086652636528015,0.1,0.44058963656425476,0.2
+C3 DistilBERT,2026.0,neutral->approval,3093,edfoypd,Makes sense. So I need 2 USB drives according the the TAILS website.,neutral,approval,0.08882029354572296,0.1,0.78116375207901,0.2
+C3 DistilBERT,2026.0,neutral->approval,3416,eehm1c1,Fair enough. I considered it malicious compliance because I followed the letter if the rules while purposely not following the spirit.,neutral,approval,0.020884215831756592,0.1,0.9851576089859009,0.2
+C3 DistilBERT,2026.0,neutral->approval,3526,ed0uib8,The cognitive dissonance is strong with you.,neutral,approval,0.05602938309311867,0.1,0.7397985458374023,0.2
+C3 DistilBERT,2026.0,neutral->approval,3984,edil7ur,"By law, China must accept the South China Sea ruling, period. Stop trying to help China weasel out of it. ",anger|neutral,annoyance|approval,0.042166538536548615,0.1,0.5260080099105835,0.2
+C3 DistilBERT,2026.0,neutral->approval,4242,ee7odyo,"As sure as gods got sandals, it sure beats fighting dudes with treasure trails",neutral,approval,0.04594821110367775,0.1,0.8761053681373596,0.2
+C3 DistilBERT,2026.0,neutral->approval,4420,efati8j,"She likes sending nudes? I mean, just go with the flow and see what happens. ",curiosity|neutral,approval|curiosity,0.04410091042518616,0.1,0.40627291798591614,0.2
+C3 DistilBERT,2026.0,neutral->approval,4635,eepmgiy,It's pretty warm in Australia during this time of year.,neutral,approval,0.05654813349246979,0.1,0.3172147274017334,0.2
+C3 DistilBERT,2026.0,neutral->approval,4886,ed4jqtd,Yes. We're finishing the script out now. Shooting starts in February.,neutral,approval,0.06108710914850235,0.1,0.7320175170898438,0.2
+C3 DistilBERT,2026.0,neutral->approval,5076,ef1k0ws,"My mom thinks this neighborhood is safe, and I kinda don't want her being more paranoid but I feel like I should do SOMETHING.",neutral,approval,0.022328782826662064,0.1,0.2577650845050812,0.2
+C3 DistilBERT,2026.0,neutral->approval,5197,edhu00c,"I came here once accidentally, saw your commend and now, 2 weeks later, I totally understand. ",neutral,approval,0.05665242671966553,0.1,0.4594399034976959,0.2
+C3 DistilBERT,2026.0,neutral->approval,5396,ef7ekkf,Sure dude. Although I’d say my rate at dispensing profound wisdom is lesser than the rate at which I can talk utter BS haha,amusement|optimism|neutral,amusement|approval,0.07640768587589264,0.1,0.21667379140853882,0.2
+A TF-IDF balanced,42.0,neutral->approval,28,ed2owpy,Same here but it seems like that will make it more rewarding to actually build a base with gardens and stuff.,neutral,approval,0.42437528068308666,0.45,0.8743873724148364,0.6
+A TF-IDF balanced,42.0,neutral->approval,210,edxwxqq,"Yes, oops ",neutral,approval|embarrassment,0.30810029394987093,0.45,0.9066043461133979,0.6
+A TF-IDF balanced,42.0,neutral->approval,651,edonf85,"I wouldnt go that far, but paranoid schizophrenia can definitely do that to someone. Even mild social anxiety can also cause it, though",neutral,approval|disapproval,0.31595669228031203,0.45,0.6368209328216888,0.6
+A TF-IDF balanced,42.0,neutral->approval,707,eff040g,Very cool.,neutral,admiration|approval,0.13908242436829246,0.45,0.675352531640628,0.6
+A TF-IDF balanced,42.0,neutral->approval,866,ee0h640,"Yes, your trolling is very good. You’re so brave for giving us the opportunity to downvote your sock account to hell.",neutral,admiration|annoyance|approval,0.17866724066436165,0.45,0.6317876878214438,0.6
+A TF-IDF balanced,42.0,neutral->approval,1463,eej1u9h,"True.. but it just seems weird that of all the ways [NAME] could have died in that throne room, he was killed by being cut in half. ",neutral,annoyance|approval,0.44913250633666457,0.45,0.6160516665340581,0.6
+A TF-IDF balanced,42.0,neutral->approval,1784,edlg2g9,"Right. The mantra at my school is that we don't give grades, kids earn them.",neutral,approval,0.4147216858855971,0.45,0.6300570474162651,0.6
+A TF-IDF balanced,42.0,neutral->approval,1807,eeur211,"Between POM, Mata and Stockdale for me",neutral,approval|realization,0.4182901353941739,0.45,0.6541728956754417,0.6
+A TF-IDF balanced,42.0,neutral->approval,1808,efckr9y,"I believe it was the ""Master Batters.""",neutral,approval|surprise,0.34708329168613106,0.45,0.6408600233325912,0.6
+A TF-IDF balanced,42.0,neutral->approval,2676,eeyk8ji,> [NAME] doesn't even agree with you. What does she not agree with?,neutral,approval|disapproval,0.2108337890684098,0.45,0.9765113881745274,0.6
+A TF-IDF balanced,42.0,neutral->approval,3346,eeumitx,It's fishphobic!,neutral,approval,0.28238949621735615,0.45,0.7917465339927846,0.6
+A TF-IDF balanced,42.0,neutral->approval,3416,eehm1c1,Fair enough. I considered it malicious compliance because I followed the letter if the rules while purposely not following the spirit.,neutral,approval,0.44172912325479063,0.45,0.878376753065095,0.6
+A TF-IDF balanced,42.0,neutral->approval,3819,edc2119,"If you know it's the right thing to do, it's better to ""lose"" that person than to ""lose"" that opportunity.",realization|neutral,approval|realization,0.33436225549670834,0.45,0.8324158473410735,0.6
+A TF-IDF balanced,42.0,neutral->approval,4193,eect3c7,Also would like to point out to you that fighter is actually a synonym of soldier.,neutral,approval,0.3681024930471817,0.45,0.7895158869905787,0.6
+A TF-IDF balanced,42.0,neutral->approval,4288,ed9ldgu,I've done this my whole life though...,neutral,approval|disappointment,0.37889167629553433,0.45,0.6209263251888506,0.6
+A TF-IDF balanced,42.0,neutral->approval,4395,eedqpka,I would have thought so yeah.,neutral,approval|realization,0.4055548215649396,0.45,0.7017664555813526,0.6
+A TF-IDF balanced,42.0,neutral->approval,4600,edfn4nd,"I woulda ""sneezed"" with my drink in my hand and launched it right behind me",neutral,approval,0.438520453189851,0.45,0.8027797564819698,0.6
+A TF-IDF balanced,42.0,neutral->approval,4637,ee2gxgu,Before things like that can happen we need to first atleast make it stable and usable for the people that actually do pay,neutral,approval|realization,0.38096583715884474,0.45,0.8304619855227636,0.6
+A TF-IDF balanced,42.0,neutral->approval,4644,eefxuef,"Crippling? How so? It’s with Fox Sports right? I figured they probably had a good deal with them, but maybe not.",neutral,approval,0.40224836574110945,0.45,0.7970198228087635,0.6
+A TF-IDF balanced,42.0,neutral->approval,5151,eemovlk,The original video was debunked. Do you agree or disagree?,neutral,approval|confusion|curiosity|disapproval,0.26047970792264025,0.45,0.8164975983682095,0.6
+B BART-MNLI,,relief->admiration,3503,edqc1yz,This is really helpful to point out!!,relief,admiration|realization,0.751556932926178,0.95,0.9567555785179138,0.95
+B BART-MNLI,,neutral->approval,72,eddtkaz,It’s Woosh with 4 o’s r/woooosh (The most popular one),neutral,admiration|amusement|approval|desire|excitement|joy,0.0011469158343970776,0.05,0.9815951585769653,0.95
+B BART-MNLI,,neutral->approval,188,eedb4yi,He was so close to me x,neutral,admiration|approval|caring|curiosity|desire|disappointment|excitement|gratitude|grief|love|pride|realization|sadness|surprise,0.043936535716056824,0.05,0.9832788705825806,0.95
+B BART-MNLI,,neutral->approval,416,eehvitg,I want to see this a a movie!!,neutral,admiration|approval|caring|curiosity|desire|excitement|joy|optimism|realization|surprise,0.027337512001395226,0.05,0.9916033148765564,0.95
+B BART-MNLI,,neutral->approval,498,edp5bb3,#cooking #uni #urchin #local #tidetotable #truecooks #seafood #cheflife,neutral,admiration|approval|desire|excitement|gratitude|optimism|pride,0.038774386048316956,0.05,0.9766914248466492,0.95
+B BART-MNLI,,neutral->approval,601,efe2hql,Mmmmm tasty 🅱️estrogens,neutral,admiration|amusement|approval|curiosity|desire|excitement|realization,0.015174446627497673,0.05,0.9945940971374512,0.95
+B BART-MNLI,,neutral->approval,762,ef74knm,Da real MVP,neutral,admiration|approval|caring|desire|excitement|gratitude|pride|realization,0.034084346145391464,0.05,0.9986462593078613,0.95
+B BART-MNLI,,neutral->approval,1193,ef52l3i,Wiggins midrange magic!,neutral,admiration|approval|desire|excitement|optimism|surprise,0.02391638606786728,0.05,0.9775000214576721,0.95
+B BART-MNLI,,neutral->approval,1670,eezbeey,The Future is BIG!,neutral,admiration|approval|curiosity|desire|excitement|joy|optimism|pride|realization|surprise,0.004348381422460079,0.05,0.9900635480880737,0.95
+B BART-MNLI,,neutral->approval,2271,eeeu1e9,More camo pants!,neutral,approval|curiosity|desire|excitement|joy|optimism|pride|realization,0.024481330066919327,0.05,0.9814534187316895,0.95
+B BART-MNLI,,neutral->approval,2693,eeu06kk,Keep branching out guys.,neutral,admiration|approval|curiosity|desire|excitement|optimism,0.026861203834414482,0.05,0.9718859791755676,0.95
+B BART-MNLI,,neutral->approval,2957,eeozbej,They are the modern day Nickelback.,neutral,admiration|approval|desire|disapproval|realization|surprise,0.013312314637005329,0.05,0.977671205997467,0.95
+B BART-MNLI,,neutral->approval,3146,edivsdh,They forgot the part where everyone started clapping.,neutral,admiration|annoyance|approval|confusion|disappointment|embarrassment|surprise,0.03581319749355316,0.05,0.9781146049499512,0.95
+B BART-MNLI,,neutral->approval,3165,edq02os,Love and marriage,neutral,admiration|approval|caring|desire|excitement|gratitude|joy|love|optimism|realization,0.0017443813849240541,0.05,0.994541347026825,0.95
+B BART-MNLI,,neutral->approval,3209,ee5i0j2,I have trophy jeans and a trophy bra! Although RIP my boobs because they were the one thing I liked about my body back then :),disappointment|neutral,admiration|approval|desire|disappointment|grief|pride|realization|remorse|sadness,0.006583382375538349,0.05,0.9697853922843933,0.95
+B BART-MNLI,,neutral->approval,3574,eere80w,"hard working, alpha male, jackhammer, merciless, insatiable",neutral,admiration|approval|desire|pride,0.0009735437342897058,0.05,0.9777350425720215,0.95
+B BART-MNLI,,neutral->approval,3616,ed0txko,**LET’S GO HAWKS!!!**,excitement|neutral,admiration|approval|desire|excitement|joy|optimism|pride|realization|relief,0.0038731566164642572,0.05,0.9953993558883667,0.95
+B BART-MNLI,,neutral->approval,4445,eezbpxo,Now [NAME] is the popular one!!,neutral,admiration|amusement|approval|caring|curiosity|desire|excitement|joy|optimism|pride|realization|surprise,0.008898883126676083,0.05,0.9953544735908508,0.95
+B BART-MNLI,,neutral->approval,4766,edckr48,"I appreciate [NAME] diving for that, but because he did, it lead to wide open Korver transition 3. About as automatic as it gets",neutral,admiration|approval|gratitude,0.0029206976760178804,0.05,0.9927672743797302,0.95
+B BART-MNLI,,neutral->approval,4872,eeaku8o,Gotta boost that self esteem.,neutral,admiration|approval|desire|optimism|pride,0.003216216806322336,0.05,0.9678081274032593,0.95
+B BART-MNLI,,neutral->approval,4920,eege4y9,YOU MUST CONSTRUCT ADDITIONAL PYLONS,neutral,approval|desire|realization,0.03576264530420303,0.05,0.958962619304657,0.95

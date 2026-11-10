@@ -20,8 +20,9 @@ def publication_errors(root, manifest):
     version = manifest.get("schema_version")
     sources = {p.relative_to(root).as_posix() for p in (root / "notebooks").glob("*.ipynb")}
     if version == 2:
-        sources.update(p.relative_to(root).as_posix() for p in
-                       (root / "experiments/best_epochs_20261103").glob("*.ipynb"))
+        for folder in ("experiments/best_epochs_20261103", "experiments/threshold_error_20261110"):
+            sources.update(p.relative_to(root).as_posix() for p in
+                           (root / folder).glob("*.ipynb"))
     if version not in (1, 2) or not isinstance(manifest.get("notebooks"), list):
         return ["Manifest notebook sai schema"]
     for entry in manifest["notebooks"]:

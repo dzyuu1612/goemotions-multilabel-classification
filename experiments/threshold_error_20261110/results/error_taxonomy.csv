@@ -1,0 +1,166 @@
+﻿model,seed,mode,category,n,denom
+C1 BERT,42.0,fixed,dung_hoan_toan,2565,5427
+C1 BERT,42.0,fixed,doan_thua,235,5427
+C1 BERT,42.0,fixed,dung_mot_phan,504,5427
+C1 BERT,42.0,fixed,doan_sai_nhan,1759,5427
+C1 BERT,42.0,fixed,khong_doan_gi,364,5427
+C1 BERT,42.0,global,dung_hoan_toan,2116,5427
+C1 BERT,42.0,global,doan_thua,1220,5427
+C1 BERT,42.0,global,dung_mot_phan,488,5427
+C1 BERT,42.0,global,doan_sai_nhan,1594,5427
+C1 BERT,42.0,global,khong_doan_gi,9,5427
+C1 BERT,42.0,tuned,dung_hoan_toan,2099,5427
+C1 BERT,42.0,tuned,doan_thua,1298,5427
+C1 BERT,42.0,tuned,dung_mot_phan,483,5427
+C1 BERT,42.0,tuned,doan_sai_nhan,1531,5427
+C1 BERT,42.0,tuned,khong_doan_gi,16,5427
+C1 BERT,123.0,fixed,dung_hoan_toan,2521,5427
+C1 BERT,123.0,fixed,doan_thua,192,5427
+C1 BERT,123.0,fixed,dung_mot_phan,509,5427
+C1 BERT,123.0,fixed,doan_sai_nhan,1699,5427
+C1 BERT,123.0,fixed,khong_doan_gi,506,5427
+C1 BERT,123.0,global,dung_hoan_toan,2151,5427
+C1 BERT,123.0,global,doan_thua,1162,5427
+C1 BERT,123.0,global,dung_mot_phan,490,5427
+C1 BERT,123.0,global,doan_sai_nhan,1611,5427
+C1 BERT,123.0,global,khong_doan_gi,13,5427
+C1 BERT,123.0,tuned,dung_hoan_toan,2194,5427
+C1 BERT,123.0,tuned,doan_thua,1140,5427
+C1 BERT,123.0,tuned,dung_mot_phan,497,5427
+C1 BERT,123.0,tuned,doan_sai_nhan,1552,5427
+C1 BERT,123.0,tuned,khong_doan_gi,44,5427
+C1 BERT,2026.0,fixed,dung_hoan_toan,2540,5427
+C1 BERT,2026.0,fixed,doan_thua,236,5427
+C1 BERT,2026.0,fixed,dung_mot_phan,507,5427
+C1 BERT,2026.0,fixed,doan_sai_nhan,1763,5427
+C1 BERT,2026.0,fixed,khong_doan_gi,381,5427
+C1 BERT,2026.0,global,dung_hoan_toan,2236,5427
+C1 BERT,2026.0,global,doan_thua,950,5427
+C1 BERT,2026.0,global,dung_mot_phan,506,5427
+C1 BERT,2026.0,global,doan_sai_nhan,1694,5427
+C1 BERT,2026.0,global,khong_doan_gi,41,5427
+C1 BERT,2026.0,tuned,dung_hoan_toan,2005,5427
+C1 BERT,2026.0,tuned,doan_thua,1461,5427
+C1 BERT,2026.0,tuned,dung_mot_phan,515,5427
+C1 BERT,2026.0,tuned,doan_sai_nhan,1429,5427
+C1 BERT,2026.0,tuned,khong_doan_gi,17,5427
+C2 RoBERTa,42.0,fixed,dung_hoan_toan,2551,5427
+C2 RoBERTa,42.0,fixed,doan_thua,186,5427
+C2 RoBERTa,42.0,fixed,dung_mot_phan,509,5427
+C2 RoBERTa,42.0,fixed,doan_sai_nhan,1727,5427
+C2 RoBERTa,42.0,fixed,khong_doan_gi,454,5427
+C2 RoBERTa,42.0,global,dung_hoan_toan,2491,5427
+C2 RoBERTa,42.0,global,doan_thua,448,5427
+C2 RoBERTa,42.0,global,dung_mot_phan,519,5427
+C2 RoBERTa,42.0,global,doan_sai_nhan,1790,5427
+C2 RoBERTa,42.0,global,khong_doan_gi,179,5427
+C2 RoBERTa,42.0,tuned,dung_hoan_toan,2246,5427
+C2 RoBERTa,42.0,tuned,doan_thua,1157,5427
+C2 RoBERTa,42.0,tuned,dung_mot_phan,505,5427
+C2 RoBERTa,42.0,tuned,doan_sai_nhan,1480,5427
+C2 RoBERTa,42.0,tuned,khong_doan_gi,39,5427
+C2 RoBERTa,123.0,fixed,dung_hoan_toan,2565,5427
+C2 RoBERTa,123.0,fixed,doan_thua,204,5427
+C2 RoBERTa,123.0,fixed,dung_mot_phan,518,5427
+C2 RoBERTa,123.0,fixed,doan_sai_nhan,1698,5427
+C2 RoBERTa,123.0,fixed,khong_doan_gi,442,5427
+C2 RoBERTa,123.0,global,dung_hoan_toan,2267,5427
+C2 RoBERTa,123.0,global,doan_thua,1005,5427
+C2 RoBERTa,123.0,global,dung_mot_phan,508,5427
+C2 RoBERTa,123.0,global,doan_sai_nhan,1634,5427
+C2 RoBERTa,123.0,global,khong_doan_gi,13,5427
+C2 RoBERTa,123.0,tuned,dung_hoan_toan,2228,5427
+C2 RoBERTa,123.0,tuned,doan_thua,1194,5427
+C2 RoBERTa,123.0,tuned,dung_mot_phan,505,5427
+C2 RoBERTa,123.0,tuned,doan_sai_nhan,1473,5427
+C2 RoBERTa,123.0,tuned,khong_doan_gi,27,5427
+C2 RoBERTa,2026.0,fixed,dung_hoan_toan,2526,5427
+C2 RoBERTa,2026.0,fixed,doan_thua,165,5427
+C2 RoBERTa,2026.0,fixed,dung_mot_phan,497,5427
+C2 RoBERTa,2026.0,fixed,doan_sai_nhan,1548,5427
+C2 RoBERTa,2026.0,fixed,khong_doan_gi,691,5427
+C2 RoBERTa,2026.0,global,dung_hoan_toan,2120,5427
+C2 RoBERTa,2026.0,global,doan_thua,1305,5427
+C2 RoBERTa,2026.0,global,dung_mot_phan,493,5427
+C2 RoBERTa,2026.0,global,doan_sai_nhan,1475,5427
+C2 RoBERTa,2026.0,global,khong_doan_gi,34,5427
+C2 RoBERTa,2026.0,tuned,dung_hoan_toan,2137,5427
+C2 RoBERTa,2026.0,tuned,doan_thua,1333,5427
+C2 RoBERTa,2026.0,tuned,dung_mot_phan,509,5427
+C2 RoBERTa,2026.0,tuned,doan_sai_nhan,1397,5427
+C2 RoBERTa,2026.0,tuned,khong_doan_gi,51,5427
+C3 DistilBERT,42.0,fixed,dung_hoan_toan,2469,5427
+C3 DistilBERT,42.0,fixed,doan_thua,261,5427
+C3 DistilBERT,42.0,fixed,dung_mot_phan,493,5427
+C3 DistilBERT,42.0,fixed,doan_sai_nhan,1621,5427
+C3 DistilBERT,42.0,fixed,khong_doan_gi,583,5427
+C3 DistilBERT,42.0,global,dung_hoan_toan,2037,5427
+C3 DistilBERT,42.0,global,doan_thua,1353,5427
+C3 DistilBERT,42.0,global,dung_mot_phan,507,5427
+C3 DistilBERT,42.0,global,doan_sai_nhan,1504,5427
+C3 DistilBERT,42.0,global,khong_doan_gi,26,5427
+C3 DistilBERT,42.0,tuned,dung_hoan_toan,2147,5427
+C3 DistilBERT,42.0,tuned,doan_thua,1221,5427
+C3 DistilBERT,42.0,tuned,dung_mot_phan,502,5427
+C3 DistilBERT,42.0,tuned,doan_sai_nhan,1506,5427
+C3 DistilBERT,42.0,tuned,khong_doan_gi,51,5427
+C3 DistilBERT,123.0,fixed,dung_hoan_toan,2457,5427
+C3 DistilBERT,123.0,fixed,doan_thua,268,5427
+C3 DistilBERT,123.0,fixed,dung_mot_phan,502,5427
+C3 DistilBERT,123.0,fixed,doan_sai_nhan,1582,5427
+C3 DistilBERT,123.0,fixed,khong_doan_gi,618,5427
+C3 DistilBERT,123.0,global,dung_hoan_toan,2081,5427
+C3 DistilBERT,123.0,global,doan_thua,1292,5427
+C3 DistilBERT,123.0,global,dung_mot_phan,493,5427
+C3 DistilBERT,123.0,global,doan_sai_nhan,1526,5427
+C3 DistilBERT,123.0,global,khong_doan_gi,35,5427
+C3 DistilBERT,123.0,tuned,dung_hoan_toan,2185,5427
+C3 DistilBERT,123.0,tuned,doan_thua,1155,5427
+C3 DistilBERT,123.0,tuned,dung_mot_phan,502,5427
+C3 DistilBERT,123.0,tuned,doan_sai_nhan,1521,5427
+C3 DistilBERT,123.0,tuned,khong_doan_gi,64,5427
+C3 DistilBERT,2026.0,fixed,dung_hoan_toan,2476,5427
+C3 DistilBERT,2026.0,fixed,doan_thua,247,5427
+C3 DistilBERT,2026.0,fixed,dung_mot_phan,493,5427
+C3 DistilBERT,2026.0,fixed,doan_sai_nhan,1607,5427
+C3 DistilBERT,2026.0,fixed,khong_doan_gi,604,5427
+C3 DistilBERT,2026.0,global,dung_hoan_toan,1601,5427
+C3 DistilBERT,2026.0,global,doan_thua,2131,5427
+C3 DistilBERT,2026.0,global,dung_mot_phan,455,5427
+C3 DistilBERT,2026.0,global,doan_sai_nhan,1240,5427
+C3 DistilBERT,2026.0,global,khong_doan_gi,0,5427
+C3 DistilBERT,2026.0,tuned,dung_hoan_toan,2044,5427
+C3 DistilBERT,2026.0,tuned,doan_thua,1306,5427
+C3 DistilBERT,2026.0,tuned,dung_mot_phan,508,5427
+C3 DistilBERT,2026.0,tuned,doan_sai_nhan,1519,5427
+C3 DistilBERT,2026.0,tuned,khong_doan_gi,50,5427
+A TF-IDF balanced,42.0,fixed,dung_hoan_toan,1344,5427
+A TF-IDF balanced,42.0,fixed,doan_thua,2145,5427
+A TF-IDF balanced,42.0,fixed,dung_mot_phan,406,5427
+A TF-IDF balanced,42.0,fixed,doan_sai_nhan,1420,5427
+A TF-IDF balanced,42.0,fixed,khong_doan_gi,112,5427
+A TF-IDF balanced,42.0,global,dung_hoan_toan,1581,5427
+A TF-IDF balanced,42.0,global,doan_thua,1627,5427
+A TF-IDF balanced,42.0,global,dung_mot_phan,421,5427
+A TF-IDF balanced,42.0,global,doan_sai_nhan,1514,5427
+A TF-IDF balanced,42.0,global,khong_doan_gi,284,5427
+A TF-IDF balanced,42.0,tuned,dung_hoan_toan,1659,5427
+A TF-IDF balanced,42.0,tuned,doan_thua,1642,5427
+A TF-IDF balanced,42.0,tuned,dung_mot_phan,431,5427
+A TF-IDF balanced,42.0,tuned,doan_sai_nhan,1530,5427
+A TF-IDF balanced,42.0,tuned,khong_doan_gi,165,5427
+B BART-MNLI,,fixed,dung_hoan_toan,1,5427
+B BART-MNLI,,fixed,doan_thua,3653,5427
+B BART-MNLI,,fixed,dung_mot_phan,225,5427
+B BART-MNLI,,fixed,doan_sai_nhan,1545,5427
+B BART-MNLI,,fixed,khong_doan_gi,3,5427
+B BART-MNLI,,global,dung_hoan_toan,22,5427
+B BART-MNLI,,global,doan_thua,2824,5427
+B BART-MNLI,,global,dung_mot_phan,317,5427
+B BART-MNLI,,global,doan_sai_nhan,2171,5427
+B BART-MNLI,,global,khong_doan_gi,93,5427
+B BART-MNLI,,tuned,dung_hoan_toan,50,5427
+B BART-MNLI,,tuned,doan_thua,3867,5427
+B BART-MNLI,,tuned,dung_mot_phan,262,5427
+B BART-MNLI,,tuned,doan_sai_nhan,1229,5427
+B BART-MNLI,,tuned,khong_doan_gi,19,5427

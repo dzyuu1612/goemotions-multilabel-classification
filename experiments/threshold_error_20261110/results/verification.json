@@ -1,0 +1,82 @@
+{
+  "passed": true,
+  "validation_lock_sha256": "ffcd0efb4e58379a056efc42be0e7c02ee96c84144476e64620f622060ca293b",
+  "test_data_sha256": "fd0953e535ba2569edc6a1daaa1133f8e4b9071691d540c9bab812fda132bc26",
+  "checkpoints": [
+    {
+      "model": "C1 BERT",
+      "seed": 42,
+      "test_scores_sha256": "6f3f86282dbb9ed7e1856555e3fbeb27099b7068f4d20d46fbb0968148ba499c",
+      "validation_scores_sha256": "226b547a1037c49d15437c8590fa3c14823f32055798c07ec192fc73510f9c0c"
+    },
+    {
+      "model": "C1 BERT",
+      "seed": 123,
+      "test_scores_sha256": "02289c9e5cb4026fef41105ecb6d7abdd61722fd872a766da745a4db66fec335",
+      "validation_scores_sha256": "65d8c4bef1647c5dd8ac442471293f4d568e3b622ba230827e9c1b039a6938da"
+    },
+    {
+      "model": "C1 BERT",
+      "seed": 2026,
+      "test_scores_sha256": "970a790dee33d1313933f527d4e08488770d0d55fe9f35a142355ab953261b20",
+      "validation_scores_sha256": "9e8738b68a88e4b0ce355f24dbe3fa4de58664b309333691367b059d8d478584"
+    },
+    {
+      "model": "C2 RoBERTa",
+      "seed": 42,
+      "test_scores_sha256": "afbf6b12c138dd7d7cfaee8c95a4287f6da480f1883b5efa791eb58df4020ea2",
+      "validation_scores_sha256": "d8ec7f7acb52b4a84a346977dba2fb7a990dcb55bce93c6d2a2dc6041dbce4e5"
+    },
+    {
+      "model": "C2 RoBERTa",
+      "seed": 123,
+      "test_scores_sha256": "d93b569bf9806a3382cec4a51c0705d388ea6f525fc02f23118ca3f5fc57bf4f",
+      "validation_scores_sha256": "0d7f4c131ea3e9dd726df49a7e90bcf05d590f861655093aeeda84133ee858e7"
+    },
+    {
+      "model": "C2 RoBERTa",
+      "seed": 2026,
+      "test_scores_sha256": "10d97e3742c5fd143e48108af94cf1480df8b12284e1b53542d0d84727218c2d",
+      "validation_scores_sha256": "87f3703bb5a71d93cfaa800bbaaf0fb3f10e4ec471466e46fedeb600cce40978"
+    },
+    {
+      "model": "C3 DistilBERT",
+      "seed": 42,
+      "test_scores_sha256": "5e6968648f494e5937c913a5594f16310beeb3e70151b75ab3f2cbac1c0e6c50",
+      "validation_scores_sha256": "0d6120b4eaad202541ba6285ffdbac969e568ac70772646ffab94120d4ad498f"
+    },
+    {
+      "model": "C3 DistilBERT",
+      "seed": 123,
+      "test_scores_sha256": "bb815ad141801712d9371c613f72c872487a45a1adfee4eafe796daa70e81961",
+      "validation_scores_sha256": "ddb5b44cdb12cfa6102417eeaa5869595cfe2c625e3d2c1da8386621e0deea59"
+    },
+    {
+      "model": "C3 DistilBERT",
+      "seed": 2026,
+      "test_scores_sha256": "b5f6a8de00659242b05d8873f785c657384ce118fd4ce512992f7dc3c3786a05",
+      "validation_scores_sha256": "7c596e3df5cc82a341af1e0298a12719956924436a2f878fdbd465c7a2e47c74"
+    },
+    {
+      "model": "A TF-IDF balanced",
+      "seed": 42,
+      "test_scores_sha256": "e0b0ef1d4c095e0afddeb859cd5e7958643984dffc9f2d2bf5bad1d4f2171d03",
+      "validation_scores_sha256": "fcc59ffb6b2fee95176aa3ee1163be97c4886854dd9e4ed96bada5b6a89be8fb"
+    },
+    {
+      "model": "B BART-MNLI",
+      "seed": null,
+      "test_scores_sha256": "b60f32535d91f377a610b7d2644b6e40c5a567c8aab0d4a1ebdc8b170ccdb5e2",
+      "validation_scores_sha256": "b53a9540658a748c725f2dcadecb06f06a331996c3c77b1cd9c28393ae6cda08"
+    }
+  ],
+  "n_test": 5427,
+  "n_labels": 28,
+  "scikit_learn_metrics_checked": 33,
+  "taxonomy_totals_checked": 33,
+  "manual_annotation_rows": 145,
+  "manual_annotation_completed": false,
+  "no_training": true,
+  "test_used_for_selection": false,
+  "previous_test_seen": true
+}
