@@ -1,7 +1,7 @@
 """Chạy mọi cell bằng Python hiện tại, giữ source sạch, có thể xuất bản output.
 
 Ví dụ: python -m scripts.data.run_notebooks --notebook 00_quick_start
-       python -m scripts.data.run_notebooks --notebook all --publish --artifacts-root ../goemotions-multilabel-classification
+       python -m scripts.data.run_notebooks --notebook all --publish
 """
 import argparse
 from datetime import datetime, timezone
@@ -18,7 +18,13 @@ from src.notebook_publication import notebook_digest
 
 
 def main():
-    names = [path.stem for path in sorted((ROOT / "notebooks").glob("*.ipynb"))]
+    sources = sorted((ROOT / 'notebooks').glob('*.ipynb'))
+    for folder in ['best_epochs_20261103', 'threshold_error_20261110']:
+        sources.extend(sorted((ROOT / 'experiments' / folder).glob('*.ipynb')))
+    paths = {path.stem: path for path in sources}
+    if len(paths) != len(sources):
+        raise ValueError('Hai notebook trùng tên; không chọn ngầm một bản')
+    names = list(paths)
     parser = argparse.ArgumentParser(description="Run notebooks and keep executed copies local")
     parser.add_argument("--notebook", nargs="+", choices=["all", *names], default=["00_quick_start"])
     parser.add_argument("--publish", action="store_true", help="Lưu output vào chính notebook, không tạo bản trùng")
@@ -38,7 +44,7 @@ def main():
     manifest["hash_policy"] = "sha256:utf8-lf"
 
     for name in selected:
-        source = ROOT / "notebooks" / (name + ".ipynb")
+        source = paths[name]
         notebook = nbformat.read(source, as_version=4)
         started = datetime.now(timezone.utc).isoformat()
         client = NotebookClient(notebook, timeout=args.timeout, kernel_name="python3",
@@ -57,7 +63,8 @@ def main():
             raise
         nbformat.validate(notebook)
         code = [c for c in notebook.cells if c.cell_type == "code"]
-        if any(c.execution_count is None or any(o.output_type == "error" for o in c.outputs) for c in code):
+        if ([c.execution_count for c in code] != list(range(1, len(code)+1))
+                or any(o.output_type == "error" for c in code for o in c.outputs)):
             raise ValueError(f"{name}: thiếu cell đã chạy hoặc có lỗi; không xuất bản")
         output = source if args.publish else output_dir / (name + ".executed.ipynb")
         nbformat.write(notebook, output)

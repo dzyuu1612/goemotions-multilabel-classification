@@ -1,6 +1,8 @@
 # GoEmotions — phân loại cảm xúc đa nhãn
 
-**Nguyễn Bảo Duy — Nhóm 6, HUFLIT.** Mã nguồn và notebook của báo cáo Final v7: A (TF-IDF + Logistic Regression), B (BART-MNLI), C1 (BERT), C2 (RoBERTa), C3 (DistilBERT). Bản v7 bổ sung phân tích ngưỡng và lỗi từ điểm đã lưu, không huấn luyện lại.
+**Nguyễn Bảo Duy — Nhóm 6, HUFLIT.** Mã nguồn và notebook đối chiếu **Word Final v7.1 / PPT v9**. A: TF-IDF + Logistic Regression; B: BART-MNLI; C1: BERT; C2: RoBERTa; C3: DistilBERT.
+
+Mở notebook theo bảng dưới. Mỗi phần có lời giải thích, cell thực hiện và đầu ra thật. Các bảng test tính lại từ điểm dự đoán đã khóa; biểu đồ được vẽ từ CSV tương ứng. Không cần huấn luyện lại để trình bày. Notebook 00 là ví dụ nhỏ tự tạo, tách rõ khỏi benchmark.
 
 ## Notebook đã chạy
 
@@ -12,12 +14,20 @@ Mỗi notebook chỉ giữ một bản có đầu ra thật, không có bản `.
 | Phân tích dữ liệu GoEmotions | [01_eda](notebooks/01_eda.ipynb) |
 | A — TF-IDF và Logistic Regression | [02_baseline](notebooks/02_baseline.ipynb) |
 | B — BART-MNLI, tính lại từ điểm đã lưu | [03_zero_shot](notebooks/03_zero_shot.ipynb) |
-| **C1/C2/C3 — đủ 9 lượt, kết quả Final v6** | [GoEmotions_KetQua_EpochTotNhat](experiments/best_epochs_20261103/GoEmotions_KetQua_EpochTotNhat.ipynb) |
-| **Final v7 — ba chế độ ngưỡng, năm loại lỗi, giao nhóm, near-miss** | [GoEmotions_PhanTich_Nguong_Loi_DaChay](experiments/threshold_error_20261110/GoEmotions_PhanTich_Nguong_Loi_DaChay.ipynb) |
-| Kiểm dữ liệu và tokenizer | [06_eda_extra](notebooks/06_eda_extra.ipynb) |
-| Tính tay attention, sigmoid, BCE, gradient | [07_improvement_workflow](notebooks/07_improvement_workflow.ipynb) |
+| **04 · Ba mô hình C, đủ 9 lượt, F1/BCE và overfit** | [Kết quả mô hình C](experiments/best_epochs_20261103/GoEmotions_KetQua_EpochTotNhat.ipynb) |
+| **05 · Ba chế độ ngưỡng, năm loại lỗi, giao nhóm, near-miss** | [Ngưỡng và lỗi](experiments/threshold_error_20261110/GoEmotions_PhanTich_Nguong_Loi_DaChay.ipynb) |
+| 06 · Input ID, mask, P95 và số câu có [UNK] | [06_inputs_tokenizers](notebooks/06_inputs_tokenizers.ipynb) |
+| 07 · Tính tay TF-IDF, attention, LayerNorm/GELU, ba head, BCE/SGD, KL | [07_hand_calculations](notebooks/07_hand_calculations.ipynb) |
 
-Notebook C tính lại 18 hàng test × 7 chỉ số từ điểm dự đoán đã lưu; không huấn luyện lại hoặc chọn ngưỡng trên test. Notebook Final v7 kiểm thêm đủ 33 bộ metric, ngưỡng validation và cách đếm lỗi. Các notebook A/B và EDA giữ kết quả đã chạy. `notebooks/execution_manifest.json` kiểm mã băm, thứ tự thực thi và lỗi của toàn bộ tám notebook.
+Notebook C tính lại 18 hàng test × 7 chỉ số. Notebook 05 kiểm đủ 33 cấu hình, 11 bộ ngưỡng validation và cách đếm lỗi. Notebook 01/06 dùng đúng **BERT cased** của C1, không dùng nhầm BERT uncased lịch sử. Notebook 07 dùng đúng ví dụ trong Chương 2: ba head 0,7109/0,7159/0,6942; KL 0,0191; SGD một nhãn 1,2000035. `notebooks/execution_manifest.json` kiểm mã băm, thứ tự thực thi và lỗi của toàn bộ tám notebook.
+
+Chạy lại mọi notebook bằng **chính Python đang gọi lệnh**, cập nhật đầu ra vào một bản duy nhất:
+
+```powershell
+python -m scripts.data.run_notebooks --notebook all --publish
+```
+
+Chạy riêng một phần bằng tên tệp không có `.ipynb`, ví dụ `--notebook 07_hand_calculations --publish`. Cần cài phụ thuộc bên dưới. A khôi phục hai model TF-IDF đã fit và suy luận test thật; B/C kiểm từ scores đã lưu. Chạy lại fine-tuning có thể lệch do GPU/AMP, không hứa trùng từng bit với checkpoint lịch sử.
 
 [Hướng dẫn phân tích theo nhận xét của giảng viên](experiments/threshold_error_20261110/README.md) · [Kế hoạch đã ghi](experiments/threshold_error_20261110/DECISION_PHANTICH.md) · [Bảng so ba chế độ](experiments/threshold_error_20261110/results/modes_mean_std.csv). Phần gán nhãn nguyên nhân cần hai người độc lập; các phiếu vẫn để trống, chưa công bố tỷ lệ đồng thuận.
 
@@ -33,7 +43,7 @@ python -m pip install -e ".[eda,transformers,notebooks]"
 
 Môi trường đã chạy: Python 3.13.9, PyTorch 2.13.0+cu130, Transformers 4.57.6, RTX 5060 Laptop.
 
-## Kết quả dùng trong báo cáo
+## Kết quả dùng trong Word v7.1 / PPT v9
 
 Bộ chia chính thức: **43.410 train / 5.426 validation / 5.427 test**, 28 nhãn. Cả ba C dùng LR `2e-5`, batch 16, max_length 128, tối đa 8 epoch và ba seed 42/123/2026. Epoch chọn: **BERT 7/6/7; RoBERTa 7/8/5; DistilBERT 7/8/8**. Chọn checkpoint bằng Macro-F1 validation @0,5, hòa chọn epoch sớm; khóa checkpoint và ngưỡng trước khi chấm test.
 
@@ -70,10 +80,15 @@ Huấn luyện C1/C2/C3 dùng [trainer đã chạy](experiments/best_epochs_2026
 ## Thư mục
 
 - `src/`, `scripts/`: xử lý dữ liệu, huấn luyện, đánh giá và ứng dụng.
-- `notebooks/`, `experiments/best_epochs_20261103/`: notebook có kết quả, trainer và số liệu hiện tại.
+- `notebooks/`: dữ liệu, A/B, đầu vào và tính tay. Hai notebook C/ngưỡng nằm cạnh bộ điểm đã khóa trong `experiments/`; README ở đây là mục lục chính, không có notebook output trùng.
+- `experiments/best_epochs_20261103/`: trainer C đã dùng, chín bộ điểm, log 72 epoch, biên nhận và hàm nạp checkpoint. Tên đường dẫn được giữ vì hồ sơ khóa có ràng buộc hash.
+- `experiments/threshold_error_20261110/`: kiểm toán validation, 33 cấu hình, lỗi và phiếu đọc độc lập.
+- `src/report_figures.py`: hàm vẽ biểu đồ từ bảng số, dùng trực tiếp trong notebook.
 - `tests/`, `examples/`, `configs/`, `requirements/`: kiểm thử, ví dụ và cấu hình.
 - `results/final_submission/`: bốn tệp cần để khôi phục A/B và đối chiếu số lịch sử. Gói runtime chứa dữ liệu/điểm đã lưu để notebook và demo chạy được; không phải bản Word/PPT hay bản code thứ hai.
 
-Đã bỏ các thư mục báo cáo sinh tự động, ảnh minh họa cũ, triển khai demo cũ, kết quả thử cũ và notebook trùng. Các bản trước còn trong lịch sử Git. Giấy phép/model card của các mô hình nền được giữ trong `experiments/best_epochs_20261103/model_attribution/`.
+Đã bỏ 35 tệp điều phối/đồ thị/bộ sinh notebook cũ không còn được gọi. Không bỏ log, protocol, điểm dự đoán, kiểm thử hay giấy phép cần để đối chiếu. Dữ liệu, weights và báo cáo sinh khi chạy ở các thư mục bị Git bỏ qua, không đưa lên cây mã nguồn. Các bản trước còn trong lịch sử Git.
+
+Giới hạn được giữ đúng như Word: ngưỡng chỉ tốt nhất trong lưới 0,05–0,95; B có 26/28 ngưỡng riêng ở 0,95. Không mở rộng lưới theo test. Cặp relief→admiration chỉ là ví dụ một câu ở mô hình đại diện; 145 mục đọc tay chưa có hai bộ nhãn độc lập, nên chưa có tỷ lệ đồng thuận hoặc kết luận nguyên nhân. Demo chỉ chạy cục bộ, chưa có URL công khai.
 
 [Bài báo GoEmotions](https://aclanthology.org/2020.acl-main.372/) · [Dữ liệu chính thức](https://github.com/google-research/google-research/tree/master/goemotions)

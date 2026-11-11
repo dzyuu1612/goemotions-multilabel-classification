@@ -44,8 +44,10 @@ Log C3 ghi nhận cảnh báo attention GPU có phép tính không tất định
 
 `main_results/report_data/test_before_after.csv` giữ mean/std và chênh lệch Macro-F1, Micro-F1, Hamming Loss so với lượt ban đầu. Macro-F1 C2/C3 tăng, nhưng Micro-F1 cả ba giảm và Hamming Loss tăng. BERT giảm cả hai F1; phép đối chiếu BERT còn đổi learning rate. Không dùng bảng test này để chọn lại checkpoint.
 
-## Đồng bộ báo cáo Final v6
+## Đồng bộ Word Final v7.1 / PPT v9
 
 Bảng lịch sử ở `main_results/report_data/original_test_summary.csv` khớp CSV của lượt cũ. `report_context.json` giải thích cấu hình chung và việc test cũ đã được xem. `protocol_history/` giữ nguyên hồ sơ trước sáu lượt C2/C3, không áp hồi tố cho lượt BERT8 đã hoàn tất trước đó.
+
+`protocol_history/REPORT_ARTIFACTS_20261103.json` là biên nhận lịch sử lúc xuất bản đầu tiên; các đường dẫn bên trong tính từ thư mục thí nghiệm này và hash notebook phản ánh bản khi đó. Nó không thay manifest notebook hiện tại ở `notebooks/execution_manifest.json` trong gốc repo. Các điểm dự đoán, protocol và trainer đã khóa được giữ nguyên.
 
 Chạy `python experiments/best_epochs_20261103/verify_report_tables.py` từ gốc repo để kiểm từ điểm dự đoán. Demo là ứng dụng cục bộ; chưa có URL demo công khai. Notebook đã chạy, có đầu ra sẵn.

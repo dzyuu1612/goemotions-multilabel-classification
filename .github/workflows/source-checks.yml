@@ -3,7 +3,7 @@ name: Source and notebook checks
 on:
   pull_request:
   push:
-    branches: [main, "codex/goemotions-best-epochs-20261103"]
+    branches: [main]
 
 permissions:
   contents: read
