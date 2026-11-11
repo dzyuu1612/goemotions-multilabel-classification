@@ -21,6 +21,8 @@ Mỗi notebook chỉ giữ một bản có đầu ra thật, không có bản `.
 
 Notebook C tính lại 18 hàng test × 7 chỉ số. Notebook 05 kiểm đủ 33 cấu hình, 11 bộ ngưỡng validation và cách đếm lỗi. Notebook 01/06 dùng đúng **BERT cased** của C1, không dùng nhầm BERT uncased lịch sử. Notebook 07 dùng đúng ví dụ trong Chương 2: ba head 0,7109/0,7159/0,6942; KL 0,0191; SGD một nhãn 1,2000035. `notebooks/execution_manifest.json` kiểm mã băm, thứ tự thực thi và lỗi của toàn bộ tám notebook.
 
+Cuối notebook A có cột A của Bảng 5.7, tách rõ standard/0,5 và balanced/ngưỡng riêng. Cuối notebook 05 có bảng/biểu đồ năm nhãn hiếm và ba ma trận FN→FP ở seed 2026, ngưỡng 0,5; BERT neutral→approval = 89 khớp slide 19. Không trộn ma trận ngưỡng 0,5 với cặp lỗi ở ngưỡng riêng trong Bảng 5.15.
+
 Chạy lại mọi notebook bằng **chính Python đang gọi lệnh**, cập nhật đầu ra vào một bản duy nhất:
 
 ```powershell

@@ -20,18 +20,17 @@
     },
     {
       "source": "experiments/threshold_error_20261110/GoEmotions_PhanTich_Nguong_Loi_DaChay.ipynb",
-      "source_sha256": "08bc1bdd06a0292b02e3ac8b32f697b50b083150e97a7853c288c767cb106de5",
+      "source_sha256": "778940e11a884589613fab1e4dcb35a4f0e5291e3ba7f2a99acce56c3e4295b6",
       "executed": "experiments/threshold_error_20261110/GoEmotions_PhanTich_Nguong_Loi_DaChay.ipynb",
-      "executed_sha256": "08bc1bdd06a0292b02e3ac8b32f697b50b083150e97a7853c288c767cb106de5",
-      "started_at_utc": "2026-11-11T08:36:27.197396+00:00",
-      "finished_at_utc": "2026-11-11T08:36:37.582994+00:00",
-      "code_cells": 7,
-      "executed_code_cells": 7,
+      "executed_sha256": "778940e11a884589613fab1e4dcb35a4f0e5291e3ba7f2a99acce56c3e4295b6",
+      "started_at_utc": "2026-11-11T14:53:09.933893+00:00",
+      "finished_at_utc": "2026-11-11T14:53:22.309969+00:00",
+      "code_cells": 9,
+      "executed_code_cells": 9,
       "error_cells": 0,
-      "scope": "learning example",
+      "scope": "Word Final v7.1 / PPT v9: explicit cells, real outputs and CSV-derived figures; no benchmark training",
       "benchmark_training_repeated": false,
-      "verified_from_clean_checkout": true,
-      "clean_checkout_commit": "8187f9a934150cce93bf6ea31f45dd16b8cb4ecc"
+      "verified_from_clean_checkout": false
     },
     {
       "source": "notebooks/00_quick_start.ipynb",
@@ -65,18 +64,17 @@
     },
     {
       "source": "notebooks/02_baseline.ipynb",
-      "source_sha256": "a94ae1b96781bafea36f772fbeff26138758bc246e38ebc96f1b62895f3bf1da",
+      "source_sha256": "555abe8dbb5106a731039e5e363c9e70c68c47917ef539d3b00c093dc07f7b56",
       "executed": "notebooks/02_baseline.ipynb",
-      "executed_sha256": "a94ae1b96781bafea36f772fbeff26138758bc246e38ebc96f1b62895f3bf1da",
-      "started_at_utc": "2026-11-11T08:35:28.444812+00:00",
-      "finished_at_utc": "2026-11-11T08:35:49.878897+00:00",
-      "code_cells": 14,
-      "executed_code_cells": 14,
+      "executed_sha256": "555abe8dbb5106a731039e5e363c9e70c68c47917ef539d3b00c093dc07f7b56",
+      "started_at_utc": "2026-11-11T14:52:37.016885+00:00",
+      "finished_at_utc": "2026-11-11T14:53:09.932984+00:00",
+      "code_cells": 15,
+      "executed_code_cells": 15,
       "error_cells": 0,
-      "scope": "Historical fitted A models; fresh full test inference for both variants and frozen thresholds",
+      "scope": "Word Final v7.1 / PPT v9: explicit cells, real outputs and CSV-derived figures; no benchmark training",
       "benchmark_training_repeated": false,
-      "verified_from_clean_checkout": true,
-      "clean_checkout_commit": "8187f9a934150cce93bf6ea31f45dd16b8cb4ecc"
+      "verified_from_clean_checkout": false
     },
     {
       "source": "notebooks/03_zero_shot.ipynb",
