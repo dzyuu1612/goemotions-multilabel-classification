@@ -6,7 +6,7 @@ Checkpoint, lựa chọn mô hình và các ngưỡng được khóa bằng vali
 
 ## Xem và tính lại kết quả
 
-Mở `GoEmotions_KetQua_EpochTotNhat.ipynb`. Notebook có sẵn đầu ra và tính lại F1, Precision, Recall, Hamming Loss từ đủ chín bộ điểm test đã lưu. Nó đối chiếu CSV, tính mean và sample std với `ddof=1`, rồi hiện các biểu đồ. Không cần huấn luyện lại để xem hoặc tái hiện đánh giá.
+Mở `notebooks/GoEmotions_ToanBo_QuyTrinh.ipynb` từ gốc dự án, phần mô hình C. Notebook có sẵn đầu ra và tính lại F1, Precision, Recall, Hamming Loss từ đủ chín bộ điểm test đã lưu. Nó đối chiếu CSV, tính mean và sample std với `ddof=1`, rồi hiện các biểu đồ. Không cần huấn luyện lại để xem hoặc tái hiện đánh giá.
 
 Các số gốc và biên nhận nằm trong `main_results/`; đường học đủ 72 epoch nằm trong `sweep_log.csv`. `LOCK_BEFORE_TEST.json` ràng buộc từng checkpoint, epoch và protocol bằng SHA-256. `selected` trong CSV đánh dấu đúng một epoch cho từng mô hình/seed.
 

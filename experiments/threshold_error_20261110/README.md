@@ -1,6 +1,6 @@
 # Phân tích ngưỡng và lỗi sau nhận xét của giảng viên
 
-Mở [notebook đã chạy](GoEmotions_PhanTich_Nguong_Loi_DaChay.ipynb) để xem hoặc tính lại từ điểm đã lưu. Không nạp mô hình, không huấn luyện lại. Cài các phụ thuộc theo README ở gốc dự án. Các điểm A/B được khôi phục có kiểm SHA-256 từ runtime ZIP đã công bố; validation chính thức chỉ được tải nếu chưa có, ở đúng revision và hash. Không tải weights Transformer để thực hiện phân tích này.
+Mở [notebook đã chạy](../../notebooks/GoEmotions_ToanBo_QuyTrinh.ipynb) để xem hoặc tính lại từ điểm đã lưu. Không nạp mô hình, không huấn luyện lại. Cài các phụ thuộc theo README ở gốc dự án. Các điểm A/B được khôi phục có kiểm SHA-256 từ runtime ZIP đã công bố; validation chính thức chỉ được tải nếu chưa có, ở đúng revision và hash. Không tải weights Transformer để thực hiện phân tích này.
 
 ## Quy trình đã thực hiện
 

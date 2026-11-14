@@ -1,6 +1,6 @@
 """Chạy mọi cell bằng Python hiện tại, giữ source sạch, có thể xuất bản output.
 
-Ví dụ: python -m scripts.data.run_notebooks --notebook 00_quick_start
+Ví dụ: python -m scripts.data.run_notebooks --notebook all
        python -m scripts.data.run_notebooks --notebook all --publish
 """
 import argparse
@@ -26,7 +26,7 @@ def main():
         raise ValueError('Hai notebook trùng tên; không chọn ngầm một bản')
     names = list(paths)
     parser = argparse.ArgumentParser(description="Run notebooks and keep executed copies local")
-    parser.add_argument("--notebook", nargs="+", choices=["all", *names], default=["00_quick_start"])
+    parser.add_argument("--notebook", nargs="+", choices=["all", *names], default=["all"])
     parser.add_argument("--publish", action="store_true", help="Lưu output vào chính notebook, không tạo bản trùng")
     parser.add_argument("--artifacts-root", type=Path)
     parser.add_argument("--timeout", type=int, default=1800, help="Timeout mỗi cell, giây")

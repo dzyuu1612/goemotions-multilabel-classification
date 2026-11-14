@@ -2,36 +2,21 @@
 
 **Nguyễn Bảo Duy — Nhóm 6, HUFLIT.** Mã nguồn và notebook đối chiếu **Word Final v7.1 / PPT v9**. A: TF-IDF + Logistic Regression; B: BART-MNLI; C1: BERT; C2: RoBERTa; C3: DistilBERT.
 
-Mở notebook theo bảng dưới. Mỗi phần có lời giải thích, cell thực hiện và đầu ra thật. Các bảng test tính lại từ điểm dự đoán đã khóa; biểu đồ được vẽ từ CSV tương ứng. Không cần huấn luyện lại để trình bày. Notebook 00 là ví dụ nhỏ tự tạo, tách rõ khỏi benchmark.
+Mở notebook chính bên dưới. Mỗi phần có lời giải thích, cell thực hiện và đầu ra thật. Các bảng test tính lại từ điểm dự đoán đã khóa; biểu đồ được vẽ từ CSV tương ứng. Không cần huấn luyện lại để trình bày. Phần baseline nhỏ ở cuối dùng dữ liệu tự tạo và được tách rõ khỏi benchmark.
 
-## Notebook đã chạy
+## Notebook chính đã chạy
 
-Mỗi notebook chỉ giữ một bản có đầu ra thật, không có bản `.executed` trùng lặp.
+Mở [GoEmotions_ToanBo_QuyTrinh.ipynb](notebooks/GoEmotions_ToanBo_QuyTrinh.ipynb). Một notebook gồm toàn bộ các bước theo Word v7.1 / PPT v9: dữ liệu, tokenizer, tính tay, A, B, ba C, epoch/overfit, ba chế độ ngưỡng, nhãn hiếm, ma trận FN/FP và kiểm cuối. Mã và đầu ra hiện trực tiếp trong từng cell; không phải notebook chỉ gọi các notebook khác.
 
-| Nội dung | Notebook |
-|---|---|
-| Ví dụ baseline nhỏ trên CPU | [00_quick_start](notebooks/00_quick_start.ipynb) |
-| Phân tích dữ liệu GoEmotions | [01_eda](notebooks/01_eda.ipynb) |
-| A — TF-IDF và Logistic Regression | [02_baseline](notebooks/02_baseline.ipynb) |
-| B — BART-MNLI, tính lại từ điểm đã lưu | [03_zero_shot](notebooks/03_zero_shot.ipynb) |
-| **04 · Ba mô hình C, đủ 9 lượt, F1/BCE và overfit** | [Kết quả mô hình C](experiments/best_epochs_20261103/GoEmotions_KetQua_EpochTotNhat.ipynb) |
-| **05 · Ba chế độ ngưỡng, năm loại lỗi, giao nhóm, near-miss** | [Ngưỡng và lỗi](experiments/threshold_error_20261110/GoEmotions_PhanTich_Nguong_Loi_DaChay.ipynb) |
-| 06 · Input ID, mask, P95 và số câu có [UNK] | [06_inputs_tokenizers](notebooks/06_inputs_tokenizers.ipynb) |
-| 07 · Tính tay TF-IDF, attention, LayerNorm/GELU, ba head, BCE/SGD, KL | [07_hand_calculations](notebooks/07_hand_calculations.ipynb) |
-
-Notebook C tính lại 18 hàng test × 7 chỉ số. Notebook 05 kiểm đủ 33 cấu hình, 11 bộ ngưỡng validation và cách đếm lỗi. Notebook 01/06 dùng đúng **BERT cased** của C1, không dùng nhầm BERT uncased lịch sử. Notebook 07 dùng đúng ví dụ trong Chương 2: ba head 0,7109/0,7159/0,6942; KL 0,0191; SGD một nhãn 1,2000035. `notebooks/execution_manifest.json` kiểm mã băm, thứ tự thực thi và lỗi của toàn bộ tám notebook.
-
-Cuối notebook A có cột A của Bảng 5.7, tách rõ standard/0,5 và balanced/ngưỡng riêng. Cuối notebook 05 có bảng/biểu đồ năm nhãn hiếm và ba ma trận FN→FP ở seed 2026, ngưỡng 0,5; BERT neutral→approval = 89 khớp slide 19. Không trộn ma trận ngưỡng 0,5 với cặp lỗi ở ngưỡng riêng trong Bảng 5.15.
-
-Chạy lại mọi notebook bằng **chính Python đang gọi lệnh**, cập nhật đầu ra vào một bản duy nhất:
+Dùng **Restart Kernel → Run All**, hoặc:
 
 ```powershell
 python -m scripts.data.run_notebooks --notebook all --publish
 ```
 
-Chạy riêng một phần bằng tên tệp không có `.ipynb`, ví dụ `--notebook 07_hand_calculations --publish`. Cần cài phụ thuộc bên dưới. A khôi phục hai model TF-IDF đã fit và suy luận test thật; B/C kiểm từ scores đã lưu. Chạy lại fine-tuning có thể lệch do GPU/AMP, không hứa trùng từng bit với checkpoint lịch sử.
+Notebook tái hiện từ dữ liệu/điểm dự đoán đã khóa, không huấn luyện lại benchmark. A có suy luận lại từ model TF-IDF đã fit; B/C kiểm scores đã lưu. Ví dụ baseline nhỏ và tính tay được ghi riêng là số minh họa. Thư viện `src/`, trainer và các tệp kết quả đi kèm vẫn cần để chạy; không tách notebook khỏi cây dự án. Mã huấn luyện C đã dùng nằm tại `experiments/best_epochs_20261103/train_transformer.py`, không tự chạy lại khi Run All.
 
-[Hướng dẫn phân tích theo nhận xét của giảng viên](experiments/threshold_error_20261110/README.md) · [Kế hoạch đã ghi](experiments/threshold_error_20261110/DECISION_PHANTICH.md) · [Bảng so ba chế độ](experiments/threshold_error_20261110/results/modes_mean_std.csv). Phần gán nhãn nguyên nhân cần hai người độc lập; các phiếu vẫn để trống, chưa công bố tỷ lệ đồng thuận.
+[Quy trình ngưỡng và lỗi](experiments/threshold_error_20261110/README.md) · [Bảng so ba chế độ](experiments/threshold_error_20261110/results/modes_mean_std.csv). Hai phiếu nguyên nhân vẫn cần Duy/Huy đọc độc lập; chưa có tỷ lệ đồng thuận.
 
 ## Cài đặt
 
@@ -82,7 +67,7 @@ Huấn luyện C1/C2/C3 dùng [trainer đã chạy](experiments/best_epochs_2026
 ## Thư mục
 
 - `src/`, `scripts/`: xử lý dữ liệu, huấn luyện, đánh giá và ứng dụng.
-- `notebooks/`: dữ liệu, A/B, đầu vào và tính tay. Hai notebook C/ngưỡng nằm cạnh bộ điểm đã khóa trong `experiments/`; README ở đây là mục lục chính, không có notebook output trùng.
+- `notebooks/`: dữ liệu, A/B, đầu vào và tính tay. Toàn bộ quy trình nằm trong một notebook chính; không giữ các notebook chương cũ trùng nội dung.
 - `experiments/best_epochs_20261103/`: trainer C đã dùng, chín bộ điểm, log 72 epoch, biên nhận và hàm nạp checkpoint. Tên đường dẫn được giữ vì hồ sơ khóa có ràng buộc hash.
 - `experiments/threshold_error_20261110/`: kiểm toán validation, 33 cấu hình, lỗi và phiếu đọc độc lập.
 - `src/report_figures.py`: hàm vẽ biểu đồ từ bảng số, dùng trực tiếp trong notebook.
