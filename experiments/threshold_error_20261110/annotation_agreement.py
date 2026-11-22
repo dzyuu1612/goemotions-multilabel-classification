@@ -23,5 +23,6 @@ def compare(first,second,registry=None):
  yes=int((a.nhan_thu_cong==b.nhan_thu_cong).sum());k=float(cohen_kappa_score(a.nhan_thu_cong,b.nhan_thu_cong))
  return {'n_items':len(a),'n_agree':yes,'agreement_rate':yes/len(a),'cohen_kappa':k if np.isfinite(k) else None,'note':'Agreement of supplied labels; independence must be ensured by the human raters, and agreement does not establish causality.'}
 if __name__=='__main__':
- p=argparse.ArgumentParser(description=__doc__);p.add_argument('first');p.add_argument('second');p.add_argument('out');v=p.parse_args()
- result=compare(v.first,v.second);Path(v.out).write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding='utf-8');print(result)
+ p=argparse.ArgumentParser(description=__doc__);p.add_argument('first');p.add_argument('second');p.add_argument('out')
+ p.add_argument('--registry',type=Path,help='CSV của mẫu đọc gốc');v=p.parse_args()
+ result=compare(v.first,v.second,registry=v.registry);Path(v.out).write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding='utf-8');print(result)

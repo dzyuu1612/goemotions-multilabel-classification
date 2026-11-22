@@ -1,0 +1,51 @@
+﻿model,seed,pair,row,id,text,true_labels,predicted_labels,score_fn,threshold_fn,score_fp,threshold_fp,annotation_id
+B BART-MNLI,,neutral->approval,188,eedb4yi,He was so close to me x,neutral,admiration|approval|caring|curiosity|desire|disappointment|excitement|gratitude|grief|love|pride|realization|sadness|surprise,0.0439365357160568,0.05,0.9832788705825806,0.95,N0004
+A TF-IDF balanced,42.0,neutral->approval,210,edxwxqq,"Yes, oops ",neutral,approval|embarrassment,0.3081002939498709,0.45,0.906604346113398,0.6,N0005
+C1 BERT,123.0,neutral->approval,433,ees4p28,"Well, 1/2 has been done already!",neutral,approval,0.0112012131139636,0.1,0.8473372459411621,0.15,N0011
+C1 BERT,2026.0,neutral->approval,491,efefxzk,SO MUCH.,neutral,approval,0.0424832068383693,0.05,0.8528128862380981,0.35,N0013
+B BART-MNLI,,neutral->approval,601,efe2hql,Mmmmm tasty 🅱️estrogens,neutral,admiration|amusement|approval|curiosity|desire|excitement|realization,0.0151744466274976,0.05,0.9945940971374512,0.95,N0016
+C1 BERT,42.0,neutral->approval,624,efgtm33,"As a Jeep driver, I constantly have to remind other Jeep drivers that 4WD/AWD only makes a difference when driving. Everyone has 4-wheel stop.",neutral,approval,0.0777974501252174,0.1,0.8643104434013367,0.2,N0017
+C1 BERT,2026.0,neutral->approval,705,eeguj4w,TOO. MUCH. HESITATION. [NAME] should've gotten that on net a second earlier,neutral,admiration|approval,0.0184048898518085,0.05,0.3661363422870636,0.35,N0020
+B BART-MNLI,,neutral->approval,762,ef74knm,Da real MVP,neutral,admiration|approval|caring|desire|excitement|gratitude|pride|realization,0.0340843461453914,0.05,0.9986462593078612,0.95,N0024
+C1 BERT,42.0,neutral->approval,766,edgkcyf,"Ok, we get it. You're a top.",admiration|neutral,approval,0.0078767063096165,0.1,0.9453993439674376,0.2,N0026
+C2 RoBERTa,2026.0,neutral->approval,894,ef10sk3,"He did. He needs the facial hair, and that haircut is horrible he should just shave it and start over.",neutral,approval|disgust,0.0787840187549591,0.15,0.2724114954471588,0.25,N0030
+C1 BERT,123.0,neutral->approval,955,ee7ewg0,You always choose mum bro. What are you thinking,neutral,approval|curiosity,0.0478690043091774,0.1,0.7123322486877441,0.15,N0031
+C2 RoBERTa,123.0,neutral->approval,1196,eevsblv,For drunks is a paradise!!,neutral,approval,0.0757213681936264,0.1,0.6254380941390991,0.3,N0039
+C3 DistilBERT,123.0,neutral->approval,1482,eetpk59,"Try honing I’m on your art skills! Wood carving, wood burning, mosaics, stained glass, painting, etc. Sell your work!",neutral,approval,0.0281674731522798,0.1,0.818881630897522,0.3,N0044
+C1 BERT,42.0,neutral->approval,1784,edlg2g9,"Right. The mantra at my school is that we don't give grades, kids earn them.",neutral,approval,0.0227591544389724,0.1,0.940133571624756,0.2,N0047
+A TF-IDF balanced,42.0,neutral->approval,1807,eeur211,"Between POM, Mata and Stockdale for me",neutral,approval|realization,0.4182901353941739,0.45,0.6541728956754417,0.6,N0048
+C2 RoBERTa,123.0,neutral->approval,1808,efckr9y,"I believe it was the ""Master Batters.""",neutral,admiration|approval,0.018725162371993,0.1,0.6620321273803711,0.3,N0049
+C2 RoBERTa,2026.0,neutral->approval,1846,eermq7j,They had a similar panel last year. It's definitely worth a watch.,neutral,admiration|approval,0.0502373613417148,0.15,0.6447844505310059,0.25,N0052
+C2 RoBERTa,42.0,neutral->approval,1983,eebhcn9,My favourite is peeing in restrooms and your feet can't touch the floor while sitting on the toilet.,neutral,approval|love,0.043772742152214,0.1,0.4867508709430694,0.45,N0053
+C2 RoBERTa,2026.0,neutral->approval,2179,ed054lq,I did something along those lines almost 2 years ago and got to 67 upvotes before I got banned,neutral,approval,0.0869416519999504,0.15,0.3640989661216736,0.25,N0056
+C1 BERT,42.0,neutral->approval,2258,edlp1c6,I actually do that,neutral,approval,0.0507053658366203,0.1,0.9436599016189576,0.2,N0058
+C1 BERT,2026.0,neutral->approval,2680,eezav9m,"100%. This is made up. If her claim was true, she'd have it on video. ",neutral,approval,0.0287615861743688,0.05,0.972362220287323,0.35,N0064
+C3 DistilBERT,123.0,neutral->approval,2682,eeee29f,Literally one visit to that subreddit is proof enough it's mentally addictive. Brain craving dopamine when it's not producing it.,neutral,approval,0.0666906535625457,0.1,0.8914335370063782,0.3,N0065
+C2 RoBERTa,42.0,neutral->approval,2901,eewmxug,Oh I'd wager it was as addictive :-) 7x70's :-/,neutral,approval,0.0460339002311229,0.1,0.5893619060516357,0.45,N0068
+B BART-MNLI,,neutral->approval,2957,eeozbej,They are the modern day Nickelback.,neutral,admiration|approval|desire|disapproval|realization|surprise,0.0133123146370053,0.05,0.977671205997467,0.95,N0069
+B BART-MNLI,,neutral->approval,3165,edq02os,Love and marriage,neutral,admiration|approval|caring|desire|excitement|gratitude|joy|love|optimism|realization,0.001744381384924,0.05,0.994541347026825,0.95,N0077
+C2 RoBERTa,2026.0,neutral->approval,3194,eesf98t,That escalated quickly,neutral,approval,0.1100878715515136,0.15,0.709019124507904,0.25,N0078
+C2 RoBERTa,2026.0,neutral->approval,3256,ed3co3z,"I was not expecting the giant ""POLICE STATION"" sign. That just makes it all the better. ",neutral,approval,0.1274352818727493,0.15,0.6021785736083984,0.25,N0080
+C1 BERT,2026.0,neutral->approval,3365,eewovmg,"lol Whatever that proves, sure.",amusement|neutral,amusement|approval,0.0338440351188182,0.05,0.4347612559795379,0.35,N0084
+C2 RoBERTa,123.0,neutral->approval,3416,eehm1c1,Fair enough. I considered it malicious compliance because I followed the letter if the rules while purposely not following the spirit.,neutral,approval,0.0209241919219493,0.1,0.9159594178199768,0.3,N0085
+C3 DistilBERT,42.0,neutral->approval,3565,ed1b5wt,"And then if you don't go out and actually sin, you've done nothing wrong.",neutral,approval|disapproval,0.0246568564325571,0.1,0.591428279876709,0.2,N0090
+B BART-MNLI,,neutral->approval,3616,ed0txko,**LET’S GO HAWKS!!!**,excitement|neutral,admiration|approval|desire|excitement|joy|optimism|pride|realization|relief,0.0038731566164642,0.05,0.9953993558883668,0.95,N0092
+C1 BERT,123.0,neutral->approval,3812,edn3s0d,Pretty sure the legislature needs to change laws,neutral,approval,0.0188692547380924,0.1,0.960212230682373,0.15,N0095
+A TF-IDF balanced,42.0,neutral->approval,3819,edc2119,"If you know it's the right thing to do, it's better to ""lose"" that person than to ""lose"" that opportunity.",realization|neutral,approval|realization,0.3343622554967083,0.45,0.8324158473410735,0.6,N0096
+C1 BERT,2026.0,neutral->approval,3825,ef4yaoq,True. Icing all three of your villains for the duration of the film is a bad idea. They need to be making moves.,neutral,approval|disapproval,0.0081247081980109,0.05,0.9240047931671144,0.35,N0098
+C1 BERT,42.0,neutral->approval,3948,ee79sao,And it needs to keep pushing harder and harder to the left in order to wash away all the crap that's been enacted since [NAME] got into office.,neutral,approval|optimism,0.0656048357486724,0.1,0.272024542093277,0.2,N0103
+C2 RoBERTa,123.0,neutral->approval,4288,ed9ldgu,I've done this my whole life though...,neutral,approval,0.0651275515556335,0.1,0.831963837146759,0.3,N0110
+C1 BERT,123.0,neutral->approval,4387,edcidsm,Thats....that's pretty normal...prolly somewhere in the ballpark of 280miles...If you dont have a fuel efficient car its not hard to do.,neutral,approval,0.0282746013253927,0.1,0.9692078232765198,0.15,N0111
+C3 DistilBERT,42.0,neutral->approval,4420,efati8j,"She likes sending nudes? I mean, just go with the flow and see what happens. ",curiosity|neutral,approval|curiosity,0.0722429975867271,0.1,0.3785165548324585,0.2,N0113
+C1 BERT,42.0,neutral->approval,4540,ef0y67l,Its very popular in the not comic book demographics.,neutral,approval,0.0568615496158599,0.1,0.750552773475647,0.2,N0118
+C2 RoBERTa,42.0,neutral->approval,4558,edvq520,these are quite normal thoughts for depressed people,neutral,approval,0.0889784917235374,0.1,0.9039745330810548,0.45,N0120
+C3 DistilBERT,42.0,neutral->approval,4635,eepmgiy,It's pretty warm in Australia during this time of year.,neutral,approval,0.0316786244511604,0.1,0.2076964378356933,0.2,N0124
+A TF-IDF balanced,42.0,neutral->approval,4644,eefxuef,"Crippling? How so? It’s with Fox Sports right? I figured they probably had a good deal with them, but maybe not.",neutral,approval,0.4022483657411094,0.45,0.7970198228087635,0.6,N0126
+C1 BERT,123.0,neutral->approval,4686,eed8cg1,"Yeah, I mean it's not like anyone else has ever shut down the Government.",neutral,approval,0.0819595456123352,0.1,0.8094266653060913,0.15,N0127
+C1 BERT,42.0,neutral->approval,4872,eeaku8o,Gotta boost that self esteem.,neutral,approval|caring|optimism,0.013376603834331,0.1,0.4285920560359955,0.2,N0132
+C2 RoBERTa,123.0,neutral->approval,4886,ed4jqtd,Yes. We're finishing the script out now. Shooting starts in February.,neutral,approval,0.0262054149061441,0.1,0.9426124691963196,0.3,N0133
+C3 DistilBERT,2026.0,neutral->approval,5076,ef1k0ws,"My mom thinks this neighborhood is safe, and I kinda don't want her being more paranoid but I feel like I should do SOMETHING.",neutral,approval,0.022328782826662,0.1,0.2577650845050812,0.2,N0136
+A TF-IDF balanced,42.0,neutral->approval,5151,eemovlk,The original video was debunked. Do you agree or disagree?,neutral,approval|confusion|curiosity|disapproval,0.2604797079226402,0.45,0.8164975983682095,0.6,N0138
+C2 RoBERTa,123.0,neutral->approval,5307,efdl37e,So people will support him in this fake news quick reaction political environment,neutral,approval,0.0406929515302181,0.1,0.9463988542556764,0.3,N0142
+C1 BERT,42.0,relief->admiration,825,edci7fb,Praise the [NAME] for REALITY! WOOF!!!!!,relief,admiration,0.0035796423908323,0.05,0.9438672661781312,0.5,N0144
+B BART-MNLI,,relief->admiration,3503,edqc1yz,This is really helpful to point out!!,relief,admiration|realization,0.751556932926178,0.95,0.9567555785179138,0.95,N0145

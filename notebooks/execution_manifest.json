@@ -5,20 +5,18 @@
   "notebooks": [
     {
       "source": "notebooks/GoEmotions_ToanBo_QuyTrinh.ipynb",
-      "source_sha256": "238726603545e04ae24c61ef216a075be8463964b8a43491b03e45ae973e6ab8",
+      "source_sha256": "fcf1159230fb0b376acdce4992caf01a6a58f0d3da2964cc41a16c5a4aa43676",
       "executed": "notebooks/GoEmotions_ToanBo_QuyTrinh.ipynb",
-      "executed_sha256": "238726603545e04ae24c61ef216a075be8463964b8a43491b03e45ae973e6ab8",
-      "started_at_utc": "2026-11-14T23:01:24.410859+00:00",
-      "finished_at_utc": "2026-11-14T23:02:27.275830+00:00",
-      "code_cells": 74,
-      "executed_code_cells": 74,
+      "executed_sha256": "fcf1159230fb0b376acdce4992caf01a6a58f0d3da2964cc41a16c5a4aa43676",
+      "started_at_utc": "2026-11-22T15:19:29.845267+00:00",
+      "finished_at_utc": "2026-11-22T15:20:43.303425+00:00",
+      "code_cells": 77,
+      "executed_code_cells": 77,
       "error_cells": 0,
-      "scope": "Report replay: EDA, tokenizer audit, hand calculations, A inference, frozen B/C scores, epochs and errors; no benchmark retraining",
-      "benchmark_training_repeated": false,
-      "verified_from_clean_checkout": true,
-      "clean_checkout_commit": "34e0180919e34e390a7b980216dd5fbd89e91cfe"
+      "scope": "Reproduce IEEE v8 tables, model evaluation and inference measurement from original frozen data and timing records",
+      "benchmark_training_repeated": false
     }
   ],
-  "updated_at_utc": "2026-11-14T23:02:27.275876+00:00",
-  "verification_note": "All code cells executed in a fresh git archive. Afterwards only markdown guidance and scope metadata were clarified; code and outputs unchanged."
+  "updated_at_utc": "2026-11-22T15:20:43.303621+00:00",
+  "verification_note": "All 77 code cells executed from a fresh export of the staged source, with the checkpoint selections and scores already frozen."
 }

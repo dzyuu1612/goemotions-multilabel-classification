@@ -1,6 +1,6 @@
 # Gán nhãn nguyên nhân lỗi: hai người độc lập
 
-Hai tệp mẫu là `results/phieu_doc_lap_Duy.csv` và `results/phieu_doc_lap_Huy.csv`. Mỗi tệp có 145 mục câu–cặp lỗi sau loại trùng giữa mô hình. Hai người làm riêng, không xem phiếu của nhau trước khi nộp. Các dòng trống là phiếu chưa làm, không phải một nhãn đánh giá.
+Tạo hai bản sao của [mẫu 50 mục](../report_v8/results/annotation_sample.csv), rồi thêm hai cột `nhan_thu_cong` và `ghi_chu` vào mỗi bản. Hai người đọc riêng và giữ phiếu độc lập đến khi tính tỷ lệ đồng ý.
 
 Mỗi mục chọn đúng một giá trị cho `nhan_thu_cong`:
 
@@ -17,7 +17,7 @@ Nếu có nhiều khả năng, chọn khả năng có bằng chứng rõ nhất 
 Giữ nguyên các cột ID, văn bản và nhãn. Sau khi có hai phiếu điền thật:
 
 ```powershell
-python experiments/threshold_error_20261110/annotation_agreement.py phieu_Duy_da_dien.csv phieu_Huy_da_dien.csv agreement.json
+python experiments/threshold_error_20261110/annotation_agreement.py phieu_Duy_da_dien.csv phieu_Huy_da_dien.csv agreement.json --registry experiments/report_v8/results/annotation_sample.csv
 ```
 
 Mã từ chối phiếu thiếu dòng, ID trùng, thay ngữ cảnh hoặc nhãn còn trống. Nó báo số đồng ý/tổng, tỷ lệ đồng ý và Cohen's kappa. Không đưa kết quả đồng thuận vào báo cáo khi chưa có hai phiếu thật.

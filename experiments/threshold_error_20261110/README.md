@@ -43,8 +43,6 @@ Std mẫu dùng `ddof=1`, không phải khoảng tin cậy. A là phản ví d�
 
 Năm loại là một phân hoạch, tổng mỗi model/seed/chế độ bằng 5.427. “Đúng một phần” có thể kèm FP; “đoán sai nhãn” vẫn tính cả FN và FP. G1/G2/G3 là ba tập có thể giao nhau và có mẫu số khác nhau; không cộng các tỷ lệ. Near-miss là quy ước mô tả, không dùng để sửa ngưỡng sau test.
 
-## Phần cần hai người thực hiện
+## Mẫu đọc trong IEEE v8
 
-Hai phiếu [Duy](results/phieu_doc_lap_Duy.csv) và [Huy](results/phieu_doc_lap_Huy.csv) có 145 mục sau loại trùng giữa mô hình. Đọc [quy tắc gán nhãn](CODEBOOK.md), làm độc lập rồi chạy `annotation_agreement.py`. Chưa có hai phiếu thật nên **chưa có tỷ lệ đồng thuận hoặc kết luận nguyên nhân**. Không điền thay hai người hoặc gọi số do mô hình sinh là nhãn của con người.
-
-Tỷ trọng công sức Bảng B.1 do nhóm tự điền. Giữ các hạn chế: test đã được quan sát, 37 dòng test trùng train, chưa có ablation và chưa đo chi phí thời gian có đối chứng.
+[CSV 50 mục đọc](../report_v8/results/annotation_sample.csv) gồm 48 mục neutral → approval và hai mục relief → admiration. Duy và Huy đọc riêng theo [quy tắc gán nhãn](CODEBOOK.md). Bảng 5.19 hiện ghi quy mô mẫu. Cần hai phiếu độc lập để tính tỷ lệ đồng ý và Cohen’s κ.

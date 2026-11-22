@@ -1,81 +1,87 @@
-# GoEmotions — phân loại cảm xúc đa nhãn
+# GoEmotions · Phân loại cảm xúc đa nhãn
 
-**Nguyễn Bảo Duy — Nhóm 6, HUFLIT.** Mã nguồn và notebook đối chiếu **Word Final v7.1 / PPT v9**. A: TF-IDF + Logistic Regression; B: BART-MNLI; C1: BERT; C2: RoBERTa; C3: DistilBERT.
+**Nhóm 6 · HUFLIT · Báo cáo IEEE v8**
 
-Mở notebook chính bên dưới. Mỗi phần có lời giải thích, cell thực hiện và đầu ra thật. Các bảng test tính lại từ điểm dự đoán đã khóa; biểu đồ được vẽ từ CSV tương ứng. Không cần huấn luyện lại để trình bày. Phần baseline nhỏ ở cuối dùng dữ liệu tự tạo và được tách rõ khỏi benchmark.
+Một bình luận có thể diễn đạt nhiều cảm xúc cùng lúc. Đồ án dự đoán tập nhãn trong 27 cảm xúc và nhãn `neutral` trên GoEmotions, rồi so sánh năm hệ trên cùng bộ test chính thức.
 
-## Notebook chính đã chạy
+[**Mở notebook đã chạy**](notebooks/GoEmotions_ToanBo_QuyTrinh.ipynb) · [Các bảng CSV](#doi-chieu-bao-cao) · [Chạy demo](#chay-demo)
 
-Mở [GoEmotions_ToanBo_QuyTrinh.ipynb](notebooks/GoEmotions_ToanBo_QuyTrinh.ipynb). Một notebook gồm toàn bộ các bước theo Word v7.1 / PPT v9: dữ liệu, tokenizer, tính tay, A, B, ba C, epoch/overfit, ba chế độ ngưỡng, nhãn hiếm, ma trận FN/FP và kiểm cuối. Mã và đầu ra hiện trực tiếp trong từng cell; không phải notebook chỉ gọi các notebook khác.
+## Kết quả chính
 
-Dùng **Restart Kernel → Run All**, hoặc:
+Macro-F1 dưới đây được tính trên **5.427 câu test**. A và B có một lượt. Ba mô hình C báo trung bình ± độ lệch chuẩn mẫu của ba seed 42, 123 và 2026.
+
+| Hệ | Phương pháp | Ngưỡng 0,5 | Ngưỡng chung | Ngưỡng riêng |
+|---|---|---:|---:|---:|
+| A | TF-IDF + Logistic Regression cân bằng | 0,4441 | **0,4530** | 0,4493 |
+| B | BART-MNLI zero-shot | 0,1035 | 0,1473 | 0,1609 |
+| C1 | BERT | 0,4696 ± 0,0055 | 0,4794 ± 0,0038 | 0,4938 ± 0,0075 |
+| C2 | RoBERTa | 0,4765 ± 0,0079 | 0,4985 ± 0,0121 | **0,5101 ± 0,0076** |
+| C3 | DistilBERT | 0,4729 ± 0,0039 | 0,4883 ± 0,0055 | 0,4972 ± 0,0027 |
+
+RoBERTa đạt Macro-F1 trung bình cao nhất trong các cấu hình đã đo. Với checkpoint RoBERTa seed 2026, chuyển từ 0,5 sang ngưỡng riêng giúp giảm **903 lượt bỏ sót nhãn** và tăng **1.765 lượt gán nhãn thừa**. Bảng ba chế độ có đủ Macro-F1, Micro-F1, Hamming Loss và các chỉ số bổ sung.
+
+[CSV ba chế độ ngưỡng](experiments/threshold_error_20261110/results/modes_mean_std.csv) · [CSV từng checkpoint](experiments/threshold_error_20261110/results/modes_per_checkpoint.csv)
+
+## Chạy notebook
+
+Cần Python **3.12 hoặc 3.13**. Các lệnh dưới dùng PowerShell.
 
 ```powershell
-python -m scripts.data.run_notebooks --notebook all --publish
-```
-
-Notebook tái hiện từ dữ liệu/điểm dự đoán đã khóa, không huấn luyện lại benchmark. A có suy luận lại từ model TF-IDF đã fit; B/C kiểm scores đã lưu. Ví dụ baseline nhỏ và tính tay được ghi riêng là số minh họa. Thư viện `src/`, trainer và các tệp kết quả đi kèm vẫn cần để chạy; không tách notebook khỏi cây dự án. Mã huấn luyện C đã dùng nằm tại `experiments/best_epochs_20261103/train_transformer.py`, không tự chạy lại khi Run All.
-
-[Quy trình ngưỡng và lỗi](experiments/threshold_error_20261110/README.md) · [Bảng so ba chế độ](experiments/threshold_error_20261110/results/modes_mean_std.csv). Hai phiếu nguyên nhân vẫn cần Duy/Huy đọc độc lập; chưa có tỷ lệ đồng thuận.
-
-## Cài đặt
-
-Python 3.12–3.13; cài PyTorch phù hợp máy trước nếu cần CUDA khác.
-
-```powershell
+git clone https://github.com/dzyuu1612/goemotions-multilabel-classification.git
+cd goemotions-multilabel-classification
 python -m venv .venv
-.\.venv\Scripts\Activate.ps1
-python -m pip install -e ".[eda,transformers,notebooks]"
+.\.venv\Scripts\python -m pip install -e ".[eda,transformers,notebooks]"
+.\.venv\Scripts\python -m scripts.data.run_notebooks --notebook all
 ```
 
-Môi trường đã chạy: Python 3.13.9, PyTorch 2.13.0+cu130, Transformers 4.57.6, RTX 5060 Laptop.
+Lệnh chạy toàn bộ cell và lưu bản chạy mới trong `reports/notebooks/`. Nếu dùng JupyterLab, chạy `.\.venv\Scripts\python -m jupyterlab`, mở notebook trong thư mục `notebooks/`, rồi chọn **Restart Kernel → Run All**. Lần đầu cần Internet để lấy dữ liệu, tokenizer và mô hình A đã fit.
 
-## Kết quả dùng trong Word v7.1 / PPT v9
+Notebook có sẵn bảng, đáp án tính tay và biểu đồ. Phần A suy luận lại từ mô hình đã fit. Phần B và C tính lại chỉ số từ điểm dự đoán đã lưu. Phần cuối đối chiếu độ trễ từ thời gian từng lô đã ghi. Các bước này chạy trên CPU và không cần tải trọng số Transformer.
 
-Bộ chia chính thức: **43.410 train / 5.426 validation / 5.427 test**, 28 nhãn. Cả ba C dùng LR `2e-5`, batch 16, max_length 128, tối đa 8 epoch và ba seed 42/123/2026. Epoch chọn: **BERT 7/6/7; RoBERTa 7/8/5; DistilBERT 7/8/8**. Chọn checkpoint bằng Macro-F1 validation @0,5, hòa chọn epoch sớm; khóa checkpoint và ngưỡng trước khi chấm test.
+<a id="doi-chieu-bao-cao"></a>
 
-| Mô hình · ngưỡng riêng | Macro-F1 | Micro-F1 | Hamming Loss |
-|---|---:|---:|---:|
-| BERT | 0,4938 ± 0,0075 | 0,5717 ± 0,0051 | 0,0405 ± 0,0016 |
-| RoBERTa | 0,5101 ± 0,0076 | 0,5909 ± 0,0033 | 0,0377 ± 0,0002 |
-| DistilBERT | 0,4972 ± 0,0027 | 0,5779 ± 0,0069 | 0,0389 ± 0,0012 |
+## Đối chiếu báo cáo IEEE v8
 
-Trung bình và std mẫu (`ddof=1`) từ đủ ba seed. RoBERTa cao nhất trung bình trong cấu hình đã đo; chưa kiểm định thống kê. C2/C3 tăng Macro-F1 so với lượt ban đầu, nhưng Micro-F1 cả ba giảm và Hamming Loss tăng. BERT còn đổi LR so với lượt cũ. Train BCE giảm trong khi validation BCE tăng ở epoch sau: vẫn có dấu hiệu overfit theo loss. Test cũ đã được xem trước khi đổi lịch; cần holdout mới để kết luận mạnh hơn.
+| Nội dung | Tệp kiểm tra |
+|---|---|
+| Ba seed của BERT, RoBERTa và DistilBERT | [Điểm từng lượt](experiments/best_epochs_20261103/main_results/report_data/all_runs.csv) · [Trung bình và độ lệch chuẩn](experiments/best_epochs_20261103/main_results/report_data/mean_std.csv) |
+| Chọn epoch và chẩn đoán overfit | [Lịch sử 72 epoch](experiments/best_epochs_20261103/sweep_log.csv) · [Đối chiếu train/validation](experiments/best_epochs_20261103/overfit_audit/overfit_comparison.csv) |
+| Bảng 5.7, Phụ lục F · chọn ngưỡng `approval` | [Đủ 19 mức validation](experiments/report_v8/results/approval_thresholds.csv) |
+| Bảng 5.8 · TP, FP, FN của ba checkpoint seed 2026 | [Số đếm test](experiments/report_v8/results/test_fp_fn.csv) |
+| Bảng 5.9 và phân tích lỗi | [F1 từng nhãn](experiments/best_epochs_20261103/main_results/report_data/per_label_test.csv) · [Cặp FN → FP](experiments/threshold_error_20261110/results/pair_counts_long.csv) |
+| Bảng 5.19 · mẫu đọc lỗi | [50 mục đọc](experiments/report_v8/results/annotation_sample.csv) · [Hướng dẫn hai người đọc](experiments/threshold_error_20261110/CODEBOOK.md) |
+| Bảng 5.21, Phụ lục G · đo suy luận | [Kết quả 5 hệ](experiments/report_v8/results/inference_summary.csv) · [Thời gian từng lô](experiments/report_v8/results/inference_timings.csv) · [Cấu hình phép đo](experiments/report_v8/results/inference_setup.json) |
 
-[CSV từng seed](experiments/best_epochs_20261103/main_results/report_data/all_runs.csv) · [Mean/std](experiments/best_epochs_20261103/main_results/report_data/mean_std.csv) · [Lịch sử 72 epoch](experiments/best_epochs_20261103/sweep_log.csv) · [Bảng lịch sử B.3](experiments/best_epochs_20261103/main_results/report_data/original_test_summary.csv)
+Điểm F1 validation chọn ngưỡng `approval` là **0,4054 tại 0,25**. Ba C chọn checkpoint bằng Macro-F1 validation tại 0,5, sau đó chọn ngưỡng riêng mỗi nhãn trên 19 mức từ 0,05 đến 0,95. Mẫu đọc có 48 mục `neutral → approval` và 2 mục `relief → admiration`. Báo cáo chưa có độ đồng thuận từ hai người đọc.
 
-Kiểm lại số liệu mà không huấn luyện:
+<a id="chay-demo"></a>
+
+## Chạy demo
+
+Khôi phục A/B và tải [gói checkpoint C đại diện](https://github.com/dzyuu1612/goemotions-multilabel-classification/releases/tag/goemotions-best-epochs-20261103), sau đó chạy ứng dụng từ thư mục gốc.
 
 ```powershell
-python tools/check_repository.py
-python experiments/best_epochs_20261103/verify_report_tables.py
-python -m unittest discover -s tests -v
+.\.venv\Scripts\python -c "from src.final_submission import restore_baselines; restore_baselines()"
+.\.venv\Scripts\python experiments/best_epochs_20261103/restore_best_models.py
+.\.venv\Scripts\python app.py --device auto
 ```
 
-## Demo và huấn luyện
+Mở [demo cục bộ](http://127.0.0.1:7861), nhập câu tiếng Anh và bấm **Nhận diện cảm xúc**. Mặc định là **RoBERTa, seed 2026, ngưỡng riêng**.
+
+## Mã nguồn và kiểm tra
+
+- [Huấn luyện A](scripts/baseline/run_baseline.py), [suy luận B](scripts/zero_shot/run_zero_shot.py) và [huấn luyện C](experiments/best_epochs_20261103/train_transformer.py)
+- [Cấu hình và lệnh chạy C](experiments/best_epochs_20261103/README.md)
+- [Kiểm ngưỡng và phân tích sai](experiments/threshold_error_20261110/analysis.py)
+- [Cách tái hiện phép đo suy luận](experiments/report_v8/README.md)
+- [Bài báo GoEmotions](https://aclanthology.org/2020.acl-main.372/) và [dữ liệu chính thức](https://github.com/google-research/google-research/tree/master/goemotions)
+
+Sau khi cài phụ thuộc, chạy các lệnh sau để kiểm số và cấu trúc repo.
 
 ```powershell
-python -c "from src.final_submission import restore_baselines; restore_baselines()"
-python experiments/best_epochs_20261103/restore_best_models.py
-python app.py --device auto
+.\.venv\Scripts\python tools/check_repository.py
+.\.venv\Scripts\python -m experiments.report_v8.verify_tables
+.\.venv\Scripts\python experiments/best_epochs_20261103/verify_report_tables.py
 ```
 
-Demo nạp checkpoint đã lưu, mặc định **RoBERTa/2026, ngưỡng riêng**, chạy cục bộ tại `http://127.0.0.1:7861`. Chưa có URL demo công khai. [Gói checkpoint tải riêng](https://github.com/dzyuu1612/goemotions-multilabel-classification/releases/tag/goemotions-best-epochs-20261103) được kiểm SHA-256; không đưa weights lớn vào cây mã nguồn.
-
-Huấn luyện C1/C2/C3 dùng [trainer đã chạy](experiments/best_epochs_20261103/train_transformer.py); lệnh và cấu hình trong [README thí nghiệm](experiments/best_epochs_20261103/README.md). Seed không bảo đảm GPU huấn luyện lại trùng từng bit; notebook dùng điểm đã lưu để tái hiện bảng.
-
-## Thư mục
-
-- `src/`, `scripts/`: xử lý dữ liệu, huấn luyện, đánh giá và ứng dụng.
-- `notebooks/`: dữ liệu, A/B, đầu vào và tính tay. Toàn bộ quy trình nằm trong một notebook chính; không giữ các notebook chương cũ trùng nội dung.
-- `experiments/best_epochs_20261103/`: trainer C đã dùng, chín bộ điểm, log 72 epoch, biên nhận và hàm nạp checkpoint. Tên đường dẫn được giữ vì hồ sơ khóa có ràng buộc hash.
-- `experiments/threshold_error_20261110/`: kiểm toán validation, 33 cấu hình, lỗi và phiếu đọc độc lập.
-- `src/report_figures.py`: hàm vẽ biểu đồ từ bảng số, dùng trực tiếp trong notebook.
-- `tests/`, `examples/`, `configs/`, `requirements/`: kiểm thử, ví dụ và cấu hình.
-- `results/final_submission/`: bốn tệp cần để khôi phục A/B và đối chiếu số lịch sử. Gói runtime chứa dữ liệu/điểm đã lưu để notebook và demo chạy được; không phải bản Word/PPT hay bản code thứ hai.
-
-Đã bỏ 35 tệp điều phối/đồ thị/bộ sinh notebook cũ không còn được gọi. Không bỏ log, protocol, điểm dự đoán, kiểm thử hay giấy phép cần để đối chiếu. Dữ liệu, weights và báo cáo sinh khi chạy ở các thư mục bị Git bỏ qua, không đưa lên cây mã nguồn. Các bản trước còn trong lịch sử Git.
-
-Giới hạn được giữ đúng như Word: ngưỡng chỉ tốt nhất trong lưới 0,05–0,95; B có 26/28 ngưỡng riêng ở 0,95. Không mở rộng lưới theo test. Cặp relief→admiration chỉ là ví dụ một câu ở mô hình đại diện; 145 mục đọc tay chưa có hai bộ nhãn độc lập, nên chưa có tỷ lệ đồng thuận hoặc kết luận nguyên nhân. Demo chỉ chạy cục bộ, chưa có URL công khai.
-
-[Bài báo GoEmotions](https://aclanthology.org/2020.acl-main.372/) · [Dữ liệu chính thức](https://github.com/google-research/google-research/tree/master/goemotions)
+`src/` và `scripts/` chứa mã dùng chung. `experiments/` giữ cấu hình, điểm dự đoán và CSV làm căn cứ cho báo cáo. `results/final_submission/` chứa gói dữ liệu nhỏ cần để tính lại kết quả A/B. Trọng số mô hình tải từ GitHub Releases theo lệnh demo.
