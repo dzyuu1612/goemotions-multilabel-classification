@@ -5,9 +5,9 @@
   "notebooks": [
     {
       "source": "notebooks/GoEmotions_ToanBo_QuyTrinh.ipynb",
-      "source_sha256": "fcf1159230fb0b376acdce4992caf01a6a58f0d3da2964cc41a16c5a4aa43676",
+      "source_sha256": "e2d30f260f861756a608e2675b01ec9e04e822df3cc6183f100a2f9fc86150fa",
       "executed": "notebooks/GoEmotions_ToanBo_QuyTrinh.ipynb",
-      "executed_sha256": "fcf1159230fb0b376acdce4992caf01a6a58f0d3da2964cc41a16c5a4aa43676",
+      "executed_sha256": "e2d30f260f861756a608e2675b01ec9e04e822df3cc6183f100a2f9fc86150fa",
       "started_at_utc": "2026-11-22T15:19:29.845267+00:00",
       "finished_at_utc": "2026-11-22T15:20:43.303425+00:00",
       "code_cells": 77,
@@ -18,5 +18,5 @@
     }
   ],
   "updated_at_utc": "2026-11-22T15:20:43.303621+00:00",
-  "verification_note": "All 77 code cells executed from a fresh export of the staged source, with the checkpoint selections and scores already frozen."
+  "verification_note": "All 77 code cells executed from a fresh export with checkpoint selections and scores frozen. The report wording update changed only Markdown. Code, execution counts, and saved outputs match the verified run."
 }

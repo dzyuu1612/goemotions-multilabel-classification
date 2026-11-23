@@ -1,6 +1,6 @@
 # GoEmotions · Phân loại cảm xúc đa nhãn
 
-**Nhóm 6 · HUFLIT · Báo cáo IEEE v8**
+**Nhóm 6 · HUFLIT · Báo cáo IEEE v8 rút gọn**
 
 Một bình luận có thể diễn đạt nhiều cảm xúc cùng lúc. Đồ án dự đoán tập nhãn trong 27 cảm xúc và nhãn `neutral` trên GoEmotions, rồi so sánh năm hệ trên cùng bộ test chính thức.
 
@@ -40,7 +40,7 @@ Notebook có sẵn bảng, đáp án tính tay và biểu đồ. Phần A suy lu
 
 <a id="doi-chieu-bao-cao"></a>
 
-## Đối chiếu báo cáo IEEE v8
+## Đối chiếu báo cáo IEEE v8 rút gọn
 
 | Nội dung | Tệp kiểm tra |
 |---|---|
@@ -49,10 +49,14 @@ Notebook có sẵn bảng, đáp án tính tay và biểu đồ. Phần A suy lu
 | Bảng 5.7, Phụ lục F · chọn ngưỡng `approval` | [Đủ 19 mức validation](experiments/report_v8/results/approval_thresholds.csv) |
 | Bảng 5.8 · TP, FP, FN của ba checkpoint seed 2026 | [Số đếm test](experiments/report_v8/results/test_fp_fn.csv) |
 | Bảng 5.9 và phân tích lỗi | [F1 từng nhãn](experiments/best_epochs_20261103/main_results/report_data/per_label_test.csv) · [Cặp FN → FP](experiments/threshold_error_20261110/results/pair_counts_long.csv) |
-| Bảng 5.19 · mẫu đọc lỗi | [50 mục đọc](experiments/report_v8/results/annotation_sample.csv) · [Hướng dẫn hai người đọc](experiments/threshold_error_20261110/CODEBOOK.md) |
+| Bảng 5.19 · cơ cấu mẫu khảo sát | [48 mục `neutral → approval` và 2 mục `relief → admiration`](experiments/report_v8/results/annotation_sample.csv) |
 | Bảng 5.21, Phụ lục G · đo suy luận | [Kết quả 5 hệ](experiments/report_v8/results/inference_summary.csv) · [Thời gian từng lô](experiments/report_v8/results/inference_timings.csv) · [Cấu hình phép đo](experiments/report_v8/results/inference_setup.json) |
+| Bảng D.1–D.2 · ngưỡng đã khóa | [CSV đủ 28 nhãn của A/B và ba seed mỗi C](experiments/threshold_error_20261110/results/thresholds_28.csv) |
+| Bảng E.1–E.3 · validation theo epoch | [Macro-F1 tại ngưỡng 0,5](experiments/threshold_error_20261110/results/epoch_table_val_macro_f1.csv) · [BCE](experiments/threshold_error_20261110/results/epoch_table_val_bce.csv) |
 
-Điểm F1 validation chọn ngưỡng `approval` là **0,4054 tại 0,25**. Ba C chọn checkpoint bằng Macro-F1 validation tại 0,5, sau đó chọn ngưỡng riêng mỗi nhãn trên 19 mức từ 0,05 đến 0,95. Mẫu đọc có 48 mục `neutral → approval` và 2 mục `relief → admiration`. Báo cáo chưa có độ đồng thuận từ hai người đọc.
+Ở RoBERTa seed 2026, `approval` đạt F1 validation cao nhất **0,4054 tại ngưỡng 0,25** trong 19 mức đã thử. Ba C chọn checkpoint bằng Macro-F1 validation tại 0,5, sau đó chọn ngưỡng riêng mỗi nhãn trên lưới từ 0,05 đến 0,95.
+
+Hướng phát triển ở mục 6.3 là thử BCE có trọng số cho nhãn hiếm trên RoBERTa. Đối chiếu với BCE thường bằng F1 của năm nhãn hiếm, số nhãn gán thừa và Macro-F1 của cả 28 nhãn.
 
 <a id="chay-demo"></a>
 
@@ -67,6 +71,8 @@ Khôi phục A/B và tải [gói checkpoint C đại diện](https://github.com/
 ```
 
 Mở [demo cục bộ](http://127.0.0.1:7861), nhập câu tiếng Anh và bấm **Nhận diện cảm xúc**. Mặc định là **RoBERTa, seed 2026, ngưỡng riêng**.
+
+Để tái hiện Hình 5.17, nhập `I was worried, but your help made me feel so relieved.`. Điểm `relief` là **0,2304**, đạt ngưỡng riêng **0,05**. Ở chế độ 0,5, câu này cho tập nhãn rỗng.
 
 ## Mã nguồn và kiểm tra
 
