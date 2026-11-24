@@ -5,11 +5,11 @@
   "notebooks": [
     {
       "source": "notebooks/GoEmotions_ToanBo_QuyTrinh.ipynb",
-      "source_sha256": "226a6486dcc863a7086a5eea4899ea4c1b8c6d83a5ccf78762c7a1ff6489d896",
+      "source_sha256": "1cd7dcb4332d7cac0e14da2fa1ac3137582b8d3b0a1f119f5d848ec4a9f837cf",
       "executed": "notebooks/GoEmotions_ToanBo_QuyTrinh.ipynb",
-      "executed_sha256": "226a6486dcc863a7086a5eea4899ea4c1b8c6d83a5ccf78762c7a1ff6489d896",
-      "started_at_utc": "2026-11-23T13:51:25.007676+00:00",
-      "finished_at_utc": "2026-11-23T13:52:15.842463+00:00",
+      "executed_sha256": "1cd7dcb4332d7cac0e14da2fa1ac3137582b8d3b0a1f119f5d848ec4a9f837cf",
+      "started_at_utc": "2026-11-24T05:37:11.638162+00:00",
+      "finished_at_utc": "2026-11-24T05:38:00.886448+00:00",
       "code_cells": 77,
       "executed_code_cells": 77,
       "error_cells": 0,
@@ -17,6 +17,6 @@
       "benchmark_training_repeated": false
     }
   ],
-  "updated_at_utc": "2026-11-23T13:52:15.842496+00:00",
-  "verification_note": "All 77 code cells passed in a clean export after updating the final status message. The published tables and figures retain their saved outputs. The final status output matches the clean run."
+  "updated_at_utc": "2026-11-24T05:38:00.886492+00:00",
+  "verification_note": "All 77 code cells passed from an extracted source archive with the updated V12 references. The notebook includes its saved tables and 18 embedded figures. The FN/FP matrices use the report's 10 labels and a common 0–89 color scale."
 }
